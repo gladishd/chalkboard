@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started
 1. Clone the repository
 2. npm install
@@ -15,6 +16,8 @@ Welcome to our capstone project!
 
 
 
+=======
+>>>>>>> clear
 # Boilermaker
 
 _Good things come in pairs_

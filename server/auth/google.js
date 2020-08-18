@@ -54,7 +54,11 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   )
 
   router.get(
+<<<<<<< HEAD
     '/verify',
+=======
+    '/callback',
+>>>>>>> clear
     passport.authenticate('google', {
       successRedirect: '/home',
       failureRedirect: '/login'
