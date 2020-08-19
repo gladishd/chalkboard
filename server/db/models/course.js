@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = Course
-
 const Course = db.define('course', {
   courseName: {
     type: Sequelize.STRING,
@@ -16,3 +14,5 @@ const Course = db.define('course', {
     type: Sequelize.STRING
   }
 })
+
+module.exports = Course
