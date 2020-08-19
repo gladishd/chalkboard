@@ -41,6 +41,8 @@ form div {
 .studentClassDashboard .classTitle {
   width: 100%;
   border: none;
+  text-align: center;
+  font-family: 'Lucida Console', Courier, monospace;
 }
 
 .studentClassDashboard > div {
@@ -49,7 +51,9 @@ form div {
 }
 
 .introductionToTheCourse {
-  background-color: rgb(231, 200, 205);
+  background-image: url(backgroundIntroductionTotheCourse.jpg);
+  background-size: 15px;
+  background-repeat: repeat;
   flex-direction: column;
   flex-grow: 1;
   flex-basis: 1;
@@ -61,17 +65,23 @@ form div {
 }
 
 .studentClassDashboard .liveLecture {
-  background-color: silver;
+  background-image: url(liveChatBackground.jpg);
+  background-size: 50px;
+  background-repeat: repeat;
+  border-image: url(liveChatBorder.png) 25 25 round;
   flex-grow: 1;
-  border-radius: 1em;
-  border-width: 1em;
+  border-width: 0.75em;
+  border-style: outset;
+  border-color: coral;
   width: 25%;
   height: 25rem;
   margin: 1rem;
 }
 
 .moreClassInformationComponent {
-  background-color: rgb(122, 204, 122);
+  background-image: url(backgroundMoreInformationComponent.png);
+  background-size: 50px;
+  background-repeat: repeat;
   flex-grow: 3;
   border-radius: 1em;
   width: 50%;
@@ -92,10 +102,37 @@ form div {
 }
 
 .newGroupFormComponent {
-  background-color: silver;
+  background-image: url(backgroundAddGroupComponent.png);
+  background-size: 25px;
+  background-repeat: repeat;
   flex-grow: 1;
   margin: 1rem;
   height: 10rem;
   width: 20%;
   border-radius: 1em;
+}
+
+.chatButtonCreate {
+  background-color: orange;
+  overflow: hidden;
+}
+
+.chatButtonCreate:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonCreate:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonSelectAudience {
+  background-color: silver;
+}
+
+.chatButtonSelectAudience:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonSelectAudience:hover {
+  box-shadow: 1px 1px #961e5a;
 }

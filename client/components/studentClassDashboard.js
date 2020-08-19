@@ -24,7 +24,14 @@ export class studentClassDashboard extends React.Component {
           2. The Solow Growth Model
         </div>
         <div className="liveLecture">Live Lecture</div>
-        <div className="liveChat">Say something nice..</div>
+        <div className="liveChat">
+          <button className="chatButtonCreate">Create a New Group</button>
+          <button className="chatButtonSelectAudience">
+            Select an Audience
+          </button>
+          <br></br>
+          Say something nice..
+        </div>
         <div className="moreClassInformationComponent">
           (More Class Information Component)
         </div>
