@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = Gradebook
-
 const Gradebook = db.define('gradebook', {
   completed: {
     type: Sequelize.BOOLEAN,
@@ -16,3 +14,5 @@ const Gradebook = db.define('gradebook', {
     }
   }
 })
+
+module.exports = Gradebook

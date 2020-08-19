@@ -1,18 +1,53 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  Student,
+  Teacher,
+  Course,
+  Assignment,
+  Enrollment,
+  Gradebook
+} = require('../server/db/models')
+
+const {
+  course,
+  teacher,
+  student,
+  assignment,
+  enrollment,
+  gradebook
+} = require('./seed.data')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  const [Guitar, CS, Reacto] = await Promise.all(
+    course.map(curr => Course.create(curr))
+  )
+  const [Travis, Jonah] = await Promise.all(
+    teacher.map(curr => Teacher.create(curr))
+  )
+  const [project, test, classwork, homework, quiz] = await Promise.all(
+    assignment.map(curr => Assignment.create(curr))
+  )
+  await Promise.all(student.map(curr => Student.create(curr)))
 
-  console.log(`seeded ${users.length} users`)
+  await Promise.all(enrollment.map(curr => Enrollment.create(curr)))
+  await Promise.all(gradebook.map(curr => Gradebook.create(curr)))
+
+  await Travis.addCourse(CS)
+  await Jonah.addCourse(Reacto)
+  await Jonah.addCourse(Guitar)
+
+  await Reacto.addAssignment(classwork)
+  await CS.addAssignment(project)
+  await CS.addAssignment(test)
+  await Guitar.addAssignment(homework)
+  await Guitar.addAssignment(quiz)
+
+  console.log(`seeded ${student.length} students`)
   console.log(`seeded successfully`)
 }
 
