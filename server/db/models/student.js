@@ -2,8 +2,6 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = Student
-
 const Student = db.define('student', {
   firstName: {
     type: Sequelize.STRING,
