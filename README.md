@@ -1,3 +1,20 @@
+# Getting Started
+1. Clone the repository
+2. npm install
+3. createdb chalkboard
+
+Welcome to our capstone project!  
+
+
+
+
+
+
+
+
+
+
+
 # Boilermaker
 
 _Good things come in pairs_
