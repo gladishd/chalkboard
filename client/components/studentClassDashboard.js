@@ -14,7 +14,8 @@ export class studentClassDashboard extends React.Component {
   render() {
     return (
       <div className="studentClassDashboard">
-        Welcome to Econ 201!
+        <div className="classTitle">Welcome to Econ 201!</div>
+
         <div className="introductionToTheCourse">
           Introduction to the Course
           <br></br>
