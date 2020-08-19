@@ -6,6 +6,12 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import MainClass from './components/MainClass'
 import Attendance from './components/Attendance'
+import {
+  studentDashboard,
+  studentClassDashboard,
+  moreClassInformationComponent
+} from './components' //already exported default in index.js
+import {me} from './store'
 
 /**
  * COMPONENT
@@ -23,6 +29,15 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/studentDashboard" component={studentDashboard} />
+        <Route
+          path="/studentClassDashboard"
+          component={studentClassDashboard}
+        />
+        <Route
+          path="moreClassInformationComponent"
+          component={moreClassInformationComponent}
+        />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

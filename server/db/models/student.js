@@ -2,9 +2,9 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = Teacher
+module.exports = Student
 
-const Teacher = db.define('teacher', {
+const Student = db.define('student', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false
@@ -39,23 +39,23 @@ const Teacher = db.define('teacher', {
   }
 })
 
-module.exports = Teacher
+module.exports = Student
 
 /**
  * instanceMethods
  */
-Teacher.prototype.correctPassword = function(candidatePwd) {
-  return Teacher.encryptPassword(candidatePwd, this.salt()) === this.password()
+Student.prototype.correctPassword = function(candidatePwd) {
+  return Student.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
 /**
  * classMethods
  */
-Teacher.generateSalt = function() {
+Student.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
 
-Teacher.encryptPassword = function(plainText, salt) {
+Student.encryptPassword = function(plainText, salt) {
   return crypto
     .createHash('RSA-SHA256')
     .update(plainText)
@@ -66,18 +66,18 @@ Teacher.encryptPassword = function(plainText, salt) {
 /**
  * hooks
  */
-const setSaltAndPassword = teacher => {
-  if (teacher.changed('password')) {
-    teacher.salt = Teacher.generateSalt()
-    teacher.password = Teacher.encryptPassword(
-      teacher.password(),
-      teacher.salt()
+const setSaltAndPassword = student => {
+  if (student.changed('password')) {
+    student.salt = Student.generateSalt()
+    student.password = Student.encryptPassword(
+      student.password(),
+      student.salt()
     )
   }
 }
 
-Teacher.beforeCreate(setSaltAndPassword)
-Teacher.beforeUpdate(setSaltAndPassword)
-Teacher.beforeBulkCreate(teachers => {
-  teachers.forEach(setSaltAndPassword)
+Student.beforeCreate(setSaltAndPassword)
+Student.beforeUpdate(setSaltAndPassword)
+Student.beforeBulkCreate(students => {
+  students.forEach(setSaltAndPassword)
 })
