@@ -19,3 +19,138 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.studentCourseList {
+  margin-left: 10%;
+}
+
+.navbarLink {
+  height: 1.5em;
+  margin: 0 1.5em 0 0;
+}
+
+.studentClassDashboard {
+  background-image: url(studentClassDashboardBackground.png);
+  background-size: 100px;
+  background-repeat: repeat;
+  display: flex;
+  align-items: baseline;
+  align-content: space-around;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.studentClassDashboard .classTitle {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-family: 'Lucida Console', Courier, monospace;
+}
+
+.studentClassDashboard > div {
+  border: inset;
+  border-width: 0.1em;
+}
+
+.introductionToTheCourse {
+  background-image: url(backgroundIntroductionTotheCourse.jpg);
+  background-size: 15px;
+  background-repeat: repeat;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 1;
+  color: blue;
+  width: 10rem;
+  height: 15rem;
+  padding: 1%;
+  margin: 1rem;
+}
+
+.studentClassDashboard .liveLecture {
+  background-image: url(liveChatBackground.jpg);
+  background-size: 50px;
+  background-repeat: repeat;
+  border-image: url(liveChatBorder.png) 25 25 round;
+  flex-grow: 1;
+  border-width: 0.75em;
+  border-style: outset;
+  border-color: coral;
+  width: 25%;
+  height: 25rem;
+  margin: 1rem;
+}
+
+.moreClassInformationComponent {
+  background-image: url(backgroundMoreInformationComponent.png);
+  background-size: 50px;
+  background-repeat: repeat;
+  flex-grow: 3;
+  border-radius: 1em;
+  width: 50%;
+  flex-grow: 1;
+  flex-basis: 1;
+  height: 10rem;
+  margin: 1rem;
+}
+
+.liveChat {
+  background-image: url(chatBackground.png);
+  background-size: 100px;
+  background-repeat: repeat;
+  flex-grow: 2;
+  width: 30%;
+  height: 15rem;
+  margin: 1rem;
+  flex-grow: 1;
+  flex-basis: 1;
+}
+
+.newGroupFormComponent {
+  background-image: url(backgroundAddGroupComponent.png);
+  background-size: 15px;
+  background-repeat: repeat;
+  flex-grow: 1;
+  margin: 1rem;
+  height: 10rem;
+  width: 20%;
+  border-radius: 1em;
+}
+
+.chatButtonCreate {
+  background-color: orange;
+  overflow: hidden;
+}
+
+.chatButtonCreate:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonCreate:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonSelectAudience {
+  background-color: silver;
+}
+
+.chatButtonSelectAudience:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.chatButtonSelectAudience:hover {
+  box-shadow: 1px 1px #961e5a;
+}
+
+.moreClassInformationComponent {
+  display: flex;
+  flex-direction: column;
+}
+
+.moreClassInformationComponent > div {
+  color: rgb(48, 48, 48);
+  font-weight: bold;
+}
+
+.moreClassInformationComponent .moreClassInformationTitle {
+  margin-left: 30%;
+}

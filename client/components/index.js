@@ -6,3 +6,6 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
+export {default as studentDashboard} from './studentDashboard'
+export {default as studentClassDashboard} from './studentClassDashboard'
+export {default as moreClassInformationComponent} from './moreClassInformationComponent'
