@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {moreClassInformationComponent as MoreClassInformationComponent} from './moreClassInformationComponent.js' // need to change case to render the component
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export class studentClassDashboard extends React.Component {
           Say something nice..
         </div>
         <div className="moreClassInformationComponent">
-          (More Class Information Component)
+          <MoreClassInformationComponent />
         </div>
         <div className="newGroupFormComponent">(New Group Form Component)</div>
       </div>

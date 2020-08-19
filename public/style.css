@@ -30,7 +30,9 @@ form div {
 }
 
 .studentClassDashboard {
-  background-color: rgb(212, 212, 212);
+  background-image: url(studentClassDashboardBackground.png);
+  background-size: 100px;
+  background-repeat: repeat;
   display: flex;
   align-items: baseline;
   align-content: space-around;
@@ -92,7 +94,9 @@ form div {
 }
 
 .liveChat {
-  background-color: rgb(233, 233, 233);
+  background-image: url(chatBackground.png);
+  background-size: 100px;
+  background-repeat: repeat;
   flex-grow: 2;
   width: 30%;
   height: 15rem;
@@ -103,7 +107,7 @@ form div {
 
 .newGroupFormComponent {
   background-image: url(backgroundAddGroupComponent.png);
-  background-size: 25px;
+  background-size: 15px;
   background-repeat: repeat;
   flex-grow: 1;
   margin: 1rem;
@@ -135,4 +139,18 @@ form div {
 
 .chatButtonSelectAudience:hover {
   box-shadow: 1px 1px #961e5a;
+}
+
+.moreClassInformationComponent {
+  display: flex;
+  flex-direction: column;
+}
+
+.moreClassInformationComponent > div {
+  color: rgb(48, 48, 48);
+  font-weight: bold;
+}
+
+.moreClassInformationComponent .moreClassInformationTitle {
+  margin-left: 30%;
 }
