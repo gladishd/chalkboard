@@ -1,5 +1,4 @@
-import { createStoreHook } from "react-redux"
-import { createElement } from "react"
+
 import openSocket from 'socket.io-client';
 
 
@@ -33,11 +32,11 @@ export function roster (students){
     }
 
 }
-export function set_attendance (students) {
-    for(let i = 0; i < students.length; ++i){
-        if(students[i].checked === true){
-            
-        }
-    }
-}
+// export function set_attendance (students) {
+//     for(let i = 0; i < students.length; ++i){
+//         if(students[i].checked === true){
+
+//         }
+//     }
+// }
 
