@@ -40,7 +40,4 @@ Student.belongsToMany(Assignment, {through: Gradebook})
     Assignment,
     Enrollment,
     Gradebook,
-    User,
-    Teacher,
-    ClassRoom
   }
