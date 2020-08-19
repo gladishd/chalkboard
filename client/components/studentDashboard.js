@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import openSocket from 'socket.io-client';
 
 export class studentDashboard extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export class studentDashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('welcome')
+    console.log('welcome ', props)
+    const socket = openSocket(`http://localhost:8080/`)
+    
   }
 
   render() {
