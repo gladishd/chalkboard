@@ -2,6 +2,8 @@ import { createStoreHook } from "react-redux"
 import { createElement } from "react"
 import openSocket from 'socket.io-client';
 
+
+//main class
 export function newMessage(message){
     const item = document.createElement('p')
     item.classList.add('message')
@@ -19,7 +21,7 @@ export function newChat (e){
         }
 
 }
-
+//attendance
 export function roster (students){
     const list = document.getElementById('attendance-list')
     for(let key in students){
@@ -31,5 +33,11 @@ export function roster (students){
     }
 
 }
-
+export function set_attendance (students) {
+    for(let i = 0; i < students.length; ++i){
+        if(students[i].checked === true){
+            
+        }
+    }
+}
 
