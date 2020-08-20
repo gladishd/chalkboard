@@ -2,22 +2,14 @@
 
 const db = require('../server/db')
 const {
-  Student,
-  Teacher,
+  User,
   Course,
   Assignment,
   Enrollment,
   Gradebook
 } = require('../server/db/models')
 
-const {
-  course,
-  teacher,
-  student,
-  assignment,
-  enrollment,
-  gradebook
-} = require('./seed.data')
+const {course, user, assignment, enrollment, gradebook} = require('./seed.data')
 
 async function seed() {
   await db.sync({force: true})
@@ -26,20 +18,14 @@ async function seed() {
   const [Guitar, CS, Reacto] = await Promise.all(
     course.map(curr => Course.create(curr))
   )
-  const [Travis, Jonah] = await Promise.all(
-    teacher.map(curr => Teacher.create(curr))
-  )
+
   const [project, test, classwork, homework, quiz] = await Promise.all(
     assignment.map(curr => Assignment.create(curr))
   )
-  await Promise.all(student.map(curr => Student.create(curr)))
+  await Promise.all(user.map(curr => User.create(curr)))
 
   await Promise.all(enrollment.map(curr => Enrollment.create(curr)))
   await Promise.all(gradebook.map(curr => Gradebook.create(curr)))
-
-  await Travis.addCourse(CS)
-  await Jonah.addCourse(Reacto)
-  await Jonah.addCourse(Guitar)
 
   await Reacto.addAssignment(classwork)
   await CS.addAssignment(project)
@@ -47,7 +33,7 @@ async function seed() {
   await Guitar.addAssignment(homework)
   await Guitar.addAssignment(quiz)
 
-  console.log(`seeded ${student.length} students`)
+  //console.log(`seeded ${student.length} students`)
   console.log(`seeded successfully`)
 }
 
