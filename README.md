@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> af53dbe829de1a59878d6a5143346d432aa97a1a
-=======
->>>>>>> 34a68a0b267c5971252795dea71a25dfc2f6f548
+
 # Getting Started
 
 1. Clone the repository
@@ -14,15 +7,6 @@
 
 Welcome to our capstone project!
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> ef0ed52f449211b950dfecd88d4d3a05b44694c7
-=======
-=======
->>>>>>> clear
->>>>>>> af53dbe829de1a59878d6a5143346d432aa97a1a
-=======
->>>>>>> 34a68a0b267c5971252795dea71a25dfc2f6f548
 # Boilermaker
 
 _Good things come in pairs_
