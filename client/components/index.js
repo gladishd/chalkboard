@@ -10,5 +10,6 @@ export {default as TeacherClassboard} from './TeacherClassboard'
 export {default as Attendance} from './Attendance'
 export {default as studentDashboard} from './studentDashboard'
 export {default as studentClassDashboard} from './studentClassDashboard'
+export {default as TeacherDashboard} from './TeacherDashboard'
 export {default as moreClassInformationComponent} from './moreClassInformationComponent'
 

@@ -9,7 +9,8 @@ import Attendance from './components/Attendance'
 import {
   studentDashboard,
   studentClassDashboard,
-  moreClassInformationComponent
+  moreClassInformationComponent,
+  TeacherDashboard
 } from './components' //already exported default in index.js
 
 /**
@@ -44,6 +45,7 @@ class Routes extends Component {
           
             <Route path='/main' component={MainClass}/>
             <Route path='/attendance' component={Attendance}/>
+            <Route path='/teacherDashboard' component={TeacherDashboard}/>
 
           </Switch>
         )}
