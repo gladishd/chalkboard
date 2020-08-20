@@ -1,6 +1,4 @@
 const User = require('./user')
-const Student = require('./student')
-const Teacher = require('./teacher')
 const Course = require('./course')
 const Assignment = require('./assignment')
 const Enrollment = require('./enrollment')
@@ -13,17 +11,14 @@ const Gradebook = require('./gradebook')
  *    BlogPost.belongsTo(User)
  */
 
-Teacher.hasMany(Course)
-Course.belongsTo(Teacher)
-
 Course.hasMany(Assignment)
 Assignment.belongsTo(Course)
 
-Course.belongsToMany(Student, {through: Enrollment})
-Student.belongsToMany(Course, {through: Enrollment})
+Course.belongsToMany(User, {through: Enrollment})
+User.belongsToMany(Course, {through: Enrollment})
 
-Assignment.belongsToMany(Student, {through: Gradebook})
-Student.belongsToMany(Assignment, {through: Gradebook})
+Assignment.belongsToMany(User, {through: Gradebook})
+User.belongsToMany(Assignment, {through: Gradebook})
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -32,12 +27,10 @@ Student.belongsToMany(Assignment, {through: Gradebook})
  */
 // Teacher.hasMany(ClassRoom)
 
-  module.exports = {
-    User,
-    Student,
-    Teacher,
-    Course,
-    Assignment,
-    Enrollment,
-    Gradebook,
-  }
+module.exports = {
+  User,
+  Course,
+  Assignment,
+  Enrollment,
+  Gradebook
+}
