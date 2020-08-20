@@ -28,13 +28,13 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
-#center{
+#center {
   flex: 4;
   display: flex;
   flex-direction: column;
-  border: black solid 2px
+  border: black solid 2px;
 }
-#chat-input{
+#chat-input {
   height: 30px;
   width: 700px;
   align-self: flex-end;
@@ -71,8 +71,8 @@ nav a {
   height: 1.5em;
   margin: 0 1.5em 0 0;
 }
-#left{
-  flex: 2
+#left {
+  flex: 2;
 }
 
 .studentClassDashboard {
@@ -151,17 +151,6 @@ nav a {
   flex-basis: 1;
 }
 
-.newGroupFormComponent {
-  background-image: url(backgroundAddGroupComponent.png);
-  background-size: 15px;
-  background-repeat: repeat;
-  flex-grow: 1;
-  margin: 1rem;
-  height: 10rem;
-  width: 20%;
-  border-radius: 1em;
-}
-
 .chatButtonCreate {
   background-color: orange;
   overflow: hidden;
@@ -174,8 +163,8 @@ nav a {
 .chatButtonCreate:hover {
   box-shadow: 1px 1px #961e5a;
 }
-#right{
-  flex: 2
+#right {
+  flex: 2;
 }
 
 .chatButtonSelectAudience {
@@ -192,14 +181,64 @@ nav a {
 
 .moreClassInformationComponent {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
 }
 
 .moreClassInformationComponent > div {
   color: rgb(48, 48, 48);
-  font-weight: bold;
 }
 
 .moreClassInformationComponent .moreClassInformationTitle {
   margin-left: 30%;
+}
+
+.localClassInformation > div {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.newGroupFormComponent {
+  background-image: url(backgroundAddGroupComponent.png);
+  background-size: 15px;
+  background-repeat: repeat;
+  flex-grow: 1;
+  margin: 1rem;
+  height: auto;
+  width: 20%;
+  border-radius: 1em;
+  padding: 0.5rem;
+}
+
+.newGroupFormComponent .validationText {
+  color: rgb(110, 94, 0);
+  font-size: 0.25rem;
+}
+
+.newGroupFormComponent .currentGroup {
+  font-size: 0.75rem;
+  border-color: rgba(0, 128, 0, 0.425);
+  border-style: outset;
+  background-color: rgba(0, 128, 0, 0.301);
+  position: relative;
+  width: 50%;
+}
+
+.newGroupFormComponent .localNewGroupForm {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.newGroupFormComponent .localNewGroupForm .groupNameInput {
+  margin-left: 50%;
+}
+
+.selectAudience:focus {
+  outline: none;
+}
+
+.chatButtonCreate:focus {
+  outline: none;
 }
