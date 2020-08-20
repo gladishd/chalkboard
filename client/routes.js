@@ -11,7 +11,7 @@ import {
   studentClassDashboard,
   moreClassInformationComponent
 } from './components' //already exported default in index.js
-import {me} from './store'
+
 
 /**
  * COMPONENT
