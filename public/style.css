@@ -8,13 +8,13 @@ a {
 body {
   font-family: sans-serif;
 }
-#center{
+#center {
   flex: 4;
   display: flex;
   flex-direction: column;
-  border: black solid 2px
+  border: black solid 2px;
 }
-#chat-input{
+#chat-input {
   height: 30px;
   width: 700px;
   align-self: flex-end;
@@ -48,10 +48,10 @@ form div {
 label {
   display: block;
 }
-#left{
-  flex: 2
+#left {
+  flex: 2;
 }
-#main-class{
+#main-class {
   display: flex;
   flex-direction: row;
 }
@@ -59,8 +59,8 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
-#right{
-  flex: 2
+#right {
+  flex: 2;
 }
 
 .studentCourseList {
@@ -209,6 +209,7 @@ nav a {
   width: 20%;
   border-radius: 1em;
   padding: 0.5rem;
+  padding-bottom: 3rem;
 }
 
 .newGroupFormComponent .validationText {
@@ -232,7 +233,10 @@ nav a {
 }
 
 .newGroupFormComponent .localNewGroupForm .groupNameInput {
-  margin-left: 50%;
+  margin-left: 25%;
+  width: 100%;
+  height: 30%;
+  font-size: 1em;
 }
 
 .selectAudience:focus {

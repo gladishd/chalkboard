@@ -2,17 +2,21 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {moreClassInformationComponent as MoreClassInformationComponent} from './moreClassInformationComponent.js' // need to change case to render the component
-import {newGroupFormComponent as NewGroupFormComponent} from './newGroupFormComponent.js'
+import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
+import moment from 'moment'
+
 export class studentClassDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: false
+      showForm: true
     }
     this.toggleForm = this.toggleForm.bind(this) // this binding
   }
+
+  componentDidMount() {}
 
   // componentDidMount() {                        // STUDENT CHAT
   //   const chat = document.getElementById('student-chat-space')
@@ -32,12 +36,13 @@ export class studentClassDashboard extends React.Component {
   render() {
     return (
       <div className="studentClassDashboard">
+        <div>{moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">Welcome to Econ 201!</div>
         <div className="introductionToTheCourse">
           Introduction to the Course
-          <br></br>
+          <br />
           1. Keynesian Theory
-          <br></br>
+          <br />
           2. The Solow Growth Model
         </div>
         <div className="liveLecture">Live Lecture</div>
@@ -58,7 +63,7 @@ export class studentClassDashboard extends React.Component {
             <option value="Zach">Zach</option>
             <option value="Jonathan">Jonathan</option>
           </select>
-          <br></br>
+          <br />
           Say something nice..
         </div>
         <div className="moreClassInformationComponent">
@@ -70,7 +75,7 @@ export class studentClassDashboard extends React.Component {
             <NewGroupFormComponent />
           </div>
         ) : (
-          <div></div>
+          <div />
         )}
 
         {/* <div id='student-chat'>                 // STUDENT CHAT
@@ -86,7 +91,7 @@ export class studentClassDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    // currentCampus: state.singleCampus
+    // reduxState: state
   }
 }
 
@@ -96,7 +101,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(studentClassDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  studentClassDashboard
+)
