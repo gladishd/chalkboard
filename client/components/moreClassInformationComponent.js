@@ -13,12 +13,24 @@ export class moreClassInformationComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="localClassInformation">
         <div className="moreClassInformationTitle">The Solow Growth Model</div>
 
-        <div>Expectations</div>
-        <div>Grading</div>
-        <div>Rubric</div>
+        <div>
+          What you can expect from me: I'll always be on time, prepared and
+          available for office hours, and I will be fair.
+        </div>
+        <div>
+          What I expect from you: When assigned to a group project, work
+          cooperatively.
+        </div>
+        <div>Grading will be done on the following scale:</div>
+        <div>
+          Rubric: (A) Attends class regularly and contributes, (B), attends
+          class and sometimes analyzes relevant issues, (C) attends class
+          regularly but almost never contributes, (D/R) attends class regularly
+          but never contributes.
+        </div>
 
         <div>
           Assignment description: This is just a short intro to the Solow model
