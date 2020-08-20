@@ -30,12 +30,14 @@ Student.belongsToMany(Assignment, {through: Gradebook})
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
-module.exports = {
-  User,
-  Student,
-  Teacher,
-  Course,
-  Assignment,
-  Enrollment,
-  Gradebook
-}
+// Teacher.hasMany(ClassRoom)
+
+  module.exports = {
+    User,
+    Student,
+    Teacher,
+    Course,
+    Assignment,
+    Enrollment,
+    Gradebook,
+  }
