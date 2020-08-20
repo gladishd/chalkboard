@@ -28,6 +28,17 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
+#center{
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  border: black solid 2px
+}
+#chat-input{
+  height: 30px;
+  width: 700px;
+  align-self: flex-end;
+}
 
 form div {
   margin: 1em;
@@ -59,6 +70,9 @@ nav a {
 .navbarLink {
   height: 1.5em;
   margin: 0 1.5em 0 0;
+}
+#left{
+  flex: 2
 }
 
 .studentClassDashboard {
@@ -159,6 +173,9 @@ nav a {
 
 .chatButtonCreate:hover {
   box-shadow: 1px 1px #961e5a;
+}
+#right{
+  flex: 2
 }
 
 .chatButtonSelectAudience {

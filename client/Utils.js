@@ -20,6 +20,7 @@ export function newChat (e){
 
 }
 
+//attendance
 export function roster (students){
     const list = document.getElementById('attendance-list')
     for(let key in students){
@@ -31,5 +32,4 @@ export function roster (students){
     }
 
 }
-
 

@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {moreClassInformationComponent as MoreClassInformationComponent} from './moreClassInformationComponent.js' // need to change case to render the component
-
+import socket from '../store/socket.js'
+import {newChat, newMessage} from '../Utils'
 export class studentClassDashboard extends React.Component {
   constructor(props) {
     super(props)
@@ -10,7 +11,12 @@ export class studentClassDashboard extends React.Component {
     //this binding
   }
 
-  componentDidMount() {}
+  // componentDidMount() {
+  //   const chat = document.getElementById('student-chat-space')
+  //   chat.addEventListener('keypress', e => {
+  //     newChat(e)
+  //   })
+  // }
 
   render() {
     return (
@@ -37,6 +43,12 @@ export class studentClassDashboard extends React.Component {
           <MoreClassInformationComponent />
         </div>
         <div className="newGroupFormComponent">(New Group Form Component)</div>
+        {/* <div id='student-chat'>
+          <ul id='student-messages'>
+
+          </ul>
+          <input id='student-chat-space' type='text'></input>
+        </div> */}
       </div>
     )
   }

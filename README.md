@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> af53dbe829de1a59878d6a5143346d432aa97a1a
 # Getting Started
 1. Clone the repository
 2. npm install
@@ -17,7 +20,12 @@ Welcome to our capstone project!
 
 
 
+<<<<<<< HEAD
 >>>>>>> ef0ed52f449211b950dfecd88d4d3a05b44694c7
+=======
+=======
+>>>>>>> clear
+>>>>>>> af53dbe829de1a59878d6a5143346d432aa97a1a
 # Boilermaker
 
 _Good things come in pairs_
