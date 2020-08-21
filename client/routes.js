@@ -10,7 +10,12 @@ import {
   StudentDashboard,
   studentClassDashboard,
   moreClassInformationComponent,
+<<<<<<< HEAD
   TeacherDashboard
+=======
+  TeacherClassboard,
+  TeacherDash
+>>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
 } from './components' //already exported default in index.js
 
 /**
@@ -36,17 +41,18 @@ class Routes extends Component {
           component={studentClassDashboard}
         />
         <Route
-          path="moreClassInformationComponent"
+          path="/moreClassInformationComponent"
           component={moreClassInformationComponent}
         />
+        <Route path="/TeacherClassboard" component={TeacherClassboard} />
+        <Route path="/TeacherDash" component={TeacherDash} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-          
-            <Route path='/main' component={MainClass}/>
-            <Route path='/attendance' component={Attendance}/>
 
+            <Route path="/main" component={MainClass} />
+            <Route path="/attendance" component={Attendance} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
