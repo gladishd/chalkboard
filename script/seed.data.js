@@ -1,8 +1,21 @@
 const course = [
   {
+    courseName: 'Econ 201',
+    size: 30,
+    teacherId: 7,
+    courseIntro:
+      'Introduction to the Course newline 1. Keynesian Theory newline 2. The Solow Growth Model',
+    courseMoreInformation:
+      "The Solow Growth Model newline What you can expect from me: I'll always be on time, prepared and available for office hours, and I will be fair. newline What I expect from you: When assigned to a group project, work cooperatively. newline Grading will be done on the following scale: newline Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. newline Assignment description: This is just a short intro to the Solow model of economic growth and how it relates to our modern conception of money as a form of fiat currency as well as the departure from traditional neoclassical economics."
+  },
+  {
     courseName: 'Guitar 101',
     size: 3,
-    teacherId: 6
+    teacherId: 6,
+    courseIntro:
+      'Introduction to the Course newline 1. Welcome to guitar newline 2. The Basics of Guitar',
+    courseMoreInformation:
+      "The Art of Playing the Guitar newline What you can expect from me: I'll always be playing beautiful songs all the time, no problem. newline What I expect from you: I expect you to be inherently musically talented in order to attend the course. newline Grading will be done on the following scale: newline Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. newline Assignment description: This is just a short intro to how to play the guitar, from quality instructors and the most understanding curriculum, based not on an arbitrary ruleset but on the shoulders of musical giants."
   },
   {
     courseName: 'Senior Coding 404',

@@ -8,13 +8,13 @@ a {
 body {
   font-family: sans-serif;
 }
-#center{
+#center {
   flex: 4;
   display: flex;
   flex-direction: column;
-  border: black solid 2px
+  border: black solid 2px;
 }
-#chat-input{
+#chat-input {
   height: 30px;
   width: 700px;
   align-self: flex-end;
@@ -48,10 +48,10 @@ form div {
 label {
   display: block;
 }
-#left{
-  flex: 2
+#left {
+  flex: 2;
 }
-#main-class{
+#main-class {
   display: flex;
   flex-direction: row;
 }
@@ -59,8 +59,8 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
-#right{
-  flex: 2
+#right {
+  flex: 2;
 }
 
 .studentCourseList {
@@ -209,6 +209,7 @@ nav a {
   width: 20%;
   border-radius: 1em;
   padding: 0.5rem;
+  padding-bottom: 3rem;
 }
 
 .newGroupFormComponent .validationText {
@@ -232,7 +233,10 @@ nav a {
 }
 
 .newGroupFormComponent .localNewGroupForm .groupNameInput {
-  margin-left: 50%;
+  margin-left: 25%;
+  width: auto;
+  height: 30%;
+  font-size: auto;
 }
 
 .selectAudience:focus {
@@ -241,4 +245,139 @@ nav a {
 
 .chatButtonCreate:focus {
   outline: none;
+}
+
+.TeacherDash {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.TeacherDash .teacherDashLogOut {
+  margin-left: 90%;
+}
+
+.TeacherDash .teacherDashListClasses {
+  border-style: outset;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(170, 170, 255);
+  height: auto;
+}
+
+.TeacherDash .teacherDashClassName {
+  border-style: outset;
+  padding: 5%;
+  margin-left: 24%;
+}
+
+.TeacherDash .teacherDashNewClassButton {
+  padding: 3%;
+  border-style: outset;
+  margin-left: 45%;
+  margin-right: 45%;
+  text-align: center;
+}
+
+.TeacherDash .teacherDashNewClassButton:focus {
+  outline: none;
+}
+
+.TeacherDash .teacherDashNewClassButton:hover,
+.TeacherDash .teacherDashNewClassButton:active {
+  color: #0475bb;
+  background: rgb(230, 230, 230);
+}
+
+.TeacherDash .teacherDashNewClassButton:active {
+  border-style: inset;
+  background: rgb(255, 255, 255);
+}
+
+.teacherClassBoard {
+  background-color: rgba(176, 255, 176, 0.178);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.teacherClassBoard .classboardList {
+  border-style: outset;
+  width: 100%;
+  text-align: center;
+}
+
+.teacherClassBoard .classboardSchedule {
+  border-style: outset;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  margin: 50%;
+  padding: 1em;
+  width: auto;
+}
+
+.teacherClassBoard .classboardStartLecture {
+  background-color: orange;
+  padding: 1em;
+}
+
+.teacherClassBoard .classboardStartLecture:hover,
+.teacherClassBoard .classboardStartLecture:active {
+  background-color: white;
+  outline: none;
+}
+
+.teacherClassBoard .classboardStartLecture:focus {
+  outline: none;
+}
+
+.teacherClassBoard .classboardAttendance {
+  background-color: limegreen;
+  padding: 1em;
+}
+
+.teacherClassBoard .classboardAssignments {
+  background-color: purple;
+  padding: 1em;
+}
+
+.teacherClassBoard .classboardAddAssignment {
+  background-color: purple;
+  padding: 1em;
+}
+
+.teacherClassBoard .classboardAddAssignment:hover,
+.teacherClassBoard .classboardAddAssignment:active {
+  background-color: white;
+  outline: none;
+}
+.teacherClassBoard .classboardAddAssignment:focus {
+  outline: none;
+}
+
+.teacherClassBoard .classboardStudent {
+  background-color: maroon;
+  padding: 1em;
+}
+
+.teacherClassBoard .classboardAddStudent {
+  background-color: maroon;
+  padding: 1em;
+}
+.teacherClassBoard .classboardAddStudent:hover,
+.teacherClassBoard .classboardAddStudent:active {
+  background-color: white;
+  outline: none;
+}
+.teacherClassBoard .classboardAddStudent:focus {
+  outline: none;
+}
+
+.teacherClassBoard .scheduleDashBox {
+  display: flex;
+  flex-direction: row;
 }

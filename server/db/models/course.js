@@ -15,6 +15,12 @@ const Course = db.define('course', {
   },
   videoRoomId: {
     type: Sequelize.STRING
+  },
+  courseIntro: {
+    type: Sequelize.TEXT
+  },
+  courseMoreInformation: {
+    type: Sequelize.TEXT
   }
 })
 
