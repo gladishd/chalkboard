@@ -5,7 +5,7 @@ import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/courses.js'
 import {IoTSecureTunneling} from 'aws-sdk'
 
-export class studentDashboard extends React.Component {
+export class StudentDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -70,4 +70,8 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+<<<<<<< HEAD
+export default connect(null, null)(StudentDashboard)
+=======
 export default connect(mapStateToProps, mapDispatchToProps)(studentDashboard)
+>>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
