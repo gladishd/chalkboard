@@ -10,12 +10,9 @@ import {
   StudentDashboard,
   studentClassDashboard,
   moreClassInformationComponent,
-<<<<<<< HEAD
-  TeacherDashboard
-=======
+  TeacherDashboard,
   TeacherClassboard,
   TeacherDash
->>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
 } from './components' //already exported default in index.js
 
 /**

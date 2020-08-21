@@ -11,12 +11,6 @@ export {default as TeacherDash} from './TeacherDash'
 export {default as Attendance} from './Attendance'
 export {default as StudentDashboard} from './StudentDashboard'
 export {default as studentClassDashboard} from './studentClassDashboard'
-<<<<<<< HEAD
 export {default as TeacherDashboard} from './TeacherDashboard'
 export {default as moreClassInformationComponent} from './moreClassInformationComponent'
 
-=======
-export {
-  default as moreClassInformationComponent
-} from './moreClassInformationComponent'
->>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
