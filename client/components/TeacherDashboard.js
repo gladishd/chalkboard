@@ -26,7 +26,7 @@ export class TeacherDashboard extends Component {
         this.props.setCourse(course)
     }
     componentDidMount(){
-        console.log('props ', this.props)
+        console.log(' lower props ', this.props)
     }
     render() {
         return ( 

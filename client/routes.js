@@ -7,7 +7,7 @@ import {me} from './store'
 import MainClass from './components/MainClass'
 import Attendance from './components/Attendance'
 import {
-  studentDashboard,
+  StudentDashboard,
   studentClassDashboard,
   moreClassInformationComponent,
   TeacherDashboard
@@ -29,7 +29,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/studentDashboard" component={studentDashboard} />
+        <Route path="/studentDashboard" component={StudentDashboard} />
+        <Route path='/teacherDashboard' component={TeacherDashboard}/>
         <Route
           path="/studentClassDashboard"
           component={studentClassDashboard}
@@ -45,7 +46,6 @@ class Routes extends Component {
           
             <Route path='/main' component={MainClass}/>
             <Route path='/attendance' component={Attendance}/>
-            <Route path='/teacherDashboard' component={TeacherDashboard}/>
 
           </Switch>
         )}

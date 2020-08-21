@@ -24,6 +24,14 @@ const AuthForm = props => {
           </label>
           <input name="password" type="password" />
         </div>
+       { name === 'signup' ? 
+        <div>
+          <select name='credential' id='selector'>
+              <option value='Student'>Student</option>
+              <option value="Teacher">Teacher</option>
+          </select>
+        </div>  : null
+        }
         <div>
           <button type="submit">{displayName}</button>
         </div>
@@ -61,10 +69,12 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
+      const cred = document.getElementById('selector')
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      const credential = document.getElementById('selector').options[cred.selectedIndex].value
+      dispatch(auth(email, password, credential, formName))
     }
   }
 }

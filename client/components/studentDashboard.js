@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 
-export class studentDashboard extends React.Component {
+export class StudentDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, null)(studentDashboard)
+export default connect(null, null)(StudentDashboard)
