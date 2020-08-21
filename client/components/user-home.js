@@ -10,15 +10,16 @@ import { TeacherDashboard } from '.';
  */
 export const UserHome = props => {
 
-  const {email, credential, id} = props.person
-  console.log('filtered props ', id)
+  const {email, id} = props.person
+  console.log('filtered props ', props)
   const socket = openSocket(`http://localhost:8080/`)
   socket.emit('login', email)
 
   console.log('cred ', credential)
   return (
-  credential === 'Student' ? <StudentDashboard props={email, credential, id}/>: (
-    <TeacherDashboard props={email, credential, id}/>
+    //replace with accountType
+  email === 'Student@gmail.com' ? <StudentDashboard props={email, id}/>: (
+    <TeacherDashboard props={email, id}/>
   )
   )
 }
