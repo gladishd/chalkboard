@@ -6,6 +6,7 @@ import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
+import {getCourseThunk} from '../store/courses.js'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -16,7 +17,11 @@ export class studentClassDashboard extends React.Component {
     this.toggleForm = this.toggleForm.bind(this) // this binding
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let path = this.props.location.pathname
+    let courseId = path.slice(path.length - 1)
+    this.props.getCourse(courseId)
+  }
 
   // componentDidMount() {                        // STUDENT CHAT
   //   const chat = document.getElementById('student-chat-space')
@@ -34,16 +39,28 @@ export class studentClassDashboard extends React.Component {
   }
 
   render() {
+    let courseIntro = []
+    let courseDetails = []
+    if (
+      this.props.reduxState.courses.courseIntro &&
+      this.props.reduxState.courses.courseMoreInformation
+    ) {
+      courseIntro = this.props.reduxState.courses.courseIntro.split('newline')
+      courseDetails = this.props.reduxState.courses.courseMoreInformation.split(
+        'newline'
+      )
+    }
     return (
       <div className="studentClassDashboard">
-        <div>{moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
-        <div className="classTitle">Welcome to Econ 201!</div>
+        <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
+        <div className="classTitle">
+          Welcome to {this.props.reduxState.courses.courseName}
+          !
+        </div>
         <div className="introductionToTheCourse">
-          Introduction to the Course
-          <br />
-          1. Keynesian Theory
-          <br />
-          2. The Solow Growth Model
+          {courseIntro.map(element => {
+            return <div>{element}</div>
+          })}
         </div>
         <div className="liveLecture">Live Lecture</div>
         <div className="liveChat">
@@ -67,9 +84,12 @@ export class studentClassDashboard extends React.Component {
           Say something nice..
         </div>
         <div className="moreClassInformationComponent">
-          <MoreClassInformationComponent />
+          {this.props.reduxState.courses.courseMoreInformation ? (
+            <MoreClassInformationComponent text={courseDetails} />
+          ) : (
+            <div>Course Information Not Available</div>
+          )}
         </div>
-
         {this.state.showForm ? (
           <div className="newGroupFormComponent">
             <NewGroupFormComponent />
@@ -91,13 +111,16 @@ export class studentClassDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    // reduxState: state
+    reduxState: state
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
+    getCourse: id => {
+      dispatch(getCourseThunk(id))
+    }
   }
 }
 
