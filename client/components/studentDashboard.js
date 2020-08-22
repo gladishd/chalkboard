@@ -23,14 +23,14 @@ export class StudentDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props.reduxState.courses)
-    console.log(Object.keys(this.props.reduxState.courses).length === 0)
+    console.log(this.props.courses)
+    console.log(Object.keys(this.props.courses).length === 0)
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {Object.keys(this.props.reduxState.courses).length !== 0 ? (
-            this.props.reduxState.courses.map((course, index) => {
+          {Object.keys(this.props.courses).length !== 0 ? (
+            this.props.courses.map((course, index) => {
               return (
                 <div>
                   <Link to={`./studentClassDashboard/${index + 1}`}>
@@ -57,7 +57,7 @@ export class StudentDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    reduxState: state
+    courses: state.courses
   }
 }
 
@@ -70,8 +70,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-<<<<<<< HEAD
-export default connect(null, null)(StudentDashboard)
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(studentDashboard)
->>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard)
