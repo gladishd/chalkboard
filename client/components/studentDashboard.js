@@ -70,8 +70,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-<<<<<<< HEAD
-export default connect(null, null)(StudentDashboard)
-=======
-export default connect(mapStateToProps, mapDispatchToProps)(studentDashboard)
->>>>>>> f8b9fbfcbf72c117fa1508d232fab3043cb3b0da
+export default connect(mapStateToProps, mapDispatchToProps)(StudentDashboard)

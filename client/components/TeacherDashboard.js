@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import {setCourse, courseSet} from '../store/course'
+import {teacherCourses} from '../store/course'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
+import CourseListing from './CourseListing'
 
 export class TeacherDashboard extends Component {
     constructor(props){
@@ -10,7 +12,7 @@ export class TeacherDashboard extends Component {
         this.state = {
             name: null,
             size: null,
-            roomId: null
+            roomId: null,
         }
         this.createCourse = this.createCourse.bind(this)
     }
@@ -22,15 +24,20 @@ export class TeacherDashboard extends Component {
             roomId: e.target.roomId.value,
             courseId: e.target.courseId.value
         }
-        console.log('course ', course)
         this.props.setCourse(course)
     }
-    componentDidMount(){
-        console.log(' lower props ', this.props)
+    async componentWillMount(){
+         await this.props.getCourses(1)
+            console.log('cwm ', this.props)
     }
     render() {
-        return ( 
+        const courses = this.props.courses || ['empty']
+        console.log('courses inner ', courses)
+         return ( 
+             <div>
+             { courses.length ? (
             <div>
+                <div>
                 <h1>Hello</h1>
                 <form onSubmit={this.createCourse}>
                     <h3>Create New Course</h3>
@@ -44,17 +51,34 @@ export class TeacherDashboard extends Component {
                     <input type='text' name='courseId'/>
                     <button type='submit'>Submit</button>
                 </form>
+                </div>
+                <div>
+                    <h3>My Courses:</h3>
+             <h1>Course: {courses[0].courseName}</h1>
+                   
+                     
+                </div>
+             </div> ) : <h1>Loading</h1> 
+             }
             </div>
         )
-    }
-}
+    }}
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCourse: (course) => dispatch(courseSet(course))
+        setCourse: (course) => dispatch(courseSet(course)),
+        getCourses: (id) => dispatch(teacherCourses(id))
+    }
+}
+const mapStateToProps = (state) => {
+    console.log('map state ', state)
+    return {
+        
+        courses: state.course
     }
 }
 
-export default connect(null, mapDispatchToProps)(TeacherDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(TeacherDashboard)
 
 
