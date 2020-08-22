@@ -30,21 +30,15 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (firstName, lastName, email, password, accountType, method) => async dispatch => {
-  
+export const auth = (email, password, method) => async dispatch => {
   let res
-  console.log('outside auth')
   try {
-  console.log('in redux try ', lastName)
-    res = await axios.post(`/auth/${method}`, {firstName, lastName, email, password, accountType})
-    console.log('finished ', res)
+    res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
-    console.log('redux err')
     return dispatch(getUser({error: authError}))
   }
 
   try {
-    console.log('res data ', res.data)
     dispatch(getUser(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
