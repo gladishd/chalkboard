@@ -54,11 +54,13 @@ export class TeacherDashboard extends Component {
                 </div>
                 <div>
                     <h3>My Courses:</h3>
-             <h1>Course: {courses[0].courseName}</h1>
+             {
+                 courses.map((one, idx) => <CourseListing oneCourse={one} key={idx}/>)
+             }
                    
-                     
+                </div>     
                 </div>
-             </div> ) : <h1>Loading</h1> 
+              ) : <h1>Loading</h1> 
              }
             </div>
         )

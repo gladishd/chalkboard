@@ -3,7 +3,7 @@
 module.exports = io => {
 
   io.on('connection', socket => {
-    
+    console.log('landing')
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
     
@@ -13,7 +13,8 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', (message) => {
-      io.emit('message', message)
+      socket.broadcast.emit('theirMessage', `user: ${message}`)
+      socket.emit('myMessage', `me: ${message}`)
     })
 
     socket.on('disconnect', () => {
