@@ -19,7 +19,7 @@ export class StudentDashboard extends React.Component {
     const socket = openSocket(`http://localhost:8080/`)
     this.props.getAllCourses()
     // we need to re-render now
-    this.setState({coursesArray: this.props.reduxState.courses})
+    this.setState({coursesArray: this.props.courses})
   }
 
   render() {
@@ -32,7 +32,7 @@ export class StudentDashboard extends React.Component {
           {Object.keys(this.props.courses).length !== 0 ? (
             this.props.courses.map((course, index) => {
               return (
-                <div>
+                <div key={index}>
                   <Link to={`./studentClassDashboard/${index + 1}`}>
                     {course.courseName}
                   </Link>
