@@ -25,10 +25,10 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email,
-    firstName: state.user.firstName,
-    lastName: state.user.lastName,
-    accountType: state.user.accountType
+    email: state.user.me.email,
+    firstName: state.user.me.firstName,
+    lastName: state.user.me.lastName,
+    accountType: state.user.me.accountType
   }
 }
 
