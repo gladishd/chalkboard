@@ -4,9 +4,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const courses = await Course.findAll({
-      /* attributes: ['id', 'email', 'accountType'] */
-    })
+    const courses = await Course.findAll()
     courses ? res.json(courses) : res.status(400).end()
   } catch (err) {
     next(err)
