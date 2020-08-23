@@ -1,20 +1,43 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {createGroupThunk} from '../store/createGroup'
+import {fetchAllUsers} from '../store'
 
 export class newGroupFormComponent extends React.Component {
   constructor() {
     super()
     this.state = {
-      groupName: ''
+      groupName: '',
+      selectedStudent: '',
+      selectedTeacher: '',
+      groupMembers: []
     }
     this.mapInputToState = this.mapInputToState.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.selectStudent = this.selectStudent.bind(this)
+    this.selectTeacher = this.selectTeacher.bind(this)
+    this.addStudent = this.addStudent.bind(this)
+    this.addTeacher = this.addTeacher.bind(this)
+    this.handleReset = this.handleReset.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.getAllUsers()
   }
 
   mapInputToState(e) {
     this.setState({[e.target.name]: e.target.value})
     console.log(this.state)
+  }
+
+  handleReset(e) {
+    e.preventDefault()
+    this.setState({
+      groupName: '',
+      selectedStudent: '',
+      selectedTeacher: '',
+      groupMembers: []
+    })
   }
 
   handleSubmit(e) {
@@ -25,7 +48,36 @@ export class newGroupFormComponent extends React.Component {
     // this.props.createGroup({ {/* this should come from props */}
     //   groupName
     // })
-    console.log('need to submit student group')
+    console.log(
+      'need to submit student group',
+      e.target.value,
+      this.state,
+      this.props.reduxState.users
+    )
+  }
+
+  selectStudent(e) {
+    e.preventDefault()
+    this.setState({selectedStudent: e.target.value})
+  }
+
+  selectTeacher(e) {
+    e.preventDefault()
+    this.setState({selectedTeacher: e.target.value})
+  }
+
+  addStudent(e) {
+    e.preventDefault()
+    let currentGroup = this.state.groupMembers
+    currentGroup.push(this.state.selectedStudent + ' (Student)')
+    this.setState({groupMembers: currentGroup})
+  }
+
+  addTeacher(e) {
+    e.preventDefault()
+    let currentGroup = this.state.groupMembers
+    currentGroup.push(this.state.selectedTeacher + ' (Teacher)')
+    this.setState({groupMembers: currentGroup})
   }
 
   render() {
@@ -34,15 +86,9 @@ export class newGroupFormComponent extends React.Component {
         <div className="localNewGroupForm">
           <div className="currentGroup">
             Currently in the group:
-            {/* this could come from state */}
-            <br></br>
-            Zach Bryce
-            <br></br>
-            Khuong Le
-            <br></br>
-            Dean Gladish
-            <br></br>
-            Jonathan Arreola
+            {this.state.groupMembers.map(groupMember => {
+              return <div>{groupMember}</div>
+            })}
           </div>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="groupName">
@@ -66,11 +112,9 @@ export class newGroupFormComponent extends React.Component {
             <select
               name="group"
               className="selectGroupMembers"
-              onChange={this.handleChange}
+              onChange={this.selectStudent}
             >
-              <option value="" selected>
-                Select an option
-              </option>
+              <option value="">Select an option</option>
               <option value="Dean">Dean</option>
               <option value="Khuong">Khuong</option>
               <option value="Zach">Zach</option>
@@ -84,15 +128,13 @@ export class newGroupFormComponent extends React.Component {
               Add This Student
             </button>
 
-            <br></br>
+            <br />
             <select
               name="group"
               className="selectGroupMembers"
-              onChange={this.handleChange}
+              onChange={this.selectTeacher}
             >
-              <option value="" selected>
-                Select an option
-              </option>
+              <option value="">Select an option</option>
               <option value="Dean">Dean</option>
               <option value="Khuong">Khuong</option>
               <option value="Zach">Zach</option>
@@ -100,14 +142,17 @@ export class newGroupFormComponent extends React.Component {
             </select>
             <button
               type="button"
-              onClick={this.addStudent}
+              onClick={this.addTeacher}
               className="buttonAddStudentTeacher"
             >
               Add This Teacher
             </button>
-            <br></br>
+            <br />
             <button type="button" onClick={this.handleSubmit}>
               Submit!
+            </button>
+            <button type="button" onClick={this.handleReset}>
+              Reset
             </button>
           </form>
         </div>
@@ -123,6 +168,12 @@ export class newGroupFormComponent extends React.Component {
 //   }
 // }
 
+const mapStateToProps = state => {
+  return {
+    reduxState: state
+  }
+}
+
 // const mapDispatchToProps = dispatch => {
 //   return {
 //     createGroup: data => {
@@ -131,4 +182,15 @@ export class newGroupFormComponent extends React.Component {
 //   }
 // }
 
-export default connect(null, null)(newGroupFormComponent)
+const mapDispatchToProps = dispatch => {
+  return {
+    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
+    getAllUsers: () => {
+      dispatch(fetchAllUsers())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  newGroupFormComponent
+)

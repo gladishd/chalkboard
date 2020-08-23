@@ -2,16 +2,25 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {moreClassInformationComponent as MoreClassInformationComponent} from './moreClassInformationComponent.js' // need to change case to render the component
-import {newGroupFormComponent as NewGroupFormComponent} from './newGroupFormComponent.js'
+import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
+import moment from 'moment'
+import {getCourseThunk} from '../store/courses.js'
+
 export class studentClassDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: false
+      showForm: true
     }
     this.toggleForm = this.toggleForm.bind(this) // this binding
+  }
+
+  componentDidMount() {
+    let path = this.props.location.pathname
+    let courseId = path.slice(path.length - 1)
+    this.props.getCourse(courseId)
   }
 
   // componentDidMount() {                        // STUDENT CHAT
@@ -30,15 +39,28 @@ export class studentClassDashboard extends React.Component {
   }
 
   render() {
+    let courseIntro = []
+    let courseDetails = []
+    if (
+      this.props.reduxState.courses.courseIntro &&
+      this.props.reduxState.courses.courseMoreInformation
+    ) {
+      courseIntro = this.props.reduxState.courses.courseIntro.split('newline')
+      courseDetails = this.props.reduxState.courses.courseMoreInformation.split(
+        'newline'
+      )
+    }
     return (
       <div className="studentClassDashboard">
-        <div className="classTitle">Welcome to Econ 201!</div>
+        <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
+        <div className="classTitle">
+          Welcome to {this.props.reduxState.courses.courseName}
+          !
+        </div>
         <div className="introductionToTheCourse">
-          Introduction to the Course
-          <br></br>
-          1. Keynesian Theory
-          <br></br>
-          2. The Solow Growth Model
+          {courseIntro.map(element => {
+            return <div>{element}</div>
+          })}
         </div>
         <div className="liveLecture">Live Lecture</div>
         <div className="liveChat">
@@ -58,19 +80,22 @@ export class studentClassDashboard extends React.Component {
             <option value="Zach">Zach</option>
             <option value="Jonathan">Jonathan</option>
           </select>
-          <br></br>
+          <br />
           Say something nice..
         </div>
         <div className="moreClassInformationComponent">
-          <MoreClassInformationComponent />
+          {this.props.reduxState.courses.courseMoreInformation ? (
+            <MoreClassInformationComponent text={courseDetails} />
+          ) : (
+            <div>Course Information Not Available</div>
+          )}
         </div>
-
         {this.state.showForm ? (
           <div className="newGroupFormComponent">
             <NewGroupFormComponent />
           </div>
         ) : (
-          <div></div>
+          <div />
         )}
 
         {/* <div id='student-chat'>                 // STUDENT CHAT
@@ -86,17 +111,19 @@ export class studentClassDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    // currentCampus: state.singleCampus
+    reduxState: state
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
+    getCourse: id => {
+      dispatch(getCourseThunk(id))
+    }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(studentClassDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  studentClassDashboard
+)

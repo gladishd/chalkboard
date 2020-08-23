@@ -1,20 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import socket from '../store/socket'
-import openSocket from 'socket.io-client';
+import openSocket from 'socket.io-client'
+
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  console.log('user props ', props)
-  const {email} = props
+  const {email, firstName, lastName, accountType} = props
   const socket = openSocket(`http://localhost:8080/`)
   socket.emit('login', email)
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h1>{`Welcome ${firstName} ${lastName}`}</h1>
+      <h2>{`email: ${email}`}</h2>
+      <h2>{`account type: ${accountType}`}</h2>
     </div>
   )
 }
@@ -24,7 +25,10 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    firstName: state.user.firstName,
+    lastName: state.user.lastName,
+    accountType: state.user.accountType
   }
 }
 
