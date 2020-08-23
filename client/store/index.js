@@ -6,14 +6,12 @@ import user from './user'
 import course from './course'
 import socket from './socket'
 import assignment from './assignment'
-import gradebook from './gradebook'
 
 const reducer = combineReducers({
   user,
   course,
   socket,
-  assignment,
-  gradebook
+  assignment
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

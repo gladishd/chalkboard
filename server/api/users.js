@@ -22,6 +22,26 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+router.get('/courses/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    const courses = await user.getCourses()
+    courses ? res.json(courses) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/assignments/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    const assignments = await user.getAssignments()
+    assignments ? res.json(assignments) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
