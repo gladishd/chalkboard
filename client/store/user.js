@@ -26,6 +26,62 @@ const logoutUser = () => ({type: LOGOUT_USER})
 /**
  * THUNK CREATORS
  */
+
+export const getAllUsersThunk = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/users')
+      dispatch(getAllUsers(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getSingleUserThunk = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/${userId}`)
+      dispatch(getSingleUser(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const addUserThunk = user => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('api/orders', user)
+      dispatch(addUser(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const updateUserThunk = (userId, user) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/users/${userId}`, user)
+      dispatch(updateUser(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const removeUserThunk = userId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/users/${userId}`)
+      dispatch(removeUser(userId))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
