@@ -2,8 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
-import {getAllCoursesThunk} from '../store/courses.js'
+import {getAllCoursesThunk} from '../store/course.js'
 import {IoTSecureTunneling} from 'aws-sdk'
+import {getUserCoursesThunk} from '../store/user'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -15,22 +16,22 @@ export class StudentDashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('welcome ', this.props)
+    console.log('welcome ', this.props.userId)
     const socket = openSocket(`http://localhost:8080/`)
-    this.props.getAllCourses()
+    // this.props.getAllCourses()
     // we need to re-render now
+    this.props.getMyCourses(this.props.userId)
     this.setState({coursesArray: this.props.courses})
   }
 
   render() {
-    console.log(this.props.courses)
-    console.log(Object.keys(this.props.courses).length === 0)
+    const courseList = this.props.courses || []
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {Object.keys(this.props.courses).length !== 0 ? (
-            this.props.courses.map((course, index) => {
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
               return (
                 <div key={index}>
                   <Link to={`./studentClassDashboard/${index + 1}`}>
@@ -57,7 +58,8 @@ export class StudentDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    courses: state.courses
+    courses: state.user.courses,
+    userId: state.user.me.id
   }
 }
 
@@ -66,7 +68,8 @@ const mapDispatchToProps = dispatch => {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
-    }
+    },
+    getMyCourses: id => dispatch(getUserCoursesThunk(id))
   }
 }
 

@@ -143,6 +143,7 @@ export default function(state = initialState, action) {
         all: state.all.filter(course => course.id !== action.courseId)
       }
     default:
+      console.log('in the reducer default')
       return state
   }
 }

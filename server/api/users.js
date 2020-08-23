@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Course} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -70,6 +70,19 @@ router.delete('/:userId', async (req, res, next) => {
       where: {id: req.params.userId}
     })
     userDeleted ? res.send('user deleted') : res.send('deletion failed')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:user', async (req, res, next) => {
+  try {
+    const id = req.params.user
+    const user = await User.findByPk(id)
+
+    const courses = await user.getCourses()
+    res.json(courses)
+    console.log('courses ', courses[0].dataValues)
   } catch (err) {
     next(err)
   }

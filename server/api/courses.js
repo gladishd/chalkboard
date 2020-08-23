@@ -75,3 +75,13 @@ router.delete('/:courseId', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.get('/:id', async (req, res, next) => {
+//   const teacherId = req.params.id
+//   try {
+//     const course = await Course.getUsers(req.params.id)
+//     res.json(course)
+//   } catch (err) {
+//     next(err)
+//   }
+// })

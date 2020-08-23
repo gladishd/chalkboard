@@ -10,7 +10,7 @@ export const UserHome = props => {
   const {email, firstName, lastName, accountType} = props
   const socket = openSocket(`http://localhost:8080/`)
   socket.emit('login', email)
-
+  console.log('user home props ', props)
   return (
     <div>
       <h1>{`Welcome ${firstName} ${lastName}`}</h1>
@@ -25,6 +25,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    id: state.user.me.id,
     email: state.user.me.email,
     firstName: state.user.me.firstName,
     lastName: state.user.me.lastName,
