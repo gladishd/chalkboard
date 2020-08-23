@@ -6,6 +6,8 @@ import history from '../history'
  */
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const GET_SINGLE_USER = 'GET_SINGLE_USER'
+const GET_USER_COURSES = 'GET_USER_COURSES'
+const GET_USER_ASSIGNMENTS = 'GET_USER_ASSIGNMENTS'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -17,6 +19,11 @@ const LOGOUT_USER = 'LOGOUT_USER'
  */
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const getSingleUser = user => ({type: GET_SINGLE_USER, user})
+const getUserCourses = courses => ({type: GET_USER_COURSES, courses})
+const getUserAssignments = assignments => ({
+  type: GET_USER_ASSIGNMENTS,
+  assignments
+})
 const addUser = user => ({type: ADD_USER, user})
 const updateUser = user => ({type: UPDATE_USER, user})
 const removeUser = userId => ({type: REMOVE_USER, userId})
@@ -43,6 +50,28 @@ export const getSingleUserThunk = userId => {
     try {
       const {data} = await axios.get(`/api/users/${userId}`)
       dispatch(getSingleUser(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getUserCoursesThunk = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/courses/${userId}`)
+      dispatch(getUserCourses(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getUserAssignmentsThunk = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/assignments/${userId}`)
+      dispatch(getUserAssignments(data))
     } catch (err) {
       console.error(err.message)
     }
@@ -123,7 +152,9 @@ export const logout = () => async dispatch => {
 const initialState = {
   all: [],
   single: {},
-  me: {}
+  me: {},
+  courses: [],
+  assignments: []
 }
 
 /**
@@ -135,6 +166,10 @@ export default function(state = initialState, action) {
       return {...state, all: action.users}
     case GET_SINGLE_USER:
       return {...state, single: action.user}
+    case GET_USER_COURSES:
+      return {...state, courses: action.courses}
+    case GET_USER_ASSIGNMENTS:
+      return {...state, assignments: action.assignments}
     case ADD_USER:
       return {...state, all: [...state.all, action.user]}
     case UPDATE_USER:
