@@ -43,7 +43,16 @@ export const courseSet = (course) => async dispatch => {
         console.error(err)
   }
 }
-
+export const myCourses = (id) => async dispatch => {
+  console.log('id in redux ', id)
+  try {
+    console.log('id in redux try block ', id)
+    const data = await axios.get('/api/course/myCourses/', id)
+    console.log('my redux courses ', data)
+  } catch (err) {
+    next(err)
+  }
+}
 const initState = {
     courses: []
 }

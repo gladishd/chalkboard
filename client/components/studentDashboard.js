@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/courses.js'
 import {IoTSecureTunneling} from 'aws-sdk'
+import {myCourses } from '../store/course'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -15,10 +16,11 @@ export class StudentDashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('welcome ', this.props)
+    console.log('welcome ', this.props.userId)
     const socket = openSocket(`http://localhost:8080/`)
-    this.props.getAllCourses()
+    // this.props.getAllCourses()
     // we need to re-render now
+    this.props.getMyCourses(this.props.userId)
     this.setState({coursesArray: this.props.courses})
   }
 
@@ -57,7 +59,8 @@ export class StudentDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    courses: state.courses
+    courses: state.courses,
+    userId: state.user.id
   }
 }
 
@@ -66,7 +69,8 @@ const mapDispatchToProps = dispatch => {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
-    }
+    },
+    getMyCourses: (id) => dispatch(myCourses(id))
   }
 }
 
