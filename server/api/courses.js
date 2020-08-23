@@ -5,7 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const response = await Course.findAll({
-      attributes: ['courseName', 'courseIntro', 'courseMoreInformation']
+      attributes: ['id','courseName', 'courseIntro', 'courseMoreInformation']
     })
     res.json(response)
   } catch (err) {
@@ -21,3 +21,13 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.get('/:id', async (req, res, next) => {
+//   const teacherId = req.params.id
+//   try {
+//     const course = await Course.getUsers(req.params.id)
+//     res.json(course)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
