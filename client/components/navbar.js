@@ -4,25 +4,47 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, accountType}) => (
   <div>
     <h1>Chalkboard</h1>
     <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
+      {isLoggedIn &&
+        accountType === 'admin' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/studentDashboard">Student Dashboard</Link>
+            <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
+      {isLoggedIn &&
+        accountType === 'teacher' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
+      {isLoggedIn &&
+        accountType === 'student' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/studentDashboard">Student Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
+      {!isLoggedIn && (
         <div>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/studentDashboard">Student Dashboard</Link>
-          <Link to="/TeacherDash">Teacher Dashboard</Link>
+          <Link to="/room">Room</Link>
+          {/* <Link to="/signup">Sign Up</Link> */}
         </div>
       )}
     </nav>
@@ -35,7 +57,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    accountType: state.user.accountType
   }
 }
 

@@ -12,5 +12,8 @@ export {default as Attendance} from './Attendance'
 export {default as StudentDashboard} from './StudentDashboard'
 export {default as studentClassDashboard} from './studentClassDashboard'
 export {default as TeacherDashboard} from './TeacherDashboard'
-export {default as moreClassInformationComponent} from './moreClassInformationComponent'
-
+export {
+  default as moreClassInformationComponent
+} from './moreClassInformationComponent'
+export {default as createRoomButton} from './video/createRoom'
+export {default as videoRoom} from './video/room'
