@@ -24,7 +24,7 @@ module.exports = io => {
   })
   const two = io.of('/2')
   
-  two.on('connection', socket => {
+  io.of('/2').on('connection', socket => {
     socket.emit('message', 'two two')
   })
 }

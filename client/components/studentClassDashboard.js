@@ -30,7 +30,6 @@ export class studentClassDashboard extends React.Component {
     this.props.getCourse(courseId)
     const socket = io()
     const input = document.getElementById('chat-input')
-    console.log('cdm input ', input)
     // const input = document.getElementById('chat-input')
     input.addEventListener('keypress', (e) => {
       if(e.key === 'Enter'){

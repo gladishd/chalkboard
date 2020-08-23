@@ -23,7 +23,7 @@ export class StudentDashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props.courses)
+    console.log('sd courses ',this.props.courses)
     console.log(Object.keys(this.props.courses).length === 0)
     return (
       <div>
