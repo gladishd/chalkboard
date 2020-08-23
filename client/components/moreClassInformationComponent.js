@@ -14,8 +14,8 @@ export class moreClassInformationComponent extends React.Component {
   render() {
     return (
       <div className="localClassInformation">
-        {this.props.text.map(element => {
-          return <div>{element}</div>
+        {this.props.text.map((element, index) => {
+          return <div key={index}>{element}</div>
         })}
       </div>
     )

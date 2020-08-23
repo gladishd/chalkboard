@@ -76,8 +76,8 @@ export class studentClassDashboard extends React.Component {
           Welcome to {this.props.course.courseName}!
         </div>
         <div className="introductionToTheCourse">
-          {courseIntro.map(element => {
-            return <div>{element}</div>
+          {courseIntro.map((element, index) => {
+            return <div key={index}>{element}</div>
           })}
         </div>
         <div className="liveLecture">Live Lecture</div>
