@@ -21,18 +21,17 @@ router.post('/create/', async (req, res, next) => {
 })
 
 router.get('/myCourses/', async (req, res, next) => {
-  const userId = req.body.id
-  console.log('this req ', req.user.data)
-  try {
-    // const user = await User.findOne({
-    //     where: {
-    //         id: userId
-    //     }
-    // })
-    // console.log('first try user ', user)
-    // // const courses = user.getCourses()
-    // console.log('final res ', courses)
-  } catch (err) {
-    console.log(err)
-  }
+    const userId = req.user.dataValues.id
+    try{
+        const user = await User.findOne({
+            where: {
+                id: userId
+            }
+        })
+        const courses = await user.getCourses()
+        res.json(courses)
+        
+    } catch(err) {
+        console.log(err)
+    }
 })

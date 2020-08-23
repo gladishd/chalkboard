@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import {myCourses } from '../store/course'
+import { connect } from 'react-redux'
+import openSocket from 'socket.io-client'
 
-export default class TeacherDash extends Component {
+export class TeacherDash extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,6 +18,21 @@ export default class TeacherDash extends Component {
     )
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  async componentWillMount(){
+    try{
+      await this.props.getMyCourses(this.props.userId)
+
+    } catch (err){
+      console.log(err)
+    }
+      
+    
+  }
+  componentDidMount() {
+    this.setState({
+      coursesArray: this.props.courses
+    })
   }
 
   handleSubmit(e) {
@@ -42,8 +60,26 @@ export default class TeacherDash extends Component {
   }
 
   render() {
+    const courseList = this.props.courses || []
     return (
+      
       <div className="TeacherDash">
+        <div className="studentCourseList">
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
+              return (
+                <div key={index}>
+                  <Link to={`./TeacherClassboard/${index + 1}`}>
+                    {course.courseName}
+                  </Link>
+                  <br />
+                </div>
+              )
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
         <button>Calendar</button>
         <button className="teacherDashLogOut">LogOut</button>
         <div className="teacherDashListClasses">List of Classes</div>
@@ -89,3 +125,23 @@ export default class TeacherDash extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
+    getAllCourses: () => {
+      dispatch(getAllCoursesThunk())
+    },
+    getMyCourses: (id) => dispatch(myCourses(id))
+  }
+}
+const mapStateToProps = state => {
+  console.log('incoming state ', state)
+  return {
+    courses: state.course,
+    userId: state.user.id
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TeacherDash)

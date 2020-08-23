@@ -14,14 +14,20 @@ export class StudentDashboard extends React.Component {
     }
     //this binding
   }
+  async componentWillMount(){
+    try{
+      await this.props.getMyCourses(this.props.userId)
 
+    } catch (err){
+      console.log(err)
+    }
+      
+    
+  }
   componentDidMount() {
-    console.log('welcome ', this.props.userId)
-    const socket = openSocket(`http://localhost:8080/`)
-    // this.props.getAllCourses()
-    // we need to re-render now
-    this.props.getMyCourses(this.props.userId)
-    this.setState({coursesArray: this.props.courses})
+    this.setState({
+      coursesArray: this.props.courses
+    })
   }
 
   render() {
@@ -57,9 +63,11 @@ export class StudentDashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log('incoming state ', state)
   return {
     courses: state.user.courses,
     userId: state.user.me.id
+
   }
 }
 

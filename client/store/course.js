@@ -92,6 +92,7 @@ export const updateCourseThunk = (courseId, course) => {
   }
 }
 
+
 export const removeCourseThunk = courseId => {
   return async dispatch => {
     try {
@@ -100,6 +101,7 @@ export const removeCourseThunk = courseId => {
     } catch (err) {
       console.error(err.message)
     }
+
   }
 }
 
@@ -112,6 +114,7 @@ const initialState = {
   students: [],
   teacher: {}
 }
+
 
 /**
  * REDUCER
@@ -142,8 +145,8 @@ export default function(state = initialState, action) {
         ...state,
         all: state.all.filter(course => course.id !== action.courseId)
       }
+
     default:
-      console.log('in the reducer default')
       return state
   }
 }
