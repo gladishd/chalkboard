@@ -5,6 +5,8 @@ import axios from 'axios'
  */
 const GET_ALL_COURSES = 'GET_ALL_COURSES'
 const GET_SINGLE_COURSE = 'GET_SINGLE_COURSE'
+const GET_COURSE_STUDENTS = 'GET_COURSE_STUDENTS'
+const GET_COURSE_TEACHER = 'GET_COURSE_TEACHER'
 const ADD_COURSE = 'ADD_COURSE'
 const UPDATE_COURSE = 'UPDATE_COURSE'
 const REMOVE_COURSE = 'REMOVE_COURSE'
@@ -14,6 +16,8 @@ const REMOVE_COURSE = 'REMOVE_COURSE'
  */
 const getAllCourses = courses => ({type: GET_ALL_COURSES, courses})
 const getSingleCourse = course => ({type: GET_SINGLE_COURSE, course})
+const getCourseStudents = students => ({type: GET_COURSE_STUDENTS, students})
+const getCourseTeacher = teacher => ({type: GET_COURSE_TEACHER, teacher})
 const addCourse = course => ({type: ADD_COURSE, course})
 const updateCourse = course => ({type: UPDATE_COURSE, course})
 const removeCourse = courseId => ({type: REMOVE_COURSE, courseId})
@@ -38,6 +42,28 @@ export const getSingleCourseThunk = courseId => {
     try {
       const {data} = await axios.get(`/api/courses/${courseId}`)
       dispatch(getSingleCourse(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getCourseStudentsThunk = courseId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`api/courses/students/${courseId}`)
+      dispatch(getCourseStudents(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getCourseTeacherThunk = courseId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`api/courses/teacher/${courseId}`)
+      dispatch(getCourseTeacher(data))
     } catch (err) {
       console.error(err.message)
     }
@@ -82,7 +108,9 @@ export const removeCourseThunk = courseId => {
  */
 const initialState = {
   all: [],
-  single: {}
+  single: {},
+  students: [],
+  teacher: {}
 }
 
 /**
@@ -94,6 +122,10 @@ export default function(state = initialState, action) {
       return {...state, all: action.courses}
     case GET_SINGLE_COURSE:
       return {...state, single: action.course}
+    case GET_COURSE_STUDENTS:
+      return {...state, students: action.students}
+    case GET_COURSE_TEACHER:
+      return {...state, teacher: action.teacher}
     case ADD_COURSE:
       return {...state, all: [...state.all, action.course]}
     case UPDATE_COURSE:
