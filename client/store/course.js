@@ -44,28 +44,25 @@ export const courseSet = (course) => async dispatch => {
   }
 }
 export const myCourses = (id) => async dispatch => {
-  console.log('id in redux ', id)
   try {
-    console.log('id in redux try block ', id)
-    const data = await axios.get('/api/course/myCourses/', id)
-    console.log('my redux courses ', data)
+    const { data } = await axios.get('/api/course/myCourses/', id)
+    dispatch(getCourses(data))
   } catch (err) {
-    next(err)
+    console.log(err)
   }
 }
 const initState = {
     courses: []
 }
-console.log('going to reducer?')
+
 export default function(state = initState, action) {
   switch (action.type) {
     case GET_COURSES:
-      console.log('in get courses ', action.courses)
+      state.courses = action.courses
       return action.courses
     case SET_COURSE:
       return action.course
     default:
-      console.log('in the reducer default')
       return state
   }
 }

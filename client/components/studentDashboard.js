@@ -14,25 +14,30 @@ export class StudentDashboard extends React.Component {
     }
     //this binding
   }
+  async componentWillMount(){
+    try{
+      await this.props.getMyCourses(this.props.userId)
 
+    } catch (err){
+      console.log(err)
+    }
+      
+    
+  }
   componentDidMount() {
-    console.log('welcome ', this.props.userId)
-    const socket = openSocket(`http://localhost:8080/`)
-    // this.props.getAllCourses()
-    // we need to re-render now
-    this.props.getMyCourses(this.props.userId)
-    this.setState({coursesArray: this.props.courses})
+    this.setState({
+      coursesArray: this.props.courses
+    })
   }
 
   render() {
-    console.log('sd courses ',this.props.courses)
-    console.log(Object.keys(this.props.courses).length === 0)
+    const courseList = this.props.courses || []
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {Object.keys(this.props.courses).length !== 0 ? (
-            this.props.courses.map((course, index) => {
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
               return (
                 <div key={index}>
                   <Link to={`./studentClassDashboard/${index + 1}`}>
@@ -58,8 +63,9 @@ export class StudentDashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log('incoming state ', state)
   return {
-    courses: state.courses,
+    courses: state.course,
     userId: state.user.id
   }
 }
