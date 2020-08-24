@@ -120,7 +120,7 @@ export class TeacherDash extends Component {
         >
           New Class
         </button>
-        {typeof courseList.map === 'function' &&
+        {/* {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
           courseList.map(course, idx => {
             return (
@@ -133,7 +133,7 @@ export class TeacherDash extends Component {
           })
         ) : (
           <div>Loading..</div>
-        )}
+        )} */}
 
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit}>
