@@ -33,8 +33,8 @@ router.get('/courses/:userId', async (req, res, next) => {
       }
     })
     courses ? res.json(courses) : res.status(400).end()
-  } catch (err) {
-    next(err)
+  } catch (error) {
+    next(error)
   }
 })
 
