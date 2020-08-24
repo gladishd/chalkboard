@@ -59,6 +59,7 @@ export const getSingleUserThunk = userId => {
 export const getUserCoursesThunk = userId => {
   return async dispatch => {
     try {
+      console.log('in user courses thunk ')
       const {data} = await axios.get(`/api/users/courses/${userId}`)
       dispatch(getUserCourses(data))
     } catch (err) {

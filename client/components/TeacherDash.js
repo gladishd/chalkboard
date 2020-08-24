@@ -85,7 +85,7 @@ export class TeacherDash extends Component {
   }
 
   render() {
-    console.log('the props on the course list are ', this.props)
+    console.log('the props on the course list are ', this.props.courses)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -122,11 +122,13 @@ export class TeacherDash extends Component {
         </button>
         {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
-          courseList.map(course => {
+          courseList.map(course, idx => {
             return (
+              <div key={idx}>
               <Link className="teacherDashClassName" to="./teacherClassboard">
                 {course.courseName}
               </Link>
+              </div>
             )
           })
         ) : (

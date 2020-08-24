@@ -27,11 +27,18 @@ router.get('/courses/:userId', async (req, res, next) => {
   try {
     // const user = await User.findByPk(req.params.userId)
     // const courses = await user.getCourses()
-    const courses = await Course.findAll({
+    // const courses = await Course.findAll({
+    //   where: {
+    //     teacherId: req.params.userId
+    //   }
+    // })
+    const user = await User.findOne({
       where: {
-        teacherId: req.params.userId
+        id: req.params.userId
       }
     })
+    const courses = await user.getCourses()
+    console.log('user courses ', courses)
     courses ? res.json(courses) : res.status(400).end()
   } catch (error) {
     next(error)
