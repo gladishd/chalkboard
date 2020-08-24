@@ -28,7 +28,7 @@ export class studentClassDashboard extends React.Component {
     let path = this.props.location.pathname
     let courseId = path.slice(path.length - 1)
     this.props.getCourse(courseId)
-    const socket = io()
+    const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
     // const input = document.getElementById('chat-input')
     input.addEventListener('keypress', (e) => {
@@ -63,6 +63,8 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
+    console.log('state course number ', this.props.location.state.number)
+    console.log('state course name ', this.props.location.state.name)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -80,8 +82,8 @@ export class studentClassDashboard extends React.Component {
       <div className="studentClassDashboard">
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">
-          Welcome to {this.props.reduxState.courses.courseName}
-          !
+          {/* Welcome to {this.props.reduxState.courses.courseName} */}
+          Welcome to {this.props.location.state.name}!
         </div>
         <div className="introductionToTheCourse">
           {courseIntro.map(element => {
@@ -141,7 +143,8 @@ export class studentClassDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    reduxState: state
+    reduxState: state,
+    course: state.course
   }
 }
 

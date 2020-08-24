@@ -32,6 +32,7 @@ export class StudentDashboard extends React.Component {
 
   render() {
     const courseList = this.props.courses || []
+    console.log('course id num ', courseList)
     return (
       <div>
         Currently Enrolled in:
@@ -40,7 +41,14 @@ export class StudentDashboard extends React.Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./studentClassDashboard/${index + 1}`}>
+                  <Link 
+                    to={{
+                      pathname: './studentClassDashBoard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName
+                      }
+                    }} >
                     {course.courseName}
                   </Link>
                   <br />

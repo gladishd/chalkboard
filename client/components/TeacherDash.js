@@ -69,7 +69,14 @@ export class TeacherDash extends Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./TeacherClassboard/${index + 1}`}>
+                  <Link 
+                    to={{
+                      pathname: './TeacherClassboard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName
+                      }
+                    }} >
                     {course.courseName}
                   </Link>
                   <br />
