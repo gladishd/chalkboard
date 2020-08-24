@@ -25,11 +25,14 @@ export class StudentDashboard extends React.Component {
   render() {
     console.log(this.props.courses)
     console.log(Object.keys(this.props.courses).length === 0)
+    console.log(typeof this.props.courses.map)
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {Object.keys(this.props.courses).length !== 0 ? (
+          {/* check whether it's a function, which indicates that the courses have beeen fetched.  Otherwise, the component renders too early.  There's a bit of a delay in terms of fetching courses from the databases :) */}
+          {typeof this.props.courses.map === 'function' &&
+          Object.keys(this.props.courses).length !== 0 ? (
             this.props.courses.map((course, index) => {
               return (
                 <div key={index}>

@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-
-
-
 const GET_COURSES = 'GET_COURSES'
 const SET_COURSE = 'SET_COURSE'
 
@@ -13,30 +10,28 @@ export const getCourses = courses => {
   }
 }
 
-export const setCourse = (course) => {
+export const setCourse = course => {
   return {
     type: SET_COURSE,
     course
   }
 }
 
-
-
-export const courseSet = (course) => async dispatch => {
-    console.log('in course dispatch')
-    try{
-        console.log('redux course ', course)
-        const { posted } = await axios.post(`/api/course/create/`, course)
-        console.log('posted ', posted)
-        dispatch(setCourse(course))
+export const courseSet = course => async dispatch => {
+  console.log('in course dispatch')
+  try {
+    console.log('redux course ', course)
+    const {posted} = await axios.post(`/api/course/create/`, course)
+    console.log('posted ', posted)
+    dispatch(setCourse(course))
   } catch (err) {
-      console.log('in course dispatch error')
-        console.error(err)
+    console.log('in course dispatch error')
+    console.error(err)
   }
 }
 
 const initState = {
-    courses: []
+  courses: []
 }
 
 export default function(state = initState, action) {
