@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {setCourse, courseSet} from '../store/course'
-import {teacherCourses} from '../store/course'
+import {addCourseThunk} from '../store/course'
+import {getUserCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
@@ -24,7 +24,7 @@ export class TeacherDashboard extends Component {
       roomId: e.target.roomId.value,
       courseId: e.target.courseId.value
     }
-    this.props.setCourse(course)
+    this.props.addCourse(course)
   }
   async componentWillMount() {
     await this.props.getCourses(1)
@@ -69,8 +69,8 @@ export class TeacherDashboard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCourse: course => dispatch(courseSet(course)),
-    getCourses: id => dispatch(teacherCourses(id))
+    addCourse: course => dispatch(addCourseThunk(course)),
+    getCourses: id => dispatch(getUserCoursesThunk(id))
   }
 }
 const mapStateToProps = state => {

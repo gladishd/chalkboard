@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
-import {getAllCoursesThunk} from '../store/courses.js'
+import {getAllCoursesThunk} from '../store/course.js'
 import {IoTSecureTunneling} from 'aws-sdk'
-import {myCourses} from '../store/course'
+import {getUserCoursesThunk} from '../store/user'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -62,8 +62,8 @@ export class StudentDashboard extends React.Component {
 const mapStateToProps = state => {
   console.log('incoming state ', state)
   return {
-    courses: state.course,
-    userId: state.user.id
+    courses: state.user.courses,
+    userId: state.user.me.id
   }
 }
 
@@ -73,7 +73,7 @@ const mapDispatchToProps = dispatch => {
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
     },
-    getMyCourses: id => dispatch(myCourses(id))
+    getMyCourses: id => dispatch(getUserCoursesThunk(id))
   }
 }
 
