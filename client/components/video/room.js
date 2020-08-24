@@ -1,141 +1,76 @@
-import React, {useRef, useEffect} from 'react'
-import io from 'socket.io-client'
+import React, {useState, useEffect} from 'react'
+import Video from 'twilio-video'
+import Participant from './Participant'
 
-const Room = props => {
-  const userVideo = useRef()
-  const partnerVideo = useRef()
+const Room = ({roomName, token, handleLogout}) => {
+  const [room, setRoom] = useState(null)
+  const [participants, setParticipants] = useState([])
 
-  const peerRef = useRef()
-  const socketRef = useRef()
-  const otherUser = useRef()
-  const userStream = useRef()
-
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({audio: true, video: true})
-      .then(stream => {
-        userVideo.current.srcObject = stream
-        userStream.current = stream
-
-        socketRef.current = io.connect('/video')
-
-        socketRef.current.emit('join room', props.match.params.roomId)
-
-        socketRef.current.on('other user', userId => {
-          callUser(userId)
-          otherUser.current = userId
-        })
-
-        socketRef.current.on('user joined', userId => {
-          otherUser.current = userId
-        })
-
-        socketRef.current.on('offer', handleRecieveCall)
-        socketRef.current.on('answer', handleAnswer)
-        socketRef.current.on('ice-candidate', handleNEWICECandidateMsg)
-      })
-  }, [])
-
-  function callUser(userId) {
-    peerRef.current = createPeer(userId)
-    userStream.current
-      .getTracks()
-      .forEach(track => peerRef.current.addTrack(track, userStream.current))
-  }
-
-  function createPeer(userId) {
-    const peer = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: 'stun:stun.stunprotocol.org'
-        },
-        {
-          urls: 'turn:numb.viagenie.ca',
-          credential: 'muazkh',
-          username: 'webrtc@live.com'
-        }
-      ]
-    })
-
-    peer.onicecandidate = handleICECandidateEvent
-    peer.ontrack = handleTrackEvent
-    peer.onnegotiationneeded = () => handleNegotationNeededEvent(userId)
-
-    return peer
-  }
-
-  function handleNegotationNeededEvent(userId) {
-    peerRef.current
-      .createOffer()
-      .then(offer => {
-        return peerRef.current.setLocalDescription(offer)
-      })
-      .then(() => {
-        const payload = {
-          target: userId,
-          caller: socketRef.current.id,
-          sdp: peerRef.current.localDescription
-        }
-        socketRef.current.emit('offer', payload)
-      })
-      .catch(e => console.log(e))
-  }
-
-  function handleRecieveCall(incoming) {
-    peerRef.current = createPeer()
-
-    const desc = new RTCSessionDescription(incoming.sdp)
-    peerRef.current
-      .setRemoteDescription(desc)
-      .then(() => {
-        userStream.current
-          .getTracks()
-          .forEach(track => peerRef.current.addTrack(track, userStream.current))
-      })
-      .then(() => {
-        return peerRef.current.createAnswer()
-      })
-      .then(answer => {
-        return peerRef.current.setLocalDescription(answer)
-      })
-      .then(() => {
-        const payload = {
-          target: incoming.caller,
-          caller: socketRef.current.id,
-          sdp: peerRef.current.localDescription
-        }
-        socketRef.current.emit('answer', payload)
-      })
-  }
-
-  function handleAnswer(message) {
-    const desc = new RTCSessionDescription(message.sdp)
-    peerRef.current.setRemoteDescription(desc).catch(e => console.log(e))
-  }
-
-  function handleICECandidateEvent(e) {
-    if (e.candidate) {
-      const payload = {
-        target: otherUser.current,
-        candidate: e.candidate
+  useEffect(
+    () => {
+      const participantConnected = participant => {
+        setParticipants(prevParticipants => [...prevParticipants, participant])
       }
-      socketRef.current.emit('ice-candidate', payload)
-    }
-  }
 
-  function handleNEWICECandidateMsg(incoming) {
-    const candidate = new RTCIceCandidate(incoming)
-    peerRef.current.addIceCandidate(candidate).catch(e => console.log(e))
-  }
+      const participantDisconnected = participant => {
+        setParticipants(prevParticipants =>
+          prevParticipants.filter(p => p !== participant)
+        )
+      }
 
-  function handleTrackEvent(e) {
-    partnerVideo.current.srcObject = e.streams[0]
-  }
+      Video.connect(token, {
+        name: roomName
+      }).then(aRoom => {
+        setRoom(aRoom)
+        aRoom.on('participantConnected', participantConnected)
+        aRoom.on('participantDisconnected', participantDisconnected)
+        aRoom.participants.forEach(participantConnected)
+      })
+
+      return () => {
+        setRoom(currentRoom => {
+          if (
+            currentRoom &&
+            currentRoom.localParticipant.state === 'connected'
+          ) {
+            currentRoom.localParticipant.tracks.forEach(function(
+              trackPublication
+            ) {
+              trackPublication.track.stop()
+            })
+            currentRoom.disconnect()
+            return null
+          } else {
+            return currentRoom
+          }
+        })
+      }
+    },
+    [roomName, token]
+  )
+
+  const remoteParticipants = participants.map(participant => (
+    <Participant key={participant.sid} participant={participant} />
+  ))
 
   return (
-    <div>
-      <video autoPlay muted ref={userVideo} />
-      <video autoPlay muted ref={partnerVideo} />
+    <div className="room">
+      <h2>Room: {roomName}</h2>
+      <button type="button" onClick={handleLogout}>
+        Log out
+      </button>
+      <div className="local-participant">
+        {room ? (
+          <Participant
+            key={room.localParticipant.sid}
+            participant={room.localParticipant}
+          />
+        ) : (
+          ''
+        )}
+      </div>
+      <h3>Remote Participants</h3>
+      <div className="remote-participants">{remoteParticipants}</div>
     </div>
   )
 }
