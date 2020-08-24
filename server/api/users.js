@@ -5,27 +5,85 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email', 'accountType']
+      /* attributes: ['id', 'email', 'accountType'] */
     })
-    res.json(users)
+    users ? res.json(users) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    user ? res.json(user) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/courses/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    const courses = await user.getCourses()
+    courses ? res.json(courses) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/assignments/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    const assignments = await user.getAssignments()
+    assignments ? res.json(assignments) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body)
+    newUser ? res.json(newUser) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const [numUpdated, updatedUsers] = await User.update(req.body, {
+      where: {id: req.params.userId},
+      returning: true,
+      plain: true
+    })
+    numUpdated ? res.json(updatedUsers[0]) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:userId', async (req, res, next) => {
+  try {
+    const userDeleted = await User.destroy({
+      where: {id: req.params.userId}
+    })
+    userDeleted ? res.send('user deleted') : res.send('deletion failed')
   } catch (err) {
     next(err)
   }
 })
 
 router.get('/:user', async (req, res, next) => {
-  try{
+  try {
     const id = req.params.user
     const user = await User.findByPk(id)
 
     const courses = await user.getCourses()
     res.json(courses)
     console.log('courses ', courses[0].dataValues)
-
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })

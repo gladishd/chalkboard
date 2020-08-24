@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {createGroupThunk} from '../store/createGroup'
-import {fetchAllUsers} from '../store'
+import {getAllUsersThunk} from '../store/user'
 
 export class newGroupFormComponent extends React.Component {
   constructor() {
@@ -186,7 +186,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllUsers: () => {
-      dispatch(fetchAllUsers())
+      dispatch(getAllUsersThunk)
     }
   }
 }
