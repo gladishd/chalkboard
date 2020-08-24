@@ -124,6 +124,12 @@ const classroom = {
 
 const enrollment = [
   {
+    classGrade: 100,
+    completionStatus: true,
+    courseId: 4,
+    userId: 5
+  },
+  {
     classGrade: 89,
     completionStatus: false,
     courseId: 1,

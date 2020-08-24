@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {myCourses} from '../store/course'
+import {getUserCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import openSocket from 'socket.io-client'
 
@@ -25,11 +25,6 @@ export class TeacherDash extends Component {
     this.mapCourseNameToState = this.mapCourseNameToState.bind(this)
     this.mapCourseSizeToState = this.mapCourseSizeToState.bind(this)
     this.mapCourseIdToState = this.mapCourseIdToState.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.getAllCourses()
-    this.setState({coursesArray: this.props.reduxState.courses})
   }
   async componentWillMount() {
     try {
@@ -110,7 +105,6 @@ export class TeacherDash extends Component {
           )}
         </div>
         <button>Calendar</button>
-        <button className="teacherDashLogOut">LogOut</button>
         <div className="teacherDashListClasses">List of Classes</div>
         <button
           className="teacherDashNewClassButton"
@@ -172,18 +166,14 @@ export class TeacherDash extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
-    getAllCourses: () => {
-      dispatch(getAllCoursesThunk())
-    },
-    getMyCourses: id => dispatch(myCourses(id))
+    getAllCourses: () => dispatch(getAllCoursesThunk()),
+    getMyCourses: id => dispatch(getUserCoursesThunk(id))
   }
 }
 const mapStateToProps = state => {
-  console.log('incoming state ', state)
   return {
-    courses: state.course,
-    userId: state.user.id
+    courses: state.user.courses,
+    userId: state.user.me.id
   }
 }
 
