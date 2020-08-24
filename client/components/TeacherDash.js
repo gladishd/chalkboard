@@ -85,7 +85,7 @@ export class TeacherDash extends Component {
   }
 
   render() {
-    console.log('the props on the course list are ', this.props)
+    console.log('the props on the course list are ', this.props.courses)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -94,7 +94,15 @@ export class TeacherDash extends Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./TeacherClassboard/${index + 1}`}>
+                  <Link 
+                    to={{
+                      pathname: './TeacherClassboard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName,
+                        firstName: this.props.firstName
+                      }
+                    }} >
                     {course.courseName}
                   </Link>
                   <br />
@@ -113,18 +121,20 @@ export class TeacherDash extends Component {
         >
           New Class
         </button>
-        {typeof courseList.map === 'function' &&
+        {/* {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
-          courseList.map(course => {
+          courseList.map(course, idx => {
             return (
+              <div key={idx}>
               <Link className="teacherDashClassName" to="./teacherClassboard">
                 {course.courseName}
               </Link>
+              </div>
             )
           })
         ) : (
           <div>Loading..</div>
-        )}
+        )} */}
 
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit}>
@@ -172,9 +182,11 @@ const mapDispatchToProps = dispatch => {
   }
 }
 const mapStateToProps = state => {
+  console.log('teacher incoming state ', state)
   return {
     courses: state.user.courses,
     userId: state.user.me.id,
+    firstName: state.user.me.firstName,
     reduxState: state
   }
 }

@@ -32,7 +32,6 @@ export class TeacherDashboard extends Component {
   }
   render() {
     const courses = this.props.courses || ['empty']
-    console.log('courses inner ', courses)
     return (
       <div>
         {courses.length ? (

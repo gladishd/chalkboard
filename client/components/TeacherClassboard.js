@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 
 export default class TeacherClassboard extends Component {
   render() {
+      const identification = this.props.location.state.number
+      const courseName = this.props.location.state.name
     return (
       <div className="teacherClassBoard">
         <div className="classboardList">
-          List of Students + Assignments + Grades
+          {courseName}:  List of Students + Assignments + Grades
         </div>
 
         <div className="scheduleDashBox">

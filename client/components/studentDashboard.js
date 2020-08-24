@@ -43,7 +43,15 @@ export class StudentDashboard extends React.Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./studentClassDashboard/${course.id}`}>
+                  <Link 
+                    to={{
+                      pathname: './studentClassDashBoard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName,
+                        firstName: this.props.firstName
+                      }
+                    }} >
                     {course.courseName}
                   </Link>
                   <br />
@@ -82,6 +90,7 @@ const mapStateToProps = state => {
   return {
     courses: state.user.courses,
     userId: state.user.me.id,
+    firstName: state.user.me.firstName,
     allCourses: state.course.all
   }
 }
