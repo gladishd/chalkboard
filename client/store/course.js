@@ -92,7 +92,6 @@ export const updateCourseThunk = (courseId, course) => {
   }
 }
 
-
 export const removeCourseThunk = courseId => {
   return async dispatch => {
     try {
@@ -101,7 +100,6 @@ export const removeCourseThunk = courseId => {
     } catch (err) {
       console.error(err.message)
     }
-
   }
 }
 
@@ -114,7 +112,6 @@ const initialState = {
   students: [],
   teacher: {}
 }
-
 
 /**
  * REDUCER

@@ -8,34 +8,37 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
   <div>
     <h1>Chalkboard</h1>
     <nav>
-      {isLoggedIn && accountType === 'admin' && (
-        <div>
-          <Link to="/home">Home</Link>
-          <Link to="/studentDashboard">Student Dashboard</Link>
-          <Link to="/TeacherDash">Teacher Dashboard</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      )}
-      {isLoggedIn && accountType === 'teacher' && (
-        <div>
-          <Link to="/home">Home</Link>
-          <Link to="/TeacherDash">Teacher Dashboard</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      )}
-      {isLoggedIn && accountType === 'student' && (
-        <div>
-          <Link to="/home">Home</Link>
-          <Link to="/studentDashboard">Student Dashboard</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      )}
+      {isLoggedIn &&
+        accountType === 'admin' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/studentDashboard">Student Dashboard</Link>
+            <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
+      {isLoggedIn &&
+        accountType === 'teacher' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
+      {isLoggedIn &&
+        accountType === 'student' && (
+          <div>
+            <Link to="/home">Home</Link>
+            <Link to="/studentDashboard">Student Dashboard</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        )}
       {!isLoggedIn && (
         <div>
           {/* The navbar will show these links before you log in */}
