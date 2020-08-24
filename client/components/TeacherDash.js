@@ -99,7 +99,8 @@ export class TeacherDash extends Component {
                       pathname: './TeacherClassboard',
                       state: {
                         number: course.id,
-                        name: course.courseName
+                        name: course.courseName,
+                        firstName: this.props.firstName
                       }
                     }} >
                     {course.courseName}
@@ -184,6 +185,7 @@ const mapStateToProps = state => {
   return {
     courses: state.user.courses,
     userId: state.user.me.id,
+    firstName: state.user.me.firstName,
     reduxState: state
   }
 }

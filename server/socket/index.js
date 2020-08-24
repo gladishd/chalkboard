@@ -1,4 +1,12 @@
 module.exports = io => {
+  const one = io.of('/1')
+  const two = io.of('/2')
+  const three = io.of('/3')
+  const four = io.of('/4')
+  const five = io.of('/5')
+  const six = io.of('/6')
+  const seven = io.of('/7')
+
   io.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
@@ -8,17 +16,34 @@ module.exports = io => {
       console.log('mem ', memory)
       io.emit('roster', memory)
     })
-    socket.on('message', message => {
-      socket.broadcast.emit('theirMessage', `user: ${message}`)
-      socket.emit('myMessage', `me: ${message}`)
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })
   })
+  one.on('connection', socket => {
+    const memory = {}
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-  const two = io.of('/2')
+    socket.on('login', name => {
+      memory[socket.id] = name
+      console.log('mem ', memory)
+      io.emit('roster', memory)
+    })
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
+  
 
   two.on('connection', socket => {
     const memory = {}
@@ -29,16 +54,87 @@ module.exports = io => {
       console.log('mem ', memory)
       io.emit('roster', memory)
     })
-    socket.on('message', message => {
-      socket.broadcast.emit('theirMessage', `user: ${message}`)
-      socket.emit('myMessage', `me: ${message}`)
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })
   })
+  three.on('connection', socket => {
+    const memory = {}
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
 
+    socket.on('login', name => {
+      memory[socket.id] = name
+      console.log('mem ', memory)
+      io.emit('roster', memory)
+    })
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
+  four.on('connection', socket => {
+    const memory = {}
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
+
+    socket.on('login', name => {
+      memory[socket.id] = name
+      console.log('mem ', memory)
+      io.emit('roster', memory)
+    })
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
+  five.on('connection', socket => {
+    const memory = {}
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
+
+    socket.on('login', name => {
+      memory[socket.id] = name
+      console.log('mem ', memory)
+      io.emit('roster', memory)
+    })
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
+  six.on('connection', socket => {
+    const memory = {}
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
+
+    socket.on('login', name => {
+      memory[socket.id] = name
+      console.log('mem ', memory)
+      io.emit('roster', memory)
+    })
+    socket.on('message', messageName => {
+      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${messageName.message}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
   const videoroom = io.of('/video')
 
   const rooms = {}

@@ -22,14 +22,20 @@ export class studentClassDashboard extends React.Component {
   }
   componentDidMount() {
     let path = this.props.location.pathname
-    let courseId = path.slice(path.length - 1)
+    // let courseId = path.slice(path.length - 1)
+    let courseId = this.props.location.state.number
+
     this.props.getCourse(courseId)
     const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
     // const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
+      console.log('in e ', this.props.location.state.firstName)
       if (e.key === 'Enter') {
-        socket.emit('message', e.target.value)
+        socket.emit('message',{
+          message: e.target.value,
+          firstName: this.props.location.state.firstName
+        })
         e.target.value = ''
       }
     })
@@ -61,6 +67,7 @@ export class studentClassDashboard extends React.Component {
   render() {
     console.log('state course number ', this.props.location.state.number)
     console.log('state course name ', this.props.location.state.name)
+    console.log('state course first ', this.props.location.state.firstName)
     let courseIntro = []
     let courseDetails = []
     if (
