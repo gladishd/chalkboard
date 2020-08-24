@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {myCourses } from '../store/course'
-import { connect } from 'react-redux'
+import {getUserCoursesThunk} from '../store/user'
+import {connect} from 'react-redux'
 import openSocket from 'socket.io-client'
 
 export class TeacherDash extends Component {
@@ -19,15 +19,12 @@ export class TeacherDash extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  async componentWillMount(){
-    try{
+  async componentWillMount() {
+    try {
       await this.props.getMyCourses(this.props.userId)
-
-    } catch (err){
+    } catch (err) {
       console.log(err)
     }
-      
-    
   }
   componentDidMount() {
     this.setState({
@@ -62,7 +59,6 @@ export class TeacherDash extends Component {
   render() {
     const courseList = this.props.courses || []
     return (
-      
       <div className="TeacherDash">
         <div className="studentCourseList">
           {courseList.length > 0 ? (
@@ -88,7 +84,6 @@ export class TeacherDash extends Component {
           )}
         </div>
         <button>Calendar</button>
-        <button className="teacherDashLogOut">LogOut</button>
         <div className="teacherDashListClasses">List of Classes</div>
         <button
           className="teacherDashNewClassButton"
@@ -135,20 +130,15 @@ export class TeacherDash extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
-    getAllCourses: () => {
-      dispatch(getAllCoursesThunk())
-    },
-    getMyCourses: (id) => dispatch(myCourses(id))
+    getAllCourses: () => dispatch(getAllCoursesThunk()),
+    getMyCourses: id => dispatch(getUserCoursesThunk(id))
   }
 }
 const mapStateToProps = state => {
-  console.log('incoming state ', state)
   return {
-    courses: state.course,
-    userId: state.user.id
+    courses: state.user.courses,
+    userId: state.user.me.id
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeacherDash)
