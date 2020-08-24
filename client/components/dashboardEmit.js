@@ -7,5 +7,3 @@ const chat = document.getElementById('chat-input')
 // })
 console.log('in dashemit')
 console.log('chat ', chat)
-
-

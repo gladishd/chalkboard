@@ -5,7 +5,7 @@ const db = require('../db')
 const User = db.define('user', {
   accountType: {
     type: Sequelize.ENUM('student', 'teacher', 'admin'),
-    allowNull: false
+    defaultValue: 'student'
   },
   firstName: {
     type: Sequelize.STRING,
@@ -38,9 +38,6 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  },
-  credential: {
-    type:Sequelize.STRING
   }
 })
 

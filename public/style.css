@@ -127,9 +127,9 @@ nav a {
   height: 25rem;
   margin: 1rem;
 }
-#message-main{
- display: flex;
- flex-direction: column;
+#message-main {
+  display: flex;
+  flex-direction: column;
 }
 .moreClassInformationComponent {
   background-image: url(backgroundMoreInformationComponent.png);
@@ -171,7 +171,7 @@ nav a {
 #right {
   flex: 2;
 }
-#chat-input{
+#chat-input {
   height: 208px;
 }
 .chatButtonSelectAudience {
