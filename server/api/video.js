@@ -22,13 +22,6 @@ const sendTokenResponse = (token, res) => {
   )
 }
 
-// GET /api/video/greeting
-// router.get('/greeting', (req, res) => {
-//   const name = req.query.name || 'World'
-//   res.setHeader('Content-Type', 'application/json')
-//   res.send(JSON.stringify({greeting: `Hello ${name}!`}))
-// })
-
 // GET /api/video/token
 router.get('/token', (req, res) => {
   const identity = req.query.identity
@@ -41,7 +34,6 @@ router.get('/token', (req, res) => {
 router.post('/token', (req, res) => {
   const identity = req.body.identity
   const room = req.body.room
-  console.log({identity, room, config})
   const token = videoToken(identity, room, config)
   sendTokenResponse(token, res)
 })
