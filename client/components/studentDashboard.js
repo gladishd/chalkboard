@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/courses.js'
 import {IoTSecureTunneling} from 'aws-sdk'
+import {myCourses} from '../store/course'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -13,27 +14,27 @@ export class StudentDashboard extends React.Component {
     }
     //this binding
   }
-
+  async componentWillMount() {
+    try {
+      await this.props.getMyCourses(this.props.userId)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   componentDidMount() {
-    console.log('welcome ', this.props)
-    const socket = openSocket(`http://localhost:8080/`)
-    this.props.getAllCourses()
-    // we need to re-render now
-    this.setState({coursesArray: this.props.courses})
+    this.setState({
+      coursesArray: this.props.courses
+    })
   }
 
   render() {
-    console.log(this.props.courses)
-    console.log(Object.keys(this.props.courses).length === 0)
-    console.log(typeof this.props.courses.map)
+    const courseList = this.props.courses || []
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {/* check whether it's a function, which indicates that the courses have beeen fetched.  Otherwise, the component renders too early.  There's a bit of a delay in terms of fetching courses from the databases :) */}
-          {typeof this.props.courses.map === 'function' &&
-          Object.keys(this.props.courses).length !== 0 ? (
-            this.props.courses.map((course, index) => {
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
               return (
                 <div key={index}>
                   <Link to={`./studentClassDashboard/${index + 1}`}>
@@ -59,8 +60,10 @@ export class StudentDashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log('incoming state ', state)
   return {
-    courses: state.courses
+    courses: state.course,
+    userId: state.user.id
   }
 }
 
@@ -69,7 +72,8 @@ const mapDispatchToProps = dispatch => {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
-    }
+    },
+    getMyCourses: id => dispatch(myCourses(id))
   }
 }
 

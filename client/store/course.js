@@ -29,7 +29,14 @@ export const courseSet = course => async dispatch => {
     console.error(err)
   }
 }
-
+export const myCourses = id => async dispatch => {
+  try {
+    const {data} = await axios.get('/api/course/myCourses/', id)
+    dispatch(getCourses(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
 const initState = {
   courses: []
 }
@@ -37,6 +44,7 @@ const initState = {
 export default function(state = initState, action) {
   switch (action.type) {
     case GET_COURSES:
+      state.courses = action.courses
       return action.courses
     case SET_COURSE:
       return action.course

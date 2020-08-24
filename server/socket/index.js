@@ -9,7 +9,8 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', message => {
-      io.emit('message', message)
+      socket.broadcast.emit('theirMessage', `user: ${message}`)
+      socket.emit('myMessage', `me: ${message}`)
     })
 
     socket.on('disconnect', () => {

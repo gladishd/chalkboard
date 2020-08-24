@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {courseSet} from '../store/course'
+import {myCourses} from '../store/course'
 import {connect} from 'react-redux'
-import {getAllCoursesThunk} from '../store/courses.js' // later on, we also want to only import/filter out courses
-// related to a specific teacher
+import openSocket from 'socket.io-client'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -31,6 +30,18 @@ export class TeacherDash extends Component {
   componentDidMount() {
     this.props.getAllCourses()
     this.setState({coursesArray: this.props.reduxState.courses})
+  }
+  async componentWillMount() {
+    try {
+      await this.props.getMyCourses(this.props.userId)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  componentDidMount() {
+    this.setState({
+      coursesArray: this.props.courses
+    })
   }
 
   handleSubmit(e) {
@@ -79,11 +90,25 @@ export class TeacherDash extends Component {
   }
 
   render() {
-    console.log('the state on the teacherdash component is ', this.state)
-    console.log(this.props.reduxState.courses)
-    let courseList = this.props.reduxState.courses
+    const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
+        <div className="studentCourseList">
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
+              return (
+                <div key={index}>
+                  <Link to={`./TeacherClassboard/${index + 1}`}>
+                    {course.courseName}
+                  </Link>
+                  <br />
+                </div>
+              )
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
         <button>Calendar</button>
         <button className="teacherDashLogOut">LogOut</button>
         <div className="teacherDashListClasses">List of Classes</div>
@@ -145,20 +170,20 @@ export class TeacherDash extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    reduxState: state
-  }
-}
-
 const mapDispatchToProps = dispatch => {
   return {
-    postCourse: data => {
-      dispatch(courseSet(data))
-    },
+    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
-    }
+    },
+    getMyCourses: id => dispatch(myCourses(id))
+  }
+}
+const mapStateToProps = state => {
+  console.log('incoming state ', state)
+  return {
+    courses: state.course,
+    userId: state.user.id
   }
 }
 

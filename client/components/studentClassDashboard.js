@@ -3,10 +3,14 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {moreClassInformationComponent as MoreClassInformationComponent} from './moreClassInformationComponent.js' // need to change case to render the component
 import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
-import socket from '../store/socket.js'
+// import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
 import {getCourseThunk} from '../store/courses.js'
+import emit from '../../public/emit'
+import dashboardEmit from './dashboardEmit'
+import socketIOClient from 'socket.io-client'
+import io from 'socket.io-client'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -14,20 +18,37 @@ export class studentClassDashboard extends React.Component {
     this.state = {
       showForm: true
     }
-    this.toggleForm = this.toggleForm.bind(this) // this binding
+    this.toggleForm = this.toggleForm.bind(this)
   }
-
   componentDidMount() {
     let path = this.props.location.pathname
     let courseId = path.slice(path.length - 1)
     this.props.getCourse(courseId)
+    const socket = io()
+    const input = document.getElementById('chat-input')
+    // const input = document.getElementById('chat-input')
+    input.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
+        socket.emit('message', e.target.value)
+        e.target.value = ''
+      }
+    })
+    socket.on('myMessage', message => {
+      const box = document.getElementById('chat-messages')
+      const mes = document.createElement('p')
+      mes.innerHTML = message
+      box.appendChild(mes)
+    })
+    socket.on('theirMessage', message => {
+      const box = document.getElementById('chat-messages')
+      const mes = document.createElement('p')
+      mes.innerHTML = message
+      box.appendChild(mes)
+    })
   }
-
-  // componentDidMount() {                        // STUDENT CHAT
-  //   const chat = document.getElementById('student-chat-space')
-  //   chat.addEventListener('keypress', e => {
-  //     newChat(e)
-  //   })
+  // sendMessage(message){
+  //   const input = document.getElementById('chat-input')
+  //   socket.emit()
   // }
 
   toggleForm(e) {
@@ -37,7 +58,6 @@ export class studentClassDashboard extends React.Component {
       showForm: !showForm
     })
   }
-
   render() {
     let courseIntro = []
     let courseDetails = []
@@ -50,6 +70,7 @@ export class studentClassDashboard extends React.Component {
         '\n'
       )
     }
+
     return (
       <div className="studentClassDashboard">
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
@@ -82,6 +103,10 @@ export class studentClassDashboard extends React.Component {
           </select>
           <br />
           Say something nice..
+          <div id="message-main">
+            <div id="chat-messages" />
+            <input id="chat-input" type="text" overflow="auto" />
+          </div>
         </div>
         <div className="moreClassInformationComponent">
           {this.props.reduxState.courses.courseMoreInformation ? (
