@@ -12,8 +12,7 @@ import {
   TeacherDashboard,
   TeacherClassboard,
   TeacherDash,
-  createRoomButton,
-  videoRoom
+  VideoChat
 } from './components'
 import {me} from './store'
 import MainClass from './components/MainClass'
@@ -32,8 +31,7 @@ class Routes extends Component {
 
     return (
       <Switch>
-        <Route path="/room" exact component={createRoomButton} />
-        <Route path="/room/:roomId" component={videoRoom} />
+        <Route path="/videoChat" component={VideoChat} />
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
 
