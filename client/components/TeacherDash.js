@@ -10,7 +10,11 @@ export class TeacherDash extends Component {
     this.state = {
       introCourseText: '',
       moreClassInformationText: '',
-      renderNewCourseForm: false
+      courseName: '',
+      courseSize: null,
+      courseId: null,
+      renderNewCourseForm: false,
+      coursesArray: []
     }
     this.mapInputToStateIntro = this.mapInputToStateIntro.bind(this)
     this.mapInputToStateMoreInformation = this.mapInputToStateMoreInformation.bind(
@@ -18,6 +22,9 @@ export class TeacherDash extends Component {
     )
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.mapCourseNameToState = this.mapCourseNameToState.bind(this)
+    this.mapCourseSizeToState = this.mapCourseSizeToState.bind(this)
+    this.mapCourseIdToState = this.mapCourseIdToState.bind(this)
   }
   async componentWillMount() {
     try {
@@ -34,7 +41,7 @@ export class TeacherDash extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.state)
+    this.props.postCourse(this.state)
   }
 
   handleClick(e) {
@@ -56,7 +63,29 @@ export class TeacherDash extends Component {
     })
   }
 
+  mapCourseNameToState(e) {
+    e.preventDefault()
+    this.setState({
+      courseName: e.target.value
+    })
+  }
+
+  mapCourseSizeToState(e) {
+    e.preventDefault()
+    this.setState({
+      courseSize: e.target.value
+    })
+  }
+
+  mapCourseIdToState(e) {
+    e.preventDefault()
+    this.setState({
+      courseId: e.target.value
+    })
+  }
+
   render() {
+    console.log('the props on the course list are ', this.props)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -91,12 +120,18 @@ export class TeacherDash extends Component {
         >
           New Class
         </button>
-        <Link className="teacherDashClassName" to="./teacherClassboard">
-          Class A
-        </Link>
-        <Link className="teacherDashClassName" to="./teacherClassboard">
-          Class B
-        </Link>
+        {typeof courseList.map === 'function' &&
+        Object.keys(courseList).length !== 0 ? (
+          courseList.map(course => {
+            return (
+              <Link className="teacherDashClassName" to="./teacherClassboard">
+                {course.courseName}
+              </Link>
+            )
+          })
+        ) : (
+          <div>Loading..</div>
+        )}
 
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit}>
@@ -115,6 +150,15 @@ export class TeacherDash extends Component {
               name="moreClassInformationComponent"
               onChange={this.mapInputToStateMoreInformation}
             />
+            <br />
+            <label htmlFor="courseName">Course Name: </label>
+            <textarea name="courseName" onChange={this.mapCourseNameToState} />
+            <br />
+            <label htmlFor="courseSize">Course Size: </label>
+            <textarea name="courseSize" onChange={this.mapCourseSizeToState} />
+            <br />
+            <label htmlFor="courseId">Course Id: </label>
+            <textarea name="courseId" onChange={this.mapCourseIdToState} />
             <br />
             <button type="button" onClick={this.handleSubmit}>
               Submit
@@ -137,7 +181,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     courses: state.user.courses,
-    userId: state.user.me.id
+    userId: state.user.me.id,
+    reduxState: state
   }
 }
 

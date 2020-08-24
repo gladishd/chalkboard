@@ -14,15 +14,13 @@ export class StudentDashboard extends React.Component {
     }
     //this binding
   }
-  async componentWillMount(){
-    try{
+  async componentWillMount() {
+    try {
       await this.props.getMyCourses(this.props.userId)
-
-    } catch (err){
+      await this.props.getAllCourses()
+    } catch (err) {
       console.log(err)
     }
-      
-    
   }
   componentDidMount() {
     this.setState({
@@ -32,12 +30,16 @@ export class StudentDashboard extends React.Component {
 
   render() {
     const courseList = this.props.courses || []
-    console.log('course id num ', courseList)
+    const allCoursesList = this.props.allCourses || []
+    const coursesToExclude = courseList.map(course => course.id)
+    const notEnrolledList = allCoursesList.filter(element => {
+      return !coursesToExclude.includes(element.id)
+    })
     return (
       <div>
         Currently Enrolled in:
         <div className="studentCourseList">
-          {courseList.length > 0 ? (
+          {courseList.length > 0 && Object.keys(courseList[0].length > 0) ? (
             courseList.map((course, index) => {
               return (
                 <div key={index}>
@@ -61,9 +63,21 @@ export class StudentDashboard extends React.Component {
         </div>
         Not Enrolled in:
         <div className="studentCourseList">
-          <Link to="./studentClassDashboard">Physics</Link>
-          <br />
-          <Link to="./studentClassDashboard">Art History</Link>
+          {notEnrolledList.length > 0 &&
+          Object.keys(notEnrolledList[0].length > 0) ? (
+            notEnrolledList.map((course, index) => {
+              return (
+                <div key={index}>
+                  <Link to={`./studentClassDashboard/${course.id}`}>
+                    {course.courseName}
+                  </Link>
+                  <br />
+                </div>
+              )
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </div>
     )
@@ -71,11 +85,11 @@ export class StudentDashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('incoming state ', state)
+  console.log('incoming state: ', state)
   return {
     courses: state.user.courses,
-    userId: state.user.me.id
-
+    userId: state.user.me.id,
+    allCourses: state.course.all
   }
 }
 

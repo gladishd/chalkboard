@@ -25,12 +25,15 @@ export default class TeacherClassboard extends Component {
 
           <div>
             <button className="classboardStartLecture">Start Lecture</button>
-            <div className="classboardAttendance">Today's Attendance</div>
 
-            <div className="classboardAssignments">Assignments</div>
+            <button className="classboardAttendance">Today's Attendance</button>
+
+            <button className="classboardAssignments">Assignments</button>
+
             <button className="classboardAddAssignment">Add</button>
 
-            <div className="classboardStudent">Student</div>
+            <button className="classboardStudent">Student</button>
+
             <button className="classboardAddStudent">Add</button>
           </div>
         </div>

@@ -52,7 +52,8 @@ export const getCourseStudentsThunk = courseId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`api/courses/students/${courseId}`)
-      dispatch(getCourseStudents(data))
+      const students = data.filter(user => user.accountType === 'student')
+      dispatch(getCourseStudents(students))
     } catch (err) {
       console.error(err.message)
     }
@@ -63,7 +64,10 @@ export const getCourseTeacherThunk = courseId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`api/courses/teacher/${courseId}`)
-      dispatch(getCourseTeacher(data))
+      const [teacher, ...rest] = data.filter(
+        user => user.accountType === 'teacher'
+      )
+      dispatch(getCourseTeacher(teacher))
     } catch (err) {
       console.error(err.message)
     }
@@ -92,7 +96,6 @@ export const updateCourseThunk = (courseId, course) => {
   }
 }
 
-
 export const removeCourseThunk = courseId => {
   return async dispatch => {
     try {
@@ -101,7 +104,6 @@ export const removeCourseThunk = courseId => {
     } catch (err) {
       console.error(err.message)
     }
-
   }
 }
 
@@ -114,7 +116,6 @@ const initialState = {
   students: [],
   teacher: {}
 }
-
 
 /**
  * REDUCER

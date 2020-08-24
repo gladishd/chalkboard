@@ -322,7 +322,7 @@ nav a {
   background-color: grey;
   display: flex;
   flex-direction: column;
-  margin: 50%;
+  margin: 10%;
   padding: 1em;
   width: auto;
 }
@@ -347,9 +347,17 @@ nav a {
   padding: 1em;
 }
 
+.teacherClassBoard .classboardAttendance:focus {
+  outline: none;
+}
+
 .teacherClassBoard .classboardAssignments {
   background-color: purple;
   padding: 1em;
+}
+
+.teacherClassBoard .classboardAssignments:focus {
+  outline: none;
 }
 
 .teacherClassBoard .classboardAddAssignment {
@@ -357,11 +365,6 @@ nav a {
   padding: 1em;
 }
 
-.teacherClassBoard .classboardAddAssignment:hover,
-.teacherClassBoard .classboardAddAssignment:active {
-  background-color: white;
-  outline: none;
-}
 .teacherClassBoard .classboardAddAssignment:focus {
   outline: none;
 }
@@ -371,20 +374,34 @@ nav a {
   padding: 1em;
 }
 
+.teacherClassBoard .classboardStudent:focus {
+  outline: none;
+}
+
 .teacherClassBoard .classboardAddStudent {
   background-color: maroon;
   padding: 1em;
 }
-.teacherClassBoard .classboardAddStudent:hover,
-.teacherClassBoard .classboardAddStudent:active {
-  background-color: white;
-  outline: none;
-}
+
 .teacherClassBoard .classboardAddStudent:focus {
   outline: none;
 }
 
 .teacherClassBoard .scheduleDashBox {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.teacherClassBoard .scheduleDashBox button {
+  margin-left: 5em;
+}
+
+.teacherClassBoard .scheduleDashBox button:hover {
+  background-color: white;
+  outline: none;
+}
+
+.teacherClassBoard .scheduleDashBox button:active {
+  background-color: rgb(129, 129, 129);
+  outline: none;
 }
