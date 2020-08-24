@@ -25,8 +25,7 @@ router.get('/students/:courseId', async (req, res, next) => {
   try {
     const course = await Course.findByPk(req.params.courseId)
     const users = await course.getUsers()
-    const students = users.filter(user => user.accountType === 'student')
-    students ? res.json(students) : res.status(400).end()
+    users ? res.json(users) : res.status(400).end()
   } catch (err) {
     next(err) // nice, so since we want to get all courses for both
   } // teachers and students, it will try both routes
@@ -36,9 +35,7 @@ router.get('/students/:courseId', async (req, res, next) => {
   try {
     const course = await Course.findByPk(req.params.courseId)
     const users = await course.getUsers()
-    const teachers = users.filter(user => user.accountType === 'teacher')
-    const [teacher] = teachers
-    teacher ? res.json(teacher) : res.status(400).end()
+    users ? res.json(users) : res.status(400).end()
   } catch (err) {
     next(err)
   }
@@ -77,12 +74,43 @@ router.delete('/:courseId', async (req, res, next) => {
   }
 })
 
-// router.get('/:id', async (req, res, next) => {
-//   const teacherId = req.params.id
-//   try {
-//     const course = await Course.getUsers(req.params.id)
-//     res.json(course)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+//Below is from old course.js api file
+
+/**
+ * const router = require('express').Router()
+module.exports = router
+const {Course} = require('../db/models')
+const {Enrollnent} = require('../db/models/enrollment')
+const {User} = require('../db/models')
+
+router.post('/create/', async (req, res, next) => {
+  try {
+    const course = req.body
+    // console.log('api course name ', course)
+    const newCourse = await Course.create({
+      courseName: course.name,
+      size: course.size,
+      videoRoomId: course.roomId,
+      courseId: course.courseId
+    })
+    res.json(newCourse)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/myCourses/', async (req, res, next) => {
+  const userId = req.user.dataValues.id
+  try {
+    const user = await User.findOne({
+      where: {
+        id: userId
+      }
+    })
+    const courses = await user.getCourses()
+    res.json(courses)
+  } catch (err) {
+    console.log(err)
+  }
+})
+ */
