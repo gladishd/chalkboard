@@ -37,6 +37,7 @@ const course = [
   }
 ]
 
+// the users table contains both students and teachers
 const user = [
   {
     firstName: 'Khuong',
@@ -64,6 +65,20 @@ const user = [
     lastName: 'Bryce',
     email: 'student4@email.com',
     password: '4321',
+    accountType: 'student'
+  },
+  {
+    firstName: 'Fifth',
+    lastName: 'Student',
+    email: 'laststudent@email.com',
+    password: '1234',
+    accountType: 'student'
+  },
+  {
+    firstName: 'All',
+    lastName: 'Classes',
+    email: 'allclasses@email.com',
+    password: '1234',
     accountType: 'student'
   },
   {
@@ -182,6 +197,30 @@ const enrollment = [
     completionStatus: true,
     courseId: 3,
     userId: 4
+  },
+  {
+    classGrade: 95,
+    completionStatus: true,
+    courseId: 1,
+    userId: 6
+  },
+  {
+    classGrade: 94,
+    completionStatus: true,
+    courseId: 2,
+    userId: 6
+  },
+  {
+    classGrade: 93,
+    completionStatus: true,
+    courseId: 3,
+    userId: 6
+  },
+  {
+    classGrade: 92,
+    completionStatus: true,
+    courseId: 4,
+    userId: 6
   }
 ]
 
@@ -269,6 +308,36 @@ const gradebook = [
     individualGrade: 87,
     assignmentId: 3,
     userId: 4
+  },
+  {
+    completed: true,
+    individualGrade: 99,
+    assignmentId: 1,
+    userId: 6
+  },
+  {
+    completed: true,
+    individualGrade: 97,
+    assignmentId: 2,
+    userId: 6
+  },
+  {
+    completed: true,
+    individualGrade: 93,
+    assignmentId: 3,
+    userId: 6
+  },
+  {
+    completed: false,
+    individualGrade: 97,
+    assignmentId: 4,
+    userId: 6
+  },
+  {
+    completed: false,
+    individualGrade: 98,
+    assignmentId: 5,
+    userId: 6
   }
 ]
 

@@ -65,8 +65,8 @@ export class studentClassDashboard extends React.Component {
       this.props.course.courseIntro &&
       this.props.course.courseMoreInformation
     ) {
-      courseIntro = this.props.course.courseIntro.split('newline')
-      courseDetails = this.props.course.courseMoreInformation.split('newline')
+      courseIntro = this.props.course.courseIntro.split('\n')
+      courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
 
     return (

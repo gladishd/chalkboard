@@ -85,6 +85,7 @@ export class TeacherDash extends Component {
   }
 
   render() {
+    console.log('the props on the course list are ', this.props)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -173,7 +174,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     courses: state.user.courses,
-    userId: state.user.me.id
+    userId: state.user.me.id,
+    reduxState: state
   }
 }
 

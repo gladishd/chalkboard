@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Course} = require('../db/models')
+const {default: Axios} = require('axios')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -24,8 +25,13 @@ router.get('/:userId', async (req, res, next) => {
 
 router.get('/courses/:userId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
-    const courses = await user.getCourses()
+    // const user = await User.findByPk(req.params.userId)
+    // const courses = await user.getCourses()
+    const courses = await Course.findAll({
+      where: {
+        teacherId: req.params.userId
+      }
+    })
     courses ? res.json(courses) : res.status(400).end()
   } catch (err) {
     next(err)

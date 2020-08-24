@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:courseId', async (req, res, next) => {
   try {
+    console.log(req.params.courseId)
     const course = await Course.findByPk(req.params.courseId)
     course ? res.json(course) : res.status(400).end()
   } catch (err) {
@@ -27,8 +28,8 @@ router.get('/students/:courseId', async (req, res, next) => {
     const students = users.filter(user => user.accountType === 'student')
     students ? res.json(students) : res.status(400).end()
   } catch (err) {
-    next(err)
-  }
+    next(err) // nice, so since we want to get all courses for both
+  } // teachers and students, it will try both routes
 })
 
 router.get('/students/:courseId', async (req, res, next) => {
