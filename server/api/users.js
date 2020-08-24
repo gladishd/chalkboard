@@ -38,7 +38,6 @@ router.get('/courses/:userId', async (req, res, next) => {
       }
     })
     const courses = await user.getCourses()
-    console.log('user courses ', courses)
     courses ? res.json(courses) : res.status(400).end()
   } catch (error) {
     next(error)

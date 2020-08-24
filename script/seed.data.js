@@ -221,7 +221,8 @@ const enrollment = [
     completionStatus: true,
     courseId: 4,
     userId: 6
-  }
+  },
+  
 ]
 
 const gradebook = [

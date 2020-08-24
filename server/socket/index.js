@@ -48,10 +48,11 @@ module.exports = io => {
   two.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-
-    socket.on('login', name => {
-      memory[socket.id] = name
-      console.log('mem ', memory)
+    console.log('socket nsp ', socket.nsp.name)
+    socket.on('login', nameType => {
+      console.log('ntype ', nameType.type)
+      memory[socket.id] = nameType.name
+      socket.join(nameType.type)
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
@@ -67,9 +68,10 @@ module.exports = io => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('login', name => {
-      memory[socket.id] = name
-      console.log('mem ', memory)
+    socket.on('login', nameType => {
+      console.log('ntype ', nameType.type)
+      memory[socket.id] = nameType.name
+      socket.join(nameType.type)
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {

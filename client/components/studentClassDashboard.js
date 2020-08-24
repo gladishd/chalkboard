@@ -21,20 +21,23 @@ export class studentClassDashboard extends React.Component {
     this.toggleForm = this.toggleForm.bind(this)
   }
   componentDidMount() {
+    const first = this.props.location.state.firstName
     let path = this.props.location.pathname
     // let courseId = path.slice(path.length - 1)
     let courseId = this.props.location.state.number
-
+    let courseName = this.props.location.state.name
     this.props.getCourse(courseId)
     const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
-    // const input = document.getElementById('chat-input')
+
+    // socket.emit('login', {name: first, type: 'Student'})
+    socket.emit('login', {name: first, type: first})
     input.addEventListener('keypress', e => {
-      console.log('in e ', this.props.location.state.firstName)
       if (e.key === 'Enter') {
         socket.emit('message',{
           message: e.target.value,
-          firstName: this.props.location.state.firstName
+          firstName: this.props.location.state.firstName,
+          type: 'Student'
         })
         e.target.value = ''
       }

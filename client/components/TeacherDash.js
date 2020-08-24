@@ -182,6 +182,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 const mapStateToProps = state => {
+  console.log('teacher incoming state ', state)
   return {
     courses: state.user.courses,
     userId: state.user.me.id,

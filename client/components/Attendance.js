@@ -29,6 +29,7 @@ export default class Attendance extends Component {
 
                 </ul>
                 <h3>Class Roster</h3>
+                
                 <form>
                     <input type='checkbox' className='student'/><p>Paul</p>
                     <input type='checkbox' className='student'/><p>John</p>
