@@ -406,7 +406,9 @@ nav a {
   background-color: rgb(129, 129, 129);
   outline: none;
 }
-
+.teacher-message{
+  color: red;
+}
 .assignmentViewMainDiv {
   display: flex;
   flex-direction: column;

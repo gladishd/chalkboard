@@ -93,7 +93,16 @@ export class TeacherDash extends Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./TeacherClassboard/${course.id}`}>
+                  <Link
+                    to={{
+                      pathname: './TeacherClassboard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName,
+                        firstName: this.props.firstName
+                      }
+                    }}
+                  >
                     {course.courseName}
                   </Link>
                   <br />
@@ -189,6 +198,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     courses: state.user.courses,
+    firstName: state.user.me.firstName,
     userId: state.user.me.id,
     reduxState: state
   }

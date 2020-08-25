@@ -11,38 +11,45 @@ module.exports = io => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('login', name => {
-      memory[socket.id] = name
-      console.log('mem ', memory)
+    socket.on('login', nameType => {
+      memory[socket.id] = nameType.name
+      socket.join(nameType.type)
       io.emit('roster', memory)
     })
-    socket.on('message', messageName => {
+    socket.on('message', messageNameType => {
+      const { message, firstName, type } = messageNameType
+      if(type === 'teacher'){
+        io.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+      } else {
       socket.broadcast.emit(
         'theirMessage',
-        `${messageName.firstName}: ${messageName.message}`
+        `${firstName}: ${message}`
       )
-      socket.emit('myMessage', `me: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${message}`)
+      }
     })
-
-    socket.on('disconnect', () => {
-      console.log(`Connection ${socket.id} has left the building`)
+  
     })
-  })
   one.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
-    socket.on('login', name => {
-      memory[socket.id] = name
-      console.log('mem ', memory)
+    socket.on('login', nameType => {
+      memory[socket.id] = nameType.name
+      socket.join(nameType.type)
       io.emit('roster', memory)
     })
-    socket.on('message', messageName => {
+    socket.on('message', messageNameType => {
+      const { message, firstName, type } = messageNameType
+      if(type === 'teacher'){
+        one.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+      } else {
       socket.broadcast.emit(
         'theirMessage',
-        `${messageName.firstName}: ${messageName.message}`
+        `${firstName}: ${message}`
       )
-      socket.emit('myMessage', `me: ${messageName.message}`)
+      socket.emit('myMessage', `me: ${message}`)
+      }
     })
 
     socket.on('disconnect', () => {
@@ -53,68 +60,75 @@ module.exports = io => {
   two.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-    console.log('socket nsp ', socket.nsp.name)
+
     socket.on('login', nameType => {
-      console.log('ntype ', nameType.type)
       memory[socket.id] = nameType.name
       socket.join(nameType.type)
-      io.emit('roster', memory)
+      two.emit('roster', memory)
     })
-    socket.on('message', messageName => {
+    socket.on('message', messageNameType => {
+      const { message, firstName, type } = messageNameType
+      if(type === 'teacher'){
+        two.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+      } else {
       socket.broadcast.emit(
         'theirMessage',
-        `${messageName.firstName}: ${messageName.message}`
+        `${firstName}: ${message}`
       )
       socket.emit('myMessage', `me: ${messageName.message}`)
+      }
     })
-
-    socket.on('disconnect', () => {
-      console.log(`Connection ${socket.id} has left the building`)
     })
-  })
   three.on('connection', socket => {
-    const memory = {}
-    console.log(`A socket connection to the server has been made: ${socket.id}`)
-
-    socket.on('login', nameType => {
-      console.log('ntype ', nameType.type)
-      memory[socket.id] = nameType.name
-      socket.join(nameType.type)
-      io.emit('roster', memory)
+    console.log('in three')
+      const memory = {}
+      console.log(`A socket connection to the server has been made: ${socket.id}`)
+  
+      socket.on('login', nameType => {
+        memory[nameType.name] = socket.id
+        socket.join(nameType.type)
+        three.emit('roster', memory)
+      })
+      socket.on('message', messageNameType => {
+        const { message, firstName, type } = messageNameType
+        if(type === 'teacher'){
+          three.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+        } else {
+        socket.broadcast.emit(
+          'theirMessage',
+          `${firstName}: ${message}`
+        )
+        socket.emit('myMessage', `me: ${message}`)
+        }
+      })
+      socket.on('teacher-chat', (messagefirstName) => {
+        const {message, firstName} = messagefirstName
+        socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
+        
+      })
+      })
+    four.on('connection', socket => {
+        const memory = {}
+        console.log(`A socket connection to the server has been made: ${socket.id}`)
+    
+        socket.on('login', nameType => {
+          memory[socket.id] = nameType.name
+          socket.join(nameType.type)
+          four.emit('roster', memory)
+        })
+        socket.on('message', messageNameType => {
+          const { message, firstName, type } = messageNameType
+          if(type === 'teacher'){
+            four.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+          } else {
+          socket.broadcast.emit(
+            'theirMessage',
+            `${firstName}: ${message}`
+          )
+          socket.emit('myMessage', `me: ${message}`)
+          }
+        })
     })
-    socket.on('message', messageName => {
-      socket.broadcast.emit(
-        'theirMessage',
-        `${messageName.firstName}: ${messageName.message}`
-      )
-      socket.emit('myMessage', `me: ${messageName.message}`)
-    })
-
-    socket.on('disconnect', () => {
-      console.log(`Connection ${socket.id} has left the building`)
-    })
-  })
-  four.on('connection', socket => {
-    const memory = {}
-    console.log(`A socket connection to the server has been made: ${socket.id}`)
-
-    socket.on('login', name => {
-      memory[socket.id] = name
-      console.log('mem ', memory)
-      io.emit('roster', memory)
-    })
-    socket.on('message', messageName => {
-      socket.broadcast.emit(
-        'theirMessage',
-        `${messageName.firstName}: ${messageName.message}`
-      )
-      socket.emit('myMessage', `me: ${messageName.message}`)
-    })
-
-    socket.on('disconnect', () => {
-      console.log(`Connection ${socket.id} has left the building`)
-    })
-  })
   five.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)
@@ -136,6 +150,7 @@ module.exports = io => {
       console.log(`Connection ${socket.id} has left the building`)
     })
   })
+  
   six.on('connection', socket => {
     const memory = {}
     console.log(`A socket connection to the server has been made: ${socket.id}`)

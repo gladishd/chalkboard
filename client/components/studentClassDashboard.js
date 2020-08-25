@@ -36,33 +36,55 @@ export class studentClassDashboard extends React.Component {
     let courseName = this.props.location.state.name
     console.log('the props are ', this.props)
     this.props.getCourse(courseId)
-    const socket = io(`/${this.props.location.state.number}`)
+    //temp nsp
+    const socket = io('/3')
+    // const socket = io(`/${this.props.location.state.number}`)
+    console.log('client socket nsp ', socket.nsp)
     const input = document.getElementById('chat-input')
 
     // I just commented these lines out so that I could render from the teacher's perspective
 
     // socket.emit('login', {name: first, type: 'Student'})
-    socket.emit('login', {name: first, type: first})
+    socket.emit('login', {name: first, type: 'student'})
     input.addEventListener('keypress', e => {
+      const view = document.querySelector('.selectAudience').selectedIndex
       if (e.key === 'Enter') {
-        socket.emit('message', {
-          message: e.target.value,
-          firstName: this.props.location.state.firstName,
-          type: 'Student'
-        })
-        e.target.value = ''
+        if(view === 1){
+          socket.emit('teacher-chat', {
+            message: e.target.value,
+            firstName: this.props.location.state.firstName
+          })
+          e.target.value = ''
+        } else {
+          socket.emit('message', {
+            message: e.target.value,
+            firstName: this.props.location.state.firstName,
+            type: 'student'
+          })
+          e.target.value = ''
+        }
       }
     })
     socket.on('myMessage', message => {
+      console.log('in my')
       const box = document.getElementById('chat-messages')
       const mes = document.createElement('p')
       mes.innerHTML = message
       box.appendChild(mes)
     })
     socket.on('theirMessage', message => {
+      console.log('in their')
       const box = document.getElementById('chat-messages')
       const mes = document.createElement('p')
       mes.innerHTML = message
+      box.appendChild(mes)
+    })
+    socket.on('teacherMessage', (message) => {
+      console.log('in teacher')
+      const box = document.getElementById('chat-messages')
+      const mes = document.createElement('p')
+      mes.classList.add('teacher-message')
+      mes.innerHTML = `${messsage}`
       box.appendChild(mes)
     })
   }
@@ -110,16 +132,17 @@ export class studentClassDashboard extends React.Component {
           <button className="chatButtonCreate" onClick={this.toggleForm}>
             Create a New Group
           </button>
+          <div>
+          <p>Select Audience</p>
+          </div>
           <select
             name="group"
             className="selectAudience"
             onChange={this.handleChange}
           >
-            <option value="">Select an Audience</option>
-            <option value="Dean">Dean</option>
-            <option value="Khuong">Khuong</option>
-            <option value="Zach">Zach</option>
-            <option value="Jonathan">Jonathan</option>
+            
+            <option value='All'>All</option>
+            <option value="Teacher">Teacher</option>
           </select>
           <br />
           Say something nice..
