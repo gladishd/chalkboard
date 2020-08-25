@@ -16,4 +16,3 @@ export {default as TeacherDashboard} from './TeacherDashboard'
 export {
   default as moreClassInformationComponent
 } from './moreClassInformationComponent'
-export {default as VideoChat} from './video/VideoChat'
