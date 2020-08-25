@@ -5,6 +5,7 @@ export default class Attendance extends Component {
   constructor(props) {
     super(props)
     //this should be the
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
     // const group = props.classId
@@ -25,10 +26,11 @@ export default class Attendance extends Component {
       <div>
         <h1>Attendance</h1>
         <h3>Students Online:</h3>
+        {/* So for now this is just going to be all students */}
         <ul id="attendance-list" />
         <h3>Class Roster</h3>
 
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input type="checkbox" className="student" />
           <p>Paul</p>
           <input type="checkbox" className="student" />
