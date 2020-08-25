@@ -20,6 +20,19 @@ router.get('/:assignmentId', async (req, res, next) => {
   }
 })
 
+router.get('/byCourseId/:courseId', async (req, res, next) => {
+  try {
+    const assignments = await Assignment.findAll({
+      where: {
+        courseId: req.params.courseId
+      }
+    })
+    assignments ? res.json(assignments) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', async (req, res, next) => {
   try {
     const newAssignment = await Assignment.create(req.body)

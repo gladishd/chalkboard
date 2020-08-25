@@ -8,6 +8,7 @@ const GET_SINGLE_ASSIGNMENT = 'GET_SINGLE_ASSIGNMENT'
 const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT'
 const UPDATE_ASSIGNMENT = 'UPDATE_ASSIGNMENT'
 const REMOVE_ASSIGNMENT = 'REMOVE_ASSIGNMENT'
+const GET_ASSIGNMENTS_FOR_COURSE = 'GET_ASSIGNMENTS_FOR_COURSE'
 
 /**
  * ACTION CREATORS
@@ -19,6 +20,10 @@ const getAllAssignments = assignments => ({
 const getSingleAssignment = assignment => ({
   type: GET_SINGLE_ASSIGNMENT,
   assignment
+})
+const getAssignmentsForCourse = assignments => ({
+  type: GET_ASSIGNMENTS_FOR_COURSE,
+  assignments
 })
 const addAssignment = assignment => ({type: ADD_ASSIGNMENT, assignment})
 const updateAssignment = assignment => ({type: UPDATE_ASSIGNMENT, assignment})
@@ -47,6 +52,17 @@ export const getSingleAssignmentThunk = assignmentId => {
     try {
       const {data} = await axios.get(`/api/assignments/${assignmentId}`)
       dispatch(getSingleAssignment(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getAssignmentsByCourseIdThunk = courseId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/assignments/byCourseId/${courseId}`)
+      dispatch(getAssignmentsForCourse(data))
     } catch (err) {
       console.error(err.message)
     }
@@ -94,7 +110,8 @@ export const removeAssignmentThunk = assignmentId => {
  */
 const initialState = {
   all: [],
-  single: {}
+  single: {},
+  assignments: []
 }
 
 /**
@@ -124,6 +141,11 @@ export default function(state = initialState, action) {
         all: state.all.filter(
           assignment => assignment.id !== action.assignmentId
         )
+      }
+    case GET_ASSIGNMENTS_FOR_COURSE:
+      return {
+        ...state,
+        assignments: action.assignments
       }
     default:
       return state

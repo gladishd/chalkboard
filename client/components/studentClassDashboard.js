@@ -21,8 +21,15 @@ export class studentClassDashboard extends React.Component {
     this.toggleForm = this.toggleForm.bind(this)
   }
   componentDidMount() {
-    let path = this.props.location.pathname
-    let courseId = path.slice(path.length - 1)
+    let path
+    let courseId
+    if (this.props.location) {
+      // if we got there through a URL (when we're a student)
+      path = this.props.location.pathname
+      courseId = path.slice(path.length - 1)
+    } else {
+      courseId = this.props.courseIdInherited
+    }
     this.props.getCourse(courseId)
     const socket = io()
     const input = document.getElementById('chat-input')

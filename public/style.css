@@ -330,6 +330,7 @@ nav a {
 .teacherClassBoard .classboardStartLecture {
   background-color: orange;
   padding: 1em;
+  border-style: outset;
 }
 
 .teacherClassBoard .classboardStartLecture:hover,
@@ -370,7 +371,7 @@ nav a {
 }
 
 .teacherClassBoard .classboardStudent {
-  background-color: maroon;
+  background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
 }
 
@@ -379,7 +380,7 @@ nav a {
 }
 
 .teacherClassBoard .classboardAddStudent {
-  background-color: maroon;
+  background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
 }
 
@@ -404,4 +405,98 @@ nav a {
 .teacherClassBoard .scheduleDashBox button:active {
   background-color: rgb(129, 129, 129);
   outline: none;
+}
+
+.assignmentViewMainDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignment {
+  background-color: rgba(128, 0, 128, 0.288);
+  width: 70%;
+  padding: 1em;
+  border-style: outset;
+}
+
+.newAssignment {
+  background-color: rgba(128, 0, 128, 0.288);
+  width: 50%;
+  padding: 1em;
+  border-style: outset;
+}
+
+.dropdownAssignment {
+  background-color: rgba(128, 0, 128, 0.288);
+  width: 60%;
+  padding: 1em;
+  border-style: outset;
+}
+
+.assignmentCheckBoxes {
+  width: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.assignmentCheckBoxes .checkbox {
+  width: auto;
+  height: auto;
+  background-color: rgba(128, 0, 128, 0.288);
+  border-style: outset;
+  padding: 1em;
+}
+
+.assignmentsByStudent {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignmentsByStudent .student {
+  background-color: rgba(128, 0, 0, 0.288);
+  padding: 1em;
+  border-style: outset;
+  width: 70%;
+}
+
+.assignmentsByStudent .newStudent {
+  background-color: rgba(128, 0, 0, 0.288);
+  padding: 1em;
+  border-style: outset;
+  width: 50%;
+}
+
+.assignmentsByStudent .dropDown {
+  background-color: rgba(128, 0, 0, 0.288);
+  padding: 1em;
+  border-style: outset;
+  width: 55%;
+}
+
+.assignmentsByStudent .studentAssignmentBoxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.assignmentsByStudent .studentAttendanceBoxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.assignmentsByStudent .studentAssignmentBoxes .checkbox {
+  background-color: rgba(128, 0, 0, 0.288);
+  width: auto;
+  height: auto;
+  padding: 1em;
+  border-style: outset;
+}
+
+.assignmentsByStudent .studentAttendanceBoxes .checkbox {
+  background-color: rgba(128, 0, 0, 0.288);
+  width: auto;
+  height: auto;
+  padding: 1em;
+  border-style: outset;
 }

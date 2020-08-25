@@ -85,7 +85,6 @@ export class TeacherDash extends Component {
   }
 
   render() {
-    console.log('the props on the course list are ', this.props)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -94,7 +93,7 @@ export class TeacherDash extends Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./TeacherClassboard/${index + 1}`}>
+                  <Link to={`./TeacherClassboard/${course.id}`}>
                     {course.courseName}
                   </Link>
                   <br />
@@ -105,7 +104,20 @@ export class TeacherDash extends Component {
             <div>Loading...</div>
           )}
         </div>
-        <button>Calendar</button>
+        {courseList.length > 0 ? (
+          courseList.map((course, index) => {
+            return (
+              <div key={index}>
+                {course.courseSchedule.split('\n').map(eachLine => {
+                  return <div>{eachLine}</div>
+                })}
+                <br />
+              </div>
+            )
+          })
+        ) : (
+          <div>Loading...</div>
+        )}
         <div className="teacherDashListClasses">List of Classes</div>
         <button
           className="teacherDashNewClassButton"
@@ -117,7 +129,10 @@ export class TeacherDash extends Component {
         Object.keys(courseList).length !== 0 ? (
           courseList.map(course => {
             return (
-              <Link className="teacherDashClassName" to="./teacherClassboard">
+              <Link
+                className="teacherDashClassName"
+                to={`./TeacherClassboard/${course.id}`}
+              >
                 {course.courseName}
               </Link>
             )
