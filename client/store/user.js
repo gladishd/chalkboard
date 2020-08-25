@@ -73,7 +73,6 @@ export const getTeacherCoursesThunk = teacherId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/users/teachers/courses/${teacherId}`)
-      console.log('the data returned from the thunk is ', data)
       dispatch(getTeacherCourses(data))
     } catch (error) {
       console.error(error.message)

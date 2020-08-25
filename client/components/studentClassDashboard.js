@@ -23,6 +23,7 @@ export class studentClassDashboard extends React.Component {
   componentDidMount() {
     let path
     let courseId
+    let first
     if (this.props.location) {
       // if we got there through a URL (when we're a student)
       path = this.props.location.pathname
@@ -31,21 +32,46 @@ export class studentClassDashboard extends React.Component {
     } else {
       courseId = this.props.courseIdInherited
     }
-    const first = this.props.location.state.firstName
+    if (this.props.location) {
+      first = this.props.location.state.firstName
+    } else {
+      first = this.props.userInherited.firstName
+    }
+
     // let courseId = path.slice(path.length - 1)
-    let courseName = this.props.location.state.name
-    console.log('the props are ', this.props)
+
+    let courseName
+    if (this.props.location) {
+      // if we're logged in as a student
+      courseName = this.props.location.state.name
+    } else {
+      // if we're accessing it through the teacher classboard
+      courseName = this.props.courseObjectInherited.courseName
+    }
     this.props.getCourse(courseId)
-    //temp nsp
-    const socket = io('/3')
-    // const socket = io(`/${this.props.location.state.number}`)
-    console.log('client socket nsp ', socket.nsp)
+    let socket
+    if (this.props.location) {
+      socket = io(`/${this.props.location.state.number}`)
+    } else {
+      socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
+    }
+
     const input = document.getElementById('chat-input')
 
     // I just commented these lines out so that I could render from the teacher's perspective
 
     // socket.emit('login', {name: first, type: 'Student'})
-    socket.emit('login', {name: first, type: 'student'})
+    socket.emit('login', {name: first, type: first})
+
+    let firstNameForSocket // not const
+    if (this.props.location) {
+      // if we're actually viewing the component through the URL, which is what we do as a student
+      firstNameForSocket = this.props.location.state.firstName
+    } else {
+      // otherwise, if we're rendering it within the teacher classboard component
+      firstNameForSocket = this.props.userInherited.firstName // might also want last name in the future
+    }
+
     input.addEventListener('keypress', e => {
       const view = document.querySelector('.selectAudience').selectedIndex
       if (e.key === 'Enter') {
@@ -104,7 +130,7 @@ export class studentClassDashboard extends React.Component {
     // console.log('state course number ', this.props.location.state.number)
     // console.log('state course name ', this.props.location.state.name)
     // console.log('state course first ', this.props.location.state.firstName)
-    console.log('the props are ', this.props)
+    console.log('On studentClassDashboard.js, the props are ', this.props)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -127,7 +153,17 @@ export class studentClassDashboard extends React.Component {
             return <div key={index}>{element}</div>
           })}
         </div>
-        <div className="liveLecture">Live Lecture</div>
+        <div className="liveLecture">
+          Live Lecture
+          {this.props.accountType === 'teacher' ? (
+            <div>
+              <button>Record</button>
+              <button>Poll (survey)</button>
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
         <div className="liveChat">
           <button className="chatButtonCreate" onClick={this.toggleForm}>
             Create a New Group
@@ -149,6 +185,16 @@ export class studentClassDashboard extends React.Component {
           <div id="message-main">
             <div id="chat-messages" />
             <input id="chat-input" type="text" overflow="auto" />
+            {this.props.accountType === 'teacher' ? (
+              <div>
+                <button>MuteAll</button>
+                <button>Mute Specific</button>
+                <button>Remove Message</button>
+                <button>Cancel Chat for student</button>
+              </div>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
         <div className="moreClassInformationComponent">
@@ -180,7 +226,8 @@ export class studentClassDashboard extends React.Component {
 const mapStateToProps = state => {
   return {
     course: state.course.single,
-    accountType: state.user.me.accountType
+    accountType: state.user.me.accountType,
+    reduxState: state
   }
 }
 

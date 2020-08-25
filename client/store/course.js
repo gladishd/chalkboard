@@ -51,7 +51,7 @@ export const getSingleCourseThunk = courseId => {
 export const getCourseStudentsThunk = courseId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`api/courses/students/${courseId}`)
+      const {data} = await axios.get(`/api/courses/students/${courseId}`) // the first slash is very important
       const students = data.filter(user => user.accountType === 'student')
       dispatch(getCourseStudents(students))
     } catch (err) {
