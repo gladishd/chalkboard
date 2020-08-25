@@ -6,6 +6,7 @@ import {default as StudentClassDashboard} from './studentClassDashboard'
 import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
+import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -55,39 +56,54 @@ export class TeacherClassboard extends Component {
   async componentWillMount() {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
+
+      let courseIdFromPath = this.props.location.pathname.slice(
+        this.props.location.pathname.length - 1
+      )
+
+      await this.props.getSingleCourse(courseIdFromPath)
+
+      await this.props.getStudentsForThisCourse(courseIdFromPath)
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
+    console.log('On TeacherClassboard.js, the props are ', this.props)
     const courseList = this.props.reduxState.user.courses || []
     // const identification = this.props.location.state.number || null
     // const courseName = this.props.location.state.name
-    const coursename = this.props.reduxState.user.courses
+    // const coursename = this.props.reduxState.user.courses
+    const courseName = this.props.reduxState.course.single.courseName
     return (
       <div className="teacherClassBoard">
         <div className="classboardList">
-          {/* {courseName}: List of Students + Assignments + Grades */}
+          <b>{courseName}</b>
+
+          {this.props.reduxState.course.students.map((studentObject, index) => {
+            return (
+              <div>
+                {`Student ${index}: ` +
+                  studentObject.firstName +
+                  ' ' +
+                  studentObject.lastName +
+                  ' (' +
+                  studentObject.email +
+                  ')'}
+              </div>
+            )
+          })}
         </div>
 
         <div className="scheduleDashBox">
           <div className="classboardSchedule">
-            {courseList.length > 0 ? (
-              courseList.map((course, index) => {
-                return (
-                  <div key={index}>
-                    {course.courseSchedule
-                      .split('\n')
-                      .map((eachLine, index) => {
-                        return <div key={index}>{eachLine}</div>
-                      })}
-                    <br />
-                  </div>
-                )
-              })
+            {this.props.reduxState.course.single.courseSchedule ? (
+              this.props.reduxState.course.single.courseSchedule
+                .split('\n')
+                .map((eachLine, index) => <div key={index}>{eachLine}</div>)
             ) : (
-              <div>Loading...</div>
+              <div>No Schedule Available</div>
             )}
           </div>
 
@@ -103,6 +119,8 @@ export class TeacherClassboard extends Component {
                 courseIdInherited={`${this.props.location.pathname.charAt(
                   this.props.location.pathname.length - 1
                 )}`}
+                userInherited={this.props.reduxState.user.me}
+                courseObjectInherited={this.props.reduxState.course.single}
               />
             ) : (
               <div />
@@ -157,7 +175,10 @@ export class TeacherClassboard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
+    getMyCourses: userId => dispatch(getTeacherCoursesThunk(userId)),
+    getSingleCourse: courseId => dispatch(getSingleCourseThunk(courseId)),
+    getStudentsForThisCourse: courseId =>
+      dispatch(getCourseStudentsThunk(courseId))
   }
 }
 const mapStateToProps = state => {
