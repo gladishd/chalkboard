@@ -7,6 +7,7 @@ import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
 import io from 'socket.io-client'
+import {getCourseStudentsThunk} from '../store/course'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -24,7 +25,12 @@ export class TeacherClassboard extends Component {
       this
     )
   }
+  async componentWillMount(){
+    await this.props.getCourseStudents(this.props.location.state.number)
+
+  }
   componentDidMount() {
+    
     let path
     let courseId
     if (this.props.location) {
@@ -44,7 +50,6 @@ export class TeacherClassboard extends Component {
     const input = document.getElementById('chat-input')
 
     // I just commented these lines out so that I could render from the teacher's perspective
-
     // socket.emit('login', {name: first, type: 'Student'})
     socket.emit('login', {name: first, type: 'teacher'})
     input.addEventListener('keypress', e => {
@@ -84,6 +89,9 @@ export class TeacherClassboard extends Component {
       mes.innerHTML = `${message}`
       box.appendChild(mes)
     })
+    socket.on('list', (student) => {
+      console.log('new user ', student)
+    })
   }
   toggleLecture(e) {
     e.preventDefault()
@@ -122,7 +130,7 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
-    console.log('teacher classboard props ', this.props)
+    console.log('teacher classboard props w students ', this.props)
     const courseList = this.props.reduxState.user.courses || []
     // const identification = this.props.location.state.number || null
     // const courseName = this.props.location.state.name
@@ -228,7 +236,7 @@ export class TeacherClassboard extends Component {
             <div id="chat-messages" />
             <input id="chat-input" type="text" overflow="auto" />
           </div>
-          <p>Select Recipient</p><div><input type='text' id='dm'/></div>
+          
         </div>
             <button className="classboardAddStudent">Add</button>
           </div>
@@ -240,11 +248,13 @@ export class TeacherClassboard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
+    getCourseStudents: (courseId) => dispatch(getCourseStudentsThunk(couresId))
   }
 }
 const mapStateToProps = state => {
   return {
+    students: state.students,
     reduxState: state
   }
 }

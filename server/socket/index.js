@@ -14,6 +14,7 @@ module.exports = io => {
     socket.on('login', nameType => {
       memory[socket.id] = nameType.name
       socket.join(nameType.type)
+      socket.to('teacher').emit('list', `${nameType.name}`)
       io.emit('roster', memory)
     })
     socket.on('message', messageNameType => {
@@ -28,6 +29,12 @@ module.exports = io => {
       socket.emit('myMessage', `me: ${message}`)
       }
     })
+    socket.on('teacher-chat', (messagefirstName) => {
+      const {message, firstName} = messagefirstName
+      socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
+      socket.emit('myMessage', `(Private) Me: ${message}`)
+      
+    })
   
     })
   one.on('connection', socket => {
@@ -37,6 +44,7 @@ module.exports = io => {
     socket.on('login', nameType => {
       memory[socket.id] = nameType.name
       socket.join(nameType.type)
+      socket.to('teacher').emit('list', `${nameType.name}`)
       io.emit('roster', memory)
     })
     socket.on('message', messageNameType => {
@@ -51,6 +59,11 @@ module.exports = io => {
       socket.emit('myMessage', `me: ${message}`)
       }
     })
+    socket.on('teacher-chat', (messagefirstName) => {
+      const {message, firstName} = messagefirstName
+      socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
+      socket.emit('myMessage', `(Private) Me: ${message}`)
+    })
 
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
@@ -64,6 +77,7 @@ module.exports = io => {
     socket.on('login', nameType => {
       memory[socket.id] = nameType.name
       socket.join(nameType.type)
+      socket.to('teacher').emit('list', `${nameType.name}`)
       two.emit('roster', memory)
     })
     socket.on('message', messageNameType => {
@@ -78,6 +92,11 @@ module.exports = io => {
       socket.emit('myMessage', `me: ${messageName.message}`)
       }
     })
+    socket.on('teacher-chat', (messagefirstName) => {
+      const {message, firstName} = messagefirstName
+      socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
+      socket.emit('myMessage', `(Private) Me: ${message}`)
+    })
     })
   three.on('connection', socket => {
     console.log('in three')
@@ -87,6 +106,7 @@ module.exports = io => {
       socket.on('login', nameType => {
         memory[nameType.name] = socket.id
         socket.join(nameType.type)
+        socket.to('teacher').emit('list', `${nameType.name}`)
         three.emit('roster', memory)
       })
       socket.on('message', messageNameType => {
@@ -104,7 +124,7 @@ module.exports = io => {
       socket.on('teacher-chat', (messagefirstName) => {
         const {message, firstName} = messagefirstName
         socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
-        
+        socket.emit('myMessage', `(Private) Me: ${message}`)
       })
       })
     four.on('connection', socket => {
@@ -127,6 +147,11 @@ module.exports = io => {
           )
           socket.emit('myMessage', `me: ${message}`)
           }
+        })
+        socket.on('teacher-chat', (messagefirstName) => {
+          const {message, firstName} = messagefirstName
+          socket.to('teacher').emit('private', `(Private) ${firstName}: ${message}`)
+          socket.emit('myMessage', `(Private) Me: ${message}`)
         })
     })
   five.on('connection', socket => {
