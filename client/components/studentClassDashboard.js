@@ -31,37 +31,40 @@ export class studentClassDashboard extends React.Component {
     } else {
       courseId = this.props.courseIdInherited
     }
-    const first = this.props.location.state.firstName
+    // const first = this.props.location.state.firstName
     // let courseId = path.slice(path.length - 1)
-    let courseName = this.props.location.state.name
+    // let courseName = this.props.location.state.name
+    console.log('the course ID being passed to the function is ', courseId)
     this.props.getCourse(courseId)
-    const socket = io(`/${this.props.location.state.number}`)
+    // const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
 
+    // I just commented these lines out so that I could render from the teacher's perspective
+
     // socket.emit('login', {name: first, type: 'Student'})
-    socket.emit('login', {name: first, type: first})
-    input.addEventListener('keypress', e => {
-      if (e.key === 'Enter') {
-        socket.emit('message', {
-          message: e.target.value,
-          firstName: this.props.location.state.firstName,
-          type: 'Student'
-        })
-        e.target.value = ''
-      }
-    })
-    socket.on('myMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
-    socket.on('theirMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
+    // socket.emit('login', { name: first, type: first })
+    // input.addEventListener('keypress', e => {
+    //   if (e.key === 'Enter') {
+    //     socket.emit('message', {
+    //       message: e.target.value,
+    //       firstName: this.props.location.state.firstName,
+    //       type: 'Student'
+    //     })
+    //     e.target.value = ''
+    //   }
+    // })
+    // socket.on('myMessage', message => {
+    //   const box = document.getElementById('chat-messages')
+    //   const mes = document.createElement('p')
+    //   mes.innerHTML = message
+    //   box.appendChild(mes)
+    // })
+    // socket.on('theirMessage', message => {
+    //   const box = document.getElementById('chat-messages')
+    //   const mes = document.createElement('p')
+    //   mes.innerHTML = message
+    //   box.appendChild(mes)
+    // })
   }
   // sendMessage(message){
   //   const input = document.getElementById('chat-input')
@@ -76,9 +79,10 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
-    console.log('state course number ', this.props.location.state.number)
-    console.log('state course name ', this.props.location.state.name)
-    console.log('state course first ', this.props.location.state.firstName)
+    // console.log('state course number ', this.props.location.state.number)
+    // console.log('state course name ', this.props.location.state.name)
+    // console.log('state course first ', this.props.location.state.firstName)
+    console.log('the props are ', this.props)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -94,7 +98,7 @@ export class studentClassDashboard extends React.Component {
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">
           {/* Welcome to {this.props.reduxState.courses.courseName} */}
-          Welcome to {this.props.location.state.name}!
+          {/* Welcome to {this.props.location.state.name}! */}
         </div>
         <div className="introductionToTheCourse">
           {courseIntro.map((element, index) => {

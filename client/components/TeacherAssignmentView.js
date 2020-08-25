@@ -11,10 +11,6 @@ export class TeacherAssignmentView extends Component {
 
   async componentWillMount() {
     try {
-      console.log(
-        'the course id on the teacherassignmentview are',
-        this.props.courseIdInherited
-      )
       //this.props.location.pathname.slice(path.length - 1)
       this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     } catch (err) {
@@ -23,6 +19,9 @@ export class TeacherAssignmentView extends Component {
   }
 
   render() {
+    console.log('on the teacherassignmentview, the props are ', this.props)
+    console.log('so the courses array is ', this.props.reduxState.user.courses)
+
     return (
       <div className="assignmentViewMainDiv">
         <div className="assignment">Assignment</div>

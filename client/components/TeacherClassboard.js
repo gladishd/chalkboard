@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {getUserCoursesThunk} from '../store/user'
+import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {default as StudentClassDashboard} from './studentClassDashboard'
@@ -54,7 +54,6 @@ export class TeacherClassboard extends Component {
 
   async componentWillMount() {
     try {
-      console.log('on the teacher classboard, the props are ', this.props)
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
     } catch (err) {
       console.log(err)
@@ -63,12 +62,13 @@ export class TeacherClassboard extends Component {
 
   render() {
     const courseList = this.props.reduxState.user.courses || []
-    const identification = this.props.location.state.number
-    const courseName = this.props.location.state.name
+    // const identification = this.props.location.state.number || null
+    // const courseName = this.props.location.state.name
+    const coursename = this.props.reduxState.user.courses
     return (
       <div className="teacherClassBoard">
         <div className="classboardList">
-          {courseName}: List of Students + Assignments + Grades
+          {/* {courseName}: List of Students + Assignments + Grades */}
         </div>
 
         <div className="scheduleDashBox">
@@ -157,7 +157,7 @@ export class TeacherClassboard extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMyCourses: id => dispatch(getUserCoursesThunk(id))
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
   }
 }
 const mapStateToProps = state => {

@@ -16,7 +16,6 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="assignmentsByStudent">
         <div className="student">Students</div>

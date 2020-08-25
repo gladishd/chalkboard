@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {getUserCoursesThunk} from '../store/user'
+import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import openSocket from 'socket.io-client'
 
@@ -85,7 +85,6 @@ export class TeacherDash extends Component {
   }
 
   render() {
-    console.log('the props on the course list are ', this.props.courses)
     const courseList = this.props.courses || []
     return (
       <div className="TeacherDash">
@@ -94,16 +93,7 @@ export class TeacherDash extends Component {
             courseList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link
-                    to={{
-                      pathname: './TeacherClassboard',
-                      state: {
-                        number: course.id,
-                        name: course.courseName,
-                        firstName: this.props.firstName
-                      }
-                    }}
-                  >
+                  <Link to={`./TeacherClassboard/${course.id}`}>
                     {course.courseName}
                   </Link>
                   <br />
@@ -135,20 +125,21 @@ export class TeacherDash extends Component {
         >
           New Class
         </button>
-        {/* {typeof courseList.map === 'function' &&
+        {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
-          courseList.map(course, idx => {
+          courseList.map(course => {
             return (
-              <div key={idx}>
-              <Link className="teacherDashClassName" to="./teacherClassboard">
+              <Link
+                className="teacherDashClassName"
+                to={`./TeacherClassboard/${course.id}`}
+              >
                 {course.courseName}
               </Link>
-              </div>
             )
           })
         ) : (
           <div>Loading..</div>
-        )} */}
+        )}
 
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit}>
@@ -192,15 +183,13 @@ export class TeacherDash extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getAllCourses: () => dispatch(getAllCoursesThunk()),
-    getMyCourses: id => dispatch(getUserCoursesThunk(id))
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
   }
 }
 const mapStateToProps = state => {
-  console.log('teacher incoming state ', state)
   return {
     courses: state.user.courses,
     userId: state.user.me.id,
-    firstName: state.user.me.firstName,
     reduxState: state
   }
 }
