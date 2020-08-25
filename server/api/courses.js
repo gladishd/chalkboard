@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:courseId', async (req, res, next) => {
+  console.log('in my guess')
   try {
     console.log(req.params.courseId)
     const course = await Course.findByPk(req.params.courseId)

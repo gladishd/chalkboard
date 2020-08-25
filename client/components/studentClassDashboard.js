@@ -26,17 +26,27 @@ export class studentClassDashboard extends React.Component {
     if (this.props.location) {
       // if we got there through a URL (when we're a student)
       path = this.props.location.pathname
-      courseId = path.slice(path.length - 1)
+      courseId = this.props.location.state.number
+      // courseId = path.slice(path.length - 1)
     } else {
       courseId = this.props.courseIdInherited
     }
+    const first = this.props.location.state.firstName
+    // let courseId = path.slice(path.length - 1)
+    let courseName = this.props.location.state.name
     this.props.getCourse(courseId)
-    const socket = io()
+    const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
-    // const input = document.getElementById('chat-input')
+
+    // socket.emit('login', {name: first, type: 'Student'})
+    socket.emit('login', {name: first, type: first})
     input.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
-        socket.emit('message', e.target.value)
+        socket.emit('message', {
+          message: e.target.value,
+          firstName: this.props.location.state.firstName,
+          type: 'Student'
+        })
         e.target.value = ''
       }
     })
@@ -66,6 +76,9 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
+    console.log('state course number ', this.props.location.state.number)
+    console.log('state course name ', this.props.location.state.name)
+    console.log('state course first ', this.props.location.state.firstName)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -80,7 +93,8 @@ export class studentClassDashboard extends React.Component {
       <div className="studentClassDashboard">
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">
-          Welcome to {this.props.course.courseName}!
+          {/* Welcome to {this.props.reduxState.courses.courseName} */}
+          Welcome to {this.props.location.state.name}!
         </div>
         <div className="introductionToTheCourse">
           {courseIntro.map((element, index) => {

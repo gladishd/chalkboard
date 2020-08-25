@@ -15,5 +15,4 @@ export {default as TeacherDashboard} from './TeacherDashboard'
 export {
   default as moreClassInformationComponent
 } from './moreClassInformationComponent'
-export {default as createRoomButton} from './video/createRoom'
-export {default as videoRoom} from './video/room'
+export {default as VideoChat} from './video/VideoChat'
