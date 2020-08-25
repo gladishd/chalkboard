@@ -21,6 +21,7 @@ module.exports = io => {
       const { message, firstName, type } = messageNameType
       if(type === 'teacher'){
         io.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+        socket.broadcast.emit('teacherMessage',`Teacher ${firstName}: ${message}`)
       } else {
       socket.broadcast.emit(
         'theirMessage',
@@ -51,6 +52,7 @@ module.exports = io => {
       const { message, firstName, type } = messageNameType
       if(type === 'teacher'){
         one.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+        socket.broadcast.emit('teacherMessage',`Teacher ${firstName}: ${message}`)
       } else {
       socket.broadcast.emit(
         'theirMessage',
@@ -113,6 +115,7 @@ module.exports = io => {
         const { message, firstName, type } = messageNameType
         if(type === 'teacher'){
           three.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+          socket.broadcast.emit('teacherMessage',`Teacher ${firstName}: ${message}`)
         } else {
         socket.broadcast.emit(
           'theirMessage',
@@ -140,6 +143,7 @@ module.exports = io => {
           const { message, firstName, type } = messageNameType
           if(type === 'teacher'){
             four.emit('teacherMessage', `Teacher ${firstName}: ${message}`)
+            socket.broadcast.emit('teacherMessage',`Teacher ${firstName}: ${message}`)
           } else {
           socket.broadcast.emit(
             'theirMessage',

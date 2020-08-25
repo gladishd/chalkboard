@@ -110,7 +110,7 @@ export class studentClassDashboard extends React.Component {
       const box = document.getElementById('chat-messages')
       const mes = document.createElement('p')
       mes.classList.add('teacher-message')
-      mes.innerHTML = `${messsage}`
+      mes.innerHTML = `${message}`
       box.appendChild(mes)
     })
   }
