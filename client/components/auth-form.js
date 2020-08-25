@@ -9,9 +9,17 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
+  const [loginerror, setLoginerror] = React.useState(false)
+
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form
+        onSubmit={e => {
+          handleSubmit(e)
+          setLoginerror(true)
+        }}
+        name={name}
+      >
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -26,6 +34,13 @@ const AuthForm = props => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
+          {loginerror ? (
+            <span style={{color: 'red', 'font-weight': 'bold'}}>
+              The username and password don't match!
+            </span>
+          ) : (
+            <div />
+          )}
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

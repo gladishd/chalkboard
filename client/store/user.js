@@ -8,6 +8,7 @@ const GET_ALL_USERS = 'GET_ALL_USERS'
 const GET_SINGLE_USER = 'GET_SINGLE_USER'
 const GET_USER_COURSES = 'GET_USER_COURSES'
 const GET_USER_ASSIGNMENTS = 'GET_USER_ASSIGNMENTS'
+const GET_TEACHER_COURSES = 'GET_TEACHER_COURSES'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -29,6 +30,7 @@ const updateUser = user => ({type: UPDATE_USER, user})
 const removeUser = userId => ({type: REMOVE_USER, userId})
 const getMe = me => ({type: GET_ME, me})
 const logoutUser = () => ({type: LOGOUT_USER})
+const getTeacherCourses = courses => ({type: GET_TEACHER_COURSES, courses})
 
 /**
  * THUNK CREATORS
@@ -63,6 +65,18 @@ export const getUserCoursesThunk = userId => {
       dispatch(getUserCourses(data))
     } catch (err) {
       console.error(err.message)
+    }
+  }
+}
+
+export const getTeacherCoursesThunk = teacherId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/teachers/courses/${teacherId}`)
+      console.log('the data returned from the thunk is ', data)
+      dispatch(getTeacherCourses(data))
+    } catch (error) {
+      console.error(error.message)
     }
   }
 }
@@ -192,6 +206,8 @@ export default function(state = initialState, action) {
       return {...state, me: action.me}
     case LOGOUT_USER:
       return {...state, me: {}}
+    case GET_TEACHER_COURSES:
+      return {...state, courses: action.courses} // using the same courses object on state for both the teacher and student classboard
     default:
       return state
   }

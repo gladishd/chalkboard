@@ -17,7 +17,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -35,7 +38,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -43,7 +49,6 @@ module.exports = io => {
       console.log(`Connection ${socket.id} has left the building`)
     })
   })
-  
 
   two.on('connection', socket => {
     const memory = {}
@@ -56,7 +61,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -75,7 +83,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -93,7 +104,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -111,7 +125,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 
@@ -129,7 +146,10 @@ module.exports = io => {
       io.emit('roster', memory)
     })
     socket.on('message', messageName => {
-      socket.broadcast.emit('theirMessage', `${messageName.firstName}: ${messageName.message}`)
+      socket.broadcast.emit(
+        'theirMessage',
+        `${messageName.firstName}: ${messageName.message}`
+      )
       socket.emit('myMessage', `me: ${messageName.message}`)
     })
 

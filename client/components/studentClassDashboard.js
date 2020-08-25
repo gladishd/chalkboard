@@ -21,20 +21,31 @@ export class studentClassDashboard extends React.Component {
     this.toggleForm = this.toggleForm.bind(this)
   }
   componentDidMount() {
+    let path
+    let courseId
+    if (this.props.location) {
+      // if we got there through a URL (when we're a student)
+      path = this.props.location.pathname
+      courseId = this.props.location.state.number
+      // courseId = path.slice(path.length - 1)
+    } else {
+      courseId = this.props.courseIdInherited
+    }
     const first = this.props.location.state.firstName
-    let path = this.props.location.pathname
     // let courseId = path.slice(path.length - 1)
-    let courseId = this.props.location.state.number
     let courseName = this.props.location.state.name
+    console.log('the props are ', this.props)
     this.props.getCourse(courseId)
     const socket = io(`/${this.props.location.state.number}`)
     const input = document.getElementById('chat-input')
+
+    // I just commented these lines out so that I could render from the teacher's perspective
 
     // socket.emit('login', {name: first, type: 'Student'})
     socket.emit('login', {name: first, type: first})
     input.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
-        socket.emit('message',{
+        socket.emit('message', {
           message: e.target.value,
           firstName: this.props.location.state.firstName,
           type: 'Student'
@@ -68,9 +79,10 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
-    console.log('state course number ', this.props.location.state.number)
-    console.log('state course name ', this.props.location.state.name)
-    console.log('state course first ', this.props.location.state.firstName)
+    // console.log('state course number ', this.props.location.state.number)
+    // console.log('state course name ', this.props.location.state.name)
+    // console.log('state course first ', this.props.location.state.firstName)
+    console.log('the props are ', this.props)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -86,7 +98,7 @@ export class studentClassDashboard extends React.Component {
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">
           {/* Welcome to {this.props.reduxState.courses.courseName} */}
-          Welcome to {this.props.location.state.name}!
+          {/* Welcome to {this.props.location.state.name}! */}
         </div>
         <div className="introductionToTheCourse">
           {courseIntro.map((element, index) => {
@@ -144,7 +156,8 @@ export class studentClassDashboard extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    course: state.course.single
+    course: state.course.single,
+    accountType: state.user.me.accountType
   }
 }
 

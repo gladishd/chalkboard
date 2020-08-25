@@ -1,4 +1,5 @@
 const course = [
+  // when creating the courses, we also want to specify the ID.
   {
     courseName: 'Econ 201',
     size: 30,
@@ -6,34 +7,45 @@ const course = [
     courseIntro:
       'Introduction to the Course \n 1. Keynesian Theory \n 2. The Solow Growth Model',
     courseMoreInformation:
-      "The Solow Growth Model \n What you can expect from me: I'll always be on time, prepared and available for office hours, and I will be fair. \n What I expect from you: When assigned to a group project, work cooperatively. \n Grading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: This is just a short intro to the Solow model of economic growth and how it relates to our modern conception of money as a form of fiat currency as well as the departure from traditional neoclassical economics."
+      "The Solow Growth Model \n What you can expect from me: I'll always be on time, prepared and available for office hours, and I will be fair. \n What I expect from you: When assigned to a group project, work cooperatively. \n Grading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: This is just a short intro to the Solow model of economic growth and how it relates to our modern conception of money as a form of fiat currency as well as the departure from traditional neoclassical economics.",
+    courseSchedule:
+      'Schedule: \n M, W, F \n 10am-11am \n T, Th \n 1:30pm-3:00pm',
+    id: 1
   },
   {
     courseName: 'Guitar 101',
     size: 3,
-    teacherId: 6,
+    teacherId: 8,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to guitar \n 2. The Basics of Guitar',
     courseMoreInformation:
-      "The Art of Playing the Guitar \n What you can expect from me: I'll always be playing beautiful songs all the time, no problem. \n What I expect from you: I expect you to be inherently musically talented in order to attend the course. \n Grading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: This is just a short intro to how to play the guitar, from quality instructors and the most understanding curriculum, based not on an arbitrary ruleset but on the shoulders of musical giants."
+      "The Art of Playing the Guitar \n What you can expect from me: I'll always be playing beautiful songs all the time, no problem. \n What I expect from you: I expect you to be inherently musically talented in order to attend the course. \n Grading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: This is just a short intro to how to play the guitar, from quality instructors and the most understanding curriculum, based not on an arbitrary ruleset but on the shoulders of musical giants.",
+    courseSchedule:
+      'Schedule: \n M, W, F \n 11am-12am \n T, Th \n 2:30pm-3:30pm',
+    id: 2
   },
   {
     courseName: 'Senior Coding 404',
     size: 14,
-    teacherId: 5,
+    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to Coding 404 \n 2. Foundations \n 3. Junior Phase \n 4. Senior Phase',
     courseMoreInformation:
-      "Welcome to the third Fullstack Academy \n What you can expect from me: I'm going to be available, a lot of instructors are going to be on here so that we can help students. \n What I expect from you: I don't expect you to know how to code, instead this is about being culturally ingrained in the fundamentals of coding culture.  I want you to know this so that you're not surprised.  Also, I want to talk about grading.  \nGrading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: From knowledgeable instructors we have a collection of projects which you can choose from yourself, including projects like this one.  When the live lecture starts you'll be able to get started, for now I would recommend going on codewars since the assignment description will be posted soon."
+      "Welcome to the third Fullstack Academy \n What you can expect from me: I'm going to be available, a lot of instructors are going to be on here so that we can help students. \n What I expect from you: I don't expect you to know how to code, instead this is about being culturally ingrained in the fundamentals of coding culture.  I want you to know this so that you're not surprised.  Also, I want to talk about grading.  \nGrading will be done on the following scale: \n Rubric: (A) Attends class regularly and contributes, (B), attends class and sometimes analyzes relevant issues, (C) attends class regularly but almost never contributes, (D/R) attends class regularly but never contributes. \n Assignment description: From knowledgeable instructors we have a collection of projects which you can choose from yourself, including projects like this one.  When the live lecture starts you'll be able to get started, for now I would recommend going on codewars since the assignment description will be posted soon.",
+    courseSchedule:
+      'Schedule: \n M, W, F \n 9am-10am \n T, Th \n 12:30pm-2:00pm',
+    id: 3
   },
   {
     courseName: 'REACTO 202',
     size: 14,
-    teacherId: 5,
+    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to our class on the REACTO method \n 2. Discussion \n 3. Resources \n 4. AlgoExpert',
     courseMoreInformation:
-      "Repeat - Examples - Approach - Code - Test - Optimization \n The REACTO approach is what allows us to solve interview questions.  You can expect us to have daily assignments in order to meet the demands of the interviewers.  \n You'll need to write out examples, describe your approaches.  \n Fitting the interview environment, which is fundamentally interactive in its nature, you don't want to reach the coding step until you've done the previous. \n Pseudocode, testing, and finally optimization (think, with respect to runtime and the necessity of all of the code), are all essential to this method."
+      "Repeat - Examples - Approach - Code - Test - Optimization \n The REACTO approach is what allows us to solve interview questions.  You can expect us to have daily assignments in order to meet the demands of the interviewers.  \n You'll need to write out examples, describe your approaches.  \n Fitting the interview environment, which is fundamentally interactive in its nature, you don't want to reach the coding step until you've done the previous. \n Pseudocode, testing, and finally optimization (think, with respect to runtime and the necessity of all of the code), are all essential to this method.",
+    courseSchedule: 'Schedule: \n M, W, F \n 8am-9am \n T, Th \n 3:30pm-5:00pm',
+    id: 4
   }
 ]
 
@@ -44,91 +56,187 @@ const user = [
     lastName: 'Le',
     email: 'student01@email.com',
     password: '4321',
-    accountType: 'student'
+    accountType: 'student',
+    id: 1 // hardcoding id so that we don't mess up the order by adding users
   },
   {
     firstName: 'Jonathan',
     lastName: 'Arreola',
     email: 'student2@email.com',
     password: '4321',
-    accountType: 'student'
+    accountType: 'student',
+    id: 2
   },
   {
     firstName: 'Dean',
     lastName: 'Gladish',
     email: 'student3@email.com',
     password: '4321',
-    accountType: 'student'
+    accountType: 'student',
+    id: 3
   },
   {
     firstName: 'Zach',
     lastName: 'Bryce',
     email: 'student4@email.com',
     password: '4321',
-    accountType: 'student'
+    accountType: 'student',
+    id: 4
   },
   {
     firstName: 'Fifth',
     lastName: 'Student',
     email: 'laststudent@email.com',
     password: '1234',
-    accountType: 'student'
+    accountType: 'student',
+    id: 5
   },
   {
     firstName: 'All',
     lastName: 'Classes',
-    email: 'allclasses@email.com',
+    email: 'studentAllClasses@email.com',
     password: '1234',
-    accountType: 'student'
+    accountType: 'student',
+    id: 6
   },
   {
     firstName: 'Travis',
     lastName: 'Stratton',
     email: 'teacher1@email.com',
     password: '1234',
-    accountType: 'teacher'
+    accountType: 'teacher',
+    id: 7
   },
   {
     firstName: 'Jonah',
     lastName: 'Ullman',
     email: 'teacher2@email.com',
     password: '1234',
-    accountType: 'teacher'
+    accountType: 'teacher',
+    id: 8
+  },
+  {
+    firstName: 'No',
+    lastName: 'Classes',
+    email: 'teachesNoClasses@email.com',
+    password: '1234',
+    accountType: 'teacher',
+    id: 9
   },
   {
     firstName: 'Big',
     lastName: 'Brother',
     email: 'admin@email.com',
     password: '12345',
-    accountType: 'admin'
+    accountType: 'admin',
+    id: 10
   }
 ]
 
 const assignment = [
   {
+    id: 1,
     assignmentName: 'Capstone',
     assignmentType: 'project',
-    dueDate: new Date('September 9, 2020 11:30:00')
+    dueDate: new Date('September 9, 2020 11:30:00'),
+    courseId: 3,
+    courseId2: 3
   },
   {
+    id: 2,
     assignmentName: 'Senior Assessment',
     assignmentType: 'test',
-    dueDate: new Date('July 20, 2020 12:00:00')
+    dueDate: new Date('July 20, 2020 12:00:00'),
+    courseId: 3,
+    courseId2: 3
   },
   {
-    assignmentName: 'RECTO',
+    id: 3,
+    assignmentName: 'REACTO',
     assignmentType: 'classwork',
-    dueDate: new Date('July 19, 2020 08:30:00')
+    dueDate: new Date('July 19, 2020 08:30:00'),
+    courseId: 4,
+    courseId2: 4
   },
   {
+    id: 4,
     assignmentName: 'Wonderwall',
     assignmentType: 'homework',
-    dueDate: new Date('August 20, 2020 19:15:00')
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 2,
+    courseId2: 2
   },
   {
+    id: 5,
     assignmentName: 'Name that Chord',
     assignmentType: 'quiz',
-    dueDate: new Date('August 21, 2020 19:15:00')
+    dueDate: new Date('August 21, 2020 19:15:00'),
+    courseId: 2,
+    courseId2: 2
+  },
+  {
+    id: 6,
+    assignmentName: 'First test assignment for Econ 201',
+    assignmentType: 'classwork',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 1,
+    courseId2: 1
+  },
+  {
+    id: 7,
+    assignmentName: 'Second test assignment for Econ 201',
+    assignmentType: 'homework',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 1,
+    courseId2: 1
+  },
+  {
+    id: 8,
+    assignmentName: 'First test assignment for Guitar 101',
+    assignmentType: 'classwork',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 2,
+    courseId2: 2
+  },
+  {
+    id: 9,
+    assignmentName: 'Second test assignment for Guitar 101',
+    assignmentType: 'homework',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 2,
+    courseId2: 2
+  },
+  {
+    id: 10,
+    assignmentName: 'First test assignment for REACTO 202',
+    assignmentType: 'classwork',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 4,
+    courseId2: 4
+  },
+  {
+    id: 11,
+    assignmentName: 'Second test assignment for REACTO 202',
+    assignmentType: 'homework',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 4,
+    courseId2: 4
+  },
+  {
+    id: 12,
+    assignmentName: 'First test assignment for Senior Coding 404',
+    assignmentType: 'classwork',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 3,
+    courseId2: 3
+  },
+  {
+    id: 13,
+    assignmentName: 'Second test assignment for Senior Coding 404',
+    assignmentType: 'homework',
+    dueDate: new Date('August 20, 2020 19:15:00'),
+    courseId: 3,
+    courseId2: 3
   }
 ]
 
@@ -221,8 +329,7 @@ const enrollment = [
     completionStatus: true,
     courseId: 4,
     userId: 6
-  },
-  
+  }
 ]
 
 const gradebook = [

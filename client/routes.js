@@ -61,6 +61,10 @@ class Routes extends Component {
               <Route path="/TeacherClassboard" component={TeacherClassboard} />
               <Route path="/teacherDashboard" component={TeacherDashboard} />
               <Route path="/TeacherDash" component={TeacherDash} />
+              <Route
+                path="/studentClassDashboard"
+                component={studentClassDashboard}
+              />
             </Switch>
           )}
         {/* Student Routes */}

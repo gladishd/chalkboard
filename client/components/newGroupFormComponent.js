@@ -27,7 +27,6 @@ export class newGroupFormComponent extends React.Component {
 
   mapInputToState(e) {
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state)
   }
 
   handleReset(e) {

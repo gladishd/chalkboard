@@ -25,6 +25,9 @@ const Course = db.define('course', {
   },
   courseMoreInformation: {
     type: Sequelize.TEXT
+  },
+  courseSchedule: {
+    type: Sequelize.TEXT
   }
 })
 

@@ -14,6 +14,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
             <Link to="/home">Home</Link>
             <Link to="/studentDashboard">Student Dashboard</Link>
             <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <Link to="/teacherDashboard">Old Teacher Dashboard</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -24,6 +25,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <div>
             <Link to="/home">Home</Link>
             <Link to="/TeacherDash">Teacher Dashboard</Link>
+            <Link to="/teacherDashboard">Old Teacher Dashboard</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
