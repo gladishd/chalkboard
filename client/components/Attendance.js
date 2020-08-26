@@ -16,9 +16,18 @@ export class Attendance extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      attendanceArray: []
+      attendanceArray: [],
+      showPastAttendance: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.togglePastAttendance = this.togglePastAttendance.bind(this)
+  }
+
+  togglePastAttendance(e) {
+    e.preventDefault()
+    this.setState({
+      showPastAttendance: !this.state.showPastAttendance
+    })
   }
 
   handleSubmit(e) {
@@ -76,6 +85,8 @@ export class Attendance extends Component {
   }
   render() {
     console.log('On the attendance.js file, the props are ', this.props)
+    let pastAttendanceList = this.props.reduxState.user.pastAttendance
+
     return (
       <div>
         <h1>Attendance</h1>
@@ -125,7 +136,25 @@ export class Attendance extends Component {
           <button id="submit-attendance">Submit</button>
         </form>
 
-        {<div>Past Attendance:</div>}
+        <button onClick={this.togglePastAttendance}>Attendance History</button>
+
+        {this.state.showPastAttendance ? (
+          <div>
+            Past Attendance:
+            {pastAttendanceList.map(entry => {
+              return (
+                <div id={entry.id}>
+                  <div>{entry.studentId}</div>
+                  <div>{entry.currentDate}</div>
+                  <div>{entry.status}</div>
+                  <hr />
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
