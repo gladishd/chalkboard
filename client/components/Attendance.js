@@ -57,15 +57,19 @@ export class Attendance extends Component {
         currentDate: currentDate,
         courseId: this.props.courseIdInherited
       })
-      this.setState({
-        attendanceArray: currentAttendanceArray
-      }) // this will just be something which makes the component re-render.
-      // what we want to do is actually make an axios request using the thunk we imported
-      //{ studentId: 5, status: 'present', currentDate: '2020-08-26T13:23:27-05:00' }
-      currentAttendanceArray.forEach(attendanceRow => {
-        this.props.takeAttendance(attendanceRow)
-      })
     })
+
+    this.setState({
+      attendanceArray: currentAttendanceArray
+    }) // this will just be something which makes the component re-render.
+    // what we want to do is actually make an axios request using the thunk we imported
+    //{ studentId: 5, status: 'present', currentDate: '2020-08-26T13:23:27-05:00' }
+
+    currentAttendanceArray.forEach(attendanceRow => {
+      this.props.takeAttendance(attendanceRow)
+    })
+
+    this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited) // so the show past attendance button/data is updated without having to refresh the page
   }
   componentDidMount() {
     // const group = props.classId
@@ -81,7 +85,7 @@ export class Attendance extends Component {
     const yes = document.querySelectorAll('.student')
     console.log('arr', Array.from(yes))
 
-    this.props.getAllAttendanceForThisCourse(4)
+    this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited)
   }
   render() {
     console.log('On the attendance.js file, the props are ', this.props)
