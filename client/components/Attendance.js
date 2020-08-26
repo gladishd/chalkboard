@@ -57,15 +57,15 @@ export class Attendance extends Component {
         currentDate: currentDate,
         courseId: this.props.courseIdInherited
       })
+
+      this.setState({
+        attendanceArray: currentAttendanceArray
+      }) // this will just be something which makes the component re-render.
+      // what we want to do is actually make an axios request using the thunk we imported
+      //{ studentId: 5, status: 'present', currentDate: '2020-08-26T13:23:27-05:00' }
     })
 
-    this.setState({
-      attendanceArray: currentAttendanceArray
-    }) // this will just be something which makes the component re-render.
-    // what we want to do is actually make an axios request using the thunk we imported
-    //{ studentId: 5, status: 'present', currentDate: '2020-08-26T13:23:27-05:00' }
-
-    currentAttendanceArray.forEach(attendanceRow => {
+    this.state.attendanceArray.forEach(attendanceRow => {
       this.props.takeAttendance(attendanceRow)
     })
 
