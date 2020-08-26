@@ -3,6 +3,7 @@ const Course = require('./course')
 const Assignment = require('./assignment')
 const Enrollment = require('./enrollment')
 const Gradebook = require('./gradebook')
+const Attendance = require('./attendance')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -32,5 +33,6 @@ module.exports = {
   Course,
   Assignment,
   Enrollment,
-  Gradebook
+  Gradebook,
+  Attendance
 }

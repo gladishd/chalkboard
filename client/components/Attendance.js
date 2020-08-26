@@ -4,8 +4,15 @@ import {roster} from '../Utils'
 // let's just pass down all the students for this current course
 // from props
 import moment from 'moment'
+// we want to submit the attendance from state to the attendance table on the database
+import {
+  takeAttendanceThunk,
+  getAllAttendanceByCourseThunk,
+  getAllUsersThunk
+} from '../store/user.js'
+import {connect} from 'react-redux' // need this to map state to props
 
-export default class Attendance extends Component {
+export class Attendance extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,13 +42,21 @@ export default class Attendance extends Component {
         value = 'an error occurred'
       }
 
-      currentAttendanceArray.push([student.id, value, currentDate])
+      currentAttendanceArray.push({
+        studentId: student.id,
+        status: value,
+        currentDate: currentDate,
+        courseId: this.props.courseIdInherited
+      })
       this.setState({
         attendanceArray: currentAttendanceArray
+      }) // this will just be something which makes the component re-render.
+      // what we want to do is actually make an axios request using the thunk we imported
+      //{ studentId: 5, status: 'present', currentDate: '2020-08-26T13:23:27-05:00' }
+      currentAttendanceArray.forEach(attendanceRow => {
+        this.props.takeAttendance(attendanceRow)
       })
     })
-
-    console.log('the state is ', this.state)
   }
   componentDidMount() {
     // const group = props.classId
@@ -56,8 +71,11 @@ export default class Attendance extends Component {
     const check = document.getElementById('test')
     const yes = document.querySelectorAll('.student')
     console.log('arr', Array.from(yes))
+
+    this.props.getAllAttendanceForThisCourse(4)
   }
   render() {
+    console.log('On the attendance.js file, the props are ', this.props)
     return (
       <div>
         <h1>Attendance</h1>
@@ -106,7 +124,28 @@ export default class Attendance extends Component {
           })}
           <button id="submit-attendance">Submit</button>
         </form>
+
+        {<div>Past Attendance:</div>}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    reduxState: state // simplest way to do it
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    takeAttendance: data => {
+      dispatch(takeAttendanceThunk(data))
+    },
+    getAllAttendanceForThisCourse: courseId => {
+      dispatch(getAllAttendanceByCourseThunk(courseId))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Attendance)

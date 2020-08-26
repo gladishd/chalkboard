@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Assignment = db.define('assignment', {
+const Attendance = db.define('attendance', {
   studentId: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -18,8 +18,16 @@ const Assignment = db.define('assignment', {
   },
   status: {
     type: Sequelize.ENUM('present', 'absent', 'tardy'),
-    allowNull: true // the student might not have yet arrived
+    // type: Sequelize.STRING,
+    allowNull: true // the student might not have yet arrived.
+  }, // We want to give them the benefit of the doubt.
+  courseId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 })
 
-module.exports = Assignment
+module.exports = Attendance
