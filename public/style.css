@@ -510,3 +510,59 @@ nav a {
   display: flex;
   flex-direction: row;
 }
+/* .sdk-select {
+  height: 34px;
+  border-radius: 4px;
+}
+
+.websdktest button {
+  float: right;
+  margin-left: 5px;
+}
+#nav-tool {
+  margin-bottom: 0px;
+}
+
+#show-test-tool {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  display: block;
+  z-index: 99999;
+}
+#display_name {
+  width: 250px;
+}
+
+
+#websdk-iframe {
+  width: 700px;
+  height: 500px;
+  border: 1px;
+  border-color: red;
+  border-style: dashed;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  margin: 0;
+} */
+
+button.launchButton {
+  z-index: 100;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  border: 0;
+  outline: 0;
+  color: #ffffff;
+  background: #0e71eb;
+  padding: 7px 16px 8px;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  margin: 8px;
+}

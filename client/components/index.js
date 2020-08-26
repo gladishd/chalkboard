@@ -13,6 +13,5 @@ export {default as StudentDashboard} from './studentDashboard'
 
 export {default as studentClassDashboard} from './studentClassDashboard'
 export {default as TeacherDashboard} from './TeacherDashboard'
-export {
-  default as moreClassInformationComponent
-} from './moreClassInformationComponent'
+export {default as moreClassInformationComponent} from './moreClassInformationComponent'
+export {default as VideoRoom} from './Zoom/VideoRoom'
