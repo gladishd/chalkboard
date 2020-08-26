@@ -49,12 +49,14 @@ export class studentClassDashboard extends React.Component {
       courseName = this.props.courseObjectInherited.courseName
     }
     this.props.getCourse(courseId)
-    let socket
-    if (this.props.location) {
-      socket = io(`/${this.props.location.state.number}`)
-    } else {
-      socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
-    }
+    let socket = io()
+    // if (this.props.location) {
+    //   socket = io(`/${this.props.location.state.number}`)
+    // } else {
+    //   socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
+    // }
+    
+    socket.emit('class', 'red')
 
     const input = document.getElementById('chat-input')
 
