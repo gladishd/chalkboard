@@ -11,7 +11,8 @@ import {
   moreClassInformationComponent,
   TeacherDashboard,
   TeacherClassboard,
-  TeacherDash
+  TeacherDash,
+  VideoRoom
 } from './components'
 import {me} from './store'
 import MainClass from './components/MainClass'
@@ -32,6 +33,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
+        <Route path="/video" component={VideoRoom} />
 
         {/* Routes below give conditional access based on account type */}
 
