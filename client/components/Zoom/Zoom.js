@@ -1,93 +1,73 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {ZoomMtg} from '@zoomus/websdk'
 require('../../../zoomSecrets')
 
-// Add this, never use it client side in production
-const API_KEY = process.env.API_KEY
-// Add this, never use it client side in production
-const API_SECRET = process.env.API_SECRET
-// This can be your Personal Meeting ID
-const MEETING_NUMBER = 4102281543
+let apiKeys = {
+  apiKey: process.env.REACT_APP_ZOOM_API_KEY,
+  apiSecret: process.env.REACT_APP_ZOOM_API_SECRET_KEY
+}
 
-const meetConfig = {
-  apiKey: API_KEY,
-  apiSecret: API_SECRET,
-  meetingNumber: MEETING_NUMBER,
-  userName: 'test user',
+let meetConfig = {
+  apiKey: apiKeys.apiKey,
+  meetingNumber: '4102281543',
+  userName: 'Example',
+  userEmail: 'example@example.com', // must be the attendee email address
   passWord: '64k*Fi6_Of',
   leaveUrl: 'https://zoom.us',
   role: 0
 }
 
-export default class Zoom extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      meetingLaunched: false
-    }
-  }
+function Zoom() {
+  function joinMeeting(signature, meetConfig) {
+    ZoomMtg.init({
+      leaveUrl: 'https://zoom.us/',
+      isSupportAV: true,
+      success: function(success) {
+        console.log('Init Success ', success)
+        ZoomMtg.join({
+          meetingNumber: meetConfig.meetingNumber,
+          userName: meetConfig.userName,
+          signature: signature,
+          apiKey: meetConfig.apiKey,
+          passWord: meetConfig.passWord,
 
-  launchMeeting = () => {
-    // change state of meeting
-    this.setState({meetingLaunched: !this.state.meetingLaunched})
-
-    // generateSignature should only be used in development
-    ZoomMtg.generateSignature({
-      meetingNumber: meetConfig.meetingNumber,
-      apiKey: meetConfig.apiKey,
-      apiSecret: meetConfig.apiSecret,
-      role: meetConfig.role,
-      success(res) {
-        console.log('signature', res.result)
-        ZoomMtg.init({
-          leaveUrl: 'http://www.zoom.us',
-          success() {
-            ZoomMtg.join({
-              meetingNumber: meetConfig.meetingNumber,
-              userName: meetConfig.userName,
-              signature: res.result,
-              apiKey: meetConfig.apiKey,
-              userEmail: 'email@gmail.com',
-              passWord: meetConfig.passWord,
-              success() {
-                console.log('join meeting success')
-              },
-              error(res) {
-                console.log(res)
-              }
-            })
+          success: success => {
+            console.log(success)
           },
-          error(res) {
-            console.log(res)
+
+          error: error => {
+            console.log(error)
           }
         })
       }
     })
   }
-
-  componentDidMount() {
-    ZoomMtg.setZoomJSLib('https://source.zoom.us/1.7.0/lib', '/av')
+  useEffect(() => {
+    ZoomMtg.setZoomJSLib('https://source.zoom.us/1.7.10/lib', '/av')
     ZoomMtg.preLoadWasm()
     ZoomMtg.prepareJssdk()
-  }
 
-  render() {
-    const {meetingLaunched} = this.state
-    // Displays a button to launch the meeting when the meetingLaunched state is false
-    return (
-      <>
-        {!meetingLaunched ? (
-          <button
-            type="button"
-            className="launchButton"
-            onClick={this.launchMeeting}
-          >
-            Launch Meeting
-          </button>
-        ) : (
-          <></>
-        )}
-      </>
-    )
-  }
+    /**
+     * You should not visible api secret key on frontend
+     * Signature must be generated on server
+     * https://marketplace.zoom.us/docs/sdk/native-sdks/web/essential/signature
+     */
+    ZoomMtg.generateSignature({
+      meetingNumber: meetConfig.meetingNumber,
+      apiKey: meetConfig.apiKey,
+      apiSecret: apiKeys.apiSecret,
+      role: meetConfig.role,
+      success: function(res) {
+        console.log('res', res)
+
+        setTimeout(() => {
+          joinMeeting(res.result, meetConfig)
+        }, 1000)
+      }
+    })
+  }, [])
+
+  return <div className="App">Zoom Testing</div>
 }
+
+export default Zoom
