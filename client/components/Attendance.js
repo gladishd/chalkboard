@@ -32,7 +32,7 @@ export class Attendance extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let currentDate = moment().format()
+    let currentDate = moment().format('dddd, MMMM Do YYYY, h:mm:ss a')
 
     this.props.studentsForThisCourseInherited.forEach(student => {
       let currentAttendanceArray = this.state.attendanceArray
@@ -86,6 +86,7 @@ export class Attendance extends Component {
   render() {
     console.log('On the attendance.js file, the props are ', this.props)
     let pastAttendanceList = this.props.reduxState.user.pastAttendance
+    let studentsInCourse = this.props.studentsForThisCourseInherited
 
     return (
       <div>
@@ -144,8 +145,17 @@ export class Attendance extends Component {
             {pastAttendanceList.map(entry => {
               return (
                 <div id={entry.id}>
-                  <div>{entry.studentId}</div>
                   <div>{entry.currentDate}</div>
+                  <div>
+                    {// converting student ids to student names
+                    studentsInCourse.find(
+                      student => student.id === entry.studentId
+                    ).firstName +
+                      ' ' +
+                      studentsInCourse.find(
+                        student => student.id === entry.studentId
+                      ).lastName}
+                  </div>
                   <div>{entry.status}</div>
                   <hr />
                 </div>
