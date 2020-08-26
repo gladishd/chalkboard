@@ -108,10 +108,6 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
-    // console.log('state course number ', this.props.location.state.number)
-    // console.log('state course name ', this.props.location.state.name)
-    // console.log('state course first ', this.props.location.state.firstName)
-    console.log('On studentClassDashboard.js, the props are ', this.props)
     let courseIntro = []
     let courseDetails = []
     if (
