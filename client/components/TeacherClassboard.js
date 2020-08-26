@@ -132,7 +132,18 @@ export class TeacherClassboard extends Component {
             >
               Today's Attendance
             </button>
-            {this.state.showAttendance ? <Attendance /> : <div />}
+            {this.state.showAttendance ? (
+              <Attendance
+                studentsForThisCourseInherited={
+                  this.props.reduxState.course.students
+                }
+                courseIdInherited={this.props.location.pathname.slice(
+                  this.props.location.pathname.length - 1
+                )}
+              />
+            ) : (
+              <div />
+            )}
 
             <button
               className="classboardAssignments"
@@ -160,7 +171,14 @@ export class TeacherClassboard extends Component {
             </button>
 
             {this.state.showAssignmentByStudentView ? (
-              <AssignmentViewByStudent />
+              <AssignmentViewByStudent
+                studentsForThisCourseInherited={
+                  this.props.reduxState.course.students
+                }
+                courseIdInherited={this.props.location.pathname.slice(
+                  this.props.location.pathname.length - 1
+                )}
+              />
             ) : (
               <div />
             )}
