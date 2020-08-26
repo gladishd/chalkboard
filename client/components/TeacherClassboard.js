@@ -132,7 +132,15 @@ export class TeacherClassboard extends Component {
             >
               Today's Attendance
             </button>
-            {this.state.showAttendance ? <Attendance /> : <div />}
+            {this.state.showAttendance ? (
+              <Attendance
+                studentsForThisCourseInherited={
+                  this.props.reduxState.course.students
+                }
+              />
+            ) : (
+              <div />
+            )}
 
             <button
               className="classboardAssignments"

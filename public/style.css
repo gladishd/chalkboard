@@ -500,3 +500,13 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
+
+.attendanceForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.attendanceFormOptions {
+  display: flex;
+  flex-direction: row;
+}
