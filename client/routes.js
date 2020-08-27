@@ -11,7 +11,8 @@ import {
   moreClassInformationComponent,
   TeacherDashboard,
   TeacherClassboard,
-  TeacherDash
+  TeacherDash,
+  VideoRoom
 } from './components'
 import {me} from './store'
 import MainClass from './components/MainClass'
@@ -32,53 +33,51 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
+        <Route path="/video" component={VideoRoom} />
 
         {/* Routes below give conditional access based on account type */}
 
         {/* Admin Routes */}
-        {isLoggedIn &&
-          accountType === 'admin' && (
-            <Switch>
-              <Route path="/home" component={UserHome} />
-              {/* The route below will need to be changed to an add user form component available to admin */}
-              {/* <Route path="/signup" component={Signup} /> */}
-            </Switch>
-          )}
+        {isLoggedIn && accountType === 'admin' && (
+          <Switch>
+            <Route path="/home" component={UserHome} />
+            {/* The route below will need to be changed to an add user form component available to admin */}
+            {/* <Route path="/signup" component={Signup} /> */}
+          </Switch>
+        )}
 
         {/* Teacher Routes */}
-        {isLoggedIn &&
-          accountType === 'teacher' && (
-            <Switch>
-              <Route path="/home" component={UserHome} />
-              <Route path="/main" component={MainClass} />
-              <Route path="/attendance" component={Attendance} />
-              <Route
-                path="/moreClassInformationComponent"
-                component={moreClassInformationComponent}
-              />
-              <Route path="/TeacherClassboard" component={TeacherClassboard} />
-              <Route path="/teacherDashboard" component={TeacherDashboard} />
-              <Route path="/TeacherDash" component={TeacherDash} />
-              <Route
-                path="/studentClassDashboard"
-                component={studentClassDashboard}
-              />
-            </Switch>
-          )}
+        {isLoggedIn && accountType === 'teacher' && (
+          <Switch>
+            <Route path="/home" component={UserHome} />
+            <Route path="/main" component={MainClass} />
+            <Route path="/attendance" component={Attendance} />
+            <Route
+              path="/moreClassInformationComponent"
+              component={moreClassInformationComponent}
+            />
+            <Route path="/TeacherClassboard" component={TeacherClassboard} />
+            <Route path="/teacherDashboard" component={TeacherDashboard} />
+            <Route path="/TeacherDash" component={TeacherDash} />
+            <Route
+              path="/studentClassDashboard"
+              component={studentClassDashboard}
+            />
+          </Switch>
+        )}
         {/* Student Routes */}
-        {isLoggedIn &&
-          accountType === 'student' && (
-            <Switch>
-              <Route path="/home" component={UserHome} />
+        {isLoggedIn && accountType === 'student' && (
+          <Switch>
+            <Route path="/home" component={UserHome} />
 
-              <Route path="/main" component={MainClass} />
-              <Route path="/studentDashboard" component={StudentDashboard} />
-              <Route
-                path="/studentClassDashboard"
-                component={studentClassDashboard}
-              />
-            </Switch>
-          )}
+            <Route path="/main" component={MainClass} />
+            <Route path="/studentDashboard" component={StudentDashboard} />
+            <Route
+              path="/studentClassDashboard"
+              component={studentClassDashboard}
+            />
+          </Switch>
+        )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

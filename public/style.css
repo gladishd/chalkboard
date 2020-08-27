@@ -510,3 +510,8 @@ nav a {
   display: flex;
   flex-direction: row;
 }
+
+body > #zmmtg-root {
+  z-index: -1;
+  background-color: white;
+}
