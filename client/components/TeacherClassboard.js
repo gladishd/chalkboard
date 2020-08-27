@@ -7,6 +7,7 @@ import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
 import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
+import VideoRoom from './Zoom/VideoRoom'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -114,6 +115,7 @@ export class TeacherClassboard extends Component {
             >
               Start Lecture
             </button>
+
             {this.state.showLecture ? (
               <StudentClassDashboard
                 courseIdInherited={`${this.props.location.pathname.charAt(
