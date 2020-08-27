@@ -35,7 +35,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route exact path="/video" component={CreateVideo} />
-        <Route path="/video/id" component={VideoRoom} />
+        <Route path="/video/zoom" component={VideoRoom} />
 
         {/* Routes below give conditional access based on account type */}
 
