@@ -1,23 +1,24 @@
 import React, {Component} from 'react'
 import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {default as StudentClassDashboard} from './studentClassDashboard'
+// import {Link} from 'react-router-dom'
+// import {default as StudentClassDashboard} from './studentClassDashboard'
 import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
 import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
+import CreateZoomVideo from './Zoom/CreateVideoButton'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showLecture: false,
+      // showLecture: false,
       showAttendance: false,
       showAssignmentView: false,
       showAssignmentByStudentView: false
     }
-    this.toggleLecture = this.toggleLecture.bind(this)
+    // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
     this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
     this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
@@ -25,12 +26,12 @@ export class TeacherClassboard extends Component {
     )
   }
 
-  toggleLecture(e) {
-    e.preventDefault()
-    this.setState({
-      showLecture: !this.state.showLecture
-    })
-  }
+  // toggleLecture(e) {
+  //   e.preventDefault()
+  //   this.setState({
+  //     showLecture: !this.state.showLecture
+  //   })
+  // }
 
   toggleAttendance(e) {
     e.preventDefault()
@@ -82,8 +83,9 @@ export class TeacherClassboard extends Component {
           <b>{courseName}</b>
 
           {this.props.reduxState.course.students.map((studentObject, index) => {
+            const counter = index
             return (
-              <div>
+              <div key={counter}>
                 {`Student ${index}: ` +
                   studentObject.firstName +
                   ' ' +
@@ -108,13 +110,14 @@ export class TeacherClassboard extends Component {
           </div>
 
           <div>
-            <button
+            <CreateZoomVideo />
+            {/* <button
               className="classboardStartLecture"
               onClick={this.toggleLecture}
             >
               Start Lecture
-            </button>
-            {this.state.showLecture ? (
+            </button> */}
+            {/* {this.state.showLecture ? (
               <StudentClassDashboard
                 courseIdInherited={`${this.props.location.pathname.charAt(
                   this.props.location.pathname.length - 1
@@ -124,9 +127,10 @@ export class TeacherClassboard extends Component {
               />
             ) : (
               <div />
-            )}
+            )} */}
 
             <button
+              type="button"
               className="classboardAttendance"
               onClick={this.toggleAttendance}
             >
@@ -146,6 +150,7 @@ export class TeacherClassboard extends Component {
             )}
 
             <button
+              type="button"
               className="classboardAssignments"
               onClick={this.toggleAssignmentView}
             >
@@ -161,9 +166,12 @@ export class TeacherClassboard extends Component {
               <div />
             )}
 
-            <button className="classboardAddAssignment">Add</button>
+            <button type="button" className="classboardAddAssignment">
+              Add
+            </button>
 
             <button
+              type="button"
               className="classboardStudent"
               onClick={this.toggleAssignmentByStudentView}
             >
@@ -183,7 +191,9 @@ export class TeacherClassboard extends Component {
               <div />
             )}
 
-            <button className="classboardAddStudent">Add</button>
+            <button type="button" className="classboardAddStudent">
+              Add
+            </button>
           </div>
         </div>
       </div>
