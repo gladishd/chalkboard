@@ -12,7 +12,7 @@ let meetConfig = {
   apiKey: apiKeys.apiKey,
   meetingNumber: '2473055604',
   userName: '',
-  userEmail: '', // must be the attendee email address
+  userEmail: '', //must be set to same email as meeting owner for host privileges
   passWord: '420420',
   leaveUrl: 'http://localhost:8080/studentClassDashBoard',
   role: 0
@@ -20,12 +20,14 @@ let meetConfig = {
 
 const Zoom = props => {
   const {user, courseId} = props
-
+  console.log('user', user)
+  console.log('props.user', props.user)
   //setting meeting config properties off of user
   meetConfig.userName = `${user.firstName} ${user.lastName}`
   meetConfig.userEmail = `${user.email}`
   if (user.accountType === 'teacher') {
     meetConfig.role = 1
+    meetConfig.userEmail = `jarreola7123@gmail.com`
     meetConfig.leaveUrl = `http://localhost:8080/TeacherClassboard/${courseId}`
   }
 

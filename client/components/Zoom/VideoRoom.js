@@ -5,12 +5,12 @@ import history from '../../history'
 import {connect} from 'react-redux'
 import user from '../../store/user'
 
-function VideoRoom() {
+function VideoRoom(props) {
   setZIndex()
 
   const {user, courseId} = props
 
-  if (user.me.id) {
+  if (user.id) {
     return (
       <div>
         <Zoom user={user} courseId={courseId} />
@@ -29,7 +29,7 @@ function VideoRoom() {
 
 const mapState = state => {
   return {
-    user: state.user,
+    user: state.user.me,
     courseId: state.course.single.id
   }
 }
