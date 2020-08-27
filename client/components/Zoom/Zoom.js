@@ -43,10 +43,7 @@ function Zoom() {
     })
   }
   useEffect(() => {
-    // ZoomMtg.setZoomJSLib(
-    //   'https://source.zoom.us/1.7.10/lib',
-    //   '/av'
-    // )
+    ZoomMtg.setZoomJSLib('https://source.zoom.us/1.7.10/lib', '/av')
     ZoomMtg.preLoadWasm()
     ZoomMtg.prepareJssdk()
 
