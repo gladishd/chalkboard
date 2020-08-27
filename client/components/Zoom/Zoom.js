@@ -64,7 +64,7 @@ function Zoom() {
     })
   }, [])
 
-  return <div className="App">Zoom Testing</div>
+  return <></>
 }
 
 export default Zoom
