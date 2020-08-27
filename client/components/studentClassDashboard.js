@@ -44,12 +44,24 @@ export class studentClassDashboard extends React.Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
+        const view = document.querySelector('.selectAudience').selectedIndex
+
       if(e.key === 'Enter'){
-        socket.emit('message', {
-          message: e.target.value,
-          firstName: this.props.location.state.firstName,
-          type: 'student'
-        })
+        if(view !== 1){
+          socket.emit('message', {
+            message: e.target.value,
+            firstName: this.props.location.state.firstName,
+            type: 'student',
+            dm: false
+          }) 
+        }else {
+          socket.emit('message',{
+            message: e.target.value,
+            firstName: this.props.location.firstName,
+            type: 'student',
+            dm: true
+          } )
+        }
         e.target.value = ''
       }
     })
@@ -229,7 +241,7 @@ export class studentClassDashboard extends React.Component {
           <div id="message-main">
             <div id="chat-messages" />
             {
-              this.state.messages.map((message, idx) => <p key={idx}className={`my${message.type}`} className={message.person}>{message.message}</p>)
+              this.state.messages.map((message, idx) => <p key={idx}className={message.type} className={message.person}>{message.message}</p>)
             }
             <input id="chat-input" type="text" overflow="auto" />
             {this.props.accountType === 'teacher' ? (

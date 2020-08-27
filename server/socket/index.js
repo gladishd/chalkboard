@@ -15,6 +15,7 @@ module.exports = io => {
       socket.emit('room-chat', 'solo')
     })
     socket.on('message', (message) => {
+      
       socket.to(room[socket.id]).emit('message', {
         message: `${message.firstName}: ${message.message}`,
         type: message.type,
