@@ -5,6 +5,8 @@ import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/course.js'
 import {IoTSecureTunneling} from 'aws-sdk'
 import {getUserCoursesThunk} from '../store/user'
+import {setSocket} from '../store/socket'
+import io from 'socket.io-client'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -22,12 +24,13 @@ export class StudentDashboard extends React.Component {
       console.log(err)
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       coursesArray: this.props.courses
     })
+    const socket = io()
+    await this.props.newSocket(socket)
   }
-
   render() {
     const courseList = this.props.courses || []
     const allCoursesList = this.props.allCourses || []
@@ -102,7 +105,8 @@ const mapDispatchToProps = dispatch => {
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
     },
-    getMyCourses: id => dispatch(getUserCoursesThunk(id))
+    getMyCourses: id => dispatch(getUserCoursesThunk(id)),
+    newSocket: (socket) => dispatch(setSocket(socket))
   }
 }
 

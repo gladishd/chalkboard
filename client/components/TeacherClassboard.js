@@ -16,7 +16,8 @@ export class TeacherClassboard extends Component {
       showLecture: false,
       showAttendance: false,
       showAssignmentView: false,
-      showAssignmentByStudentView: false
+      showAssignmentByStudentView: false,
+      messages: []
     }
     this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
@@ -30,30 +31,23 @@ export class TeacherClassboard extends Component {
 
   }
   componentDidMount() {
+    console.log('top of teacher socket check ', this.props)
+    const socket = this.props.reduxState.socket
     
-    let path
-    let courseId
-    if (this.props.location) {
-      // if we got there through a URL (when we're a student)
-      path = this.props.location.pathname
-      courseId = this.props.location.state.number
-      // courseId = path.slice(path.length - 1)
-    } else {
-      courseId = this.props.courseIdInherited
-    }
-    const first = this.props.location.state.firstName
-    // let courseId = path.slice(path.length - 1)
-    let courseName = this.props.location.state.name
-    console.log('the props are ', this.props)
-    // this.props.getCourse(courseId)
-    const socket = io(`/${this.props.location.state.number}`)
-    const input = document.getElementById('chat-input')
+    socket.emit('course', this.props.location.state.number)
 
-    // I just commented these lines out so that I could render from the teacher's perspective
-    // socket.emit('login', {name: first, type: 'Student'})
-    socket.emit('login', {name: first, type: 'teacher'})
+    socket.on('room-chat', (message) => {
+      console.log(`From Russia ${message}`)
+    })
+    socket.on('message', (message) => {
+      this.setState({
+        ...this.state,
+        messages: [...this.state.messages, message]
+      })
+    })
+    const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      if (e.key === 'Enter') {
+      if(e.key === 'Enter'){
         socket.emit('message', {
           message: e.target.value,
           firstName: this.props.location.state.firstName,
@@ -61,36 +55,6 @@ export class TeacherClassboard extends Component {
         })
         e.target.value = ''
       }
-    })
-    socket.on('myMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
-    socket.on('theirMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
-    socket.on('teacherMessage', (message) => {
-      console.log('in teacher')
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.classList.add('teacher-message')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
-    socket.on('private', (message) => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.classList.add('teacher-private')
-      mes.innerHTML = `${message}`
-      box.appendChild(mes)
-    })
-    socket.on('list', (student) => {
-      console.log('new user ', student)
     })
   }
   toggleLecture(e) {
@@ -251,6 +215,9 @@ export class TeacherClassboard extends Component {
           Say something nice..
           <div id="message-main">
             <div id="chat-messages" />
+            {
+              this.state.messages.map((message, idx) => <p key={idx}className={message.type + '-' + 'message'} className={message.person}>{message.message}</p>)
+            }
             <input id="chat-input" type="text" overflow="auto" />
           </div>
           

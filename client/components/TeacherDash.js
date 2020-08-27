@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import openSocket from 'socket.io-client'
+import {setSocket} from '../store/socket'
+import io from 'socket.io-client'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -32,6 +34,8 @@ export class TeacherDash extends Component {
     } catch (err) {
       console.log(err)
     }
+    const socket = io()
+    await this.props.newSocket(socket)
   }
   componentDidMount() {
     this.setState({
@@ -192,7 +196,8 @@ export class TeacherDash extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getAllCourses: () => dispatch(getAllCoursesThunk()),
-    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
+    newSocket: (socket) => dispatch(setSocket(socket))
   }
 }
 const mapStateToProps = state => {

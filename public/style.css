@@ -502,3 +502,14 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
+/*
+chat stuff
+*/
+/* 
+.self{
+  color: green;
+} */
+
+.student{
+  color: red;
+}

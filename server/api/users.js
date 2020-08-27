@@ -30,9 +30,7 @@ router.get('/courses/:userId', async (req, res, next) => {
         id: req.params.userId
       }
     })
-    console.log('did the route find a user? ', user)
     const courses = await user.getCourses()
-    console.log('did the route find a courses object? ', courses)
     courses ? res.json(courses) : res.status(400).end()
   } catch (error) {
     next(error)
@@ -102,7 +100,6 @@ router.get('/:user', async (req, res, next) => {
 
     const courses = await user.getCourses()
     res.json(courses)
-    console.log('courses ', courses[0].dataValues)
   } catch (err) {
     next(err)
   }
