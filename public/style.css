@@ -549,7 +549,7 @@ nav a {
   margin: 0;
 } */
 
-button.launchButton {
+/* button.launchButton {
   z-index: 100;
   position: fixed;
   top: 16px;
@@ -565,4 +565,4 @@ button.launchButton {
   line-height: 17px;
   cursor: pointer;
   margin: 8px;
-}
+} */

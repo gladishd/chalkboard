@@ -1,10 +1,12 @@
 import React from 'react'
-import ZoomComponent from './Zoom'
+import Zoom from './Zoom'
 
-export default function VideoRoom() {
+function VideoRoom() {
   return (
     <>
-      <ZoomComponent />
+      <Zoom />
     </>
   )
 }
+
+export default VideoRoom
