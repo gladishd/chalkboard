@@ -58,7 +58,19 @@ export class TeacherAssignmentByStudentView extends Component {
       })
       gradebookFilteredForClass[index].assignmentDataObject = singleAssignment
     })
+
+    // console.log("this.state.assignment: ", this.state.assignment)
+    // console.log("this.state.assignment === 1", Number(this.state.assignment) === 1)
+    if (this.state.assignment) {
+      // if we also want to filter by assignment
+      gradebookFilteredForClass = gradebookFilteredForClass.filter(element => {
+        return element.assignmentId === Number(this.state.assignment)
+      })
+    }
+
     console.log('gradebookFilteredForClass: ', gradebookFilteredForClass)
+    console.log('state on TeacherAssignmentByStudentView: ', this.state)
+    console.log('props on TeacherAssignmentByStudentView: ', this.props)
     return (
       <div className="assignmentsByStudent">
         <div className="student">
