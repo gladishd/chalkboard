@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 //info given this.prams.params.id
 const defaultState = {
@@ -91,4 +92,12 @@ class AssignmentForm extends React.Component {
   }
 }
 
-export default AssignmentForm
+const mapDispatch = dispatch => {
+  return {
+    // getAllAttendanceForThisCourse: courseId => {
+    //   dispatch(getAllAttendanceByCourseThunk(courseId))
+    // }
+  }
+}
+
+export default connect(null, mapDispatch)(AssignmentForm)
