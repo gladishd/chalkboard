@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {ZoomMtg} from '@zoomus/websdk'
-require('../../../zoomSecrets')
+// require('../../../zoomSecrets') // commented out for now, do not delete
 
 let apiKeys = {
   apiKey: process.env.REACT_APP_ZOOM_API_KEY,
@@ -9,18 +9,30 @@ let apiKeys = {
 
 let meetConfig = {
   apiKey: apiKeys.apiKey,
-  meetingNumber: '4102281543',
-  userName: 'Example',
-  userEmail: 'example@example.com', // must be the attendee email address
-  passWord: '64k*Fi6_Of',
-  leaveUrl: 'http://localhost:8080/',
+  meetingNumber: '2473055604',
+  userName: '',
+  userEmail: '', //must be set to same email as meeting owner for host privileges
+  passWord: '420420',
+  leaveUrl: 'http://localhost:8080/home',
   role: 0
 }
 
-function Zoom() {
+const Zoom = props => {
+  const {user, courseId} = props
+  console.log('user', user)
+  console.log('props.user', props.user)
+  //setting meeting config properties off of user
+  meetConfig.userName = `${user.firstName} ${user.lastName}`
+  meetConfig.userEmail = `${user.email}`
+  if (user.accountType === 'teacher') {
+    meetConfig.role = 1
+    meetConfig.userEmail = `jarreola7123@gmail.com`
+    meetConfig.leaveUrl = `http://localhost:8080/TeacherClassboard/${courseId}`
+  }
+
   function joinMeeting(signature, meetConfig) {
     ZoomMtg.init({
-      leaveUrl: 'http://localhost:8080/',
+      leaveUrl: meetConfig.leaveUrl,
       isSupportAV: true,
       success: function(success) {
         console.log('Init Success ', success)
@@ -42,6 +54,7 @@ function Zoom() {
       }
     })
   }
+
   useEffect(() => {
     ZoomMtg.setZoomJSLib('https://source.zoom.us/1.7.10/lib', '/av')
     ZoomMtg.preLoadWasm()

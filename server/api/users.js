@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Course, Attendance} = require('../db/models')
+const {User, Course, Attendance, Gradebook} = require('../db/models')
 const {default: Axios} = require('axios')
 module.exports = router
 
@@ -67,6 +67,19 @@ router.get('/assignments/:userId', async (req, res, next) => {
     const user = await User.findByPk(req.params.userId)
     const assignments = await user.getAssignments()
     assignments ? res.json(assignments) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/gradebook/:userId', async (req, res, next) => {
+  try {
+    const gradeBook = await Gradebook.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    gradeBook ? res.json(gradeBook) : res.status(400).end()
   } catch (err) {
     next(err)
   }

@@ -6,11 +6,12 @@ import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 // import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
-import {getSingleCourseThunk} from '../store/course.js'
+import course, {getSingleCourseThunk} from '../store/course.js'
 import emit from '../../public/emit'
 import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
+import JoinVideoButton from './Zoom/JoinVideoButton.js'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -22,15 +23,30 @@ export class studentClassDashboard extends React.Component {
     }
     this.toggleForm = this.toggleForm.bind(this)
   }
-  componentWillMount(){
-    console.log('will mount check socket props ', this.props)
-    console.log('after set state look socket ', this.state)
-  }
-  componentDidMount(){
+  
+  async componentDidMount() {
+    let courseId
+    let first = this.props.user.firstName
+    if (this.props.course.id) {
+    } else if (this.props.location) {
+      // if we got there through a URL (when we're a student)
+      let path = this.props.location.pathname
+      courseId = this.props.location.state.number
+    } else {
+      courseId = this.props.courseIdInherited
+    }
 
-    const socket = this.props.reduxState.socket
-    
-    socket.emit('course', this.props.location.state.number)
+    await this.props.getCourse(courseId)
+
+    let course = this.props.course
+    let courseName = course.courseName
+
+    let socket
+    if (this.props.location) {
+      socket = io(`/${this.props.location.state.number}`)
+    } else {
+      socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
+    }
 
     socket.on('room-chat', (message) => {
       console.log(`From Russia ${message}`)
@@ -90,28 +106,23 @@ export class studentClassDashboard extends React.Component {
     }
 
     return (
-      <div className="studentClassDashboard">
-        <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
-        <div className="classTitle">
-          {/* Welcome to {this.props.reduxState.courses.courseName} */}
-          {/* Welcome to {this.props.location.state.name}! */}
+      <div>
+        <div className="studentClassDashboard">
+          <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
+
+          <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
+
+          <div className="introductionToTheCourse">
+            {courseIntro.map((element, index) => {
+              return <div key={index}>{element}</div>
+            })}
+          </div>
+
+          <div>
+            <JoinVideoButton />
+          </div>
         </div>
-        <div className="introductionToTheCourse">
-          {courseIntro.map((element, index) => {
-            return <div key={index}>{element}</div>
-          })}
-        </div>
-        <div className="liveLecture">
-          Live Lecture
-          {this.props.accountType === 'teacher' ? (
-            <div>
-              <button>Record</button>
-              <button>Poll (survey)</button>
-            </div>
-          ) : (
-            <div />
-          )}
-        </div>
+
         <div className="liveChat">
           <button className="chatButtonCreate" onClick={this.toggleForm}>
             Create a New Group
@@ -148,27 +159,26 @@ export class studentClassDashboard extends React.Component {
             )}
           </div>
         </div>
+
         <div className="moreClassInformationComponent">
           {this.props.course.courseMoreInformation ? (
-            <MoreClassInformationComponent text={courseDetails} />
+            <div>
+              <MoreClassInformationComponent text={courseDetails} />
+            </div>
           ) : (
             <div>Course Information Not Available</div>
           )}
         </div>
-        {this.state.showForm ? (
-          <div className="newGroupFormComponent">
-            <NewGroupFormComponent />
-          </div>
-        ) : (
-          <div />
-        )}
 
-        {/* <div id='student-chat'>                 // STUDENT CHAT
-          <ul id='student-messages'>
-
-          </ul>
-          <input id='student-chat-space' type='text'></input>
-        </div> */}
+        <div>
+          {this.state.showForm ? (
+            <div className="newGroupFormComponent">
+              <NewGroupFormComponent />
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     )
   }
@@ -177,6 +187,7 @@ export class studentClassDashboard extends React.Component {
 const mapStateToProps = state => {
   return {
     course: state.course.single,
+    user: state.user.me,
     accountType: state.user.me.accountType,
     reduxState: state,
   }
@@ -184,13 +195,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
-    getCourse: id => {
-      dispatch(getSingleCourseThunk(id))
-    }
+    getCourse: id => dispatch(getSingleCourseThunk(id))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  studentClassDashboard
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(studentClassDashboard)

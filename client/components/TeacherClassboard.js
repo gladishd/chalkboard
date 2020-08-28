@@ -103,15 +103,18 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     console.log('teacher classboard props w students ', this.props)
     console.log('On TeacherClassboard.js, the props are ', this.props)
+=======
+>>>>>>> 0ff07207cc4e15d9fe1f6a3df1893f35630a1ea6
     const courseList = this.props.reduxState.user.courses || []
     // const identification = this.props.location.state.number || null
     // const courseName = this.props.location.state.name
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
     return (
-      <div className="teacherClassBoard">
+      <div className="teacherClassBoard" style={{overflow: 'visible'}}>
         <div className="classboardList">
           <b>{courseName}</b>
 
@@ -142,25 +145,8 @@ export class TeacherClassboard extends Component {
             )}
           </div>
 
-          <div>
+          <div className="teacherClassboardOptions">
             <CreateZoomVideo />
-            {/* <button
-              className="classboardStartLecture"
-              onClick={this.toggleLecture}
-            >
-              Start Lecture
-            </button> */}
-            {/* {this.state.showLecture ? (
-              <StudentClassDashboard
-                courseIdInherited={`${this.props.location.pathname.charAt(
-                  this.props.location.pathname.length - 1
-                )}`}
-                userInherited={this.props.reduxState.user.me}
-                courseObjectInherited={this.props.reduxState.course.single}
-              />
-            ) : (
-              <div />
-            )} */}
 
             <button
               type="button"

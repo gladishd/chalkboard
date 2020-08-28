@@ -90,7 +90,12 @@ export class TeacherDash extends Component {
 
   render() {
     const courseList = this.props.courses || []
+    console.log(
+      'on the teacher dash component, the course list looks like this: ',
+      courseList
+    )
     return (
+<<<<<<< HEAD
       <div className="TeacherDash">
         <div className="studentCourseList">
           {courseList.length > 0 ? (
@@ -117,16 +122,32 @@ export class TeacherDash extends Component {
             <div>Loading...</div>
           )}
         </div>
+=======
+      <div
+        className="TeacherDash"
+        style={{
+          overflow: 'visible',
+          'overflow-x': 'visible',
+          'overflow-y': 'visible',
+          height: '1000%'
+        }}
+      >
+>>>>>>> 0ff07207cc4e15d9fe1f6a3df1893f35630a1ea6
         {courseList.length > 0 ? (
           courseList.map((course, index) => {
             const counter = index
+
             return (
               <div key={`spit${counter}`}>
+                <Link to={`./TeacherClassboard/${course.id}`}>
+                  {course.courseName}
+                </Link>
                 {course.courseSchedule.split('\n').map((eachLine, index) => {
                   const scheduleCounter = index
                   return (
                     <div
                       key={`courseListSchedule${course.id}:${scheduleCounter}`}
+                      style={{fontSize: '0.75em'}}
                     >
                       {eachLine}
                     </div>
@@ -165,7 +186,7 @@ export class TeacherDash extends Component {
         )}
 
         {this.state.renderNewCourseForm ? (
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="addNewClassForm">
             <label htmlFor="introductionToTheCourse">
               Introduction to the Course:{' '}
             </label>
