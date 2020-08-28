@@ -14,6 +14,8 @@ const UPDATE_USER = 'UPDATE_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GET_ME = 'GET_ME'
 const LOGOUT_USER = 'LOGOUT_USER'
+const TAKE_ATTENDANCE = 'TAKE_ATTENDANCE'
+const GET_ALL_ATTENDANCE_FOR_COURSE = 'GET_ALL_ATTENDANCE_FOR_COURSE'
 
 /**
  * ACTION CREATORS
@@ -31,6 +33,11 @@ const removeUser = userId => ({type: REMOVE_USER, userId})
 const getMe = me => ({type: GET_ME, me})
 const logoutUser = () => ({type: LOGOUT_USER})
 const getTeacherCourses = courses => ({type: GET_TEACHER_COURSES, courses})
+const takeAttendance = data => ({type: TAKE_ATTENDANCE, data})
+const getAllAttendanceForCourse = data => ({
+  type: GET_ALL_ATTENDANCE_FOR_COURSE,
+  data
+})
 
 /**
  * THUNK CREATORS
@@ -43,6 +50,17 @@ export const getAllUsersThunk = () => {
       dispatch(getAllUsers(data))
     } catch (err) {
       console.error(err.message)
+    }
+  }
+}
+
+export const getAllAttendanceByCourseThunk = courseId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/attendance/${courseId}`)
+      dispatch(getAllAttendanceForCourse(data))
+    } catch (error) {
+      console.error(error.message)
     }
   }
 }
@@ -98,6 +116,17 @@ export const addUserThunk = user => {
       dispatch(addUser(data))
     } catch (err) {
       console.error(err.message)
+    }
+  }
+}
+
+export const takeAttendanceThunk = attendanceData => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/users/attendance', attendanceData)
+      dispatch(takeAttendance(data))
+    } catch (error) {
+      console.error(error.message)
     }
   }
 }
@@ -169,7 +198,9 @@ const initialState = {
   single: {},
   me: {},
   courses: [],
-  assignments: []
+  assignments: [],
+  pastAttendance: {},
+  attendanceDataSubmitted: {}
 }
 
 /**
@@ -207,6 +238,10 @@ export default function(state = initialState, action) {
       return {...state, me: {}}
     case GET_TEACHER_COURSES:
       return {...state, courses: action.courses} // using the same courses object on state for both the teacher and student classboard
+    case TAKE_ATTENDANCE:
+      return {...state, attendanceDataSubmitted: action.data}
+    case GET_ALL_ATTENDANCE_FOR_COURSE:
+      return {...state, pastAttendance: action.data}
     default:
       return state
   }

@@ -2,16 +2,26 @@ import React, {Component} from 'react'
 import {getUserCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import {getAssignmentsByCourseIdThunk} from '../store/assignment'
+import moment from 'moment' // so we can format the due date
 
 export class TeacherAssignmentView extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      selected: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    let selectedValue = e.target.value
+    this.setState({
+      selected: selectedValue
+    })
   }
 
   async componentWillMount() {
     try {
-      //this.props.location.pathname.slice(path.length - 1)
       this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     } catch (err) {
       console.log(err)
@@ -19,30 +29,62 @@ export class TeacherAssignmentView extends Component {
   }
 
   render() {
-    console.log('on the teacherassignmentview, the props are ', this.props)
-    console.log('so the courses array is ', this.props.reduxState.user.courses)
-
+    let allAssignments = this.props.reduxState.assignment.assignments || []
+    console.log('the value of allAssignemnts is ', allAssignments)
     return (
       <div className="assignmentViewMainDiv">
-        <div className="assignment">Assignment</div>
-        <div className="newAssignment">New Assignment</div>
-        <div className="dropdownAssignment">Dropdown for assignment</div>
+        <div className="dropdownAssignment">
+          Dropdown for assignment
+          <select name="assignments" onChange={this.handleChange}>
+            <option value="" selected>
+              Select an option
+            </option>
+            {this.props.reduxState.assignment.assignments.map(element => {
+              return (
+                <option value={element.id}>{element.assignmentName}</option>
+              )
+            })}
+            <option value="all">Show All</option>
+          </select>
+        </div>
+
         <div>Assignments:</div>
-        {this.props.reduxState.assignment.assignments.length > 0 ? (
-          this.props.reduxState.assignment.assignments.map(element => {
-            return (
-              <div>
-                {element.assignmentName}
-                <div className="assignmentCheckBoxes">
-                  <div className="checkbox">Deadline</div>
-                  <div className="checkbox">Points</div>
-                  <div className="checkbox">Total</div>
-                  <div className="checkbox">Percent</div>
-                  <div className="checkbox">Grade</div>
+        {allAssignments.length > 0 ? (
+          allAssignments
+            .filter(element => {
+              if (this.state.selected === 'all') {
+                return true
+              } else {
+                return element.id + '' === this.state.selected // to filter by the selected drop down menu value
+              }
+            })
+
+            .map(element => {
+              return (
+                <div>
+                  {element.assignmentName}
+                  <div className="assignmentCheckBoxes">
+                    <div className="checkbox">
+                      Due Date
+                      <hr />
+                      {moment(element.dueDate).format(
+                        'dddd, MMMM Do YYYY, h:mm:ss a'
+                      )}
+                    </div>
+                    <div className="checkbox">
+                      Total Points
+                      <hr />
+                      {element.totalPoints}
+                    </div>
+                    <div className="checkbox">
+                      Percentage of Grade
+                      <hr />
+                      {element.percentTotalGrade}%
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )
-          })
+              )
+            })
         ) : (
           <div />
         )}

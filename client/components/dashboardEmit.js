@@ -5,5 +5,5 @@ const chat = document.getElementById('chat-input')
 // chat.addEventListener('keypress', (e) => {
 //     console.log(e.target.value)
 // })
-console.log('in dashemit')
-console.log('chat ', chat)
+/* console.log('in dashemit')
+console.log('chat ', chat) */

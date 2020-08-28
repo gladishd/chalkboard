@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Course} = require('../db/models')
+const {User, Course, Attendance} = require('../db/models')
 const {default: Axios} = require('axios')
 module.exports = router
 
@@ -9,6 +9,17 @@ router.get('/', async (req, res, next) => {
       /* attributes: ['id', 'email', 'accountType'] */
     })
     users ? res.json(users) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/attendance/:courseId', async (req, res, next) => {
+  try {
+    const data = await Attendance.findAll({
+      where: {courseId: req.params.courseId}
+    })
+    data ? res.json(data) : res.status(400).end()
   } catch (err) {
     next(err)
   }
@@ -69,6 +80,15 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.post('/attendance', async (req, res, next) => {
+  try {
+    const newAttendanceObject = await Attendance.create(req.body)
+    newAttendanceObject ? res.json(newAttendanceObject) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:userId', async (req, res, next) => {
   try {
     const [numUpdated, updatedUsers] = await User.update(req.body, {
@@ -97,7 +117,6 @@ router.get('/:user', async (req, res, next) => {
   try {
     const id = req.params.user
     const user = await User.findByPk(id)
-
     const courses = await user.getCourses()
     res.json(courses)
   } catch (err) {
