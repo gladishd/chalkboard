@@ -33,10 +33,10 @@ export class TeacherClassboard extends Component {
     // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
     this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
-    ;(this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
+    this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
       this
-    )),
-      (this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this))
+    )
+    this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this)
     this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
     this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
     this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
