@@ -77,7 +77,7 @@ export class TeacherClassboard extends Component {
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
     return (
-      <div className="teacherClassBoard">
+      <div className="teacherClassBoard" style={{overflow: 'visible'}}>
         <div className="classboardList">
           <b>{courseName}</b>
 

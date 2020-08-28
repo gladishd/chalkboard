@@ -87,7 +87,15 @@ export class TeacherDash extends Component {
   render() {
     const courseList = this.props.courses || []
     return (
-      <div className="TeacherDash">
+      <div
+        className="TeacherDash"
+        style={{
+          overflow: 'visible',
+          'overflow-x': 'visible',
+          'overflow-y': 'visible',
+          height: '1000%'
+        }}
+      >
         <div className="studentCourseList">
           {courseList.length > 0 ? (
             courseList.map((course, index) => {
