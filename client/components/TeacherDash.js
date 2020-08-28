@@ -95,32 +95,6 @@ export class TeacherDash extends Component {
       courseList
     )
     return (
-      <div className="TeacherDash">
-        <div className="studentCourseList">
-          {courseList.length > 0 ? (
-            courseList.map(course, index => {
-              return (
-                <div key={index}>
-                  <Link
-                    to={{
-                      pathname: './TeacherClassboard',
-                      state: {
-                        number: course.id,
-                        name: course.courseName,
-                        firstName: this.props.firstName
-                      }
-                    }}
-                  >
-                    {course.courseName}
-                  </Link>
-                  <br />
-                </div>
-              )
-            })
-          ) : (
-            <div>Loading...</div>
-          )}
-        </div>
       <div
         className="TeacherDash"
         style={{
@@ -129,7 +103,7 @@ export class TeacherDash extends Component {
           'overflow-y': 'visible',
           height: '1000%'
         }}
-      ></div>
+      >
         {courseList.length > 0 ? (
           courseList.map((course, index) => {
             const counter = index
@@ -216,7 +190,6 @@ export class TeacherDash extends Component {
         ) : (
           <div> </div>
         )}
-      </div>
       </div>
     )
   }

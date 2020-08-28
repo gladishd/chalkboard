@@ -28,6 +28,8 @@ export class studentClassDashboard extends React.Component {
     let courseId
     let first = this.props.user.firstName
     if (this.props.course.id) {
+      console.log('filled in this.props.course.id if')
+    
     } else if (this.props.location) {
       // if we got there through a URL (when we're a student)
       let path = this.props.location.pathname
