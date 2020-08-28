@@ -3,10 +3,10 @@ import React from 'react'
 //info given this.prams.params.id
 const defaultState = {
   assignmentName: '',
-  courseId: '',
   dueDate: '',
   totalPoints: '',
-  dueTime: ''
+  dueTime: '',
+  weight: ''
 }
 
 class AssignmentForm extends React.Component {
@@ -20,9 +20,9 @@ class AssignmentForm extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     const courseId = this.props.match.params.courseId
-    const date = new Date(this.dueDate + 'T' + this.dueTime + ':00-18:00')
-    console.log({date})
-    console.log('something is being submitted', {...this.state, courseId})
+    const date = new Date(this.state.dueDate + ' ' + this.state.dueTime)
+
+    console.log('something is being submitted', {...this.state, courseId, date})
   }
 
   handleChange(evt) {
@@ -49,8 +49,20 @@ class AssignmentForm extends React.Component {
           <input
             name="totalPoints"
             type="number"
+            min="0"
             onChange={this.handleChange}
             value={this.state.totalPoints}
+          />
+        </div>
+
+        <div>
+          <label>Weight</label>
+          <input
+            name="weight"
+            type="number"
+            min="1"
+            onChange={this.handleChange}
+            value={this.state.weight}
           />
         </div>
 
@@ -72,6 +84,7 @@ class AssignmentForm extends React.Component {
             value={this.state.dueTime}
           />
         </div>
+
         <button type="submit"> Submit</button>
       </form>
     )

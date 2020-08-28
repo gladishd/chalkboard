@@ -22,7 +22,7 @@ const Assignment = db.define('assignment', {
     type: Sequelize.INTEGER,
     defaultValue: null
   },
-  percentTotalGrade: {
+  weight: {
     type: Sequelize.INTEGER,
     defaultValue: null
   }

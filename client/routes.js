@@ -36,6 +36,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route exact path="/video" component={CreateVideo} />
+
         <Route path="/assignment/:courseId" component={AssignmentForm} />
         {/* <Route path="/video/zoom" component={VideoRoom} /> */}
 
@@ -69,7 +70,7 @@ class Routes extends Component {
               component={studentClassDashboard}
             />
             <Route exact path="/video" component={CreateVideo} />
-            <Route path="/video/id" component={VideoRoom} />
+            <Route path="/video/zoom" component={VideoRoom} />
           </Switch>
         )}
         {/* Student Routes */}
@@ -84,7 +85,7 @@ class Routes extends Component {
               component={studentClassDashboard}
             />
             <Route exact path="/video" component={CreateVideo} />
-            <Route path="/video/id" component={VideoRoom} />
+            <Route path="/video/zoom" component={VideoRoom} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
