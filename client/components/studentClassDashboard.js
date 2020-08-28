@@ -119,7 +119,7 @@ export class studentClassDashboard extends React.Component {
     }
 
     return (
-      <div className="studentClassDashboard">
+      <div className="studentClassDashboard" id="bootstrapId">
         <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
         <div className="classTitle">
           {/* Welcome to {this.props.reduxState.courses.courseName} */}
@@ -216,6 +216,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  studentClassDashboard
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(studentClassDashboard)
