@@ -1,22 +1,41 @@
-html,
-body {
-  overflow: scroll !important;
+@font-face {
+  font-family: 'chalktasticitalic';
+  src: url('chalktastic_italic-webfont.woff2') format('woff2'),
+    url('chalktastic_italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'chalktasticregular';
+  src: url('chalktastic-webfont.woff2') format('woff2'),
+    url('chalktastic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-* {
+html body #app {
+  overflow: scroll !important;
+  color: #fbe06b;
+  font-family: 'chalktasticregular', sans-serif !important;
+}
+
+#auth-form-email {
+  background-color: rgba(0, 128, 0, 0.425) !important;
+}
+
+#auth-form-password {
+  background-color: rgba(0, 128, 0, 0.425) !important;
+}
+
+/* * {
   overflow: scroll;
   overflow-y: scroll;
   overflow-x: scroll;
-}
-
-body {
-  font-family: sans-serif;
-}
+} */
 
 a {
   text-decoration: none;
 }
-
 
 #center {
   flex: 4;
@@ -24,9 +43,10 @@ a {
   flex-direction: column;
   border: black solid 2px;
 }
+
 #chat-input {
   height: 200px;
-  width: 100px;
+  width: 700px;
   align-self: flex-end;
   max-width: 98%;
   max-height: 90%;
@@ -45,11 +65,6 @@ nav a {
   display: flex;
   flex-direction: column;
   border: black solid 2px;
-}
-#chat-input {
-  height: 30px;
-  width: 700px;
-  align-self: flex-end;
 }
 
 form div {
@@ -100,6 +115,7 @@ nav a {
   height: 100vh;
   padding-bottom: 50vh;
   padding-top: 50vh;
+  border: outset;
 }
 
 .studentClassDashboard .classTitle {
@@ -112,6 +128,8 @@ nav a {
 .studentClassDashboard > div {
   border: inset;
   border-width: 0.1em;
+  margin-left: 0.25rem;
+  margin-right: 1rem;
 }
 
 .introductionToTheCourse {
@@ -122,7 +140,7 @@ nav a {
   flex-grow: 1;
   flex-basis: 1;
   color: blue;
-  width: 10rem;
+  width: auto;
   height: 15rem;
   padding: 1%;
   margin: 1rem;
@@ -163,8 +181,8 @@ nav a {
   background-size: 100px;
   background-repeat: repeat;
   flex-grow: 2;
-  width: 30%;
-  height: 15rem;
+  width: auto;
+  height: 20rem;
   margin: 1rem;
   flex-grow: 1;
   flex-basis: 1;
@@ -184,9 +202,6 @@ nav a {
 }
 #right {
   flex: 2;
-}
-#chat-input {
-  height: 208px;
 }
 .chatButtonSelectAudience {
   background-color: silver;
@@ -227,7 +242,7 @@ nav a {
   flex-grow: 1;
   margin: 1rem;
   height: auto;
-  width: 20%;
+  width: auto;
   border-radius: 1em;
   padding: 0.5rem;
   padding-bottom: 3rem;
@@ -272,7 +287,7 @@ nav a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 500em;
+  height: auto;
   padding-bottom: 50em;
   overflow-y: scroll;
 }
@@ -295,12 +310,42 @@ nav a {
   padding: 1em;
   margin-left: 1em;
   height: 5em;
+
+  border-style: outset;
+
+  text-align: center;
+  background: transparent;
+  color: #226fbe;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+
+  border-radius: 1px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.TeacherDash .teacherDashClassName:hover,
+.TeacherDash .teacherDashClassName:active {
+  color: #0475bb;
+  background: #ff7b64be;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
 }
 
 .addNewClassForm {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 90vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .addNewClassForm > div {
@@ -313,6 +358,17 @@ nav a {
   margin-left: 45%;
   margin-right: 45%;
   text-align: center;
+  background: transparent;
+  color: #226fbe;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 0.1em outset #226fbe;
+  height: auto;
+  border-radius: 1px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .TeacherDash .teacherDashNewClassButton:focus {
@@ -322,12 +378,20 @@ nav a {
 .TeacherDash .teacherDashNewClassButton:hover,
 .TeacherDash .teacherDashNewClassButton:active {
   color: #0475bb;
-  background: rgb(230, 230, 230);
+  background: #ff7b64be;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
 }
 
 .TeacherDash .teacherDashNewClassButton:active {
   border-style: inset;
-  background: rgb(255, 255, 255);
+  background: transparent;
 }
 
 .teacherClassBoard {
@@ -365,7 +429,7 @@ nav a {
 
 .teacherClassBoard .teacherClassboardOptions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .teacherClassBoard .classboardStartLecture {
@@ -474,7 +538,9 @@ nav a {
   background-color: rgb(129, 129, 129);
   outline: none;
 }
-
+.teacher-message {
+  color: red;
+}
 .assignmentViewMainDiv {
   display: flex;
   flex-direction: column;
@@ -572,18 +638,77 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
+/*
+chat stuff
+*/
+/*
+.self{
+  color: green;
+} */
 
-.attendanceForm {
-  display: flex;
-  flex-direction: column;
+.student {
+  color: red;
 }
-
-.attendanceFormOptions {
-  display: flex;
-  flex-direction: row;
+.teacher {
+  color: blue;
 }
-
 body > #zmmtg-root {
   z-index: -1;
-  background-color: white;
+  background-image: url('chalkboard-bg.png');
+}
+
+.submitCourse {
+  background: #ff7b64be;
+  color: #fff;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 0.1em double #226fbe;
+  height: auto;
+  border-radius: 15px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.submitCourse:hover {
+  background: transparent;
+  color: #09ff00;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
+}
+
+.submitCourse:focus {
+  outline: none;
+}
+.submitCourse:active {
+  background: #9053a9;
+  top: 1em;
+}
+
+.submitCourse:before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  line-height: 25;
+  font-size: 180%;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.addNewAssignmentForm {
+  width: 100%;
+}
+
+.addNewStudentForm {
+  width: 100%;
 }

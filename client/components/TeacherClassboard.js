@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
+import io from 'socket.io-client'
 import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
 import CreateZoomVideo from './Zoom/CreateVideoButton'
 
@@ -16,22 +17,103 @@ export class TeacherClassboard extends Component {
       // showLecture: false,
       showAttendance: false,
       showAssignmentView: false,
-      showAssignmentByStudentView: false
+      showAssignmentByStudentView: false,
+      renderNewAssignmentForm: false,
+      renderNewStudentForm: false,
+      assignmentName: '',
+      dueDate: '',
+      totalPoints: '',
+      percentTotalGrade: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      messages: []
     }
     // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
     this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
-    this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
+    ;(this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
       this
-    )
+    )),
+      (this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this))
+    this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
+    this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
+    this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
+    this.mapInputToState = this.mapInputToState.bind(this)
   }
 
-  // toggleLecture(e) {
-  //   e.preventDefault()
-  //   this.setState({
-  //     showLecture: !this.state.showLecture
-  //   })
+  handleAssignmentSubmit(e) {
+    e.preventDefault()
+  }
+
+  handleStudentSubmit(e) {
+    e.preventDefault()
+  }
+
+  mapInputToState(e) {
+    e.preventDefault()
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  toggleNewAssignmentForm(e) {
+    e.preventDefault()
+    this.setState({
+      renderNewAssignmentForm: !this.state.renderNewAssignmentForm
+    })
+  }
+
+  toggleNewStudentForm(e) {
+    e.preventDefault()
+    this.setState({
+      renderNewStudentForm: !this.state.renderNewStudentForm
+    })
+  }
+  // async componentWillMount(){
+  //   await this.props.getCourseStudents(this.props.location.state.number)
+
   // }
+  componentDidMount() {
+    console.log('location props ', this.props)
+    let course = this.props.location.state.number
+
+    const socket = this.props.socket
+
+    socket.emit('login', {course, level: 'student'})
+    socket.on('room-chat', message => {
+      console.log(message)
+    })
+    socket.on('message', message => {
+      this.setState({
+        ...this.state,
+        messages: [...this.state.messages, message]
+      })
+      console.log('state after update ', this.state)
+    })
+    const input = document.getElementById('chat-input')
+    input.addEventListener('keypress', e => {
+      const view = document.querySelector('.selectAudience').selectedIndex
+
+      if (e.key === 'Enter') {
+        console.log('Entered')
+        // if(view !== 1){
+        console.log('public message')
+
+        socket.emit('student-public-message', {
+          message: e.target.value,
+          name: this.props.location.state.firstName
+        })
+
+        e.target.value = ''
+      }
+    })
+  }
+  toggleLecture(e) {
+    e.preventDefault()
+    this.setState({
+      showLecture: !this.state.showLecture
+    })
+  }
 
   toggleAttendance(e) {
     e.preventDefault()
@@ -57,13 +139,10 @@ export class TeacherClassboard extends Component {
   async componentWillMount() {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
-
       let courseIdFromPath = this.props.location.pathname.slice(
         this.props.location.pathname.length - 1
       )
-
       await this.props.getSingleCourse(courseIdFromPath)
-
       await this.props.getStudentsForThisCourse(courseIdFromPath)
     } catch (err) {
       console.log(err)
@@ -76,6 +155,9 @@ export class TeacherClassboard extends Component {
     // const courseName = this.props.location.state.name
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
+
+    console.log('on the teacher classboard, the props are ', this.props)
+    console.log('on the teacher classboard, the state is ', this.state)
     return (
       <div className="teacherClassBoard" style={{overflow: 'visible'}}>
         <div className="classboardList">
@@ -148,9 +230,49 @@ export class TeacherClassboard extends Component {
               <div />
             )}
 
-            <button type="button" className="classboardAddAssignment">
+            <button
+              type="button"
+              className="classboardAddAssignment"
+              onClick={this.toggleNewAssignmentForm}
+            >
               Add
             </button>
+
+            {this.state.renderNewAssignmentForm ? (
+              <form
+                onSubmit={this.handleAssignmentSubmit}
+                className="addNewAssignmentForm"
+              >
+                <label htmlFor="assignmentName">Assignment Name: </label>
+                <textarea
+                  name="assignmentName"
+                  onChange={this.mapInputToState}
+                />
+                <br />
+                <label htmlFor="dueDate">Due Date: </label>
+                <textarea name="dueDate" onChange={this.mapInputToState} />
+                <br />
+                <label htmlFor="totalPoints">Total Points: </label>
+                <textarea name="totalPoints" onChange={this.mapInputToState} />
+                <br />
+                <label htmlFor="percentTotalGrade">Percent Total Grade: </label>
+                <textarea
+                  name="percentTotalGrade"
+                  onChange={this.mapInputToState}
+                />
+                <br />
+
+                <button
+                  type="button"
+                  className="submitCourse"
+                  onClick={this.handleAssignmentSubmit}
+                >
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div> </div>
+            )}
 
             <button
               type="button"
@@ -173,9 +295,75 @@ export class TeacherClassboard extends Component {
               <div />
             )}
 
-            <button type="button" className="classboardAddStudent">
+            <button
+              type="button"
+              className="classboardAddStudent"
+              onClick={this.toggleNewStudentForm}
+            >
               Add
             </button>
+
+            {this.state.renderNewStudentForm ? (
+              <form
+                onSubmit={this.handleStudentSubmit}
+                className="addNewStudentForm"
+              >
+                <label htmlFor="firstName">First Name: </label>
+                <textarea name="firstName" onChange={this.mapInputToState} />
+                <br />
+                <label htmlFor="lastName">Last Name: </label>
+                <textarea name="lastName" onChange={this.mapInputToState} />
+                <br />
+                <label htmlFor="email">Email: </label>
+                <textarea name="email" onChange={this.mapInputToState} />
+                <br />
+                <label htmlFor="password">Password: </label>
+                <textarea name="password" onChange={this.mapInputToState} />
+                <br />
+
+                <button
+                  type="button"
+                  className="submitCourse"
+                  onClick={this.handleStudentSubmit}
+                >
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div> </div>
+            )}
+
+            <div className="liveChat">
+              {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
+              {/* Create a New Group
+          </button> */}
+              <select
+                name="group"
+                className="selectAudience"
+                // onChange={this.handleChange}
+              >
+                <option value="">Select an Audience</option>
+                <option value="Dean">Dean</option>
+                <option value="Khuong">Khuong</option>
+                <option value="Zach">Zach</option>
+                <option value="Jonathan">Jonathan</option>
+              </select>
+              <br />
+              Say something nice..
+              <div id="message-main">
+                <div id="chat-messages" />
+                {this.state.messages.map((message, idx) => (
+                  <p
+                    className={message.type + '-' + 'message'}
+                    className={message.person}
+                  >
+                    {message.message}
+                  </p>
+                ))}
+                <input id="chat-input" type="text" overflow="auto" />
+              </div>
+            </div>
+            <button className="classboardAddStudent">Add</button>
           </div>
         </div>
       </div>
@@ -193,7 +381,9 @@ const mapDispatchToProps = dispatch => {
 }
 const mapStateToProps = state => {
   return {
-    reduxState: state
+    students: state.students,
+    reduxState: state,
+    socket: state.socket
   }
 }
 

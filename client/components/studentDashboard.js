@@ -21,10 +21,12 @@ export class StudentDashboard extends React.Component {
       console.log(err)
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({
       coursesArray: this.props.courses
     })
+    const socket = this.props.socket
+    console.log('sd socket ? ', socket)
   }
 
   render() {
@@ -59,7 +61,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
         Not Enrolled in:
@@ -77,7 +79,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
       </div>
@@ -91,7 +93,8 @@ const mapStateToProps = state => {
     courses: state.user.courses,
     userId: state.user.me.id,
     firstName: state.user.me.firstName,
-    allCourses: state.course.all
+    allCourses: state.course.all,
+    socket: state.socket
   }
 }
 
@@ -102,6 +105,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getAllCoursesThunk())
     },
     getMyCourses: id => dispatch(getUserCoursesThunk(id))
+    // newSocket: (socket) => dispatch(setSocket(socket))
   }
 }
 

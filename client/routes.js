@@ -19,20 +19,23 @@ import {
 import {me} from './store'
 import MainClass from './components/MainClass'
 import Attendance from './components/Attendance'
-
+import {setSocket} from './store/socket'
+import io from 'socket.io-client'
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
+    const socket = io()
     this.props.loadInitialData()
+    this.props.newSocket(socket)
   }
 
   render() {
     const {isLoggedIn, accountType} = this.props
 
     return (
-      <Switch>
+      <Switch id="routes-component">
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route exact path="/video" component={CreateVideo} />
@@ -111,7 +114,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    newSocket: socket => dispatch(setSocket(socket))
   }
 }
 
