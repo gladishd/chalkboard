@@ -266,7 +266,9 @@ nav a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: auto;
+  height: 500em;
+  padding-bottom: 50em;
+  overflow-y: scroll;
 }
 
 .TeacherDash .teacherDashLogOut {
@@ -276,7 +278,7 @@ nav a {
 .TeacherDash .teacherDashListClasses {
   border-style: outset;
   border-radius: 1em;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   background-color: rgb(170, 170, 255);
   height: auto;
@@ -284,8 +286,19 @@ nav a {
 
 .TeacherDash .teacherDashClassName {
   border-style: outset;
-  padding: 5%;
-  margin-left: 24%;
+  padding: 1em;
+  margin-left: 1em;
+  height: 5em;
+}
+
+.addNewClassForm {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
+.addNewClassForm > div {
+  margin-right: -5em;
 }
 
 .TeacherDash .teacherDashNewClassButton {
@@ -439,7 +452,6 @@ nav a {
 .teacherClassBoard .scheduleDashBox {
   display: flex;
   flex-direction: row;
-  /* margin-top: -10em; */
   margin-bottom: 10em;
 }
 
@@ -483,8 +495,12 @@ nav a {
   border-style: outset;
 }
 
+.assignmentCheckBoxesSection {
+  width: 100vw;
+}
+
 .assignmentCheckBoxes {
-  width: 10%;
+  width: 50em;
   display: flex;
   justify-content: space-between;
 }

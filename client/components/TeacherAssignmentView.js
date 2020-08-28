@@ -61,7 +61,7 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div>
+                <div className="assignmentCheckBoxesSection">
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
@@ -105,6 +105,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  TeacherAssignmentView
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeacherAssignmentView)
