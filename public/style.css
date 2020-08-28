@@ -1,3 +1,8 @@
+html,
+body {
+  overflow: scroll !important;
+}
+
 * {
   overflow: scroll;
   overflow-y: scroll;
@@ -293,7 +298,7 @@ nav a {
 
 .addNewClassForm {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100vw;
 }
 
