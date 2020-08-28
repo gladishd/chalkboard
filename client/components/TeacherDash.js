@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
-import openSocket from 'socket.io-client'
-import {setSocket} from '../store/socket'
 import io from 'socket.io-client'
+import {setSocket} from '../store/socket'
+
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -94,9 +94,8 @@ export class TeacherDash extends Component {
       <div className="TeacherDash">
         <div className="studentCourseList">
           {courseList.length > 0 ? (
-            courseList.map(course => {
+            courseList.map(course, index => {
               return (
-<<<<<<< HEAD
                 <div key={index}>
                   <Link
                     to={{
@@ -108,10 +107,6 @@ export class TeacherDash extends Component {
                       }
                     }}
                   >
-=======
-                <div key={`courseListName${course.id}`}>
-                  <Link to={`./TeacherClassboard/${course.id}`}>
->>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
                     {course.courseName}
                   </Link>
                   <br />
@@ -210,14 +205,9 @@ export class TeacherDash extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-<<<<<<< HEAD
     getAllCourses: () => dispatch(getAllCoursesThunk()),
     getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
     newSocket: (socket) => dispatch(setSocket(socket))
-=======
-    // getAllCourses: () => dispatch(getAllCoursesThunk()),
-    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
->>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
   }
 }
 const mapStateToProps = state => {
