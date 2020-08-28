@@ -1,17 +1,37 @@
-html,
-body {
-  overflow: scroll !important;
+@font-face {
+  font-family: 'chalktasticitalic';
+  src: url('chalktastic_italic-webfont.woff2') format('woff2'),
+    url('chalktastic_italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'chalktasticregular';
+  src: url('chalktastic-webfont.woff2') format('woff2'),
+    url('chalktastic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-* {
+html body #app {
+  overflow: scroll !important;
+  color: #fbe06b;
+  font-family: 'chalktasticregular', sans-serif !important;
+}
+
+#auth-form-email {
+  background-color: rgba(0, 128, 0, 0.425) !important;
+}
+
+#auth-form-password {
+  background-color: rgba(0, 128, 0, 0.425) !important;
+}
+
+/* * {
   overflow: scroll;
   overflow-y: scroll;
   overflow-x: scroll;
-}
-
-body {
-  font-family: sans-serif;
-}
+} */
 
 a {
   text-decoration: none;
@@ -23,9 +43,10 @@ a {
   flex-direction: column;
   border: black solid 2px;
 }
+
 #chat-input {
   height: 200px;
-  width: 100px;
+  width: 700px;
   align-self: flex-end;
   max-width: 98%;
   max-height: 90%;
@@ -44,11 +65,6 @@ nav a {
   display: flex;
   flex-direction: column;
   border: black solid 2px;
-}
-#chat-input {
-  height: 30px;
-  width: 700px;
-  align-self: flex-end;
 }
 
 form div {
@@ -187,9 +203,6 @@ nav a {
 #right {
   flex: 2;
 }
-#chat-input {
-  height: 208px;
-}
 .chatButtonSelectAudience {
   background-color: silver;
 }
@@ -274,7 +287,7 @@ nav a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 500em;
+  height: auto;
   padding-bottom: 50em;
   overflow-y: scroll;
 }
@@ -525,7 +538,9 @@ nav a {
   background-color: rgb(129, 129, 129);
   outline: none;
 }
-
+.teacher-message {
+  color: red;
+}
 .assignmentViewMainDiv {
   display: flex;
   flex-direction: column;
@@ -623,20 +638,23 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
+/*
+chat stuff
+*/
+/*
+.self{
+  color: green;
+} */
 
-.attendanceForm {
-  display: flex;
-  flex-direction: column;
+.student {
+  color: red;
 }
-
-.attendanceFormOptions {
-  display: flex;
-  flex-direction: row;
+.teacher {
+  color: blue;
 }
-
 body > #zmmtg-root {
   z-index: -1;
-  background-color: white;
+  background-image: url('chalkboard-bg.png');
 }
 
 .submitCourse {

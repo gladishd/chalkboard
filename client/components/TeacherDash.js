@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
-import openSocket from 'socket.io-client'
+import io from 'socket.io-client'
+import {setSocket} from '../store/socket'
+import getSingleCourseThunk from '../store/course'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -32,6 +34,8 @@ export class TeacherDash extends Component {
     } catch (err) {
       console.log(err)
     }
+    const socket = io()
+    await this.props.newSocket(socket)
   }
   componentDidMount() {
     this.setState({
@@ -106,7 +110,14 @@ export class TeacherDash extends Component {
 
             return (
               <div key={`spit${counter}`}>
-                <Link to={`./TeacherClassboard/${course.id}`}>
+                <Link to={{
+                  pathname: './TeacherClassboard',
+                  state: {
+                    number: course.id,
+                    name: course.courseName,
+                    firstName: this.props.firstName
+                  }
+                }}>
                   {course.courseName}
                 </Link>
                 {course.courseSchedule.split('\n').map((eachLine, index) => {
@@ -142,7 +153,15 @@ export class TeacherDash extends Component {
               <Link
                 key={`courseListDash${course.id}`}
                 className="teacherDashClassName"
-                to={`./TeacherClassboard/${course.id}`}
+                // to={`./TeacherClassboard/${course.id}`
+                to={{
+                  pathname: './TeacherClassboard',
+                  state: {
+                    number: course.id,
+                    name: course.courseName,
+                    firstName: this.props.firstName
+                  }
+                }}
               >
                 {course.courseName}
               </Link>
@@ -197,13 +216,16 @@ export class TeacherDash extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getAllCourses: () => dispatch(getAllCoursesThunk()),
-    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
+    getAllCourses: () => dispatch(getAllCoursesThunk()),
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
+    newSocket: (socket) => dispatch(setSocket(socket)),
+    single: (id) => dispatch(getSingleCourseThunk(id))
   }
 }
 const mapStateToProps = state => {
   return {
     courses: state.user.courses,
+    firstName: state.user.me.firstName,
     userId: state.user.me.id,
     reduxState: state
   }

@@ -12,82 +12,58 @@ import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
 import JoinVideoButton from './Zoom/JoinVideoButton.js'
+import setSocket from '../store/socket'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: true
+      showForm: true,
+      socket: null,
+      messages: []
     }
     this.toggleForm = this.toggleForm.bind(this)
   }
+  
   async componentDidMount() {
-    let courseId
-    let first = this.props.user.firstName
-    if (this.props.course.id) {
-    } else if (this.props.location) {
-      // if we got there through a URL (when we're a student)
-      let path = this.props.location.pathname
-      courseId = this.props.location.state.number
-    } else {
-      courseId = this.props.courseIdInherited
-    }
+    
+    let course = this.props.location.state.number
 
-    await this.props.getCourse(courseId)
-
-    let course = this.props.course
-    let courseName = course.courseName
-
-    let socket
-    if (this.props.location) {
-      socket = io(`/${this.props.location.state.number}`)
-    } else {
-      socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
-    }
-
+   const socket = this.props.socket
+   
+    socket.emit('login', {course, level:'student'})
+    socket.on('room-chat', (message) => {
+      console.log(message)
+    })
+    socket.on('message', (message) => {
+      this.setState({
+        ...this.state,
+        messages: [...this.state.messages, message]
+      })
+      console.log('state after update ', this.state)
+    })
     const input = document.getElementById('chat-input')
-
-    // I just commented these lines out so that I could render from the teacher's perspective
-
-    // socket.emit('login', {name: first, type: 'Student'})
-    socket.emit('login', {name: first, type: first})
-
-    let firstNameForSocket // not const
-    if (this.props.location) {
-      // if we're actually viewing the component through the URL, which is what we do as a student
-      firstNameForSocket = this.props.location.state.firstName
-    } else {
-      // otherwise, if we're rendering it within the teacher classboard component
-      firstNameForSocket = this.props.userInherited.firstName // might also want last name in the future
-    }
-
     input.addEventListener('keypress', e => {
-      if (e.key === 'Enter') {
-        socket.emit('message', {
-          message: e.target.value,
-          firstName: firstNameForSocket, // changed to a dynamic variable instead of checking this.props.state.location, which may
-          type: 'Student' // or may not exist depending on how we render the component.
-        })
-        e.target.value = ''
-      }
-    })
-    socket.on('myMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
-    })
-    socket.on('theirMessage', message => {
-      const box = document.getElementById('chat-messages')
-      const mes = document.createElement('p')
-      mes.innerHTML = message
-      box.appendChild(mes)
+        const view = document.querySelector('.selectAudience').selectedIndex
+        
+        if(e.key === 'Enter'){
+          console.log('Entered')
+          // if(view !== 1){
+            console.log('public message')
+
+            socket.emit('student-public-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          
+          e.target.value = ''
+        }
     })
   }
-  // sendMessage(message){
-  //   const input = document.getElementById('chat-input')
-  //   socket.emit()
-  // }
+  sendMessage(message){
+    const input = document.getElementById('chat-input')
+    socket.emit()
+  }
 
   toggleForm(e) {
     e.preventDefault()
@@ -106,7 +82,7 @@ export class studentClassDashboard extends React.Component {
       courseIntro = this.props.course.courseIntro.split('\n')
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
-
+    const messages = this.state.messages || []
     return (
       <div className="studentClassDashboard">
         <div>
@@ -129,21 +105,25 @@ export class studentClassDashboard extends React.Component {
           <button className="chatButtonCreate" onClick={this.toggleForm}>
             Create a New Group
           </button>
+          <div>
+          <p>Select Audience</p>
+          </div>
           <select
             name="group"
             className="selectAudience"
             onChange={this.handleChange}
           >
-            <option value="">Select an Audience</option>
-            <option value="Dean">Dean</option>
-            <option value="Khuong">Khuong</option>
-            <option value="Zach">Zach</option>
-            <option value="Jonathan">Jonathan</option>
+            
+            <option value='All'>All</option>
+            <option value="Teacher">Teacher</option>
           </select>
           <br />
           Say something nice..
           <div id="message-main">
             <div id="chat-messages" />
+            {
+              messages.map((message, idx) => <p key={idx}className={message.type} >{message.message}</p>)
+            }
             <input id="chat-input" type="text" overflow="auto" />
             {this.props.accountType === 'teacher' ? (
               <div>
@@ -187,13 +167,14 @@ const mapStateToProps = state => {
     course: state.course.single,
     user: state.user.me,
     accountType: state.user.me.accountType,
-    reduxState: state
+    socket: state.socket
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCourse: id => dispatch(getSingleCourseThunk(id))
+    getCourse: id => dispatch(getSingleCourseThunk(id)),
+    setSocket: (socket) => dispatch(setSocket(socket))
   }
 }
 

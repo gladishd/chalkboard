@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
+import io from 'socket.io-client'
 import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
 import CreateZoomVideo from './Zoom/CreateVideoButton'
 
@@ -26,7 +27,8 @@ export class TeacherClassboard extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      messages: []
     }
     // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
@@ -67,13 +69,51 @@ export class TeacherClassboard extends Component {
       renderNewStudentForm: !this.state.renderNewStudentForm
     })
   }
+  // async componentWillMount(){
+  //   await this.props.getCourseStudents(this.props.location.state.number)
 
-  // toggleLecture(e) {
-  //   e.preventDefault()
-  //   this.setState({
-  //     showLecture: !this.state.showLecture
-  //   })
   // }
+  componentDidMount() {
+    console.log('location props ', this.props)
+    let course = this.props.location.state.number
+
+   const socket = this.props.socket
+   
+    socket.emit('login', {course, level:'student'})
+    socket.on('room-chat', (message) => {
+      console.log(message)
+    })
+    socket.on('message', (message) => {
+      this.setState({
+        ...this.state,
+        messages: [...this.state.messages, message]
+      })
+      console.log('state after update ', this.state)
+    })
+    const input = document.getElementById('chat-input')
+    input.addEventListener('keypress', e => {
+        const view = document.querySelector('.selectAudience').selectedIndex
+        
+        if(e.key === 'Enter'){
+          console.log('Entered')
+          // if(view !== 1){
+            console.log('public message')
+
+            socket.emit('student-public-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          
+          e.target.value = ''
+        }
+    })
+  }
+  toggleLecture(e) {
+    e.preventDefault()
+    this.setState({
+      showLecture: !this.state.showLecture
+    })
+  }
 
   toggleAttendance(e) {
     e.preventDefault()
@@ -107,6 +147,8 @@ export class TeacherClassboard extends Component {
     } catch (err) {
       console.log(err)
     }
+
+    
   }
 
   render() {
@@ -292,6 +334,34 @@ export class TeacherClassboard extends Component {
             ) : (
               <div> </div>
             )}
+
+            <div className="liveChat">
+          {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
+            {/* Create a New Group
+          </button> */}
+          <select
+            name="group"
+            className="selectAudience"
+            // onChange={this.handleChange}
+          >
+            <option value="">Select an Audience</option>
+            <option value="Dean">Dean</option>
+            <option value="Khuong">Khuong</option>
+            <option value="Zach">Zach</option>
+            <option value="Jonathan">Jonathan</option>
+          </select>
+          <br />
+          Say something nice..
+          <div id="message-main">
+            <div id="chat-messages" />
+            {
+              this.state.messages.map((message, idx) => <p className={message.type + '-' + 'message'} className={message.person}>{message.message}</p>)
+            }
+            <input id="chat-input" type="text" overflow="auto" />
+          </div>
+          
+        </div>
+            <button className="classboardAddStudent">Add</button>
           </div>
         </div>
       </div>
@@ -309,7 +379,9 @@ const mapDispatchToProps = dispatch => {
 }
 const mapStateToProps = state => {
   return {
-    reduxState: state
+    students: state.students,
+    reduxState: state,
+    socket: state.socket
   }
 }
 
