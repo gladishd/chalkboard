@@ -140,9 +140,8 @@ const assignment = [
     assignmentType: 'project',
     dueDate: new Date('September 9, 2020 11:30:00'),
     courseId: 3,
-    courseId2: 3,
     totalPoints: 30,
-    percentTotalGrade: 10
+    weight: 10
   },
   {
     id: 2,
@@ -150,9 +149,8 @@ const assignment = [
     assignmentType: 'test',
     dueDate: new Date('July 20, 2020 12:00:00'),
     courseId: 3,
-    courseId2: 3,
     totalPoints: 20,
-    percentTotalGrade: 20
+    weight: 20
   },
   {
     id: 3,
@@ -160,9 +158,8 @@ const assignment = [
     assignmentType: 'classwork',
     dueDate: new Date('July 19, 2020 08:30:00'),
     courseId: 4,
-    courseId2: 4,
     totalPoints: 60,
-    percentTotalGrade: 40
+    weight: 40
   },
   {
     id: 4,
@@ -170,9 +167,8 @@ const assignment = [
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
-    courseId2: 2,
     totalPoints: 10,
-    percentTotalGrade: 5
+    weight: 5
   },
   {
     id: 5,
@@ -180,9 +176,8 @@ const assignment = [
     assignmentType: 'quiz',
     dueDate: new Date('August 21, 2020 19:15:00'),
     courseId: 2,
-    courseId2: 2,
     totalPoints: 95,
-    percentTotalGrade: 50
+    weight: 50
   },
   {
     id: 6,
@@ -190,9 +185,8 @@ const assignment = [
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
-    courseId2: 1,
     totalPoints: 100,
-    percentTotalGrade: 90
+    weight: 90
   },
   {
     id: 7,
@@ -200,9 +194,8 @@ const assignment = [
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
-    courseId2: 1,
     totalPoints: 15,
-    percentTotalGrade: 93
+    weight: 93
   },
   {
     id: 8,
@@ -210,9 +203,8 @@ const assignment = [
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
-    courseId2: 2,
     totalPoints: 75,
-    percentTotalGrade: 5
+    weight: 5
   },
   {
     id: 9,
@@ -220,9 +212,8 @@ const assignment = [
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
-    courseId2: 2,
     totalPoints: 60,
-    percentTotalGrade: 30
+    weight: 30
   },
   {
     id: 10,
@@ -230,9 +221,8 @@ const assignment = [
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
-    courseId2: 4,
     totalPoints: 40,
-    percentTotalGrade: 45
+    weight: 45
   },
   {
     id: 11,
@@ -240,9 +230,8 @@ const assignment = [
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
-    courseId2: 4,
     totalPoints: 10,
-    percentTotalGrade: 50
+    weight: 50
   },
   {
     id: 12,
@@ -250,9 +239,8 @@ const assignment = [
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
-    courseId2: 3,
     totalPoints: 85,
-    percentTotalGrade: 25
+    weight: 25
   },
   {
     id: 13,
@@ -260,9 +248,8 @@ const assignment = [
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
-    courseId2: 3,
     totalPoints: 35,
-    percentTotalGrade: 35
+    weight: 35
   }
 ]
 

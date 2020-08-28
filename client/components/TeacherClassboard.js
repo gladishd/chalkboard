@@ -33,10 +33,10 @@ export class TeacherClassboard extends Component {
     // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
     this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
-    ;(this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
+    this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
       this
-    )),
-      (this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this))
+    )
+    this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this)
     this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
     this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
     this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
@@ -77,13 +77,13 @@ export class TeacherClassboard extends Component {
     console.log('location props ', this.props)
     let course = this.props.location.state.number
 
-   const socket = this.props.socket
-   
-    socket.emit('login', {course, level:'student'})
-    socket.on('room-chat', (message) => {
+    const socket = this.props.socket
+
+    socket.emit('login', {course, level: 'student'})
+    socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', (message) => {
+    socket.on('message', message => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
@@ -92,20 +92,20 @@ export class TeacherClassboard extends Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-        const view = document.querySelector('.selectAudience').selectedIndex
-        
-        if(e.key === 'Enter'){
-          console.log('Entered')
-          // if(view !== 1){
-            console.log('public message')
+      const view = document.querySelector('.selectAudience').selectedIndex
 
-            socket.emit('student-public-message', {
-              message: e.target.value,
-              name: this.props.location.state.firstName,
-            }) 
-          
-          e.target.value = ''
-        }
+      if (e.key === 'Enter') {
+        console.log('Entered')
+        // if(view !== 1){
+        console.log('public message')
+
+        socket.emit('student-public-message', {
+          message: e.target.value,
+          name: this.props.location.state.firstName
+        })
+
+        e.target.value = ''
+      }
     })
   }
   toggleLecture(e) {
@@ -147,8 +147,6 @@ export class TeacherClassboard extends Component {
     } catch (err) {
       console.log(err)
     }
-
-    
   }
 
   render() {
@@ -336,31 +334,35 @@ export class TeacherClassboard extends Component {
             )}
 
             <div className="liveChat">
-          {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
-            {/* Create a New Group
+              {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
+              {/* Create a New Group
           </button> */}
-          <select
-            name="group"
-            className="selectAudience"
-            // onChange={this.handleChange}
-          >
-            <option value="">Select an Audience</option>
-            <option value="Dean">Dean</option>
-            <option value="Khuong">Khuong</option>
-            <option value="Zach">Zach</option>
-            <option value="Jonathan">Jonathan</option>
-          </select>
-          <br />
-          Say something nice..
-          <div id="message-main">
-            <div id="chat-messages" />
-            {
-              this.state.messages.map((message, idx) => <p className={message.type + '-' + 'message'} className={message.person}>{message.message}</p>)
-            }
-            <input id="chat-input" type="text" overflow="auto" />
-          </div>
-          
-        </div>
+              <select
+                name="group"
+                className="selectAudience"
+                // onChange={this.handleChange}
+              >
+                <option value="">Select an Audience</option>
+                <option value="Dean">Dean</option>
+                <option value="Khuong">Khuong</option>
+                <option value="Zach">Zach</option>
+                <option value="Jonathan">Jonathan</option>
+              </select>
+              <br />
+              Say something nice..
+              <div id="message-main">
+                <div id="chat-messages" />
+                {this.state.messages.map((message, idx) => (
+                  <p
+                    className={message.type + '-' + 'message'}
+                    className={message.person}
+                  >
+                    {message.message}
+                  </p>
+                ))}
+                <input id="chat-input" type="text" overflow="auto" />
+              </div>
+            </div>
             <button className="classboardAddStudent">Add</button>
           </div>
         </div>

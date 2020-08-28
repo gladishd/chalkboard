@@ -13,7 +13,8 @@ import {
   TeacherClassboard,
   TeacherDash,
   VideoRoom,
-  CreateVideo
+  CreateVideo,
+  AssignmentForm
 } from './components'
 import {me} from './store'
 import MainClass from './components/MainClass'
@@ -38,7 +39,9 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route exact path="/video" component={CreateVideo} />
-        <Route path="/video/zoom" component={VideoRoom} />
+
+        <Route path="/assignment/:courseId" component={AssignmentForm} />
+        {/* <Route path="/video/zoom" component={VideoRoom} /> */}
 
         {/* Routes below give conditional access based on account type */}
 
@@ -70,7 +73,7 @@ class Routes extends Component {
               component={studentClassDashboard}
             />
             <Route exact path="/video" component={CreateVideo} />
-            <Route path="/video/id" component={VideoRoom} />
+            <Route path="/video/zoom" component={VideoRoom} />
           </Switch>
         )}
         {/* Student Routes */}
@@ -85,7 +88,7 @@ class Routes extends Component {
               component={studentClassDashboard}
             />
             <Route exact path="/video" component={CreateVideo} />
-            <Route path="/video/id" component={VideoRoom} />
+            <Route path="/video/zoom" component={VideoRoom} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

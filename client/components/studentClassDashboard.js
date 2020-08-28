@@ -24,18 +24,17 @@ export class studentClassDashboard extends React.Component {
     }
     this.toggleForm = this.toggleForm.bind(this)
   }
-  
+
   async componentDidMount() {
-    
     let course = this.props.location.state.number
 
-   const socket = this.props.socket
-   
-    socket.emit('login', {course, level:'student'})
-    socket.on('room-chat', (message) => {
+    const socket = this.props.socket
+
+    socket.emit('login', {course, level: 'student'})
+    socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', (message) => {
+    socket.on('message', message => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
@@ -44,23 +43,23 @@ export class studentClassDashboard extends React.Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-        const view = document.querySelector('.selectAudience').selectedIndex
-        
-        if(e.key === 'Enter'){
-          console.log('Entered')
-          // if(view !== 1){
-            console.log('public message')
+      const view = document.querySelector('.selectAudience').selectedIndex
 
-            socket.emit('student-public-message', {
-              message: e.target.value,
-              name: this.props.location.state.firstName,
-            }) 
-          
-          e.target.value = ''
-        }
+      if (e.key === 'Enter') {
+        console.log('Entered')
+        // if(view !== 1){
+        console.log('public message')
+
+        socket.emit('student-public-message', {
+          message: e.target.value,
+          name: this.props.location.state.firstName
+        })
+
+        e.target.value = ''
+      }
     })
   }
-  sendMessage(message){
+  sendMessage(message) {
     const input = document.getElementById('chat-input')
     socket.emit()
   }
@@ -106,24 +105,25 @@ export class studentClassDashboard extends React.Component {
             Create a New Group
           </button>
           <div>
-          <p>Select Audience</p>
+            <p>Select Audience</p>
           </div>
           <select
             name="group"
             className="selectAudience"
             onChange={this.handleChange}
           >
-            
-            <option value='All'>All</option>
+            <option value="All">All</option>
             <option value="Teacher">Teacher</option>
           </select>
           <br />
           Say something nice..
           <div id="message-main">
             <div id="chat-messages" />
-            {
-              messages.map((message, idx) => <p key={idx}className={message.type} >{message.message}</p>)
-            }
+            {messages.map((message, idx) => (
+              <p key={idx} className={message.type}>
+                {message.message}
+              </p>
+            ))}
             <input id="chat-input" type="text" overflow="auto" />
             {this.props.accountType === 'teacher' ? (
               <div>
@@ -174,7 +174,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCourse: id => dispatch(getSingleCourseThunk(id)),
-    setSocket: (socket) => dispatch(setSocket(socket))
+    setSocket: socket => dispatch(setSocket(socket))
   }
 }
 

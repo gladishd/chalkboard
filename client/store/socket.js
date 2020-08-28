@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 const ADD_SOCKET = 'ADD_SOCKET'
 //action creator
 const addGroup = groupId => {
@@ -9,15 +8,14 @@ const addGroup = groupId => {
     groupId
   }
 }
-const currentSocket = (socket) => {
+const currentSocket = socket => {
   return {
     type: ADD_SOCKET,
     socket
   }
 }
 
-
-export const setSocket = (socket) => {
+export const setSocket = socket => {
   console.log('in the set socket thunk', socket)
   return async dispatch => {
     try {
