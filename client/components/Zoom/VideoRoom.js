@@ -1,9 +1,7 @@
 import React from 'react'
 import Zoom from './Zoom'
 import setZIndex from './setZIndex'
-import history from '../../history'
 import {connect} from 'react-redux'
-import user from '../../store/user'
 
 function VideoRoom(props) {
   setZIndex()
@@ -19,12 +17,6 @@ function VideoRoom(props) {
   } else {
     return <>Loading</>
   }
-
-  // return (
-  //   <div>
-  //     <Zoom />
-  //   </div>
-  // )
 }
 
 const mapState = state => {
