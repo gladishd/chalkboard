@@ -25,6 +25,22 @@ module.exports = io => {
       })
       
     })
+    socket.on('student-teacher-message', (messageName) => {
+   
+      const { message, name } = messageName
+      
+      socket.to('teacher').emit('private-message',{
+        message: `(Private) ${name}: ${message}`,
+        type: 'student',
+        user: socket.id
+      })
+      
+      socket.emit('message', {
+        message: `(Private) Me: ${message}`,
+        type: 'student'
+      })
+      
+    })
     socket.on('disconnect', () => {
       console.log('a socket has left the station')
     })

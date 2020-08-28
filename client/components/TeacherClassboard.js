@@ -48,6 +48,10 @@ export class TeacherClassboard extends Component {
       })
       console.log('state after update ', this.state)
     })
+    socket.on('private-message', (MessageTypeUser) => {
+      const { message, type, user } = MessageTypeUser
+      console.log('pm ', message)
+    })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
         const view = document.querySelector('.selectAudience').selectedIndex

@@ -49,13 +49,19 @@ export class studentClassDashboard extends React.Component {
         if(e.key === 'Enter'){
           console.log('Entered')
           // if(view !== 1){
+          console.log('view status ', view)
             console.log('public message')
-
+          if(view === 1){
+            socket.emit('student-teacher-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          } else {
             socket.emit('student-public-message', {
               message: e.target.value,
               name: this.props.location.state.firstName,
             }) 
-          
+          }
           e.target.value = ''
         }
     })
