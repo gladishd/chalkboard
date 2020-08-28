@@ -93,7 +93,7 @@ export class Attendance extends Component {
     let studentsInCourse = this.props.studentsForThisCourseInherited
 
     return (
-      <div>
+      <div className="attendanceComponent">
         <h1>Attendance</h1>
         <h3>Students Online:</h3>
         {/* So for now this is just going to be all students */}

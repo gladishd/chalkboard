@@ -71,14 +71,13 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
-    console.log('On TeacherClassboard.js, the props are ', this.props)
     const courseList = this.props.reduxState.user.courses || []
     // const identification = this.props.location.state.number || null
     // const courseName = this.props.location.state.name
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
     return (
-      <div className="teacherClassBoard">
+      <div className="teacherClassBoard" style={{overflow: 'visible'}}>
         <div className="classboardList">
           <b>{courseName}</b>
 
@@ -109,7 +108,7 @@ export class TeacherClassboard extends Component {
             )}
           </div>
 
-          <div>
+          <div className="teacherClassboardOptions">
             <CreateZoomVideo />
 
             <button

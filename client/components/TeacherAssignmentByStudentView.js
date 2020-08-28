@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {getUserCoursesThunk} from '../store/user'
+import {getUserGradebookThunk} from '../store/user'
 import {connect} from 'react-redux'
 import {getAssignmentsByCourseIdThunk} from '../store/assignment'
 
@@ -7,16 +7,28 @@ export class TeacherAssignmentByStudentView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: ''
+      student: '',
+      assignment: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangeAssignments = this.handleChangeAssignments.bind(this)
   }
 
   handleChange(e) {
-    let selectedValue = e.target.value
     this.setState({
-      selected: selectedValue
+      student: e.target.value
     })
+  }
+
+  handleChangeAssignments(e) {
+    this.setState({
+      assignment: e.target.value
+    })
+  }
+
+  componentDidMount() {
+    this.props.getUserGradebook(this.state.student)
+    console.log('did the component mount?')
   }
 
   async componentWillMount() {
@@ -96,7 +108,8 @@ export class TeacherAssignmentByStudentView extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getAssignmentsForCourse: courseId =>
-      dispatch(getAssignmentsByCourseIdThunk(courseId))
+      dispatch(getAssignmentsByCourseIdThunk(courseId)),
+    getUserGradebook: userId => dispatch(getUserGradebookThunk(userId))
   }
 }
 const mapStateToProps = state => {
@@ -105,6 +118,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  TeacherAssignmentByStudentView
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TeacherAssignmentByStudentView)

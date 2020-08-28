@@ -1,13 +1,23 @@
-body {
-  font-family: sans-serif;
-}
 html,
 body {
   overflow: scroll !important;
 }
+
+* {
+  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+body {
+  font-family: sans-serif;
+}
+
 a {
   text-decoration: none;
 }
+
+
 #center {
   flex: 4;
   display: flex;
@@ -86,6 +96,10 @@ nav a {
   align-content: space-around;
   flex-flow: row;
   flex-wrap: wrap;
+  position: fixed;
+  height: 100vh;
+  padding-bottom: 50vh;
+  padding-top: 50vh;
 }
 
 .studentClassDashboard .classTitle {
@@ -258,7 +272,9 @@ nav a {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: auto;
+  height: 500em;
+  padding-bottom: 50em;
+  overflow-y: scroll;
 }
 
 .TeacherDash .teacherDashLogOut {
@@ -268,7 +284,7 @@ nav a {
 .TeacherDash .teacherDashListClasses {
   border-style: outset;
   border-radius: 1em;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   background-color: rgb(170, 170, 255);
   height: auto;
@@ -276,8 +292,19 @@ nav a {
 
 .TeacherDash .teacherDashClassName {
   border-style: outset;
-  padding: 5%;
-  margin-left: 24%;
+  padding: 1em;
+  margin-left: 1em;
+  height: 5em;
+}
+
+.addNewClassForm {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.addNewClassForm > div {
+  margin-right: -5em;
 }
 
 .TeacherDash .teacherDashNewClassButton {
@@ -309,12 +336,19 @@ nav a {
   flex-direction: row;
   flex-wrap: wrap;
   height: auto;
+  /* position: fixed; */
+  height: 100vh;
+  /* padding-bottom: 500px; */
+  /* padding-top: 50vh; */
+  overflow-y: scroll;
 }
 
 .teacherClassBoard .classboardList {
   border-style: outset;
   width: 100%;
   text-align: center;
+  height: 5em;
+  overflow-y: scroll;
 }
 
 .teacherClassBoard .classboardSchedule {
@@ -322,15 +356,23 @@ nav a {
   background-color: grey;
   display: flex;
   flex-direction: column;
-  margin: 10%;
+  margin: 2em;
   padding: 1em;
-  width: auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+}
+
+.teacherClassBoard .teacherClassboardOptions {
+  display: flex;
+  flex-direction: row;
 }
 
 .teacherClassBoard .classboardStartLecture {
   background-color: orange;
   padding: 1em;
   border-style: outset;
+  height: 5em;
 }
 
 .teacherClassBoard .classboardStartLecture:hover,
@@ -346,6 +388,27 @@ nav a {
 .teacherClassBoard .classboardAttendance {
   background-color: limegreen;
   padding: 1em;
+  overflow-y: scroll;
+  height: 5em;
+}
+
+.attendanceComponent {
+  overflow-y: scroll;
+  padding-bottom: 1000px;
+  width: 100vw;
+  height: 5em;
+}
+
+.assignmentViewMainDiv {
+  overflow-y: scroll;
+  padding-bottom: 1000px;
+  width: 10000px;
+}
+
+.assignmentsByStudent {
+  overflow-y: scroll;
+  padding-bottom: 1000px;
+  width: 100vw;
 }
 
 .teacherClassBoard .classboardAttendance:focus {
@@ -355,6 +418,7 @@ nav a {
 .teacherClassBoard .classboardAssignments {
   background-color: purple;
   padding: 1em;
+  height: 5em;
 }
 
 .teacherClassBoard .classboardAssignments:focus {
@@ -364,6 +428,7 @@ nav a {
 .teacherClassBoard .classboardAddAssignment {
   background-color: purple;
   padding: 1em;
+  height: 5em;
 }
 
 .teacherClassBoard .classboardAddAssignment:focus {
@@ -373,6 +438,7 @@ nav a {
 .teacherClassBoard .classboardStudent {
   background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
+  height: 5em;
 }
 
 .teacherClassBoard .classboardStudent:focus {
@@ -382,6 +448,7 @@ nav a {
 .teacherClassBoard .classboardAddStudent {
   background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
+  height: 5em;
 }
 
 .teacherClassBoard .classboardAddStudent:focus {
@@ -390,7 +457,8 @@ nav a {
 
 .teacherClassBoard .scheduleDashBox {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-bottom: 10em;
 }
 
 .teacherClassBoard .scheduleDashBox button {
@@ -433,8 +501,12 @@ nav a {
   border-style: outset;
 }
 
+.assignmentCheckBoxesSection {
+  width: 100vw;
+}
+
 .assignmentCheckBoxes {
-  width: 10%;
+  width: 50em;
   display: flex;
   justify-content: space-between;
 }

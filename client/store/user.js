@@ -16,6 +16,7 @@ const GET_ME = 'GET_ME'
 const LOGOUT_USER = 'LOGOUT_USER'
 const TAKE_ATTENDANCE = 'TAKE_ATTENDANCE'
 const GET_ALL_ATTENDANCE_FOR_COURSE = 'GET_ALL_ATTENDANCE_FOR_COURSE'
+const GET_USER_GRADEBOOK = 'GET_USER_GRADEBOOK'
 
 /**
  * ACTION CREATORS
@@ -36,6 +37,10 @@ const getTeacherCourses = courses => ({type: GET_TEACHER_COURSES, courses})
 const takeAttendance = data => ({type: TAKE_ATTENDANCE, data})
 const getAllAttendanceForCourse = data => ({
   type: GET_ALL_ATTENDANCE_FOR_COURSE,
+  data
+})
+const getUserGradebook = data => ({
+  type: GET_USER_GRADEBOOK,
   data
 })
 
@@ -105,6 +110,19 @@ export const getUserAssignmentsThunk = userId => {
       dispatch(getUserAssignments(data))
     } catch (err) {
       console.error(err.message)
+    }
+  }
+}
+
+export const getUserGradebookThunk = userId => {
+  return async dispatch => {
+    try {
+      console.log('did we reach the getUserGradebookThunk?')
+      const {data} = await axios.get(`/api/users/gradebook/${userId}`)
+      console.log('so the gradebook object returned from the thunk is ', data)
+      dispatch(getUserGradebook(data))
+    } catch (error) {
+      console.error(error.message)
     }
   }
 }
@@ -242,6 +260,12 @@ export default function(state = initialState, action) {
       return {...state, attendanceDataSubmitted: action.data}
     case GET_ALL_ATTENDANCE_FOR_COURSE:
       return {...state, pastAttendance: action.data}
+    case GET_USER_GRADEBOOK:
+      console.log('on the reducer, the action is ', action.data)
+      return {
+        ...state,
+        gradebook: action.data
+      }
     default:
       return state
   }
