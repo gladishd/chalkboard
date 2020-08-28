@@ -67,10 +67,6 @@ const createApp = () => {
   app.use('/api', require('./api'))
 
   // static file-serving middleware
-  app.use(
-    '/video/zoom',
-    express.static(path.join(__dirname, '..', 'public/zoom'))
-  )
 
   app.use(express.static(path.join(__dirname, '..', 'public')))
 

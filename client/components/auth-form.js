@@ -35,7 +35,7 @@ const AuthForm = props => {
         <div>
           <button type="submit">{displayName}</button>
           {loginerror ? (
-            <span style={{color: 'red', 'font-weight': 'bold'}}>
+            <span style={{color: 'red', fontWeight: 'bold'}}>
               The username and password don't match!
             </span>
           ) : (

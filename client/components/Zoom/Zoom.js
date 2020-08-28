@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {ZoomMtg} from '@zoomus/websdk'
-import history from '../../history'
 require('../../../zoomSecrets')
 
 let apiKeys = {
