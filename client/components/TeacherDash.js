@@ -110,14 +110,16 @@ export class TeacherDash extends Component {
 
             return (
               <div key={`spit${counter}`}>
-                <Link to={{
-                  pathname: './TeacherClassboard',
-                  state: {
-                    number: course.id,
-                    name: course.courseName,
-                    firstName: this.props.firstName
-                  }
-                }}>
+                <Link
+                  to={{
+                    pathname: './TeacherClassboard',
+                    state: {
+                      number: course.id,
+                      name: course.courseName,
+                      firstName: this.props.firstName
+                    }
+                  }}
+                >
                   {course.courseName}
                 </Link>
                 {course.courseSchedule.split('\n').map((eachLine, index) => {
@@ -198,7 +200,11 @@ export class TeacherDash extends Component {
             <label htmlFor="courseId">Course Id: </label>
             <textarea name="courseId" onChange={this.mapCourseIdToState} />
             <br />
-            <button type="button" onClick={this.handleSubmit}>
+            <button
+              type="button"
+              className="submitCourse"
+              onClick={this.handleSubmit}
+            >
               Submit
             </button>
           </form>
@@ -214,8 +220,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getAllCourses: () => dispatch(getAllCoursesThunk()),
     getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
-    newSocket: (socket) => dispatch(setSocket(socket)),
-    single: (id) => dispatch(getSingleCourseThunk(id))
+    newSocket: socket => dispatch(setSocket(socket)),
+    single: id => dispatch(getSingleCourseThunk(id))
   }
 }
 const mapStateToProps = state => {

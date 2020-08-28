@@ -5,8 +5,6 @@ import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/course.js'
 import {getUserCoursesThunk} from '../store/user'
 
-
-
 export class StudentDashboard extends React.Component {
   constructor(props) {
     super(props)
@@ -14,7 +12,6 @@ export class StudentDashboard extends React.Component {
       coursesArray: []
     }
     //this binding
-
   }
   async componentWillMount() {
     try {
@@ -31,8 +28,7 @@ export class StudentDashboard extends React.Component {
     const socket = this.props.socket
     console.log('sd socket ? ', socket)
   }
- 
-  
+
   render() {
     const courseList = this.props.courses || []
     const allCoursesList = this.props.allCourses || []
@@ -65,7 +61,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
         Not Enrolled in:
@@ -83,7 +79,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
       </div>
@@ -108,7 +104,7 @@ const mapDispatchToProps = dispatch => {
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
     },
-    getMyCourses: id => dispatch(getUserCoursesThunk(id)),
+    getMyCourses: id => dispatch(getUserCoursesThunk(id))
     // newSocket: (socket) => dispatch(setSocket(socket))
   }
 }
