@@ -57,13 +57,10 @@ export class TeacherClassboard extends Component {
   async componentWillMount() {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
-
       let courseIdFromPath = this.props.location.pathname.slice(
         this.props.location.pathname.length - 1
       )
-
       await this.props.getSingleCourse(courseIdFromPath)
-
       await this.props.getStudentsForThisCourse(courseIdFromPath)
     } catch (err) {
       console.log(err)

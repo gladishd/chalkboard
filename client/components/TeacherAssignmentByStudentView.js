@@ -18,6 +18,7 @@ export class TeacherAssignmentByStudentView extends Component {
     this.setState({
       student: e.target.value
     })
+    this.props.getUserGradebook(e.target.value)
   }
 
   handleChangeAssignments(e) {
@@ -40,17 +41,24 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   render() {
-    console.log(
-      'the props on the TeacherAssignmentByStudentView are ',
-      this.props
-    )
-    console.log(
-      'the state on the TeacherAssignmentByStudentView is ',
-      this.state
-    )
     let listStudents = this.props.studentsForThisCourseInherited
     let allAssignments = this.props.reduxState.assignment.assignments || []
-
+    let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
+    let assignmentIds = []
+    allAssignments.map(element => {
+      assignmentIds.push(element.id)
+    })
+    let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
+      return assignmentIds.includes(element.assignmentId)
+    })
+    // want to take the assignment id, and use it to find data about that assignment:
+    gradebookFilteredForClass.map((elementGradebook, index) => {
+      let singleAssignment = allAssignments.filter(element => {
+        return element.id === elementGradebook.assignmentId
+      })
+      gradebookFilteredForClass[index].assignmentDataObject = singleAssignment
+    })
+    console.log('gradebookFilteredForClass: ', gradebookFilteredForClass)
     return (
       <div className="assignmentsByStudent">
         <div className="student">
@@ -93,13 +101,23 @@ export class TeacherAssignmentByStudentView extends Component {
             <option value="all">All Assignments</option>
           </select>
         </div>
-        Assignment Assignment A
-        <div className="studentAssignmentBoxes">
-          <div className="checkbox">Points Earned</div>
-          <div className="checkbox">Total Points Available</div>
-          <div className="checkbox">Percent of Total Points</div>
-          <div className="checkbox">Grade</div>
-        </div>
+
+        {/* {
+          selectedStudentGradebook.map(
+            (assignment) => {
+              return <div>
+
+                <div className="studentAssignmentBoxes">
+                  <div className="checkbox">Points Earned</div>
+                  <div className="checkbox">Total Points Available</div>
+                  <div className="checkbox">Percent of Total Points</div>
+                  <div className="checkbox">Grade</div>
+                </div>
+              </div>
+            }
+          )
+
+        } */}
       </div>
     )
   }

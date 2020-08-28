@@ -416,7 +416,7 @@ nav a {
 
 .teacherClassBoard .teacherClassboardOptions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .teacherClassBoard .classboardStartLecture {

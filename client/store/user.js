@@ -117,9 +117,7 @@ export const getUserAssignmentsThunk = userId => {
 export const getUserGradebookThunk = userId => {
   return async dispatch => {
     try {
-      console.log('did we reach the getUserGradebookThunk?')
       const {data} = await axios.get(`/api/users/gradebook/${userId}`)
-      console.log('so the gradebook object returned from the thunk is ', data)
       dispatch(getUserGradebook(data))
     } catch (error) {
       console.error(error.message)
@@ -261,7 +259,6 @@ export default function(state = initialState, action) {
     case GET_ALL_ATTENDANCE_FOR_COURSE:
       return {...state, pastAttendance: action.data}
     case GET_USER_GRADEBOOK:
-      console.log('on the reducer, the action is ', action.data)
       return {
         ...state,
         gradebook: action.data
