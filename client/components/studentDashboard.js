@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/course.js'
-import {IoTSecureTunneling} from 'aws-sdk'
 import {getUserCoursesThunk} from '../store/user'
 
 export class StudentDashboard extends React.Component {

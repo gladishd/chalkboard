@@ -1,14 +1,29 @@
 import React from 'react'
 import Zoom from './Zoom'
 import setZIndex from './setZIndex'
+import {connect} from 'react-redux'
 
-function VideoRoom() {
+function VideoRoom(props) {
   setZIndex()
-  return (
-    <div>
-      <Zoom />
-    </div>
-  )
+
+  const {user, courseId} = props
+
+  if (user.id) {
+    return (
+      <div>
+        <Zoom user={user} courseId={courseId} />
+      </div>
+    )
+  } else {
+    return <>Loading</>
+  }
 }
 
-export default VideoRoom
+const mapState = state => {
+  return {
+    user: state.user.me,
+    courseId: state.course.single.id
+  }
+}
+
+export default connect(mapState)(VideoRoom)
