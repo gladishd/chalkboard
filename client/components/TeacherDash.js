@@ -4,7 +4,7 @@ import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import io from 'socket.io-client'
 import {setSocket} from '../store/socket'
-
+import getSingleCourseThunk from '../store/course'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -110,7 +110,14 @@ export class TeacherDash extends Component {
 
             return (
               <div key={`spit${counter}`}>
-                <Link to={`./TeacherClassboard/${course.id}`}>
+                <Link to={{
+                  pathname: './TeacherClassboard',
+                  state: {
+                    number: course.id,
+                    name: course.courseName,
+                    firstName: this.props.firstName
+                  }
+                }}>
                   {course.courseName}
                 </Link>
                 {course.courseSchedule.split('\n').map((eachLine, index) => {
@@ -207,7 +214,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getAllCourses: () => dispatch(getAllCoursesThunk()),
     getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
-    newSocket: (socket) => dispatch(setSocket(socket))
+    newSocket: (socket) => dispatch(setSocket(socket)),
+    single: (id) => dispatch(getSingleCourseThunk(id))
   }
 }
 const mapStateToProps = state => {
