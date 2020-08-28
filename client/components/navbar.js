@@ -45,7 +45,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link to="/login">Login</Link>
 
           {/* Testing purposes*/}
-          <Link to="/video">Video Room</Link>
+          <Link to="/assignment/1">Assignment</Link>
 
           {/* <Link to="/signup">Sign Up</Link> */}
         </div>
