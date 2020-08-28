@@ -297,6 +297,34 @@ nav a {
   padding: 1em;
   margin-left: 1em;
   height: 5em;
+
+  border-style: outset;
+
+  text-align: center;
+  background: transparent;
+  color: #226fbe;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+
+  border-radius: 1px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.TeacherDash .teacherDashClassName:hover,
+.TeacherDash .teacherDashClassName:active {
+  color: #0475bb;
+  background: #ff7b64be;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
 }
 
 .addNewClassForm {
@@ -317,6 +345,17 @@ nav a {
   margin-left: 45%;
   margin-right: 45%;
   text-align: center;
+  background: transparent;
+  color: #226fbe;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 0.1em outset #226fbe;
+  height: auto;
+  border-radius: 1px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .TeacherDash .teacherDashNewClassButton:focus {
@@ -326,12 +365,20 @@ nav a {
 .TeacherDash .teacherDashNewClassButton:hover,
 .TeacherDash .teacherDashNewClassButton:active {
   color: #0475bb;
-  background: rgb(230, 230, 230);
+  background: #ff7b64be;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
 }
 
 .TeacherDash .teacherDashNewClassButton:active {
   border-style: inset;
-  background: rgb(255, 255, 255);
+  background: transparent;
 }
 
 .teacherClassBoard {
@@ -590,4 +637,52 @@ nav a {
 body > #zmmtg-root {
   z-index: -1;
   background-color: white;
+}
+
+.submitCourse {
+  background: #ff7b64be;
+  color: #fff;
+  font-size: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: 0.1em double #226fbe;
+  height: auto;
+  border-radius: 15px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.submitCourse:hover {
+  background: transparent;
+  color: #09ff00;
+  -webkit-transform: rotateX(10deg);
+  -webkit-transform: rotateY(20deg);
+  -moz-transform: rotateX(50deg);
+  -moz-transform: rotateY(50deg);
+  -ms-transform: rotateX(10deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateX(50deg);
+  transform: rotateY(10deg);
+}
+
+.submitCourse:focus {
+  outline: none;
+}
+.submitCourse:active {
+  background: #9053a9;
+  top: 1em;
+}
+
+.submitCourse:before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  line-height: 25;
+  font-size: 180%;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
 }

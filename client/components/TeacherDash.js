@@ -179,7 +179,11 @@ export class TeacherDash extends Component {
             <label htmlFor="courseId">Course Id: </label>
             <textarea name="courseId" onChange={this.mapCourseIdToState} />
             <br />
-            <button type="button" onClick={this.handleSubmit}>
+            <button
+              type="button"
+              className="submitCourse"
+              onClick={this.handleSubmit}
+            >
               Submit
             </button>
           </form>
