@@ -60,116 +60,12 @@ export class studentClassDashboard extends React.Component {
             firstName: this.props.location.firstName,
             type: 'student',
             dm: true
-          } )
+          })
         }
         e.target.value = ''
       }
     })
-  // //   input.addEventListener('keypress', e => {
-  // //     const view = document.querySelector('.selectAudience').selectedIndex
-  // //     if (e.key === 'Enter') {
-  // //       if(view === 1){
-  // //         socket.emit('teacher-chat', {
-  // //           message: e.target.value,
-  // //           firstName: this.props.location.state.firstName
-  // //         })
-  // //         e.target.value = ''
-  // //       } else {
-  // //         socket.emit('message', {
-  // //           message: e.target.value,
-  // //           firstName: this.props.location.state.firstName,
-  // //           type: 'student'
-  // //         })
-  // //         e.target.value = ''
-  // //       }
-  // //     }
-  // //   })
-    // socket.on('send-nsp', (message) => {
-    //   console.log(`message: ${message}`)
-    // })
-    // console.log('state props socket? ', this.props.reduxState)
-    // const socket = this.state.reduxState.socket
-    // socket.emit('class', this.props.location.state.number)
-    // console.log('returned socket nsp ', socket.nsp.name)
   }
-  // componentDidMount() {
-  //   let path
-  //   let courseId
-  //   let first
-  //   if (this.props.location) {
-  //     // if we got there through a URL (when we're a student)
-  //     path = this.props.location.pathname
-  //     courseId = this.props.location.state.number
-  //     // courseId = path.slice(path.length - 1)
-  //   } else {
-  //     courseId = this.props.courseIdInherited
-  //   }
-  //   if (this.props.location) {
-  //     first = this.props.location.state.firstName
-  //   } else {
-  //     first = this.props.userInherited.firstName
-  //   }
-
-  //   // let courseId = path.slice(path.length - 1)
-
-  //   let courseName
-  //   if (this.props.location) {
-  //     // if we're logged in as a student
-  //     courseName = this.props.location.state.name
-  //   } else {
-  //     // if we're accessing it through the teacher classboard
-  //     courseName = this.props.courseObjectInherited.courseName
-  //   }
-  //   this.props.getCourse(courseId)
-  //   console.log('socket state', this.props.state)
-  //   // if (this.props.location) {
-  //   //   socket = io(`/${this.props.location.state.number}`)
-  //   // } else {
-  //   //   socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
-  //   // }
-    
-  //   // socket.emit('class', 'red')
-
-  //   const input = document.getElementById('chat-input')
-
-  //   // I just commented these lines out so that I could render from the teacher's perspective
-
-  //   // socket.emit('login', {name: first, type: 'Student'})
-  //   // socket.emit('login', {name: first, type: first})
-
-  //   let firstNameForSocket // not const
-  //   if (this.props.location) {
-  //     // if we're actually viewing the component through the URL, which is what we do as a student
-  //     firstNameForSocket = this.props.location.state.firstName
-  //   } else {
-  //     // otherwise, if we're rendering it within the teacher classboard component
-  //     firstNameForSocket = this.props.userInherited.firstName // might also want last name in the future
-  //   }
-
-
-  // //   socket.on('myMessage', message => {
-  // //     console.log('in my')
-  // //     const box = document.getElementById('chat-messages')
-  // //     const mes = document.createElement('p')
-  // //     mes.innerHTML = message
-  // //     box.appendChild(mes)
-  // //   })
-  // //   socket.on('theirMessage', message => {
-  // //     console.log('in their')
-  // //     const box = document.getElementById('chat-messages')
-  // //     const mes = document.createElement('p')
-  // //     mes.innerHTML = message
-  // //     box.appendChild(mes)
-  // //   })
-  // //   socket.on('teacherMessage', (message) => {
-  // //     console.log('in teacher')
-  // //     const box = document.getElementById('chat-messages')
-  // //     const mes = document.createElement('p')
-  // //     mes.classList.add('teacher-message')
-  // //     mes.innerHTML = `${message}`
-  // //     box.appendChild(mes)
-  // //   })
-  // // }
   sendMessage(message){
     const input = document.getElementById('chat-input')
     socket.emit()
