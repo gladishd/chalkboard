@@ -486,7 +486,9 @@ nav a {
   background-color: rgb(129, 129, 129);
   outline: none;
 }
-
+.teacher-message {
+  color: red;
+}
 .assignmentViewMainDiv {
   display: flex;
   flex-direction: column;
@@ -584,17 +586,20 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
+/*
+chat stuff
+*/
+/*
+.self{
+  color: green;
+} */
 
-.attendanceForm {
-  display: flex;
-  flex-direction: column;
+.student {
+  color: red;
 }
-
-.attendanceFormOptions {
-  display: flex;
-  flex-direction: row;
+.teacher {
+  color: blue;
 }
-
 body > #zmmtg-root {
   z-index: -1;
   background-image: url('chalkboard-bg.png');
