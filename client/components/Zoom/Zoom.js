@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {ZoomMtg} from '@zoomus/websdk'
-require('../../../zoomSecrets')
+// require('../../../zoomSecrets')
 
 let apiKeys = {
   apiKey: process.env.REACT_APP_ZOOM_API_KEY,

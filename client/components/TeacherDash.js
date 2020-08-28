@@ -94,8 +94,9 @@ export class TeacherDash extends Component {
       <div className="TeacherDash">
         <div className="studentCourseList">
           {courseList.length > 0 ? (
-            courseList.map((course, index) => {
+            courseList.map(course => {
               return (
+<<<<<<< HEAD
                 <div key={index}>
                   <Link
                     to={{
@@ -107,6 +108,10 @@ export class TeacherDash extends Component {
                       }
                     }}
                   >
+=======
+                <div key={`courseListName${course.id}`}>
+                  <Link to={`./TeacherClassboard/${course.id}`}>
+>>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
                     {course.courseName}
                   </Link>
                   <br />
@@ -119,10 +124,18 @@ export class TeacherDash extends Component {
         </div>
         {courseList.length > 0 ? (
           courseList.map((course, index) => {
+            const counter = index
             return (
-              <div key={index}>
-                {course.courseSchedule.split('\n').map(eachLine => {
-                  return <div>{eachLine}</div>
+              <div key={`spit${counter}`}>
+                {course.courseSchedule.split('\n').map((eachLine, index) => {
+                  const scheduleCounter = index
+                  return (
+                    <div
+                      key={`courseListSchedule${course.id}:${scheduleCounter}`}
+                    >
+                      {eachLine}
+                    </div>
+                  )
                 })}
                 <br />
               </div>
@@ -133,6 +146,7 @@ export class TeacherDash extends Component {
         )}
         <div className="teacherDashListClasses">List of Classes</div>
         <button
+          type="button"
           className="teacherDashNewClassButton"
           onClick={this.handleClick}
         >
@@ -143,6 +157,7 @@ export class TeacherDash extends Component {
           courseList.map(course => {
             return (
               <Link
+                key={`courseListDash${course.id}`}
                 className="teacherDashClassName"
                 to={`./TeacherClassboard/${course.id}`}
               >
@@ -195,9 +210,14 @@ export class TeacherDash extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
+<<<<<<< HEAD
     getAllCourses: () => dispatch(getAllCoursesThunk()),
     getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
     newSocket: (socket) => dispatch(setSocket(socket))
+=======
+    // getAllCourses: () => dispatch(getAllCoursesThunk()),
+    getMyCourses: id => dispatch(getTeacherCoursesThunk(id))
+>>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
   }
 }
 const mapStateToProps = state => {
