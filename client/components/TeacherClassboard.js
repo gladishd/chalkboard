@@ -111,26 +111,6 @@ export class TeacherClassboard extends Component {
 
           <div>
             <CreateZoomVideo />
-            {/* <button
-              className="classboardStartLecture"
-              onClick={this.toggleLecture}
-            >
-              Start Lecture
-            </button>
-
-            {this.state.showLecture ? (
-            </button> */}
-            {/* {this.state.showLecture ? (
-              <StudentClassDashboard
-                courseIdInherited={`${this.props.location.pathname.charAt(
-                  this.props.location.pathname.length - 1
-                )}`}
-                userInherited={this.props.reduxState.user.me}
-                courseObjectInherited={this.props.reduxState.course.single}
-              />
-            ) : (
-              <div />
-            )} */}
 
             <button
               type="button"

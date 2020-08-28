@@ -13,7 +13,7 @@ let meetConfig = {
   userName: '',
   userEmail: '', //must be set to same email as meeting owner for host privileges
   passWord: '420420',
-  leaveUrl: 'http://localhost:8080/studentClassDashBoard',
+  leaveUrl: 'http://localhost:8080/home',
   role: 0
 }
 
