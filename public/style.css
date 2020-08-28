@@ -17,7 +17,6 @@ a {
   text-decoration: none;
 }
 
-
 #center {
   flex: 4;
   display: flex;
@@ -100,6 +99,7 @@ nav a {
   height: 100vh;
   padding-bottom: 50vh;
   padding-top: 50vh;
+  border: outset;
 }
 
 .studentClassDashboard .classTitle {
@@ -112,6 +112,8 @@ nav a {
 .studentClassDashboard > div {
   border: inset;
   border-width: 0.1em;
+  margin-left: 0.25rem;
+  margin-right: 1rem;
 }
 
 .introductionToTheCourse {
@@ -122,7 +124,7 @@ nav a {
   flex-grow: 1;
   flex-basis: 1;
   color: blue;
-  width: 10rem;
+  width: auto;
   height: 15rem;
   padding: 1%;
   margin: 1rem;
@@ -163,8 +165,8 @@ nav a {
   background-size: 100px;
   background-repeat: repeat;
   flex-grow: 2;
-  width: 30%;
-  height: 15rem;
+  width: auto;
+  height: 20rem;
   margin: 1rem;
   flex-grow: 1;
   flex-basis: 1;
@@ -227,7 +229,7 @@ nav a {
   flex-grow: 1;
   margin: 1rem;
   height: auto;
-  width: 20%;
+  width: auto;
   border-radius: 1em;
   padding: 0.5rem;
   padding-bottom: 3rem;
@@ -300,7 +302,9 @@ nav a {
 .addNewClassForm {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 90vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
 }
 
 .addNewClassForm > div {

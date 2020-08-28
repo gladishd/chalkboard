@@ -59,7 +59,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
         Not Enrolled in:
@@ -77,7 +77,7 @@ export class StudentDashboard extends React.Component {
               )
             })
           ) : (
-            <div>Loading...</div>
+            <div />
           )}
         </div>
       </div>
