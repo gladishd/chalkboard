@@ -59,12 +59,15 @@ class Routes extends Component {
               component={moreClassInformationComponent}
             />
             <Route path="/TeacherClassboard" component={TeacherClassboard} />
+
             <Route path="/teacherDashboard" component={TeacherDashboard} />
             <Route path="/TeacherDash" component={TeacherDash} />
             <Route
               path="/studentClassDashboard"
               component={studentClassDashboard}
             />
+            <Route exact path="/video" component={CreateVideo} />
+            <Route path="/video/id" component={VideoRoom} />
           </Switch>
         )}
         {/* Student Routes */}
@@ -78,6 +81,8 @@ class Routes extends Component {
               path="/studentClassDashboard"
               component={studentClassDashboard}
             />
+            <Route exact path="/video" component={CreateVideo} />
+            <Route path="/video/id" component={VideoRoom} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

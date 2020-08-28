@@ -6,11 +6,12 @@ import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 // import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
-import {getSingleCourseThunk} from '../store/course.js'
+import course, {getSingleCourseThunk} from '../store/course.js'
 import emit from '../../public/emit'
 import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
+import JoinVideoButton from './Zoom/JoinVideoButton.js'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -20,35 +21,23 @@ export class studentClassDashboard extends React.Component {
     }
     this.toggleForm = this.toggleForm.bind(this)
   }
-  componentDidMount() {
-    let path
+  async componentDidMount() {
     let courseId
-    let first
-    if (this.props.location) {
+    let first = this.props.user.firstName
+    if (this.props.course.id) {
+    } else if (this.props.location) {
       // if we got there through a URL (when we're a student)
-      path = this.props.location.pathname
+      let path = this.props.location.pathname
       courseId = this.props.location.state.number
-      // courseId = path.slice(path.length - 1)
     } else {
       courseId = this.props.courseIdInherited
     }
-    if (this.props.location) {
-      first = this.props.location.state.firstName
-    } else {
-      first = this.props.userInherited.firstName
-    }
 
-    // let courseId = path.slice(path.length - 1)
+    await this.props.getCourse(courseId)
 
-    let courseName
-    if (this.props.location) {
-      // if we're logged in as a student
-      courseName = this.props.location.state.name
-    } else {
-      // if we're accessing it through the teacher classboard
-      courseName = this.props.courseObjectInherited.courseName
-    }
-    this.props.getCourse(courseId)
+    let course = this.props.course
+    let courseName = course.courseName
+
     let socket
     if (this.props.location) {
       socket = io(`/${this.props.location.state.number}`)
@@ -119,28 +108,23 @@ export class studentClassDashboard extends React.Component {
     }
 
     return (
-      <div className="studentClassDashboard" id="bootstrapId">
-        <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
-        <div className="classTitle">
-          {/* Welcome to {this.props.reduxState.courses.courseName} */}
-          {/* Welcome to {this.props.location.state.name}! */}
+      <div>
+        <div className="studentClassDashboard">
+          <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
+
+          <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
+
+          <div className="introductionToTheCourse">
+            {courseIntro.map((element, index) => {
+              return <div key={index}>{element}</div>
+            })}
+          </div>
+
+          <div>
+            <JoinVideoButton />
+          </div>
         </div>
-        <div className="introductionToTheCourse">
-          {courseIntro.map((element, index) => {
-            return <div key={index}>{element}</div>
-          })}
-        </div>
-        <div className="liveLecture">
-          Live Lecture
-          {this.props.accountType === 'teacher' ? (
-            <div>
-              <button>Record</button>
-              <button>Poll (survey)</button>
-            </div>
-          ) : (
-            <div />
-          )}
-        </div>
+
         <div className="liveChat">
           <button className="chatButtonCreate" onClick={this.toggleForm}>
             Create a New Group
@@ -173,27 +157,26 @@ export class studentClassDashboard extends React.Component {
             )}
           </div>
         </div>
+
         <div className="moreClassInformationComponent">
           {this.props.course.courseMoreInformation ? (
-            <MoreClassInformationComponent text={courseDetails} />
+            <div>
+              <MoreClassInformationComponent text={courseDetails} />
+            </div>
           ) : (
             <div>Course Information Not Available</div>
           )}
         </div>
-        {this.state.showForm ? (
-          <div className="newGroupFormComponent">
-            <NewGroupFormComponent />
-          </div>
-        ) : (
-          <div />
-        )}
 
-        {/* <div id='student-chat'>                 // STUDENT CHAT
-          <ul id='student-messages'>
-
-          </ul>
-          <input id='student-chat-space' type='text'></input>
-        </div> */}
+        <div>
+          {this.state.showForm ? (
+            <div className="newGroupFormComponent">
+              <NewGroupFormComponent />
+            </div>
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     )
   }
@@ -202,6 +185,7 @@ export class studentClassDashboard extends React.Component {
 const mapStateToProps = state => {
   return {
     course: state.course.single,
+    user: state.user.me,
     accountType: state.user.me.accountType,
     reduxState: state
   }
@@ -209,10 +193,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
-    getCourse: id => {
-      dispatch(getSingleCourseThunk(id))
-    }
+    getCourse: id => dispatch(getSingleCourseThunk(id))
   }
 }
 
