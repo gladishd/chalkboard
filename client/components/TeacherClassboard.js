@@ -30,7 +30,6 @@ export class TeacherClassboard extends Component {
   async componentWillMount(){
     await this.props.getCourseStudents(this.props.location.state.number)
 
-<<<<<<< HEAD
   }
   componentDidMount() {
     console.log('top of teacher socket check ', this.props)
@@ -65,14 +64,6 @@ export class TeacherClassboard extends Component {
       showLecture: !this.state.showLecture
     })
   }
-=======
-  // toggleLecture(e) {
-  //   e.preventDefault()
-  //   this.setState({
-  //     showLecture: !this.state.showLecture
-  //   })
-  // }
->>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
 
   toggleAttendance(e) {
     e.preventDefault()
@@ -232,7 +223,6 @@ export class TeacherClassboard extends Component {
             ) : (
               <div />
             )}
-<<<<<<< HEAD
             <div className="liveChat">
           {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
             {/* Create a New Group
@@ -260,12 +250,6 @@ export class TeacherClassboard extends Component {
           
         </div>
             <button className="classboardAddStudent">Add</button>
-=======
-
-            <button type="button" className="classboardAddStudent">
-              Add
-            </button>
->>>>>>> 107ae52fabc62066d1f67a7cd1afb242b3f719d2
           </div>
         </div>
       </div>
