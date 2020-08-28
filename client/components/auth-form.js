@@ -20,17 +20,19 @@ const AuthForm = props => {
         }}
         name={name}
       >
+        <input type="hidden" value="prayer" />
+
         <div>
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input type="email" name="email" id="auth-form-email" />
         </div>
         <div>
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input type="password" name="password" id="auth-form-password" />
         </div>
         <div>
           <button type="submit">{displayName}</button>
@@ -49,13 +51,6 @@ const AuthForm = props => {
   )
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = state => {
   return {
     name: 'login',
