@@ -95,7 +95,6 @@ export class TeacherDash extends Component {
       courseList
     )
     return (
-<<<<<<< HEAD
       <div className="TeacherDash">
         <div className="studentCourseList">
           {courseList.length > 0 ? (
@@ -122,7 +121,6 @@ export class TeacherDash extends Component {
             <div>Loading...</div>
           )}
         </div>
-=======
       <div
         className="TeacherDash"
         style={{
@@ -131,8 +129,7 @@ export class TeacherDash extends Component {
           'overflow-y': 'visible',
           height: '1000%'
         }}
-      >
->>>>>>> 0ff07207cc4e15d9fe1f6a3df1893f35630a1ea6
+      ></div>
         {courseList.length > 0 ? (
           courseList.map((course, index) => {
             const counter = index
@@ -219,6 +216,7 @@ export class TeacherDash extends Component {
         ) : (
           <div> </div>
         )}
+      </div>
       </div>
     )
   }

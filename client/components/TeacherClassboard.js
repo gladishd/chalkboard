@@ -103,11 +103,6 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    console.log('teacher classboard props w students ', this.props)
-    console.log('On TeacherClassboard.js, the props are ', this.props)
-=======
->>>>>>> 0ff07207cc4e15d9fe1f6a3df1893f35630a1ea6
     const courseList = this.props.reduxState.user.courses || []
     // const identification = this.props.location.state.number || null
     // const courseName = this.props.location.state.name

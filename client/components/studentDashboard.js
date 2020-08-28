@@ -3,10 +3,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/course.js'
-<<<<<<< HEAD
-// import {IoTSecureTunneling} from 'aws-sdk'
-=======
->>>>>>> 0ff07207cc4e15d9fe1f6a3df1893f35630a1ea6
 import {getUserCoursesThunk} from '../store/user'
 import {setSocket} from '../store/socket'
 import io from 'socket.io-client'
