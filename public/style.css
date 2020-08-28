@@ -686,3 +686,11 @@ body > #zmmtg-root {
   -moz-transition: all 0.2s;
   transition: all 0.2s;
 }
+
+.addNewAssignmentForm {
+  width: 100%;
+}
+
+.addNewStudentForm {
+  width: 100%;
+}

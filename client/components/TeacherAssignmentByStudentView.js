@@ -29,7 +29,6 @@ export class TeacherAssignmentByStudentView extends Component {
 
   componentDidMount() {
     this.props.getUserGradebook(this.state.student)
-    console.log('did the component mount?')
   }
 
   async componentWillMount() {
@@ -67,10 +66,6 @@ export class TeacherAssignmentByStudentView extends Component {
         return element.assignmentId === Number(this.state.assignment)
       })
     }
-
-    console.log('gradebookFilteredForClass: ', gradebookFilteredForClass)
-    console.log('state on TeacherAssignmentByStudentView: ', this.state)
-    console.log('props on TeacherAssignmentByStudentView: ', this.props)
     return (
       <div className="assignmentsByStudent">
         <div className="student">
