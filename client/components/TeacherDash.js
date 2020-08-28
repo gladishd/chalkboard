@@ -146,7 +146,15 @@ export class TeacherDash extends Component {
               <Link
                 key={`courseListDash${course.id}`}
                 className="teacherDashClassName"
-                to={`./TeacherClassboard/${course.id}`}
+                // to={`./TeacherClassboard/${course.id}`
+                to={{
+                  pathname: './TeacherClassboard',
+                  state: {
+                    number: course.id,
+                    name: course.courseName,
+                    firstName: this.props.firstName
+                  }
+                }}
               >
                 {course.courseName}
               </Link>

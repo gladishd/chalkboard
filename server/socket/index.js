@@ -1,31 +1,29 @@
 module.exports = io => {
-
+  console.log('dir to sockets')
 
   const room = {}
   io.on('connection', socket => {
 
-    console.log('in public')
-    
-    socket.on('course', (name) => {
-      socket.join(name)
-      room[socket.id] = name
-      console.log('in course ', room[socket.id])
-
-      socket.to(room[socket.id]).emit('room-chat', 'with love')
-      socket.emit('room-chat', 'solo')
+    socket.on('login', (user) => {
+      const { course, level } = user
+      socket.join(course)
+      room[socket.id] = course
+      socket.join(level)
     })
-    socket.on('message', (message) => {
+    
+    socket.on('student-public-message', (messageName) => {
+      console.log('in spm')
+      const { message, name } = messageName
       
-      socket.to(room[socket.id]).emit('message', {
-        message: `${message.firstName}: ${message.message}`,
-        type: message.type,
-        person: 'other'
+      socket.to(room[socket.id]).emit('message',{
+        message: `${name}: ${message}`,
+        type: 'student'
       })
       socket.emit('message', {
-        message: `${message.firstName}: ${message.message}`,
-        type: message.type,
-        person: 'self'
+        message: `Me: ${message}`,
+        type: 'student'
       })
+      
     })
     socket.on('disconnect', () => {
       console.log('a socket has left the station')

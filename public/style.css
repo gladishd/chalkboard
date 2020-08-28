@@ -588,3 +588,7 @@ chat stuff
 .teacher{
   color: blue;
 }
+body > #zmmtg-root {
+  z-index: -1;
+  background-color: white;
+}

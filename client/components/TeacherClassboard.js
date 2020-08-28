@@ -27,35 +27,43 @@ export class TeacherClassboard extends Component {
       this
     )
   }
-  async componentWillMount(){
-    await this.props.getCourseStudents(this.props.location.state.number)
+  // async componentWillMount(){
+  //   await this.props.getCourseStudents(this.props.location.state.number)
 
-  }
+  // }
   componentDidMount() {
-    console.log('top of teacher socket check ', this.props)
-    const socket = this.props.reduxState.socket
-    
-    socket.emit('course', this.props.location.state.number)
+    console.log('location props ', this.props)
+    let course = this.props.location.state.number
 
+   const socket = this.props.socket
+   
+    socket.emit('login', {course, level:'student'})
     socket.on('room-chat', (message) => {
-      console.log(`From Russia ${message}`)
+      console.log(message)
     })
     socket.on('message', (message) => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
       })
+      console.log('state after update ', this.state)
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      if(e.key === 'Enter'){
-        socket.emit('message', {
-          message: e.target.value,
-          firstName: this.props.location.state.firstName,
-          type: 'teacher'
-        })
-        e.target.value = ''
-      }
+        const view = document.querySelector('.selectAudience').selectedIndex
+        
+        if(e.key === 'Enter'){
+          console.log('Entered')
+          // if(view !== 1){
+            console.log('public message')
+
+            socket.emit('student-public-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          
+          e.target.value = ''
+        }
     })
   }
   toggleLecture(e) {
@@ -100,6 +108,8 @@ export class TeacherClassboard extends Component {
     } catch (err) {
       console.log(err)
     }
+
+    
   }
 
   render() {
@@ -224,7 +234,7 @@ export class TeacherClassboard extends Component {
           <div id="message-main">
             <div id="chat-messages" />
             {
-              this.state.messages.map((message, idx) => <p key={idx}className={message.type + '-' + 'message'} className={message.person}>{message.message}</p>)
+              this.state.messages.map((message, idx) => <p className={message.type + '-' + 'message'} className={message.person}>{message.message}</p>)
             }
             <input id="chat-input" type="text" overflow="auto" />
           </div>
@@ -249,7 +259,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     students: state.students,
-    reduxState: state
+    reduxState: state,
+    socket: state.socket
   }
 }
 

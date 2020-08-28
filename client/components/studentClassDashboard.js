@@ -12,6 +12,7 @@ import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
 import JoinVideoButton from './Zoom/JoinVideoButton.js'
+import setSocket from '../store/socket'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -25,33 +26,14 @@ export class studentClassDashboard extends React.Component {
   }
   
   async componentDidMount() {
-    let courseId
-    let first = this.props.user.firstName
-    if (this.props.course.id) {
-      console.log('filled in this.props.course.id if')
     
-    } else if (this.props.location) {
-      // if we got there through a URL (when we're a student)
-      let path = this.props.location.pathname
-      courseId = this.props.location.state.number
-    } else {
-      courseId = this.props.courseIdInherited
-    }
+    let course = this.props.location.state.number
 
-    await this.props.getCourse(courseId)
-
-    let course = this.props.course
-    let courseName = course.courseName
-
-    let socket
-    if (this.props.location) {
-      socket = io(`/${this.props.location.state.number}`)
-    } else {
-      socket = io(`/${this.props.courseObjectInherited.id}`) // opening a socket on the course ID
-    }
-
+   const socket = this.props.socket
+   
+    socket.emit('login', {course, level:'student'})
     socket.on('room-chat', (message) => {
-      console.log(`From Russia ${message}`)
+      console.log(message)
     })
     socket.on('message', (message) => {
       this.setState({
@@ -63,25 +45,19 @@ export class studentClassDashboard extends React.Component {
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
         const view = document.querySelector('.selectAudience').selectedIndex
+        
+        if(e.key === 'Enter'){
+          console.log('Entered')
+          // if(view !== 1){
+            console.log('public message')
 
-      if(e.key === 'Enter'){
-        if(view !== 1){
-          socket.emit('message', {
-            message: e.target.value,
-            firstName: this.props.location.state.firstName,
-            type: 'student',
-            dm: false
-          }) 
-        }else {
-          socket.emit('message',{
-            message: e.target.value,
-            firstName: this.props.location.firstName,
-            type: 'student',
-            dm: true
-          })
+            socket.emit('student-public-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          
+          e.target.value = ''
         }
-        e.target.value = ''
-      }
     })
   }
   sendMessage(message){
@@ -106,7 +82,7 @@ export class studentClassDashboard extends React.Component {
       courseIntro = this.props.course.courseIntro.split('\n')
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
-
+    const messages = this.state.messages || []
     return (
       <div>
         <div className="studentClassDashboard">
@@ -146,7 +122,7 @@ export class studentClassDashboard extends React.Component {
           <div id="message-main">
             <div id="chat-messages" />
             {
-              this.state.messages.map((message, idx) => <p key={idx}className={message.type} className={message.person}>{message.message}</p>)
+              messages.map((message, idx) => <p key={idx}className={message.type} >{message.message}</p>)
             }
             <input id="chat-input" type="text" overflow="auto" />
             {this.props.accountType === 'teacher' ? (
@@ -191,13 +167,14 @@ const mapStateToProps = state => {
     course: state.course.single,
     user: state.user.me,
     accountType: state.user.me.accountType,
-    reduxState: state,
+    socket: state.socket
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCourse: id => dispatch(getSingleCourseThunk(id))
+    getCourse: id => dispatch(getSingleCourseThunk(id)),
+    setSocket: (socket) => dispatch(setSocket(socket))
   }
 }
 

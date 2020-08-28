@@ -9,7 +9,7 @@ import openSocket from 'socket.io-client'
 export const UserHome = props => {
   const {email, firstName, lastName, accountType} = props
   const socket = openSocket(`http://localhost:8080/`)
-  socket.emit('login', email)
+
   console.log('user home props ', props)
   return (
     <div>
@@ -29,7 +29,8 @@ const mapState = state => {
     email: state.user.me.email,
     firstName: state.user.me.firstName,
     lastName: state.user.me.lastName,
-    accountType: state.user.me.accountType
+    accountType: state.user.me.accountType,
+    socket: state
   }
 }
 
