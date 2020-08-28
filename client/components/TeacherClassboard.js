@@ -18,7 +18,15 @@ export class TeacherClassboard extends Component {
       showAssignmentView: false,
       showAssignmentByStudentView: false,
       renderNewAssignmentForm: false,
-      renderNewStudentForm: false
+      renderNewStudentForm: false,
+      assignmentName: '',
+      dueDate: '',
+      totalPoints: '',
+      percentTotalGrade: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
     }
     // this.toggleLecture = this.toggleLecture.bind(this)
     this.toggleAttendance = this.toggleAttendance.bind(this)
@@ -28,6 +36,22 @@ export class TeacherClassboard extends Component {
     )),
       (this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this))
     this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
+    this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
+    this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
+    this.mapInputToState = this.mapInputToState.bind(this)
+  }
+
+  handleAssignmentSubmit(e) {
+    e.preventDefault()
+  }
+
+  handleStudentSubmit(e) {
+    e.preventDefault()
+  }
+
+  mapInputToState(e) {
+    e.preventDefault()
+    this.setState({[e.target.name]: e.target.value})
   }
 
   toggleNewAssignmentForm(e) {
@@ -91,6 +115,9 @@ export class TeacherClassboard extends Component {
     // const courseName = this.props.location.state.name
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
+
+    console.log('on the teacher classboard, the props are ', this.props)
+    console.log('on the teacher classboard, the state is ', this.state)
     return (
       <div className="teacherClassBoard" style={{overflow: 'visible'}}>
         <div className="classboardList">
@@ -173,35 +200,32 @@ export class TeacherClassboard extends Component {
 
             {this.state.renderNewAssignmentForm ? (
               <form
-                onSubmit={this.handleSubmit}
+                onSubmit={this.handleAssignmentSubmit}
                 className="addNewAssignmentForm"
               >
                 <label htmlFor="assignmentName">Assignment Name: </label>
                 <textarea
                   name="assignmentName"
-                  onChange={this.mapAssignmentNameToState}
+                  onChange={this.mapInputToState}
                 />
                 <br />
                 <label htmlFor="dueDate">Due Date: </label>
-                <textarea name="dueDate" onChange={this.mapDueDateToState} />
+                <textarea name="dueDate" onChange={this.mapInputToState} />
                 <br />
                 <label htmlFor="totalPoints">Total Points: </label>
-                <textarea
-                  name="totalPoints"
-                  onChange={this.mapTotalPointsToState}
-                />
+                <textarea name="totalPoints" onChange={this.mapInputToState} />
                 <br />
                 <label htmlFor="percentTotalGrade">Percent Total Grade: </label>
                 <textarea
                   name="percentTotalGrade"
-                  onChange={this.mapPercentTotalGradeToState}
+                  onChange={this.mapInputToState}
                 />
                 <br />
 
                 <button
                   type="button"
                   className="submitCourse"
-                  onClick={this.handleSubmit}
+                  onClick={this.handleAssignmentSubmit}
                 >
                   Submit
                 </button>
@@ -240,27 +264,27 @@ export class TeacherClassboard extends Component {
             </button>
 
             {this.state.renderNewStudentForm ? (
-              <form onSubmit={this.handleSubmit} className="addNewStudentForm">
+              <form
+                onSubmit={this.handleStudentSubmit}
+                className="addNewStudentForm"
+              >
                 <label htmlFor="firstName">First Name: </label>
-                <textarea
-                  name="firstName"
-                  onChange={this.mapFirstNameToState}
-                />
+                <textarea name="firstName" onChange={this.mapInputToState} />
                 <br />
                 <label htmlFor="lastName">Last Name: </label>
-                <textarea name="lastName" onChange={this.mapLastNameToState} />
+                <textarea name="lastName" onChange={this.mapInputToState} />
                 <br />
                 <label htmlFor="email">Email: </label>
-                <textarea name="email" onChange={this.mapEmailToState} />
+                <textarea name="email" onChange={this.mapInputToState} />
                 <br />
                 <label htmlFor="password">Password: </label>
-                <textarea name="password" onChange={this.mapPasswordToState} />
+                <textarea name="password" onChange={this.mapInputToState} />
                 <br />
 
                 <button
                   type="button"
                   className="submitCourse"
-                  onClick={this.handleSubmit}
+                  onClick={this.handleStudentSubmit}
                 >
                   Submit
                 </button>
