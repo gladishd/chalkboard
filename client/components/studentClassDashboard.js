@@ -84,8 +84,8 @@ export class studentClassDashboard extends React.Component {
     }
     const messages = this.state.messages || []
     return (
-      <div>
-        <div className="studentClassDashboard">
+      <div className="studentClassDashboard">
+        <div>
           <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
 
           <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
