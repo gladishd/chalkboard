@@ -34,7 +34,7 @@ class Routes extends Component {
     const {isLoggedIn, accountType} = this.props
 
     return (
-      <Switch>
+      <Switch id="routes-component">
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route exact path="/video" component={CreateVideo} />
@@ -112,7 +112,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    newSocket: (socket) => dispatch(setSocket(socket))
+    newSocket: socket => dispatch(setSocket(socket))
   }
 }
 
