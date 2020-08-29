@@ -11,7 +11,7 @@ module.exports = io => {
     })
 
     socket.on('student-public-message', messageName => {
-      console.log('in spm')
+      console.log('room check ', socket.rooms)
       const {message, name} = messageName
 
       socket.to(room[socket.id]).emit('message', {
