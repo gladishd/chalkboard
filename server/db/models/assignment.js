@@ -14,10 +14,6 @@ const Assignment = db.define('assignment', {
     type: Sequelize.INTEGER,
     defaultValue: null
   },
-  courseId2: {
-    type: Sequelize.INTEGER,
-    defaultValue: null
-  },
   dueDate: {
     type: Sequelize.DATE,
     allowNull: false
@@ -26,7 +22,7 @@ const Assignment = db.define('assignment', {
     type: Sequelize.INTEGER,
     defaultValue: null
   },
-  percentTotalGrade: {
+  weight: {
     type: Sequelize.INTEGER,
     defaultValue: null
   }

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, accountType}) => (
-  <div>
+  <div id="navbar-component">
     <h1>Chalkboard</h1>
     <nav>
       {isLoggedIn && accountType === 'admin' && (
@@ -45,13 +45,12 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link to="/login">Login</Link>
 
           {/* Testing purposes*/}
-          <Link to="/video">Video Room</Link>
+          <Link to="/assignment/1">Assignment</Link>
 
           {/* <Link to="/signup">Sign Up</Link> */}
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

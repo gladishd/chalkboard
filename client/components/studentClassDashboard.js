@@ -24,18 +24,17 @@ export class studentClassDashboard extends React.Component {
     }
     this.toggleForm = this.toggleForm.bind(this)
   }
-  
+
   async componentDidMount() {
-    
     let course = this.props.location.state.number
 
-   const socket = this.props.socket
-   
-    socket.emit('login', {course, level:'student'})
-    socket.on('room-chat', (message) => {
+    const socket = this.props.socket
+
+    socket.emit('login', {course, level: 'student'})
+    socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', (message) => {
+    socket.on('message', message => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
@@ -66,7 +65,7 @@ export class studentClassDashboard extends React.Component {
         }
     })
   }
-  sendMessage(message){
+  sendMessage(message) {
     const input = document.getElementById('chat-input')
     socket.emit()
   }
@@ -90,8 +89,8 @@ export class studentClassDashboard extends React.Component {
     }
     const messages = this.state.messages || []
     return (
-      <div>
-        <div className="studentClassDashboard">
+      <div className="studentClassDashboard">
+        <div>
           <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
 
           <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
@@ -112,24 +111,25 @@ export class studentClassDashboard extends React.Component {
             Create a New Group
           </button>
           <div>
-          <p>Select Audience</p>
+            <p>Select Audience</p>
           </div>
           <select
             name="group"
             className="selectAudience"
             onChange={this.handleChange}
           >
-            
-            <option value='All'>All</option>
+            <option value="All">All</option>
             <option value="Teacher">Teacher</option>
           </select>
           <br />
           Say something nice..
           <div id="message-main">
             <div id="chat-messages" />
-            {
-              messages.map((message, idx) => <p key={idx}className={message.type} >{message.message}</p>)
-            }
+            {messages.map((message, idx) => (
+              <p key={idx} className={message.type}>
+                {message.message}
+              </p>
+            ))}
             <input id="chat-input" type="text" overflow="auto" />
             {this.props.accountType === 'teacher' ? (
               <div>
@@ -180,7 +180,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCourse: id => dispatch(getSingleCourseThunk(id)),
-    setSocket: (socket) => dispatch(setSocket(socket))
+    setSocket: socket => dispatch(setSocket(socket))
   }
 }
 
