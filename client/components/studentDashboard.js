@@ -45,6 +45,7 @@ export class StudentDashboard extends React.Component {
               return (
                 <div key={index}>
                   <Link
+                    className="react-router-link"
                     to={{
                       pathname: './studentClassDashBoard',
                       state: {
@@ -71,7 +72,10 @@ export class StudentDashboard extends React.Component {
             notEnrolledList.map((course, index) => {
               return (
                 <div key={index}>
-                  <Link to={`./studentClassDashboard/${course.id}`}>
+                  <Link
+                    className="react-router-link"
+                    to={`./studentClassDashboard/${course.id}`}
+                  >
                     {course.courseName}
                   </Link>
                   <br />

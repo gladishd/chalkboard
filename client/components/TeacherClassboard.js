@@ -159,7 +159,7 @@ export class TeacherClassboard extends Component {
     console.log('on the teacher classboard, the props are ', this.props)
     console.log('on the teacher classboard, the state is ', this.state)
     return (
-      <div className="teacherClassBoard" style={{overflow: 'visible'}}>
+      <div className="teacherClassBoard" style={{overflow: 'scroll'}}>
         <div className="classboardList">
           <b>{courseName}</b>
 

@@ -54,82 +54,72 @@ const user = [
   {
     firstName: 'Khuong',
     lastName: 'Le',
-    email: 'student01@email.com',
-    password: '4321',
-    accountType: 'student',
-    id: 1 // hardcoding id so that we don't mess up the order by adding users
+    email: 'student1@email.com',
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'Jonathan',
     lastName: 'Arreola',
     email: 'student2@email.com',
-    password: '4321',
-    accountType: 'student',
-    id: 2
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'Dean',
     lastName: 'Gladish',
     email: 'student3@email.com',
-    password: '4321',
-    accountType: 'student',
-    id: 3
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'Zach',
     lastName: 'Bryce',
     email: 'student4@email.com',
-    password: '4321',
-    accountType: 'student',
-    id: 4
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'Fifth',
     lastName: 'Student',
     email: 'laststudent@email.com',
-    password: '1234',
-    accountType: 'student',
-    id: 5
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'All',
     lastName: 'Classes',
     email: 'studentAllClasses@email.com',
-    password: '1234',
-    accountType: 'student',
-    id: 6
+    password: '123',
+    accountType: 'student'
   },
   {
     firstName: 'Travis',
     lastName: 'Stratton',
     email: 'teacher1@email.com',
-    password: '1234',
-    accountType: 'teacher',
-    id: 7
+    password: '123',
+    accountType: 'teacher'
   },
   {
     firstName: 'Jonah',
     lastName: 'Ullman',
     email: 'teacher2@email.com',
-    password: '1234',
-    accountType: 'teacher',
-    id: 8
+    password: '123',
+    accountType: 'teacher'
   },
   {
     firstName: 'No',
     lastName: 'Classes',
     email: 'teachesNoClasses@email.com',
-    password: '1234',
-    accountType: 'teacher',
-    id: 9
+    password: '123',
+    accountType: 'teacher'
   },
   {
     firstName: 'Big',
     lastName: 'Brother',
     email: 'admin@email.com',
-    password: '12345',
-    accountType: 'admin',
-    id: 10
+    password: '123',
+    accountType: 'admin'
   }
 ]
 

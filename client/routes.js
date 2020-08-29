@@ -38,11 +38,8 @@ class Routes extends Component {
       <Switch id="routes-component">
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
-        <Route exact path="/video" component={CreateVideo} />
-
+        <Route path="/signup" component={Signup} />
         <Route path="/assignment/:courseId" component={AssignmentForm} />
-        {/* <Route path="/video/zoom" component={VideoRoom} /> */}
-
         {/* Routes below give conditional access based on account type */}
 
         {/* Admin Routes */}

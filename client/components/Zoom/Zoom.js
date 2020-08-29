@@ -27,7 +27,6 @@ const Zoom = props => {
   if (user.accountType === 'teacher') {
     meetConfig.role = 1
     meetConfig.userEmail = `jarreola7123@gmail.com`
-    meetConfig.leaveUrl = `http://localhost:8080/TeacherClassboard/${courseId}`
   }
 
   function joinMeeting(signature, meetConfig) {
