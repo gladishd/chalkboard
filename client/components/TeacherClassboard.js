@@ -109,7 +109,7 @@ export class TeacherClassboard extends Component {
         
         if(view === 'All'){
           console.log('to all')
-          socket.emit('student-public-message', {
+          socket.emit('teacher-public-message', {
             message: e.target.value,
             name: this.props.location.state.firstName
           })
@@ -372,9 +372,8 @@ export class TeacherClassboard extends Component {
               <div id="message-main">
                 <div id="chat-messages" />
                 {this.state.messages.map((message, idx) => (
-                  <p
-                    className={message.type + '-' + 'message'}
-                    className={message.person}
+                  <p      
+                    className={message.css}
                   >
                     {message.message}
                   </p>

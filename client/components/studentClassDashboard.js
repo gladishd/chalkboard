@@ -78,6 +78,7 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
+    console.log('student state looking for css attachments ', this.state)
     let courseIntro = []
     let courseDetails = []
     if (
@@ -126,7 +127,7 @@ export class studentClassDashboard extends React.Component {
           <div id="message-main">
             <div id="chat-messages" />
             {messages.map((message, idx) => (
-              <p key={idx} className={message.type}>
+              <p key={idx} className={message.css}>
                 {message.message}
               </p>
             ))}

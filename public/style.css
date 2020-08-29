@@ -646,11 +646,21 @@ chat stuff
   color: green;
 } */
 
-.student {
-  color: red;
-}
-.teacher {
+/*
+Message Fonts
+*/
+.student-public{
   color: blue;
+}
+.student-teacher{
+  color: lightcoral
+}
+.teacher-dm{
+  color: red;
+  text-decoration: underline;
+}
+.teacher-public{
+  color: red
 }
 body > #zmmtg-root {
   z-index: -1;
