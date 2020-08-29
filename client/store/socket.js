@@ -16,7 +16,6 @@ const currentSocket = socket => {
 }
 
 export const setSocket = socket => {
-  console.log('in the set socket thunk', socket)
   return async dispatch => {
     try {
       dispatch(currentSocket(socket))
@@ -36,7 +35,6 @@ export default function(state = init, action) {
     case GET_GROUP:
       return action.group
     case ADD_SOCKET:
-      console.log('in socket reducer, socket ', action.socket)
       return action.socket
     default:
       return state

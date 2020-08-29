@@ -98,10 +98,8 @@ export class TeacherDash extends Component {
       <div
         className="TeacherDash"
         style={{
-          overflow: 'visible',
-          'overflow-x': 'visible',
-          'overflow-y': 'visible',
-          height: '1000%'
+          overflow: 'scroll',
+          height: 'auto'
         }}
       >
         {courseList.length > 0 ? (
@@ -111,6 +109,7 @@ export class TeacherDash extends Component {
             return (
               <div key={`spit${counter}`}>
                 <Link
+                  className="react-router-link"
                   to={{
                     pathname: './TeacherClassboard',
                     state: {
@@ -153,6 +152,7 @@ export class TeacherDash extends Component {
           courseList.map(course => {
             return (
               <Link
+                className="react-router-link"
                 key={`courseListDash${course.id}`}
                 className="teacherDashClassName"
                 // to={`./TeacherClassboard/${course.id}`
