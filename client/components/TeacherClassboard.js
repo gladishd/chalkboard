@@ -79,7 +79,7 @@ export class TeacherClassboard extends Component {
 
     const socket = this.props.socket
 
-    socket.emit('login', {course, level: 'teacher'})
+    socket.emit('login', {course, level: 'teacher', name: this.props.location.state.firstName})
     socket.on('room-chat', message => {
       console.log(message)
     })
@@ -100,18 +100,30 @@ export class TeacherClassboard extends Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      const view = document.querySelector('.selectAudience').selectedIndex
-
+      const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
-        console.log('Entered')
+        console.log('value obtained ', view)
+        
         // if(view !== 1){
-        console.log('public message')
-
-        socket.emit('student-public-message', {
-          message: e.target.value,
-          name: this.props.location.state.firstName
-        })
-
+        console.log('after get value equal to All', view === 'All')
+        
+        if(view === 'All'){
+          console.log('to all')
+          socket.emit('student-public-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
+  
+        } else {
+          console.log('in dm')
+          socket.emit('direct-message', {          
+            message: e.target.value,
+            name: this.props.location.state.firstName,
+            to: view,
+            level: 'teacher'
+          })
+        }
+        
         e.target.value = ''
       }
     })

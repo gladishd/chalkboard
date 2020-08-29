@@ -4,9 +4,10 @@ module.exports = io => {
   const room = {}
   io.on('connection', socket => {
     socket.on('login', user => {
-      const {course, level} = user
+      const {course, level, name} = user
       socket.join(course)
       room[socket.id] = course
+      room[name] = socket.id
       socket.join(level)
     })
 
@@ -36,6 +37,21 @@ module.exports = io => {
       socket.emit('message', {
         message: `(Private) Me: ${message}`,
         type: 'student'
+      })
+      
+    })
+    socket.on('direct-message', (MessageNameTo) => {
+      const { message, name, to, level } = MessageNameTo
+      const student = room[to]
+      io.in(student).emit('message', {
+        message: `(Direct) ${name}: ${message}`,
+        type: level,
+        name
+      })
+      socket.emit('message', {
+        message: `(DM) ${to}: ${message}`,
+        type: level,
+        name
       })
       
     })

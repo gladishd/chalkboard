@@ -30,7 +30,7 @@ export class studentClassDashboard extends React.Component {
 
     const socket = this.props.socket
 
-    socket.emit('login', {course, level: 'student'})
+    socket.emit('login', {course, level: 'student', name: this.props.location.state.firstName})
     socket.on('room-chat', message => {
       console.log(message)
     })
