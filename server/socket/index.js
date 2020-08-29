@@ -10,7 +10,14 @@ module.exports = io => {
       room[name] = socket.id
       socket.join(level)
     })
-
+    socket.on('attendance', (courseId) => {
+      console.log('send query to students')
+      socket.in(courseId).to('students').emit('attendance')
+    })
+    socket.on('present', (student) => {
+      console.log('att back ', student)
+      socket.in(room[socket.id]).to('teacher').emit('roll', (student))
+    })
     socket.on('student-public-message', messageName => {
       console.log('room check ', room[socket.id])
       const {message, name} = messageName
@@ -64,18 +71,24 @@ module.exports = io => {
       const { message, name, to, level } = MessageNameTo
       const student = room[to]
       console.log('dm student is ', student)
-      io.in(room[socket.id]).to(student).emit('message', {
+      socket.broadcast.to(student).emit('message', {
         message: `(Direct) ${name}: ${message}`,
         type: level,
         name,
         css: 'teacher-dm'
       })
-      // socket.emit('message', {
-      //   message: `(DM) ${to}: ${message}`,
+      // io.in(room[socket.id]).to(student).emit('message', {
+      //   message: `(Direct) ${name}: ${message}`,
       //   type: level,
       //   name,
       //   css: 'teacher-dm'
       // })
+      socket.emit('message', {
+        message: `(DM) ${to}: ${message}`,
+        type: level,
+        name,
+        css: 'teacher-dm'
+      })
       
     })
     socket.on('disconnect', () => {
