@@ -10,10 +10,18 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
     <nav>
       {isLoggedIn && accountType === 'admin' && (
         <div>
-          <Link to="/home">Home</Link>
-          <Link to="/studentDashboard">Student Dashboard</Link>
-          <Link to="/TeacherDash">Teacher Dashboard</Link>
-          <Link to="/teacherDashboard">Old Teacher Dashboard</Link>
+          <Link className="react-router-link" to="/home">
+            Home
+          </Link>
+          <Link className="react-router-link" to="/studentDashboard">
+            Student Dashboard
+          </Link>
+          <Link className="react-router-link" to="/TeacherDash">
+            Teacher Dashboard
+          </Link>
+          <Link className="react-router-link" to="/teacherDashboard">
+            Old Teacher Dashboard
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -21,10 +29,12 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
       )}
       {isLoggedIn && accountType === 'teacher' && (
         <div>
-          <Link to="/home">Home</Link>
-          <Link to="/TeacherDash">Teacher Dashboard</Link>
-          <Link to="/video">Video Room</Link>
-
+          <Link className="react-router-link" to="/home">
+            Home
+          </Link>
+          <Link className="react-router-link" to="/TeacherDash">
+            Teacher Dashboard
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -32,8 +42,12 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
       )}
       {isLoggedIn && accountType === 'student' && (
         <div>
-          <Link to="/home">Home</Link>
-          <Link to="/studentDashboard">Student Dashboard</Link>
+          <Link className="react-router-link" to="/home">
+            Home
+          </Link>
+          <Link className="react-router-link" to="/studentDashboard">
+            Student Dashboard
+          </Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -42,12 +56,17 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
       {!isLoggedIn && (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
+          <Link className="react-router-link" to="/login">
+            Login
+          </Link>
+          <Link className="react-router-link" to="/signup">
+            Sign Up
+          </Link>
 
           {/* Testing purposes*/}
-          <Link to="/assignment/1">Assignment</Link>
-
-          {/* <Link to="/signup">Sign Up</Link> */}
+          <Link className="react-router-link" to="/assignment/1">
+            Assignment
+          </Link>
         </div>
       )}
     </nav>

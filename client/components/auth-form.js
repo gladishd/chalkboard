@@ -26,7 +26,7 @@ const AuthForm = props => {
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input type="email" name="email" id="auth-form-email" />
+          <input type="text" name="email" id="auth-form-email" />
         </div>
         <div>
           <label htmlFor="password">
@@ -36,13 +36,13 @@ const AuthForm = props => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
-          {loginerror ? (
+          {/* {loginerror ? (
             <span style={{color: 'red', fontWeight: 'bold'}}>
               The username and password don't match!
             </span>
           ) : (
             <div />
-          )}
+          )} */}
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

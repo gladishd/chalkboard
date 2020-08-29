@@ -13,10 +13,17 @@
   font-style: normal;
 }
 
-html body #app {
+html body {
   overflow: scroll !important;
   color: #fbe06b;
   font-family: 'chalktasticregular', sans-serif !important;
+}
+
+body > #zmmtg-root {
+  z-index: -1;
+  background-image: url('chalkboard-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #auth-form-email {
@@ -27,11 +34,14 @@ html body #app {
   background-color: rgba(0, 128, 0, 0.425) !important;
 }
 
-/* * {
-  overflow: scroll;
-  overflow-y: scroll;
-  overflow-x: scroll;
-} */
+.react-router-link {
+  color: rgb(9, 247, 235);
+}
+
+.react-router-link:hover {
+  color: pink;
+  text-decoration: none;
+}
 
 a {
   text-decoration: none;
@@ -315,7 +325,7 @@ nav a {
 
   text-align: center;
   background: transparent;
-  color: #226fbe;
+  color: #fc881b;
   font-size: 1em;
   overflow: hidden;
   backface-visibility: hidden;
@@ -328,8 +338,8 @@ nav a {
 
 .TeacherDash .teacherDashClassName:hover,
 .TeacherDash .teacherDashClassName:active {
-  color: #0475bb;
-  background: #ff7b64be;
+  color: #bb0493;
+  background: #6764ffbe;
   -webkit-transform: rotateX(10deg);
   -webkit-transform: rotateY(20deg);
   -moz-transform: rotateX(50deg);
@@ -661,10 +671,6 @@ Message Fonts
 }
 .teacher-public{
   color: red
-}
-body > #zmmtg-root {
-  z-index: -1;
-  background-image: url('chalkboard-bg.png');
 }
 
 .submitCourse {
