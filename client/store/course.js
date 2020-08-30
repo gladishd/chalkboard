@@ -77,7 +77,7 @@ export const getCourseTeacherThunk = courseId => {
 export const addCourseThunk = course => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('api/orders', course)
+      const {data} = await axios.post('api/courses', course)
       dispatch(addCourse(data))
     } catch (err) {
       console.error(err.message)
