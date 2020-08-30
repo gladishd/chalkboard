@@ -78,6 +78,10 @@ export class TeacherClassboard extends Component {
     let course = this.props.location.state.number
 
     const socket = this.props.socket
+    // oldSocket.emit('disconnect')
+    // const socket = io()
+    // socket.nsp = '/teacher'
+   console.log('socket ', socket.nsp)
 
     socket.emit('login', {course, level: 'teacher', name: this.props.location.state.firstName})
     socket.on('room-chat', message => {
