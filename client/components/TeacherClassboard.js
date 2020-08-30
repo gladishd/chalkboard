@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
-import {getTeacherCoursesThunk} from '../store/user'
+import {
+  getTeacherCoursesThunk,
+  addUserThunk,
+  getAllUsersThunk
+} from '../store/user'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 // import {default as StudentClassDashboard} from './studentClassDashboard'
@@ -49,6 +53,19 @@ export class TeacherClassboard extends Component {
 
   handleStudentSubmit(e) {
     e.preventDefault()
+    let allUserIds = this.props.reduxState.user.all.map(user => {
+      return Number(user.id)
+    })
+    // console.log('allUserIds is ', Math.max(...allUserIds))
+    let nextId = Math.max(...allUserIds) + 1
+    this.props.addNewUser({
+      accountType: 'student',
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      id: nextId
+    })
   }
 
   mapInputToState(e) {
@@ -144,6 +161,7 @@ export class TeacherClassboard extends Component {
       let courseIdFromState = this.props.history.location.state.number
       await this.props.getSingleCourse(courseIdFromState)
       await this.props.getStudentsForThisCourse(courseIdFromState)
+      await this.props.getAllUsers()
     } catch (err) {
       console.log(err)
     }
@@ -156,13 +174,10 @@ export class TeacherClassboard extends Component {
     // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
 
-    console.log('on the teacher classboard, the props are ', this.props)
-    console.log('on the teacher classboard, the state is ', this.state)
     return (
       <div className="teacherClassBoard">
         <div className="classboardList">
           <b>{courseName}</b>
-
           {this.props.reduxState.course.students.map((studentObject, index) => {
             const counter = index
             return (
@@ -178,7 +193,6 @@ export class TeacherClassboard extends Component {
             )
           })}
         </div>
-
         <div className="scheduleDashBox">
           <div className="classboardSchedule">
             {this.props.reduxState.course.single.courseSchedule ? (
@@ -369,7 +383,9 @@ const mapDispatchToProps = dispatch => {
     getMyCourses: userId => dispatch(getTeacherCoursesThunk(userId)),
     getSingleCourse: courseId => dispatch(getSingleCourseThunk(courseId)),
     getStudentsForThisCourse: courseId =>
-      dispatch(getCourseStudentsThunk(courseId))
+      dispatch(getCourseStudentsThunk(courseId)),
+    addNewUser: userData => dispatch(addUserThunk(userData)),
+    getAllUsers: () => dispatch(getAllUsersThunk())
   }
 }
 const mapStateToProps = state => {

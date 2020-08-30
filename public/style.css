@@ -464,7 +464,7 @@ nav a {
 }
 
 .submitAttendance {
-  width: 1em;
+  width: 4.5em;
 }
 
 .teacherClassBoard .classboardAttendance {
@@ -595,7 +595,7 @@ nav a {
 
 .dropdownAssignment {
   background-color: rgba(128, 0, 128, 0.288);
-  width: 60%;
+  width: 30em;
   padding: 1em;
   border-style: outset;
 }
@@ -648,6 +648,7 @@ nav a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 10em;
 }
 
 .assignmentsByStudent .studentAttendanceBoxes {

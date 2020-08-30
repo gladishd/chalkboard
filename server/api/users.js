@@ -3,7 +3,7 @@ const {User, Course, Attendance, Gradebook} = require('../db/models')
 const {default: Axios} = require('axios')
 module.exports = router
 
-//admin can use to get a list of all students in a course
+// admin can use to get a list of all students in a course
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({

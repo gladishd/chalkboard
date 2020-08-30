@@ -78,9 +78,9 @@ export class TeacherAssignmentView extends Component {
                       {element.totalPoints}
                     </div>
                     <div className="checkbox">
-                      Percentage of Grade
+                      Weight
                       <hr />
-                      {element.percentTotalGrade}%
+                      {element.weight}
                     </div>
                   </div>
                 </div>

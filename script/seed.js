@@ -27,11 +27,15 @@ async function seed() {
   await Promise.all(enrollment.map(curr => Enrollment.create(curr)))
   await Promise.all(gradebook.map(curr => Gradebook.create(curr)))
 
-  await Reacto.addAssignment(classwork)
-  await CS.addAssignment(project)
-  await CS.addAssignment(test)
-  await Guitar.addAssignment(homework)
-  await Guitar.addAssignment(quiz)
+  // await Reacto.addAssignment(classwork)
+  // await CS.addAssignment(project)
+  // await CS.addAssignment(test)
+  // await Guitar.addAssignment(homework)
+  // await Guitar.addAssignment(quiz)
+
+  // Commented out for now; it was interfering with the courseIds (courseIds from seed.data.js getting overwritten in the sense that all homework and all quizzes were given courseId === 2 instead of 1 (Guitar is the second course)).  I don't fully know why.
+
+  // Basically, lines 30 through 34 were changing the original courseIds for each assignment.
 
   //console.log(`seeded ${student.length} students`)
   console.log(`seeded successfully`)
