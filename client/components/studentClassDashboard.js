@@ -27,36 +27,40 @@ export class studentClassDashboard extends React.Component {
 
   async componentDidMount() {
     let course = this.props.location.state.number
-
+    let current_time = moment().format("HH:mm")
     const socket = this.props.socket
-
-    socket.emit('login', {course, level: 'student'})
+    
+    socket.emit('login', {course, level: 'student', name: this.props.location.state.firstName})
+    socket.on('attendance', () => {
+      socket.emit('present', this.props.user.id)
+    })
     socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', message => {
+    socket.on('message', (message) => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
       })
-      console.log('state after update ', this.state)
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      const view = document.querySelector('.selectAudience').selectedIndex
-
-      if (e.key === 'Enter') {
-        console.log('Entered')
-        // if(view !== 1){
-        console.log('public message')
-
-        socket.emit('student-public-message', {
-          message: e.target.value,
-          name: this.props.location.state.firstName
-        })
-
-        e.target.value = ''
-      }
+        const view = document.querySelector('.selectAudience').selectedIndex
+        
+        if(e.key === 'Enter'){
+          if(view === 1){
+            socket.emit('student-teacher-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          } else {
+            socket.emit('student-public-message', {
+              message: e.target.value,
+              name: this.props.location.state.firstName,
+            }) 
+          }
+          e.target.value = ''
+        }
     })
   }
   sendMessage(message) {
@@ -120,7 +124,7 @@ export class studentClassDashboard extends React.Component {
           <div id="message-main">
             <div id="chat-messages" />
             {messages.map((message, idx) => (
-              <p key={idx} className={message.type}>
+              <p key={idx} className={message.css}>
                 {message.message}
               </p>
             ))}

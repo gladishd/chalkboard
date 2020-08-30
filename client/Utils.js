@@ -10,13 +10,18 @@ export function newMessage(message) {
   list.appendChild(item)
 }
 
-export function newChat(e) {
-  //param for socket is second arg, namespace
-  const socket = openSocket(`${location.origin}/`)
-  if (e.key === 'Enter') {
-    socket.emit('message', e.target.value)
-    e.target.value = ''
-  }
+export function toggleStudent(id){
+    const student = document.getElementById(id)
+    student.style.color = red
+}
+export function newChat (e){
+        //param for socket is second arg, namespace
+        const socket = openSocket(`http://localhost:8080/`)
+        if (e.key === 'Enter') {
+          socket.emit('message', e.target.value)
+          e.target.value = ''
+        }
+
 }
 
 //attendance

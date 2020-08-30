@@ -34,8 +34,6 @@ export class TeacherDash extends Component {
     } catch (err) {
       console.log(err)
     }
-    const socket = io()
-    await this.props.newSocket(socket)
   }
   componentDidMount() {
     this.setState({
