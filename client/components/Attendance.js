@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import openSocket from 'socket.io-client'
-import {roster} from '../Utils'
+import {roster, toggleStudent} from '../Utils'
 // let's just pass down all the students for this current course
 // from props
 import moment from 'moment'
+
 // we want to submit the attendance from state to the attendance table on the database
 import {
   takeAttendanceThunk,
@@ -17,7 +17,8 @@ export class Attendance extends Component {
     super(props)
     this.state = {
       attendanceArray: [],
-      showPastAttendance: false
+      showPastAttendance: false,
+      onlineStudents: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.togglePastAttendance = this.togglePastAttendance.bind(this)
@@ -29,7 +30,6 @@ export class Attendance extends Component {
       showPastAttendance: !this.state.showPastAttendance
     })
   }
-
   handleSubmit(e) {
     e.preventDefault()
     let currentDate = moment().format('dddd, MMMM Do YYYY, h:mm:ss a')
@@ -69,34 +69,59 @@ export class Attendance extends Component {
       this.props.takeAttendance(attendanceRow)
     })
 
-    this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited) // so the show past attendance button/data is updated without having to refresh the page
+    // this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited) // so the show past attendance button/data is updated without having to refresh the page
   }
   componentDidMount() {
-    // const group = props.classId
-    const socket = openSocket(`http://localhost:8080/`)
-    console.log('in mount')
-    // const socket = io()
-    socket.on('roster', memory => {
-      console.log('hello memory ', memory)
-      roster(memory)
+    const socket = this.props.reduxState.socket
+    const courseId = this.props.reduxState.course.single.id
+    setInterval(function(){socket.emit('attendance', (courseId))}, 15000);
+    socket.on('roll', (id) => {
+      console.log('student in ', id)
+      // this.setState({
+      //   ...this.state,
+      //   onlineStudents: [...this.state.onlineStudents, student]
+      // })
+      toggleStudent(id)
     })
+    // socket.on('roster', memory => {
+    //   console.log('hello memory ', memory)
+    //   roster(memory)
+    // })
     const list = document.getElementById('attendance-list')
     const check = document.getElementById('test')
     const yes = document.querySelectorAll('.student')
     console.log('arr', Array.from(yes))
 
-    this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited)
+    this.props.getAllAttendanceForThisCourse(courseId)
   }
   render() {
-    console.log('On the attendance.js file, the props are ', this.props)
+    console.log('the student are ', this.state.onlineStudents)
     let pastAttendanceList = this.props.reduxState.user.pastAttendance
     let studentsInCourse = this.props.studentsForThisCourseInherited
-
+    console.log('students in this course ', studentsInCourse)
+    const students = this.state.onlineStudents || []
     return (
       <div className="attendanceComponent">
         <h1>Attendance</h1>
-        <h3>Students Online:</h3>
+        <h3 id='online'>Students Online:</h3>
         {/* So for now this is just going to be all students */}
+        {/* {
+          students.map((student) => {
+          return (
+          <div>
+          <p className="online-student">{student.name} {student.time}</p>
+          </div>
+          ) 
+        })} */}
+        {
+          studentsInCourse.map((student) => {
+          return (
+          <div>
+          <p id={student.id}className="online-student">{student.firstName}</p>
+          </div>
+          ) 
+        })}
+        {/* <h1>{students[0].name || 'hello'}</h1> */}
         <ul id="attendance-list" />
         <h3>Class Roster</h3>
 

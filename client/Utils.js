@@ -9,7 +9,10 @@ export function newMessage(message){
     item.innerHTML = message
     list.appendChild(item)
 }
-
+export function toggleStudent(id){
+    const student = document.getElementById(id)
+    student.style.color = red
+}
 export function newChat (e){
         //param for socket is second arg, namespace
         const socket = openSocket(`http://localhost:8080/`)
