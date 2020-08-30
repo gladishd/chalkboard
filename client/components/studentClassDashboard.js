@@ -32,11 +32,6 @@ export class studentClassDashboard extends React.Component {
     
     socket.emit('login', {course, level: 'student', name: this.props.location.state.firstName})
     socket.on('attendance', () => {
-      console.log('student poll')
-      // socket.emit('present', {
-      //   name: this.props.location.state.firstName,
-      //   time: current_time
-      // })
       socket.emit('present', this.props.user.id)
     })
     socket.on('room-chat', message => {
@@ -47,17 +42,12 @@ export class studentClassDashboard extends React.Component {
         ...this.state,
         messages: [...this.state.messages, message]
       })
-      console.log('state after update ', this.state)
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
         const view = document.querySelector('.selectAudience').selectedIndex
         
         if(e.key === 'Enter'){
-          console.log('Entered')
-          // if(view !== 1){
-          console.log('view status ', view)
-            console.log('public message')
           if(view === 1){
             socket.emit('student-teacher-message', {
               message: e.target.value,
@@ -86,7 +76,6 @@ export class studentClassDashboard extends React.Component {
     })
   }
   render() {
-    console.log('student state looking for css attachments ', this.state)
     let courseIntro = []
     let courseDetails = []
     if (

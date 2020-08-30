@@ -74,14 +74,9 @@ export class TeacherClassboard extends Component {
 
   // }
   componentDidMount() {
-    console.log('location props ', this.props)
     let course = this.props.location.state.number
 
     const socket = this.props.socket
-    // oldSocket.emit('disconnect')
-    // const socket = io()
-    // socket.nsp = '/teacher'
-   console.log('socket ', socket.nsp)
 
     socket.emit('login', {course, level: 'teacher', name: this.props.location.state.firstName})
     socket.on('room-chat', message => {
@@ -92,10 +87,8 @@ export class TeacherClassboard extends Component {
         ...this.state,
         messages: [...this.state.messages, message]
       })
-      console.log('state after update ', this.state)
     })
     socket.on('private-message', (MessageTypeUser) => {
-      console.log('got a message ', MessageTypeUser.message)
       const { message, type, user } = MessageTypeUser
       this.setState({
         ...this.state,
@@ -106,20 +99,12 @@ export class TeacherClassboard extends Component {
     input.addEventListener('keypress', e => {
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
-        console.log('value obtained ', view)
-        
-        // if(view !== 1){
-        console.log('after get value equal to All', view === 'All')
-        
         if(view === 'All'){
-          console.log('to all')
           socket.emit('teacher-public-message', {
             message: e.target.value,
             name: this.props.location.state.firstName
           })
-  
         } else {
-          console.log('in dm')
           socket.emit('direct-message', {          
             message: e.target.value,
             name: this.props.location.state.firstName,
@@ -175,12 +160,8 @@ export class TeacherClassboard extends Component {
 
   render() {
     const courseList = this.props.reduxState.user.courses || []
-    // const identification = this.props.location.state.number || null
-    // const courseName = this.props.location.state.name
-    // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
 
-    console.log('on the teacher classboard, the props are ', this.props)
    
     return (
       <div className="teacherClassBoard" style={{overflow: 'scroll'}}>
