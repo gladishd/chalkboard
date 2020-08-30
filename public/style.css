@@ -680,11 +680,25 @@ chat stuff
   color: green;
 } */
 
-.student {
+/*
+Message Fonts
+*/
+.student-public {
+  color: blue;
+}
+.student-teacher {
+  color: lightcoral;
+}
+.teacher-dm {
+  color: red;
+  text-decoration: underline;
+}
+.teacher-public {
   color: red;
 }
-.teacher {
-  color: blue;
+.online-student {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .submitCourse {

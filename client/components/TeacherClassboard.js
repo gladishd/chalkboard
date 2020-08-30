@@ -95,7 +95,11 @@ export class TeacherClassboard extends Component {
 
     const socket = this.props.socket
 
-    socket.emit('login', {course, level: 'student'})
+    socket.emit('login', {
+      course,
+      level: 'teacher',
+      name: this.props.location.state.firstName
+    })
     socket.on('room-chat', message => {
       console.log(message)
     })
@@ -104,21 +108,31 @@ export class TeacherClassboard extends Component {
         ...this.state,
         messages: [...this.state.messages, message]
       })
-      console.log('state after update ', this.state)
+    })
+    socket.on('private-message', MessageTypeUser => {
+      const {message, type, user} = MessageTypeUser
+      this.setState({
+        ...this.state,
+        messages: [...this.state.messages, MessageTypeUser]
+      })
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      const view = document.querySelector('.selectAudience').selectedIndex
-
+      const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
-        console.log('Entered')
-        // if(view !== 1){
-        console.log('public message')
-
-        socket.emit('student-public-message', {
-          message: e.target.value,
-          name: this.props.location.state.firstName
-        })
+        if (view === 'All') {
+          socket.emit('teacher-public-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
+        } else {
+          socket.emit('direct-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName,
+            to: view,
+            level: 'teacher'
+          })
+        }
 
         e.target.value = ''
       }
@@ -162,6 +176,8 @@ export class TeacherClassboard extends Component {
       await this.props.getSingleCourse(courseIdFromState)
       await this.props.getStudentsForThisCourse(courseIdFromState)
       await this.props.getAllUsers()
+      // await this.props.getSingleCourse(this.props.location.state.number)
+      // await this.props.getStudentsForThisCourse(this.props.location.state.number)
     } catch (err) {
       console.log(err)
     }
@@ -169,9 +185,6 @@ export class TeacherClassboard extends Component {
 
   render() {
     const courseList = this.props.reduxState.user.courses || []
-    // const identification = this.props.location.state.number || null
-    // const courseName = this.props.location.state.name
-    // const coursename = this.props.reduxState.user.courses
     const courseName = this.props.reduxState.course.single.courseName
 
     return (
@@ -350,23 +363,16 @@ export class TeacherClassboard extends Component {
                 className="selectAudience"
                 // onChange={this.handleChange}
               >
-                <option value="">Select an Audience</option>
-                <option value="Dean">Dean</option>
-                <option value="Khuong">Khuong</option>
-                <option value="Zach">Zach</option>
-                <option value="Jonathan">Jonathan</option>
+                {this.props.students.map((student, idx) => (
+                  <option value={student.firstName}>{student.firstName}</option>
+                ))}
               </select>
               <br />
               Say something nice..
               <div id="message-main">
                 <div id="chat-messages" />
                 {this.state.messages.map((message, idx) => (
-                  <p
-                    className={message.type + '-' + 'message'}
-                    className={message.person}
-                  >
-                    {message.message}
-                  </p>
+                  <p className={message.css}>{message.message}</p>
                 ))}
                 <input id="chat-input" type="text" overflow="auto" />
               </div>
@@ -390,7 +396,7 @@ const mapDispatchToProps = dispatch => {
 }
 const mapStateToProps = state => {
   return {
-    students: state.students,
+    students: state.course.students,
     reduxState: state,
     socket: state.socket
   }
