@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {roster} from '../Utils'
+import {roster, toggleStudent} from '../Utils'
 // let's just pass down all the students for this current course
 // from props
 import moment from 'moment'
+
 // we want to submit the attendance from state to the attendance table on the database
 import {
   takeAttendanceThunk,
@@ -73,13 +74,14 @@ export class Attendance extends Component {
   componentDidMount() {
     const socket = this.props.reduxState.socket
     const courseId = this.props.reduxState.course.single.id
-    setInterval(function(){socket.emit('attendance', (courseId))}, 3000);
-    socket.on('roll', (student) => {
-      console.log('student in')
-      this.setState({
-        ...this.state,
-        onlineStudents: [...this.state.onlineStudents, student]
-      })
+    setInterval(function(){socket.emit('attendance', (courseId))}, 15000);
+    socket.on('roll', (id) => {
+      console.log('student in ', id)
+      // this.setState({
+      //   ...this.state,
+      //   onlineStudents: [...this.state.onlineStudents, student]
+      // })
+      toggleStudent(id)
     })
     // socket.on('roster', memory => {
     //   console.log('hello memory ', memory)
@@ -96,17 +98,26 @@ export class Attendance extends Component {
     console.log('the student are ', this.state.onlineStudents)
     let pastAttendanceList = this.props.reduxState.user.pastAttendance
     let studentsInCourse = this.props.studentsForThisCourseInherited
+    console.log('students in this course ', studentsInCourse)
     const students = this.state.onlineStudents || []
     return (
       <div className="attendanceComponent">
         <h1>Attendance</h1>
         <h3 id='online'>Students Online:</h3>
         {/* So for now this is just going to be all students */}
-        {
+        {/* {
           students.map((student) => {
           return (
           <div>
           <p className="online-student">{student.name} {student.time}</p>
+          </div>
+          ) 
+        })} */}
+        {
+          studentsInCourse.map((student) => {
+          return (
+          <div>
+          <p id={student.id}className="online-student">{student.firstName}</p>
           </div>
           ) 
         })}

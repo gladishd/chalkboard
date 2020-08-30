@@ -29,19 +29,20 @@ export class studentClassDashboard extends React.Component {
     let course = this.props.location.state.number
     let current_time = moment().format("HH:mm")
     const socket = this.props.socket
-
+    
     socket.emit('login', {course, level: 'student', name: this.props.location.state.firstName})
     socket.on('attendance', () => {
       console.log('student poll')
-      socket.emit('present', {
-        name: this.props.location.state.firstName,
-        time: current_time
-      })
+      // socket.emit('present', {
+      //   name: this.props.location.state.firstName,
+      //   time: current_time
+      // })
+      socket.emit('present', this.props.user.id)
     })
     socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', message => {
+    socket.on('message', (message) => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]

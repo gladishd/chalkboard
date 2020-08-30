@@ -11,12 +11,11 @@ module.exports = io => {
       socket.join(level)
     })
     socket.on('attendance', (courseId) => {
-      console.log('send query to students')
-      socket.in(courseId).to('students').emit('attendance')
+      socket.in(courseId).to('student').emit('attendance')
     })
-    socket.on('present', (student) => {
-      console.log('att back ', student)
-      socket.in(room[socket.id]).to('teacher').emit('roll', (student))
+    socket.on('present', (id) => {
+      console.log('att back id ', id)
+      socket.in(room[socket.id]).to('teacher').emit('roll', (id))
     })
     socket.on('student-public-message', messageName => {
       console.log('room check ', room[socket.id])
