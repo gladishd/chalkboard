@@ -13,15 +13,18 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "chalkboard-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: chalkboard-fsa
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: nZYavp3YhkmNEmyxuDuWY1jzaQWQwwso5YGAmMqdceNIBrhrOzi1sqMEH+F8cTkIuUcWw9KbNLYcivPbPR11XWp3hcncSawoGo2yDKLGbA2RUdOOoSWKxoiSDp/b/hjwWiKhPhdIqEcsHkFny9Oc40yYDWe0LVfI1HYTMaqgeDUviSgatkjiAl0NsPfJSdpx4vkurdK0lTPi6dm2Oh+Y173umIjLbfdZ21i7yW4nozl1pjV9m1TJzTpXXOOALeZI+NKhzkZ4tkosG8/V4NF/+I9YoU9EATgywvX7gPcCVZv0ukRjrv6O7dCtSA8eqclffEUFKuqdCp92FZxzQOjv3v3NxSpMlSD/E1QQ3ibMQ9ejCQkA1tq7gkcOli8Pn/5bbPfu79vEZEX/EdjCsEYdH65YdE83i6K2lqgwIRINo3pAPEb0I5+j9eZ2BFj6K4/taWAAyCD/ApEn+NC7JYelShxTu8krXAOiCQxgV8f84eiGG+PhzSX3NbZJTDEOGBy01b7bp+asAMs+r07yzso9n9WLw1nkhhid1QaBmMFdguLGWM5hzDofkYI20un/bvDaOLUaRsWcaOL0pLU43Vradonj6OEEqBK1T7QJxOmlESp6pdZOHXhJYJyOCORcIm2cXLDxBTW/Ut7jVc5sWoze2VyocMa/LQJfN/0nkc2dP9w=
