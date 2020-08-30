@@ -8,7 +8,7 @@ import openSocket from 'socket.io-client'
  */
 export const UserHome = props => {
   const {email, firstName, lastName, accountType} = props
-  const socket = openSocket(`http://localhost:8080/`)
+  const socket = openSocket(`${location.origin}/`)
 
   console.log('user home props ', props)
   return (

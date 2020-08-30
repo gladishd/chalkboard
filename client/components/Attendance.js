@@ -73,7 +73,7 @@ export class Attendance extends Component {
   }
   componentDidMount() {
     // const group = props.classId
-    const socket = openSocket(`http://localhost:8080/`)
+    const socket = openSocket(`${location.origin}/`)
     console.log('in mount')
     // const socket = io()
     socket.on('roster', memory => {
