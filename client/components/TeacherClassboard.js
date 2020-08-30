@@ -74,7 +74,6 @@ export class TeacherClassboard extends Component {
 
   // }
   componentDidMount() {
-    console.log('location props ', this.props)
     let course = this.props.location.state.number
 
     const socket = this.props.socket
@@ -142,8 +141,9 @@ export class TeacherClassboard extends Component {
       let courseIdFromPath = this.props.location.pathname.slice(
         this.props.location.pathname.length - 1
       )
-      await this.props.getSingleCourse(courseIdFromPath)
-      await this.props.getStudentsForThisCourse(courseIdFromPath)
+      let courseIdFromState = this.props.history.location.state.number
+      await this.props.getSingleCourse(courseIdFromState)
+      await this.props.getStudentsForThisCourse(courseIdFromState)
     } catch (err) {
       console.log(err)
     }
@@ -159,7 +159,7 @@ export class TeacherClassboard extends Component {
     console.log('on the teacher classboard, the props are ', this.props)
     console.log('on the teacher classboard, the state is ', this.state)
     return (
-      <div className="teacherClassBoard" style={{overflow: 'scroll'}}>
+      <div className="teacherClassBoard">
         <div className="classboardList">
           <b>{courseName}</b>
 
@@ -205,9 +205,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -222,9 +220,7 @@ export class TeacherClassboard extends Component {
             </button>
             {this.state.showAssignmentView ? (
               <AssignmentView
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -287,9 +283,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -363,7 +357,6 @@ export class TeacherClassboard extends Component {
                 <input id="chat-input" type="text" overflow="auto" />
               </div>
             </div>
-            <button className="classboardAddStudent">Add</button>
           </div>
         </div>
       </div>

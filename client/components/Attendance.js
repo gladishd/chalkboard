@@ -88,7 +88,6 @@ export class Attendance extends Component {
     this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited)
   }
   render() {
-    console.log('On the attendance.js file, the props are ', this.props)
     let pastAttendanceList = this.props.reduxState.user.pastAttendance
     let studentsInCourse = this.props.studentsForThisCourseInherited
 
@@ -138,7 +137,9 @@ export class Attendance extends Component {
               </div>
             )
           })}
-          <button id="submit-attendance">Submit</button>
+          <button id="submit-attendance" className="submitAttendance">
+            Submit
+          </button>
         </form>
 
         <button onClick={this.togglePastAttendance}>Attendance History</button>

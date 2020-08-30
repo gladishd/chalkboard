@@ -42,6 +42,9 @@ export class TeacherAssignmentByStudentView extends Component {
   render() {
     let listStudents = this.props.studentsForThisCourseInherited
     let allAssignments = this.props.reduxState.assignment.assignments || []
+
+    console.log('listStudents is ', listStudents)
+    console.log('allAssignments is ', allAssignments)
     let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
     let assignmentIds = []
     allAssignments.map(element => {
@@ -50,6 +53,7 @@ export class TeacherAssignmentByStudentView extends Component {
     let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
       return assignmentIds.includes(element.assignmentId)
     })
+
     // want to take the assignment id, and use it to find data about that assignment:
     gradebookFilteredForClass.map((elementGradebook, index) => {
       let singleAssignment = allAssignments.filter(element => {
@@ -57,15 +61,22 @@ export class TeacherAssignmentByStudentView extends Component {
       })
       gradebookFilteredForClass[index].assignmentDataObject = singleAssignment
     })
+    console.log(
+      'gradebookFilteredForClass is equal to ',
+      gradebookFilteredForClass
+    )
 
     // console.log("this.state.assignment: ", this.state.assignment)
     // console.log("this.state.assignment === 1", Number(this.state.assignment) === 1)
+    console.log('what is this.state.assignment? ', this.state.assignment)
     if (this.state.assignment) {
       // if we also want to filter by assignment
       gradebookFilteredForClass = gradebookFilteredForClass.filter(element => {
         return element.assignmentId === Number(this.state.assignment)
       })
     }
+
+    console.log('gradebookFilteredForClass is ', gradebookFilteredForClass)
     return (
       <div className="assignmentsByStudent">
         <div className="student">
@@ -109,22 +120,18 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
         </div>
 
-        {/* {
-          selectedStudentGradebook.map(
-            (assignment) => {
-              return <div>
-
-                <div className="studentAssignmentBoxes">
-                  <div className="checkbox">Points Earned</div>
-                  <div className="checkbox">Total Points Available</div>
-                  <div className="checkbox">Percent of Total Points</div>
-                  <div className="checkbox">Grade</div>
-                </div>
+        {selectedStudentGradebook.map(assignment => {
+          return (
+            <div>
+              <div className="studentAssignmentBoxes">
+                <div className="checkbox">Points Earned</div>
+                <div className="checkbox">Total Points Available</div>
+                <div className="checkbox">Percent of Total Points</div>
+                <div className="checkbox">Grade</div>
               </div>
-            }
+            </div>
           )
-
-        } */}
+        })}
       </div>
     )
   }

@@ -56,70 +56,80 @@ const user = [
     lastName: 'Le',
     email: 'student1@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 1
   },
   {
     firstName: 'Jonathan',
     lastName: 'Arreola',
     email: 'student2@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 2
   },
   {
     firstName: 'Dean',
     lastName: 'Gladish',
     email: 'student3@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 3
   },
   {
     firstName: 'Zach',
     lastName: 'Bryce',
     email: 'student4@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 4
   },
   {
     firstName: 'Fifth',
     lastName: 'Student',
     email: 'laststudent@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 5
   },
   {
     firstName: 'All',
     lastName: 'Classes',
     email: 'studentAllClasses@email.com',
     password: '123',
-    accountType: 'student'
+    accountType: 'student',
+    id: 6
   },
   {
     firstName: 'Travis',
     lastName: 'Stratton',
     email: 'teacher1@email.com',
     password: '123',
-    accountType: 'teacher'
+    accountType: 'teacher',
+    id: 7 // because the database doesn't always seed in order, and we want classes to be linked to a teacher for sure
   },
   {
     firstName: 'Jonah',
     lastName: 'Ullman',
     email: 'teacher2@email.com',
     password: '123',
-    accountType: 'teacher'
+    accountType: 'teacher',
+    id: 8
   },
   {
     firstName: 'No',
     lastName: 'Classes',
     email: 'teachesNoClasses@email.com',
     password: '123',
-    accountType: 'teacher'
+    accountType: 'teacher',
+    id: 9
   },
   {
     firstName: 'Big',
     lastName: 'Brother',
     email: 'admin@email.com',
     password: '123',
-    accountType: 'admin'
+    accountType: 'admin',
+    id: 10
   }
 ]
 

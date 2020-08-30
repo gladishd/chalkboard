@@ -27,6 +27,7 @@ export class studentClassDashboard extends React.Component {
 
   async componentDidMount() {
     let course = this.props.location.state.number
+    this.props.getCourse(course)
 
     const socket = this.props.socket
 
@@ -82,6 +83,10 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
+    console.log(
+      'the props on the studentClassDashboard component are ',
+      this.props
+    )
     return (
       <div className="studentClassDashboard">
         <div>
