@@ -7,20 +7,20 @@ let apiKeys = {
   apiSecret: process.env.REACT_APP_ZOOM_API_SECRET_KEY
 }
 
+console.log(location.origin)
+
 let meetConfig = {
   apiKey: apiKeys.apiKey,
   meetingNumber: '2473055604',
   userName: '',
   userEmail: '', //must be set to same email as meeting owner for host privileges
   passWord: '420420',
-  leaveUrl: 'http://localhost:8080/home',
+  leaveUrl: `${location.origin}/home`,
   role: 0
 }
 
 const Zoom = props => {
   const {user, courseId} = props
-  console.log('user', user)
-  console.log('props.user', props.user)
   //setting meeting config properties off of user
   meetConfig.userName = `${user.firstName} ${user.lastName}`
   meetConfig.userEmail = `${user.email}`

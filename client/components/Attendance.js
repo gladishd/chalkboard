@@ -72,6 +72,7 @@ export class Attendance extends Component {
     // this.props.getAllAttendanceForThisCourse(this.props.courseIdInherited) // so the show past attendance button/data is updated without having to refresh the page
   }
   componentDidMount() {
+
     const socket = this.props.reduxState.socket
     const courseId = this.props.reduxState.course.single.id
     setInterval(function(){socket.emit('attendance', (courseId))}, 15000);
@@ -82,6 +83,7 @@ export class Attendance extends Component {
       //   onlineStudents: [...this.state.onlineStudents, student]
       // })
       toggleStudent(id)
+
     })
     // socket.on('roster', memory => {
     //   console.log('hello memory ', memory)

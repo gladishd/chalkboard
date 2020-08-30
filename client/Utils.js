@@ -1,14 +1,15 @@
-import { createStoreHook } from "react-redux"
-import { createElement } from "react"
-import openSocket from 'socket.io-client';
+import {createStoreHook} from 'react-redux'
+import {createElement} from 'react'
+import openSocket from 'socket.io-client'
 
-export function newMessage(message){
-    const item = document.createElement('p')
-    item.classList.add('message')
-    const list = document.getElementById('messages')
-    item.innerHTML = message
-    list.appendChild(item)
+export function newMessage(message) {
+  const item = document.createElement('p')
+  item.classList.add('message')
+  const list = document.getElementById('messages')
+  item.innerHTML = message
+  list.appendChild(item)
 }
+
 export function toggleStudent(id){
     const student = document.getElementById(id)
     student.style.color = red
@@ -24,15 +25,12 @@ export function newChat (e){
 }
 
 //attendance
-export function roster (students){
-    const list = document.getElementById('attendance-list')
-    for(let key in students){
-        console.log('key ', key)
-        let student = document.createElement('li')
-        student.innerHTML = students[key]
-        list.appendChild(student)
-
-    }
-
+export function roster(students) {
+  const list = document.getElementById('attendance-list')
+  for (let key in students) {
+    console.log('key ', key)
+    let student = document.createElement('li')
+    student.innerHTML = students[key]
+    list.appendChild(student)
+  }
 }
-
