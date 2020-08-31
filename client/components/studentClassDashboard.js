@@ -192,12 +192,14 @@ const mapStateToProps = state => {
   }
 }
 
-//We didnt use mapDispatch
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getCourse: id => dispatch(getSingleCourseThunk(id)),
-//     setSocket: socket => dispatch(setSocket(socket))
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    getCourse: id => dispatch(getSingleCourseThunk(id)),
+    setSocket: socket => dispatch(setSocket(socket))
+  }
+}
 
-export default connect(mapStateToProps, null)(studentClassDashboard)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(studentClassDashboard)
