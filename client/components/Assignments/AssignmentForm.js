@@ -15,25 +15,30 @@ const defaultState = {
 class AssignmentForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {...defaultState, type: 'homework'}
+    this.state = {...defaultState, assignmentType: 'homework'}
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleSubmit(evt) {
     evt.preventDefault()
-    const courseId = this.props.courseId
     const dueDate = new Date(this.state.date + ' ' + this.state.time)
 
-    const {weight, type, assignmentName, totalPoints, description} = this.state
+    const {
+      weight,
+      assignmentType,
+      assignmentName,
+      totalPoints,
+      description
+    } = this.state
 
     const payload = {
-      courseId: courseId,
+      courseId: this.props.courseId,
       dueDate,
       assignmentName,
       totalPoints: Number(totalPoints),
       weight: Number(weight),
-      assignmentType: type,
+      assignmentType,
       description
     }
 
@@ -74,8 +79,8 @@ class AssignmentForm extends React.Component {
           <label>Assignment Type</label>
           <select
             onChange={this.handleChange}
-            value={this.state.type}
-            name="type"
+            value={this.state.assignmentType}
+            name="assignmentType"
           >
             <option value="homework">Homework</option>
             <option value="project">Project</option>

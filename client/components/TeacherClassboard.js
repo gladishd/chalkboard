@@ -185,7 +185,7 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
-    const courseList = this.props.reduxState.user.courses || []
+    // const courseList = this.props.reduxState.user.courses || []
     const courseName = this.props.reduxState.course.single.courseName
 
     return (
