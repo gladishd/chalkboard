@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import {addCourseThunk} from '../store/course'
-import {getUserCoursesThunk} from '../store/user'
+import {addCourseThunk} from '../../store/course'
+import {getUserCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
-import CourseListing from './CourseListing'
+import CourseListing from '../CourseListing'
 
 export class TeacherDashboard extends Component {
   constructor(props) {

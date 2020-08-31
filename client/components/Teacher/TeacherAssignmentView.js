@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {getUserCoursesThunk} from '../store/user'
+import {getUserCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
-import {getAssignmentsByCourseIdThunk} from '../store/assignment'
+import {getAssignmentsByCourseIdThunk} from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
 
 export class TeacherAssignmentView extends Component {

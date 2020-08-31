@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {getTeacherCoursesThunk} from '../store/user'
+import {getTeacherCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
 import io from 'socket.io-client'
-import {setSocket} from '../store/socket'
-import {getSingleCourseThunk, addCourseThunk} from '../store/course'
+import {setSocket} from '../../store/socket'
+import {getSingleCourseThunk, addCourseThunk} from '../../store/course'
 
 export class TeacherDash extends Component {
   constructor(props) {
