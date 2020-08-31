@@ -58,14 +58,23 @@ a {
   border: black solid 2px;
 }
 
-#chat-input {
-  height: 50px;
+.student-chat-input {
+  height: 30px;
   width: 500px;
-  /* align-self: flex-end;
-  justify-content: flex-start; */
+  align-self: flex-end;
+  justify-content: flex-start;
   max-width: 98%;
   max-height: 90%;
-  position: fixed;
+  /* position: fixed; */
+}
+
+.teacher-chat-input {
+  height: 30px;
+  width: 500px;
+  position: relative;
+  align-self: flex-end;
+  max-width: 98%;
+  max-height: 90%;
 }
 
 label {
@@ -137,6 +146,7 @@ nav a {
 
 .local-time {
   background-color: darkcyan;
+  width: 35vw;
 }
 
 .studentClassDashboard .classTitle {
@@ -182,9 +192,10 @@ nav a {
 }
 #message-main {
   display: flex;
-  height: 14rem;
+  height: 13rem;
   overflow: scroll;
   flex-direction: column;
+  padding-bottom: 10px;
 }
 .chat-input-prompt {
   display: flex;

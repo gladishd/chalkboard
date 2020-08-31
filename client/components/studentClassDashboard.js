@@ -140,7 +140,12 @@ export class studentClassDashboard extends React.Component {
                 {message.message}
               </p>
             ))}
-            <input id="chat-input" type="text" overflow="auto" />
+            <input
+              id="chat-input"
+              className="student-chat-input"
+              type="text"
+              overflow="auto"
+            />
             {this.props.accountType === 'teacher' ? (
               <div>
                 <button>MuteAll</button>
