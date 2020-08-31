@@ -11,6 +11,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const newAssignment = await Assignment.create(req.body)
+    newAssignment ? res.json(newAssignment) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:assignmentId', async (req, res, next) => {
   try {
     const assignment = await Assignment.findByPk(req.params.assignmentId)
@@ -33,23 +42,14 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  try {
-    const newAssignment = await Assignment.create(req.body)
-    newAssignment ? res.json(newAssignment) : res.status(400).end()
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.put('/:assignmentId', async (req, res, next) => {
   try {
-    const [numUpdated, updatedAssignments] = await Assignment.update(req.body, {
+    const [, updatedAssignments] = await Assignment.update(req.body, {
       where: {id: req.params.assignmentId},
       returning: true,
       plain: true
     })
-    numUpdated ? res.json(updatedAssignments[0]) : res.status(400).end()
+    res.json(updatedAssignments)
   } catch (err) {
     next(err)
   }

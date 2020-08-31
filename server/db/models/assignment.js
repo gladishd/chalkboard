@@ -10,6 +10,9 @@ const Assignment = db.define('assignment', {
     type: Sequelize.ENUM('classwork', 'homework', 'quiz', 'test', 'project'),
     allowNull: false
   },
+  description: {
+    type: Sequelize.TEXT
+  },
   courseId: {
     type: Sequelize.INTEGER,
     defaultValue: null

@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {addAssignmentThunk} from '../../store/assignment'
 
 //info given this.prams.params.id
 const defaultState = {
   assignmentName: '',
-  dueDate: '',
+  date: '',
   totalPoints: '',
-  dueTime: '',
-  weight: ''
+  time: '',
+  weight: '',
+  description: '',
+  type: 'homework'
 }
 
 class AssignmentForm extends React.Component {
@@ -21,9 +24,21 @@ class AssignmentForm extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     const courseId = this.props.match.params.courseId
-    const date = new Date(this.state.dueDate + ' ' + this.state.dueTime)
+    const dueDate = new Date(this.state.date + ' ' + this.state.time)
 
-    console.log('something is being submitted', {...this.state, courseId, date})
+    const {weight, type, assignmentName, totalPoints, description} = this.state
+
+    const payload = {
+      courseId: Number(courseId),
+      dueDate,
+      assignmentName,
+      totalPoints: Number(totalPoints),
+      weight: Number(weight),
+      assignmentType: type,
+      description
+    }
+
+    this.props.addAssignment(payload)
   }
 
   handleChange(evt) {
@@ -43,6 +58,30 @@ class AssignmentForm extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
+        </div>
+
+        <div>
+          <label>Description</label>
+          <textarea
+            name="description"
+            onChange={this.handleChange}
+            value={this.state.name}
+          />
+        </div>
+
+        <div>
+          <label>Assignment Type</label>
+          <select
+            onChange={this.handleChange}
+            value={this.state.type}
+            name="type"
+          >
+            <option value="homework">Homework</option>
+            <option value="project">Project</option>
+            <option value="test">Test</option>
+            <option value="classwork">Classwork</option>
+            <option value="quiz">Quiz</option>
+          </select>
         </div>
 
         <div>
@@ -70,19 +109,19 @@ class AssignmentForm extends React.Component {
         <div>
           <label>Due Date</label>
           <input
-            name="dueDate"
+            name="date"
             type="date"
             onChange={this.handleChange}
-            value={this.state.dueDate}
+            value={this.state.date}
           />
         </div>
         <div>
           <label>Due Time</label>
           <input
-            name="dueTime"
+            name="time"
             type="time"
             onChange={this.handleChange}
-            value={this.state.dueTime}
+            value={this.state.time}
           />
         </div>
 
@@ -94,9 +133,9 @@ class AssignmentForm extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    // getAllAttendanceForThisCourse: courseId => {
-    //   dispatch(getAllAttendanceByCourseThunk(courseId))
-    // }
+    addAssignment: assignmentInfo => {
+      dispatch(addAssignmentThunk(assignmentInfo))
+    }
   }
 }
 
