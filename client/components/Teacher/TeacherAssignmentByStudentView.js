@@ -78,10 +78,11 @@ export class TeacherAssignmentByStudentView extends Component {
         <div className="student">
           Students
           <hr />
-          {listStudents.map((student, index) => {
-            const counter = index
+          {listStudents.map((student) => {
             return (
-              <div key={`Students:${counter}:${student.id}`}>
+
+              <div key={student.id}>
+
                 {[student.firstName, student.lastName, student.email].join(' ')}
               </div>
             )
@@ -89,12 +90,14 @@ export class TeacherAssignmentByStudentView extends Component {
         </div>
         <div className="dropDown">
           <select name="students" onChange={this.handleChange}>
-            <option value="" selected>
+            <option value="" defaultValue>
               Select a student
             </option>
             {listStudents.map(student => {
               return (
-                <option value={student.id} key={student.id}>
+
+                <option key={student.id} value={student.id}>
+
                   {[student.firstName, student.lastName].join(' ')}
                 </option>
               )
@@ -103,12 +106,13 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
 
           <select name="assignments" onChange={this.handleChangeAssignments}>
-            <option value="" selected>
+            <option value="" defaultValue>
               Select an assignment
             </option>
             {allAssignments.map(assignment => {
               return (
-                <option value={assignment.id} key={assignment.id}>
+
+                <option key={assignment.id} value={assignment.id}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -117,10 +121,11 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
         </div>
 
-        {gradebookFilteredForClass.map((assignment, index) => {
-          const counter = index
+        {gradebookFilteredForClass.map((assignment) => {
           return (
-            <div key={`FilteredGradebook:${counter}:${assignment.id}`}>
+
+            <div key={assignment.id}>
+
               <div className="studentAssignmentBoxes">
                 <div className="checkbox">
                   Assignment Name

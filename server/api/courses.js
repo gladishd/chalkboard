@@ -43,7 +43,7 @@ router.get('/students/:courseId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    // console.log('did we reach the post route?')
+
     const newCourse = await Course.create(req.body)
     newCourse ? res.json(newCourse) : res.status(400).end()
   } catch (err) {
@@ -58,7 +58,7 @@ router.put('/:courseId', async (req, res, next) => {
       returning: true,
       plain: true
     })
-    numUpdated ? res.json(updatedCourses[0]) : res.status(400).end()
+    updatedCourses ? res.json(updatedCourses[0]) : res.status(400).end()
   } catch (err) {
     next(err)
   }

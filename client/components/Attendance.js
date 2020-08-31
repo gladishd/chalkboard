@@ -117,7 +117,7 @@ export class Attendance extends Component {
         })} */}
         {studentsInCourse.map(student => {
           return (
-            <div>
+            <div key={student.id}>
               <p id={student.id} className="online-student">
                 {student.firstName}
               </p>
@@ -132,7 +132,7 @@ export class Attendance extends Component {
           Present Absent Tardy
           {this.props.studentsForThisCourseInherited.map(student => {
             return (
-              <div>
+              <div key={student.id}>
                 <div
                   id={student.id}
                   key={student.id}
@@ -144,7 +144,7 @@ export class Attendance extends Component {
                     name={student.firstName + ' ' + student.lastName}
                     value="present"
                   />
-                  <label for="contactChoice1">&nbsp;&nbsp;&nbsp;</label>
+                  <label htmlFor="contactChoice1">&nbsp;&nbsp;&nbsp;</label>
 
                   <input
                     type="radio"
@@ -152,7 +152,7 @@ export class Attendance extends Component {
                     name={student.firstName + ' ' + student.lastName}
                     value="absent"
                   />
-                  <label for="contactChoice2">&nbsp;&nbsp;&nbsp;</label>
+                  <label htmlFor="contactChoice2">&nbsp;&nbsp;&nbsp;</label>
 
                   <input
                     type="radio"
@@ -160,7 +160,7 @@ export class Attendance extends Component {
                     name={student.firstName + ' ' + student.lastName}
                     value="tardy"
                   />
-                  <label for="contactChoice3">&nbsp;&nbsp;&nbsp;</label>
+                  <label htmlFor="contactChoice3">&nbsp;&nbsp;&nbsp;</label>
                 </div>
                 <p>{student.firstName + ' ' + student.lastName}</p>
               </div>

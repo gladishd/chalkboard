@@ -42,10 +42,12 @@ export class TeacherAssignmentView extends Component {
         <div className="dropdownAssignment">
           Dropdown for assignment
           <select name="assignments" onChange={this.handleChange}>
+
             <option value="all">Show All</option>
             {this.state.allAssignments.map(element => {
               return (
                 <option value={element.id} key={`Select${element.id}`}>
+
                   {element.assignmentName}
                 </option>
               )
@@ -66,7 +68,9 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div className="assignmentCheckBoxesSection" key={element.id}>
+
+                <div key={element.id} className="assignmentCheckBoxesSection">
+
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
