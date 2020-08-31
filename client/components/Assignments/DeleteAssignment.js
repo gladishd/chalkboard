@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import removeAssignmentThunk from '../../store/assignment'
+import {removeAssignmentThunk} from '../../store/assignment'
 
 class DeleteAssignmentButton extends React.Component {
   constructor(props) {
@@ -8,7 +8,8 @@ class DeleteAssignmentButton extends React.Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleDelete() {
+  handleDelete(evt) {
+    evt.preventDefault()
     this.props.deleteAssignment(this.props.assignmentId)
   }
 
@@ -23,8 +24,9 @@ class DeleteAssignmentButton extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    deleteAssignment: assignmentId =>
+    deleteAssignment: assignmentId => {
       dispatch(removeAssignmentThunk(assignmentId))
+    }
   }
 }
 

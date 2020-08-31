@@ -3,6 +3,7 @@ import {getUserCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
 import {getAssignmentsByCourseIdThunk} from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
+import {DeleteAssignment} from '../index'
 
 export class TeacherAssignmentView extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export class TeacherAssignmentView extends Component {
     })
   }
 
-  async componentWillMount() {
+  componentDidMount() {
     try {
       this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     } catch (err) {
@@ -30,8 +31,9 @@ export class TeacherAssignmentView extends Component {
 
   render() {
     let allAssignments = this.props.reduxState.assignment.assignments || []
-    console.log('the value of allAssignments is ', allAssignments)
-    console.log('the props on the TeacherAssignmentView are ', this.props)
+    // console.log('the value of allAssignments is ', allAssignments)
+    // console.log('the props on the TeacherAssignmentView are ', this.props)
+
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">
@@ -42,7 +44,9 @@ export class TeacherAssignmentView extends Component {
             </option>
             {this.props.reduxState.assignment.assignments.map(element => {
               return (
-                <option value={element.id}>{element.assignmentName}</option>
+                <option value={element.id} key={`Select${element.id}`}>
+                  {element.assignmentName}
+                </option>
               )
             })}
             <option value="all">Show All</option>
@@ -62,7 +66,7 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div className="assignmentCheckBoxesSection">
+                <div className="assignmentCheckBoxesSection" key={element.id}>
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
@@ -82,6 +86,7 @@ export class TeacherAssignmentView extends Component {
                       <hr />
                       {element.weight}
                     </div>
+                    <DeleteAssignment assignmentId={element.id} />
                   </div>
                 </div>
               )

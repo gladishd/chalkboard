@@ -27,7 +27,7 @@ export function newChat(e) {
 export function roster(students) {
   const list = document.getElementById('attendance-list')
   for (let key in students) {
-    console.log('key ', key)
+    // console.log('key ', key)
     let student = document.createElement('li')
     student.innerHTML = students[key]
     list.appendChild(student)

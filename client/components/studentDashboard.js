@@ -94,7 +94,7 @@ export class StudentDashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('incoming state: ', state)
+  // console.log('incoming state: ', state)
   return {
     courses: state.user.courses,
     userId: state.user.me.id,

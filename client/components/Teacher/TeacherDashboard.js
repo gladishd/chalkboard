@@ -28,7 +28,7 @@ export class TeacherDashboard extends Component {
   }
   async componentWillMount() {
     await this.props.getCourses(1)
-    console.log('cwm ', this.props)
+    // console.log('cwm ', this.props)
   }
   render() {
     const courses = this.props.courses || ['empty']
@@ -73,7 +73,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 const mapStateToProps = state => {
-  console.log('map state ', state)
+  // console.log('map state ', state)
   return {
     courses: state.course
   }

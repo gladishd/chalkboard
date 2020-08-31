@@ -21,7 +21,6 @@ export class TeacherAssignmentByStudentView extends Component {
     })
     if (e.target.value !== 'all') {
       this.props.getUserGradebook(e.target.value)
-    } else {
     }
   }
 
@@ -33,15 +32,15 @@ export class TeacherAssignmentByStudentView extends Component {
 
   componentDidMount() {
     this.props.getUserGradebook(this.state.student)
+    this.props.getAssignmentsForCourse(this.props.courseIdInherited)
   }
 
-  async componentWillMount() {
-    try {
-      this.props.getAssignmentsForCourse(this.props.courseIdInherited)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // componentWillMount() {
+  //   try {
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   render() {
     let listStudents = this.props.studentsForThisCourseInherited
@@ -54,6 +53,7 @@ export class TeacherAssignmentByStudentView extends Component {
     allAssignments.map(element => {
       assignmentIds.push(element.id)
     })
+
     let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
       return assignmentIds.includes(element.assignmentId)
     })
@@ -78,9 +78,10 @@ export class TeacherAssignmentByStudentView extends Component {
         <div className="student">
           Students
           <hr />
-          {listStudents.map(student => {
+          {listStudents.map((student, index) => {
+            const counter = index
             return (
-              <div>
+              <div key={`Students:${counter}:${student.id}`}>
                 {[student.firstName, student.lastName, student.email].join(' ')}
               </div>
             )
@@ -93,7 +94,7 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {listStudents.map(student => {
               return (
-                <option value={student.id}>
+                <option value={student.id} key={student.id}>
                   {[student.firstName, student.lastName].join(' ')}
                 </option>
               )
@@ -107,7 +108,7 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {allAssignments.map(assignment => {
               return (
-                <option value={assignment.id}>
+                <option value={assignment.id} key={assignment.id}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -116,9 +117,10 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
         </div>
 
-        {gradebookFilteredForClass.map(assignment => {
+        {gradebookFilteredForClass.map((assignment, index) => {
+          const counter = index
           return (
-            <div>
+            <div key={`FilteredGradebook:${counter}:${assignment.id}`}>
               <div className="studentAssignmentBoxes">
                 <div className="checkbox">
                   Assignment Name
