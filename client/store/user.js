@@ -113,6 +113,18 @@ export const getUserAssignmentsThunk = userId => {
     }
   }
 }
+//student assignments
+export const getStudentAssignments = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/assignments`, {user: userId})
+      console.log('assignments ', data)
+      dispatch(getUserAssignments(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
 
 export const getUserGradebookThunk = userId => {
   return async dispatch => {

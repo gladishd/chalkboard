@@ -30,8 +30,7 @@ export class TeacherAssignmentView extends Component {
 
   render() {
     let allAssignments = this.props.reduxState.assignment.assignments || []
-    console.log('the value of allAssignments is ', allAssignments)
-    console.log('the props on the TeacherAssignmentView are ', this.props)
+    console.log('check props for assignments ', this.props)
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">

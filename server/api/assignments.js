@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {Assignment, Course} = require('../db/models')
 module.exports = router
 
+
+
 router.get('/', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll()
@@ -13,6 +15,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    console.log('in assign post ', req.body)
     const {courseId} = req.body
     //Creates the assignment
     const newAssignment = await Assignment.create(req.body)
