@@ -3,11 +3,11 @@ import {
   getTeacherCoursesThunk,
   addUserThunk,
   getAllUsersThunk
-} from '../store/user'
+} from '../../store/user'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 // import {default as StudentClassDashboard} from './studentClassDashboard'
-import {default as Attendance} from './Attendance'
+import {default as Attendance} from '../Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
 import io from 'socket.io-client'
@@ -16,8 +16,8 @@ import {
   getCourseStudentsThunk,
   updateCourseThunk
 } from '../store/course'
-import CreateZoomVideo from './Zoom/CreateVideoButton'
-import AssignmentForm from './Assignments/AssignmentForm'
+import CreateZoomVideo from '../Zoom/CreateVideoButton'
+import {CreateAssignment} from '../index'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -388,7 +388,7 @@ export class TeacherClassboard extends Component {
               Add
             </button>
             {this.state.renderNewAssignmentForm ? (
-              <AssignmentForm
+              <CreateAssignment
                 courseId={this.props.reduxState.course.single.id}
               />
             ) : (
