@@ -1,6 +1,6 @@
 # Welcome to Chalkboard
 
-_An online Learning Platform_
+![image](https://i.imgur.com/aWWbkfH.png)
 
 ## Deployed App:
 
