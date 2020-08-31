@@ -335,6 +335,7 @@ export class TeacherClassboard extends Component {
                 className="selectAudience"
                 // onChange={this.handleChange}
               >
+                <option value='All'>*All*</option>
                 {this.props.students.map((student, idx) => (
                   <option value={student.firstName}>{student.firstName}</option>
                 ))}
