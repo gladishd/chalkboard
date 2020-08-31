@@ -83,8 +83,8 @@ const user = [
     accountType: 'student'
   },
   {
-    firstName: 'All',
-    lastName: 'Classes',
+    firstName: 'Student',
+    lastName: 'A',
     email: 'studentAllClasses@email.com',
     password: '123',
     accountType: 'student'
