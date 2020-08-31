@@ -12,9 +12,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:courseId', async (req, res, next) => {
-  console.log('in my guess')
   try {
-    console.log(req.params.courseId)
+    // console.log(req.params.courseId)
     const course = await Course.findByPk(req.params.courseId)
     course ? res.json(course) : res.status(400).end()
   } catch (err) {
@@ -44,6 +43,7 @@ router.get('/students/:courseId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+
     const newCourse = await Course.create(req.body)
     newCourse ? res.json(newCourse) : res.status(400).end()
   } catch (err) {

@@ -92,10 +92,10 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
-    console.log(
-      'the props on the studentClassDashboard component are ',
-      this.props
-    )
+    // console.log(
+    //   'the props on the studentClassDashboard component are ',
+    //   this.props
+    // )
     return (
       <div className="studentClassDashboard">
         <div className="local-time">

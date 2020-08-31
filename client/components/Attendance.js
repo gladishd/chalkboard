@@ -78,7 +78,7 @@ export class Attendance extends Component {
       socket.emit('attendance', courseId)
     }, 15000)
     socket.on('roll', id => {
-      console.log('student in ', id)
+      // console.log('student in ', id)
       // this.setState({
       //   ...this.state,
       //   onlineStudents: [...this.state.onlineStudents, student]
@@ -92,7 +92,7 @@ export class Attendance extends Component {
     const list = document.getElementById('attendance-list')
     const check = document.getElementById('test')
     const yes = document.querySelectorAll('.student')
-    console.log('arr', Array.from(yes))
+    // console.log('arr', Array.from(yes))
 
     this.props.getAllAttendanceForThisCourse(courseId)
   }

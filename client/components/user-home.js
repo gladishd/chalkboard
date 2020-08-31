@@ -10,7 +10,7 @@ export const UserHome = props => {
   const {email, firstName, lastName, accountType} = props
   const socket = openSocket(`${location.origin}/`)
 
-  console.log('user home props ', props)
+  // console.log('user home props ', props)
   return (
     <div>
       <h1>{`Welcome ${firstName} ${lastName}`}</h1>

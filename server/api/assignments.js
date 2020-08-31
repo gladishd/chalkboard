@@ -42,19 +42,6 @@ router.get('/:assignmentId', async (req, res, next) => {
   }
 })
 
-router.get('/byCourseId/:courseId', async (req, res, next) => {
-  try {
-    const assignments = await Assignment.findAll({
-      where: {
-        courseId: req.params.courseId
-      }
-    })
-    assignments ? res.json(assignments) : res.status(400).end()
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.put('/:assignmentId', async (req, res, next) => {
   try {
     const [, updatedAssignments] = await Assignment.update(req.body, {
@@ -71,11 +58,24 @@ router.put('/:assignmentId', async (req, res, next) => {
 router.delete('/:assignmentId', async (req, res, next) => {
   try {
     const assignmentDeleted = await Assignment.destroy({
-      where: {id: req.params.assignmentId}
+      where: {id: Number(req.params.assignmentId)}
     })
     assignmentDeleted
       ? res.send('assignment deleted')
       : res.send('deletion failed')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/byCourseId/:courseId', async (req, res, next) => {
+  try {
+    const assignments = await Assignment.findAll({
+      where: {
+        courseId: req.params.courseId
+      }
+    })
+    assignments ? res.json(assignments) : res.status(400).end()
   } catch (err) {
     next(err)
   }
