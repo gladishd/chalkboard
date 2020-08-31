@@ -43,7 +43,6 @@ class AssignmentForm extends React.Component {
     }
 
     this.props.addAssignment(payload)
-    console.log(this.setState)
     this.setState({...defaultState})
   }
 
@@ -131,7 +130,20 @@ class AssignmentForm extends React.Component {
           />
         </div>
 
-        <button type="submit"> Submit</button>
+        <button
+          type="submit"
+          disabled={
+            !this.state.assignmentName ||
+            !this.state.date ||
+            !this.state.totalPoints ||
+            !this.state.time ||
+            !this.state.weight ||
+            !this.state.description
+          }
+        >
+          {' '}
+          Submit
+        </button>
       </form>
     )
   }
