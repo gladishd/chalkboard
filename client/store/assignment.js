@@ -61,7 +61,12 @@ export const getSingleAssignmentThunk = assignmentId => {
 export const getAssignmentsByCourseIdThunk = courseId => {
   return async dispatch => {
     try {
+      console.log(
+        'in the getAssignmentsByCourseIdThunk, the course Id parameter is ',
+        courseId
+      )
       const {data} = await axios.get(`/api/assignments/byCourseId/${courseId}`)
+      console.log('the data returned from the server is ', data)
       dispatch(getAssignmentsForCourse(data))
     } catch (err) {
       console.error(err.message)

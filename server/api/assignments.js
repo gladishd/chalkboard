@@ -46,7 +46,7 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll({
       where: {
-        courseId2: req.params.courseId
+        courseId: req.params.courseId
       }
     })
     assignments ? res.json(assignments) : res.status(400).end()

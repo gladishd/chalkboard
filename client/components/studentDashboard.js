@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import openSocket from 'socket.io-client'
 import {getAllCoursesThunk} from '../store/course.js'
 import {getUserCoursesThunk} from '../store/user'
+import {setSocket} from '../store/socket'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -25,8 +26,8 @@ export class StudentDashboard extends React.Component {
     this.setState({
       coursesArray: this.props.courses
     })
-    const socket = this.props.socket
-    console.log('sd socket ? ', socket)
+    // const socket = io()
+    // this.props.setSocket(socket)
   }
 
   render() {
@@ -108,8 +109,8 @@ const mapDispatchToProps = dispatch => {
     getAllCourses: () => {
       dispatch(getAllCoursesThunk())
     },
-    getMyCourses: id => dispatch(getUserCoursesThunk(id))
-    // newSocket: (socket) => dispatch(setSocket(socket))
+    getMyCourses: id => dispatch(getUserCoursesThunk(id)),
+    newSocket: socket => dispatch(setSocket(socket))
   }
 }
 

@@ -27,10 +27,19 @@ export class studentClassDashboard extends React.Component {
 
   async componentDidMount() {
     let course = this.props.location.state.number
+    await this.props.getCourse(course)
 
+    let current_time = moment().format('HH:mm')
     const socket = this.props.socket
 
-    socket.emit('login', {course, level: 'student'})
+    socket.emit('login', {
+      course,
+      level: 'student',
+      name: this.props.location.state.firstName
+    })
+    socket.on('attendance', () => {
+      socket.emit('present', this.props.user.id)
+    })
     socket.on('room-chat', message => {
       console.log(message)
     })
@@ -39,22 +48,23 @@ export class studentClassDashboard extends React.Component {
         ...this.state,
         messages: [...this.state.messages, message]
       })
-      console.log('state after update ', this.state)
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
       const view = document.querySelector('.selectAudience').selectedIndex
 
       if (e.key === 'Enter') {
-        console.log('Entered')
-        // if(view !== 1){
-        console.log('public message')
-
-        socket.emit('student-public-message', {
-          message: e.target.value,
-          name: this.props.location.state.firstName
-        })
-
+        if (view === 1) {
+          socket.emit('student-teacher-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
+        } else {
+          socket.emit('student-public-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
+        }
         e.target.value = ''
       }
     })
@@ -82,9 +92,13 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
+    console.log(
+      'the props on the studentClassDashboard component are ',
+      this.props
+    )
     return (
       <div className="studentClassDashboard">
-        <div>
+        <div className="local-time">
           <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
 
           <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
@@ -116,15 +130,22 @@ export class studentClassDashboard extends React.Component {
             <option value="Teacher">Teacher</option>
           </select>
           <br />
-          Say something nice..
+          <div className="chat-input-prompt">
+            <div>Say something nice...</div>
+          </div>
           <div id="message-main">
             <div id="chat-messages" />
             {messages.map((message, idx) => (
-              <p key={idx} className={message.type}>
+              <p key={idx} className={message.css}>
                 {message.message}
               </p>
             ))}
-            <input id="chat-input" type="text" overflow="auto" />
+            <input
+              id="chat-input"
+              className="student-chat-input"
+              type="text"
+              overflow="auto"
+            />
             {this.props.accountType === 'teacher' ? (
               <div>
                 <button>MuteAll</button>

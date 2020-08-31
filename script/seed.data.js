@@ -3,7 +3,6 @@ const course = [
   {
     courseName: 'Econ 201',
     size: 30,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Keynesian Theory \n 2. The Solow Growth Model',
     courseMoreInformation:
@@ -15,7 +14,6 @@ const course = [
   {
     courseName: 'Guitar 101',
     size: 3,
-    teacherId: 8,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to guitar \n 2. The Basics of Guitar',
     courseMoreInformation:
@@ -27,7 +25,6 @@ const course = [
   {
     courseName: 'Senior Coding 404',
     size: 14,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to Coding 404 \n 2. Foundations \n 3. Junior Phase \n 4. Senior Phase',
     courseMoreInformation:
@@ -39,7 +36,6 @@ const course = [
   {
     courseName: 'REACTO 202',
     size: 14,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to our class on the REACTO method \n 2. Discussion \n 3. Resources \n 4. AlgoExpert',
     courseMoreInformation:
