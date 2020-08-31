@@ -126,7 +126,7 @@ const assignment = [
     dueDate: new Date('September 9, 2020 11:30:00'),
     courseId: 3,
     totalPoints: 30,
-    weight: 10,
+    weight: 20,
     description: 'The hardest project of Fullstack Academy. Best of luck.'
   },
   {
@@ -135,7 +135,7 @@ const assignment = [
     dueDate: new Date('July 20, 2020 12:00:00'),
     courseId: 3,
     totalPoints: 20,
-    weight: 20,
+    weight: 15,
     description: 'Best of luck getting ot the other side'
   },
   {
@@ -144,7 +144,7 @@ const assignment = [
     dueDate: new Date('July 19, 2020 08:30:00'),
     courseId: 4,
     totalPoints: 60,
-    weight: 40,
+    weight: 1,
     description: 'This are practice algorithm for interviews'
   },
   {
@@ -153,7 +153,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 10,
-    weight: 5,
+    weight: 3,
     description: 'Best song to start learning the guitar'
   },
   {
@@ -162,7 +162,7 @@ const assignment = [
     dueDate: new Date('August 21, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 95,
-    weight: 50,
+    weight: 10,
     description: 'You need to learn the fundamentals'
   },
   {
@@ -171,7 +171,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
     totalPoints: 100,
-    weight: 90,
+    weight: 1,
     description: 'Gotta learn some Econ terms'
   },
   {
@@ -180,7 +180,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
     totalPoints: 15,
-    weight: 93,
+    weight: 3,
     description: 'Got to learn some more Econ terms'
   },
   {
@@ -189,7 +189,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 75,
-    weight: 5,
+    weight: 1,
     description: 'Can you play wonderwall?'
   },
   {
@@ -198,7 +198,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 60,
-    weight: 30,
+    weight: 3,
     description: 'Can you play wonderwall well?'
   },
   {
@@ -207,7 +207,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
     totalPoints: 40,
-    weight: 45,
+    weight: 1,
     description: 'What do you know about BST'
   },
   {
@@ -216,7 +216,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
     totalPoints: 10,
-    weight: 50,
+    weight: 3,
     description: 'What do you know about Linked Lists'
   },
   {
@@ -225,7 +225,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
     totalPoints: 85,
-    weight: 25,
+    weight: 1,
     description: 'Async week time'
   },
   {
@@ -234,7 +234,7 @@ const assignment = [
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
     totalPoints: 35,
-    weight: 35,
+    weight: 3,
     description: 'Time to do some grace shopper'
   }
 ]
@@ -427,12 +427,10 @@ const gradebook = [
     userId: 6
   },
   {
-    individualGrade: 97,
     assignmentId: 4,
     userId: 6
   },
   {
-    individualGrade: 98,
     assignmentId: 5,
     userId: 6
   }
