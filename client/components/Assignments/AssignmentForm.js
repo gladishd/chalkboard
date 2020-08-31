@@ -132,6 +132,7 @@ class AssignmentForm extends React.Component {
 
         <button
           type="submit"
+          className="submitCourse"
           disabled={
             !this.state.assignmentName ||
             !this.state.date ||
@@ -141,7 +142,6 @@ class AssignmentForm extends React.Component {
             !this.state.description
           }
         >
-          {' '}
           Submit
         </button>
       </form>
