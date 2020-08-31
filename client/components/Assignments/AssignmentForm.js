@@ -23,13 +23,13 @@ class AssignmentForm extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    const courseId = this.props.match.params.courseId
+    const courseId = this.props.courseId
     const dueDate = new Date(this.state.date + ' ' + this.state.time)
 
     const {weight, type, assignmentName, totalPoints, description} = this.state
 
     const payload = {
-      courseId: Number(courseId),
+      courseId: courseId,
       dueDate,
       assignmentName,
       totalPoints: Number(totalPoints),
