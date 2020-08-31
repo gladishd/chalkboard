@@ -27,7 +27,7 @@ export class studentClassDashboard extends React.Component {
 
   async componentDidMount() {
     let course = this.props.location.state.number
-    this.props.getCourse(course)
+    await this.props.getCourse(course)
 
     let current_time = moment().format('HH:mm')
     const socket = this.props.socket
@@ -98,7 +98,7 @@ export class studentClassDashboard extends React.Component {
     )
     return (
       <div className="studentClassDashboard">
-        <div>
+        <div className="local-time">
           <div>Local Time: {moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
 
           <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
@@ -130,7 +130,9 @@ export class studentClassDashboard extends React.Component {
             <option value="Teacher">Teacher</option>
           </select>
           <br />
-          Say something nice..
+          <div className="chat-input-prompt">
+            <div>Say something nice...</div>
+          </div>
           <div id="message-main">
             <div id="chat-messages" />
             {messages.map((message, idx) => (
@@ -138,7 +140,12 @@ export class studentClassDashboard extends React.Component {
                 {message.message}
               </p>
             ))}
-            <input id="chat-input" type="text" overflow="auto" />
+            <input
+              id="chat-input"
+              className="student-chat-input"
+              type="text"
+              overflow="auto"
+            />
             {this.props.accountType === 'teacher' ? (
               <div>
                 <button>MuteAll</button>

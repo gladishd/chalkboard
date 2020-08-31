@@ -3,7 +3,6 @@ const course = [
   {
     courseName: 'Econ 201',
     size: 30,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Keynesian Theory \n 2. The Solow Growth Model',
     courseMoreInformation:
@@ -15,7 +14,6 @@ const course = [
   {
     courseName: 'Guitar 101',
     size: 3,
-    teacherId: 8,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to guitar \n 2. The Basics of Guitar',
     courseMoreInformation:
@@ -27,7 +25,6 @@ const course = [
   {
     courseName: 'Senior Coding 404',
     size: 14,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to Coding 404 \n 2. Foundations \n 3. Junior Phase \n 4. Senior Phase',
     courseMoreInformation:
@@ -39,7 +36,6 @@ const course = [
   {
     courseName: 'REACTO 202',
     size: 14,
-    teacherId: 7,
     courseIntro:
       'Introduction to the Course \n 1. Welcome to our class on the REACTO method \n 2. Discussion \n 3. Resources \n 4. AlgoExpert',
     courseMoreInformation:
@@ -56,80 +52,70 @@ const user = [
     lastName: 'Le',
     email: 'student1@email.com',
     password: '123',
-    accountType: 'student',
-    id: 1
+    accountType: 'student'
   },
   {
     firstName: 'Jonathan',
     lastName: 'Arreola',
     email: 'student2@email.com',
     password: '123',
-    accountType: 'student',
-    id: 2
+    accountType: 'student'
   },
   {
     firstName: 'Dean',
     lastName: 'Gladish',
     email: 'student3@email.com',
     password: '123',
-    accountType: 'student',
-    id: 3
+    accountType: 'student'
   },
   {
     firstName: 'Zach',
     lastName: 'Bryce',
     email: 'student4@email.com',
     password: '123',
-    accountType: 'student',
-    id: 4
+    accountType: 'student'
   },
   {
     firstName: 'Fifth',
     lastName: 'Student',
     email: 'laststudent@email.com',
     password: '123',
-    accountType: 'student',
-    id: 5
+    accountType: 'student'
   },
   {
     firstName: 'All',
     lastName: 'Classes',
     email: 'studentAllClasses@email.com',
     password: '123',
-    accountType: 'student',
-    id: 6
+    accountType: 'student'
   },
   {
     firstName: 'Travis',
     lastName: 'Stratton',
     email: 'teacher1@email.com',
     password: '123',
-    accountType: 'teacher',
-    id: 7 // because the database doesn't always seed in order, and we want classes to be linked to a teacher for sure
+    accountType: 'teacher'
   },
   {
     firstName: 'Jonah',
     lastName: 'Ullman',
     email: 'teacher2@email.com',
     password: '123',
-    accountType: 'teacher',
-    id: 8
+    accountType: 'teacher'
   },
   {
     firstName: 'No',
     lastName: 'Classes',
     email: 'teachesNoClasses@email.com',
     password: '123',
-    accountType: 'teacher',
-    id: 9
+    accountType: 'teacher'
   },
   {
     firstName: 'Big',
     lastName: 'Brother',
     email: 'admin@email.com',
     password: '123',
-    accountType: 'admin',
-    id: 10
+    accountType: 'admin'
   }
 ]
 

@@ -374,7 +374,12 @@ export class TeacherClassboard extends Component {
                 {this.state.messages.map((message, idx) => (
                   <p className={message.css}>{message.message}</p>
                 ))}
-                <input id="chat-input" type="text" overflow="auto" />
+                <input
+                  id="chat-input"
+                  className="teacher-chat-input"
+                  type="text"
+                  overflow="auto"
+                />
               </div>
             </div>
           </div>

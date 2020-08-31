@@ -27,6 +27,29 @@ async function seed() {
   await Promise.all(enrollment.map(curr => Enrollment.create(curr)))
   await Promise.all(gradebook.map(curr => Gradebook.create(curr)))
 
+  //adding instructors without hard-coded IDs
+  const travis = await User.findOne({
+    where: {
+      email: 'teacher1@email.com'
+    }
+  })
+
+  const jonah = await User.findOne({
+    where: {
+      email: 'teacher2@email.com'
+    }
+  })
+
+  const courseEcon201 = await Course.findByPk(1)
+  const courseSenCod404 = await Course.findByPk(3)
+  const courseReacto202 = await Course.findByPk(4)
+  await courseEcon201.update({teacherId: travis.id})
+  await courseSenCod404.update({teacherId: travis.id})
+  await courseReacto202.update({teacherId: travis.id})
+
+  const courseGuitar101 = await Course.findByPk(2)
+  await courseGuitar101.update({teacherId: jonah.id})
+
   // await Reacto.addAssignment(classwork)
   // await CS.addAssignment(project)
   // await CS.addAssignment(test)
