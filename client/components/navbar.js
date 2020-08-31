@@ -62,11 +62,6 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link className="react-router-link" to="/signup">
             Sign Up
           </Link>
-
-          {/* Testing purposes*/}
-          <Link className="react-router-link" to="/assignment/1">
-            Assignment
-          </Link>
         </div>
       )}
     </nav>
