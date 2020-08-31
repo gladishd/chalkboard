@@ -337,8 +337,6 @@ const enrollment = [
 
 const gradebook = [
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 1
   },
@@ -367,20 +365,14 @@ const gradebook = [
     userId: 1
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 2
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 3
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 4
   },
@@ -439,13 +431,11 @@ const gradebook = [
     userId: 6
   },
   {
-    completed: false,
     individualGrade: 97,
     assignmentId: 4,
     userId: 6
   },
   {
-    completed: false,
     individualGrade: 98,
     assignmentId: 5,
     userId: 6
