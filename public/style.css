@@ -501,6 +501,14 @@ nav a {
   width: 50vw;
 }
 
+.teacherClassBoard .classboardInformation {
+  background-color: rgba(205, 50, 50, 0.39);
+  padding: 1em;
+  overflow-y: scroll;
+  height: 5em;
+  width: 50vw;
+}
+
 .attendanceForm {
   display: flex;
   flex-direction: column;
@@ -781,4 +789,34 @@ Message Fonts
 
 .addNewStudentForm {
   width: 100%;
+}
+
+.courseNameTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseSizeTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseIntroTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseMoreInformationTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseScheduleTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.buttonUpdateCourse {
+  background-color: rgba(255, 217, 0, 0.74);
+  padding: 0.25em;
 }
