@@ -8,15 +8,14 @@ import {auth} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
-  const [loginerror, setLoginerror] = React.useState(false)
+  // const [loginerror, setLoginerror] = React.useState(false)
 
   return (
-    <div>
+    <div className="auth-form-component">
       <form
         onSubmit={e => {
           handleSubmit(e)
-          setLoginerror(true)
+          // setLoginerror(true)
         }}
         name={name}
       >
@@ -46,7 +45,7 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
     </div>
   )
 }

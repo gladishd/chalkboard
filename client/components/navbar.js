@@ -6,7 +6,7 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, accountType}) => (
   <div id="navbar-component">
-    <h1>Chalkboard</h1>
+    <h1 className="navbar-header">Chalkboard</h1>
     <nav>
       {isLoggedIn && accountType === 'admin' && (
         <div>
@@ -22,7 +22,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link className="react-router-link" to="/teacherDashboard">
             Old Teacher Dashboard
           </Link>
-          <a href="#" onClick={handleClick}>
+          <a href="#" className="react-router-link" onClick={handleClick}>
             Logout
           </a>
         </div>
@@ -35,7 +35,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link className="react-router-link" to="/TeacherDash">
             Teacher Dashboard
           </Link>
-          <a href="#" onClick={handleClick}>
+          <a href="#" className="react-router-link" onClick={handleClick}>
             Logout
           </a>
         </div>
@@ -48,7 +48,7 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
           <Link className="react-router-link" to="/studentDashboard">
             Student Dashboard
           </Link>
-          <a href="#" onClick={handleClick}>
+          <a href="#" className="react-router-link" onClick={handleClick}>
             Logout
           </a>
         </div>
@@ -56,12 +56,12 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
       {!isLoggedIn && (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link className="react-router-link" to="/login">
+          {/* <Link className="react-router-link" to="/login">
             Login
-          </Link>
-          <Link className="react-router-link" to="/signup">
+          </Link> */}
+          {/* <Link className="react-router-link" to="/signup">
             Sign Up
-          </Link>
+          </Link> */}
         </div>
       )}
     </nav>
