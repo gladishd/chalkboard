@@ -39,7 +39,6 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/assignment/:courseId" component={AssignmentForm} />
         {/* Routes below give conditional access based on account type */}
 
         {/* Admin Routes */}

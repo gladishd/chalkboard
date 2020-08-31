@@ -1,11 +1,33 @@
 const router = require('express').Router()
-const {Assignment} = require('../db/models')
+const {Assignment, Course} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll()
     assignments ? res.json(assignments) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const {courseId} = req.body
+    //Creates the assignment
+    const newAssignment = await Assignment.create(req.body)
+
+    //Assign the assignment to everyone in the class
+    const course = await Course.findByPk(courseId)
+    const users = await course.getUsers()
+
+    await Promise.all(
+      users.map(user => {
+        user.addAssignment(newAssignment)
+      })
+    )
+
+    newAssignment ? res.json(newAssignment) : res.status(400).end()
   } catch (err) {
     next(err)
   }
@@ -33,23 +55,14 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  try {
-    const newAssignment = await Assignment.create(req.body)
-    newAssignment ? res.json(newAssignment) : res.status(400).end()
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.put('/:assignmentId', async (req, res, next) => {
   try {
-    const [numUpdated, updatedAssignments] = await Assignment.update(req.body, {
+    const [, updatedAssignments] = await Assignment.update(req.body, {
       where: {id: req.params.assignmentId},
       returning: true,
       plain: true
     })
-    numUpdated ? res.json(updatedAssignments[0]) : res.status(400).end()
+    res.json(updatedAssignments)
   } catch (err) {
     next(err)
   }

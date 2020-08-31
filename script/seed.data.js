@@ -83,8 +83,8 @@ const user = [
     accountType: 'student'
   },
   {
-    firstName: 'All',
-    lastName: 'Classes',
+    firstName: 'Student',
+    lastName: 'A',
     email: 'studentAllClasses@email.com',
     password: '123',
     accountType: 'student'
@@ -121,121 +121,121 @@ const user = [
 
 const assignment = [
   {
-    id: 1,
     assignmentName: 'Capstone',
     assignmentType: 'project',
     dueDate: new Date('September 9, 2020 11:30:00'),
     courseId: 3,
     totalPoints: 30,
-    weight: 10
+    weight: 20,
+    description: 'The hardest project of Fullstack Academy. Best of luck.'
   },
   {
-    id: 2,
     assignmentName: 'Senior Assessment',
     assignmentType: 'test',
     dueDate: new Date('July 20, 2020 12:00:00'),
     courseId: 3,
     totalPoints: 20,
-    weight: 20
+    weight: 15,
+    description: 'Best of luck getting ot the other side'
   },
   {
-    id: 3,
     assignmentName: 'REACTO',
     assignmentType: 'classwork',
     dueDate: new Date('July 19, 2020 08:30:00'),
     courseId: 4,
     totalPoints: 60,
-    weight: 40
+    weight: 1,
+    description: 'This are practice algorithm for interviews'
   },
   {
-    id: 4,
     assignmentName: 'Wonderwall',
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 10,
-    weight: 5
+    weight: 3,
+    description: 'Best song to start learning the guitar'
   },
   {
-    id: 5,
     assignmentName: 'Name that Chord',
     assignmentType: 'quiz',
     dueDate: new Date('August 21, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 95,
-    weight: 50
+    weight: 10,
+    description: 'You need to learn the fundamentals'
   },
   {
-    id: 6,
     assignmentName: 'First test assignment for Econ 201',
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
     totalPoints: 100,
-    weight: 90
+    weight: 1,
+    description: 'Gotta learn some Econ terms'
   },
   {
-    id: 7,
     assignmentName: 'Second test assignment for Econ 201',
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 1,
     totalPoints: 15,
-    weight: 93
+    weight: 3,
+    description: 'Got to learn some more Econ terms'
   },
   {
-    id: 8,
     assignmentName: 'First test assignment for Guitar 101',
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 75,
-    weight: 5
+    weight: 1,
+    description: 'Can you play wonderwall?'
   },
   {
-    id: 9,
     assignmentName: 'Second test assignment for Guitar 101',
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 2,
     totalPoints: 60,
-    weight: 30
+    weight: 3,
+    description: 'Can you play wonderwall well?'
   },
   {
-    id: 10,
     assignmentName: 'First test assignment for REACTO 202',
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
     totalPoints: 40,
-    weight: 45
+    weight: 1,
+    description: 'What do you know about BST'
   },
   {
-    id: 11,
     assignmentName: 'Second test assignment for REACTO 202',
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 4,
     totalPoints: 10,
-    weight: 50
+    weight: 3,
+    description: 'What do you know about Linked Lists'
   },
   {
-    id: 12,
     assignmentName: 'First test assignment for Senior Coding 404',
     assignmentType: 'classwork',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
     totalPoints: 85,
-    weight: 25
+    weight: 1,
+    description: 'Async week time'
   },
   {
-    id: 13,
     assignmentName: 'Second test assignment for Senior Coding 404',
     assignmentType: 'homework',
     dueDate: new Date('August 20, 2020 19:15:00'),
     courseId: 3,
     totalPoints: 35,
-    weight: 35
+    weight: 3,
+    description: 'Time to do some grace shopper'
   }
 ]
 
@@ -333,8 +333,6 @@ const enrollment = [
 
 const gradebook = [
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 1
   },
@@ -363,20 +361,14 @@ const gradebook = [
     userId: 1
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 2
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 3
   },
   {
-    completed: false,
-    individualGrade: null,
     assignmentId: 1,
     userId: 4
   },
@@ -435,14 +427,10 @@ const gradebook = [
     userId: 6
   },
   {
-    completed: false,
-    individualGrade: 97,
     assignmentId: 4,
     userId: 6
   },
   {
-    completed: false,
-    individualGrade: 98,
     assignmentId: 5,
     userId: 6
   }

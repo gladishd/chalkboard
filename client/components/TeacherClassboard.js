@@ -13,6 +13,7 @@ import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentVi
 import io from 'socket.io-client'
 import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
 import CreateZoomVideo from './Zoom/CreateVideoButton'
+import AssignmentForm from './Assignments/AssignmentForm'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -184,7 +185,7 @@ export class TeacherClassboard extends Component {
   }
 
   render() {
-    const courseList = this.props.reduxState.user.courses || []
+    // const courseList = this.props.reduxState.user.courses || []
     const courseName = this.props.reduxState.course.single.courseName
 
     return (
@@ -260,39 +261,10 @@ export class TeacherClassboard extends Component {
             >
               Add
             </button>
-
             {this.state.renderNewAssignmentForm ? (
-              <form
-                onSubmit={this.handleAssignmentSubmit}
-                className="addNewAssignmentForm"
-              >
-                <label htmlFor="assignmentName">Assignment Name: </label>
-                <textarea
-                  name="assignmentName"
-                  onChange={this.mapInputToState}
-                />
-                <br />
-                <label htmlFor="dueDate">Due Date: </label>
-                <textarea name="dueDate" onChange={this.mapInputToState} />
-                <br />
-                <label htmlFor="totalPoints">Total Points: </label>
-                <textarea name="totalPoints" onChange={this.mapInputToState} />
-                <br />
-                <label htmlFor="percentTotalGrade">Percent Total Grade: </label>
-                <textarea
-                  name="percentTotalGrade"
-                  onChange={this.mapInputToState}
-                />
-                <br />
-
-                <button
-                  type="button"
-                  className="submitCourse"
-                  onClick={this.handleAssignmentSubmit}
-                >
-                  Submit
-                </button>
-              </form>
+              <AssignmentForm
+                courseId={this.props.reduxState.course.single.id}
+              />
             ) : (
               <div> </div>
             )}

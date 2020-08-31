@@ -1,29 +1,49 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {addAssignmentThunk} from '../../store/assignment'
 
 //info given this.prams.params.id
 const defaultState = {
   assignmentName: '',
-  dueDate: '',
+  date: '',
   totalPoints: '',
-  dueTime: '',
-  weight: ''
+  time: '',
+  weight: '',
+  description: ''
 }
 
 class AssignmentForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = defaultState
+    this.state = {...defaultState, assignmentType: 'homework'}
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleSubmit(evt) {
     evt.preventDefault()
-    const courseId = this.props.match.params.courseId
-    const date = new Date(this.state.dueDate + ' ' + this.state.dueTime)
+    const dueDate = new Date(this.state.date + ' ' + this.state.time)
 
-    console.log('something is being submitted', {...this.state, courseId, date})
+    const {
+      weight,
+      assignmentType,
+      assignmentName,
+      totalPoints,
+      description
+    } = this.state
+
+    const payload = {
+      courseId: this.props.courseId,
+      dueDate,
+      assignmentName,
+      totalPoints: Number(totalPoints),
+      weight: Number(weight),
+      assignmentType,
+      description
+    }
+
+    this.props.addAssignment(payload)
+    this.setState({...defaultState})
   }
 
   handleChange(evt) {
@@ -41,8 +61,32 @@ class AssignmentForm extends React.Component {
             name="assignmentName"
             type="text"
             onChange={this.handleChange}
-            value={this.state.name}
+            value={this.state.assignmentName}
           />
+        </div>
+
+        <div>
+          <label>Description</label>
+          <textarea
+            name="description"
+            onChange={this.handleChange}
+            value={this.state.description}
+          />
+        </div>
+
+        <div>
+          <label>Assignment Type</label>
+          <select
+            onChange={this.handleChange}
+            value={this.state.assignmentType}
+            name="assignmentType"
+          >
+            <option value="homework">Homework</option>
+            <option value="project">Project</option>
+            <option value="test">Test</option>
+            <option value="classwork">Classwork</option>
+            <option value="quiz">Quiz</option>
+          </select>
         </div>
 
         <div>
@@ -70,23 +114,36 @@ class AssignmentForm extends React.Component {
         <div>
           <label>Due Date</label>
           <input
-            name="dueDate"
+            name="date"
             type="date"
             onChange={this.handleChange}
-            value={this.state.dueDate}
+            value={this.state.date}
           />
         </div>
         <div>
           <label>Due Time</label>
           <input
-            name="dueTime"
+            name="time"
             type="time"
             onChange={this.handleChange}
-            value={this.state.dueTime}
+            value={this.state.time}
           />
         </div>
 
-        <button type="submit"> Submit</button>
+        <button
+          type="submit"
+          className="submitCourse"
+          disabled={
+            !this.state.assignmentName ||
+            !this.state.date ||
+            !this.state.totalPoints ||
+            !this.state.time ||
+            !this.state.weight ||
+            !this.state.description
+          }
+        >
+          Submit
+        </button>
       </form>
     )
   }
@@ -94,9 +151,9 @@ class AssignmentForm extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    // getAllAttendanceForThisCourse: courseId => {
-    //   dispatch(getAllAttendanceByCourseThunk(courseId))
-    // }
+    addAssignment: assignmentInfo => {
+      dispatch(addAssignmentThunk(assignmentInfo))
+    }
   }
 }
 

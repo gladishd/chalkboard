@@ -77,7 +77,10 @@ export const getAssignmentsByCourseIdThunk = courseId => {
 export const addAssignmentThunk = assignment => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('api/orders', assignment)
+      console.log('this is inside the thunk', assignment)
+      //I think locations is making it so the post request is sending to /assignments/api/assignments
+      //solution is to go back to root
+      const {data} = await axios.post('../api/assignments', assignment)
       dispatch(addAssignment(data))
     } catch (err) {
       console.error(err.message)
