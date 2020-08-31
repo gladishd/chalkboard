@@ -28,10 +28,10 @@ const getAssignmentsForCourse = assignments => ({
 const addAssignment = assignment => ({type: ADD_ASSIGNMENT, assignment})
 const updateAssignment = assignment => ({type: UPDATE_ASSIGNMENT, assignment})
 
-const removeAssignment = assignmentId => {
-  console.log('Inside the action creator', REMOVE_ASSIGNMENT)
-  return {type: REMOVE_ASSIGNMENT, assignmentId}
-}
+const removeAssignment = assignmentId => ({
+  type: REMOVE_ASSIGNMENT,
+  assignmentId
+})
 
 /**
  * THUNK CREATORS
@@ -105,7 +105,6 @@ export const updateAssignmentThunk = (assignmentId, assignment) => {
 export const removeAssignmentThunk = assignmentId => {
   return async dispatch => {
     try {
-      console.log('inside the thunk', assignmentId)
       await axios.delete(`/api/assignments/${assignmentId}`)
       dispatch(removeAssignment(assignmentId))
     } catch (err) {
@@ -127,8 +126,6 @@ const initialState = {
  * REDUCER
  */
 export default function(state = initialState, action) {
-  console.log('Inside reducer', action)
-
   switch (action.type) {
     case GET_ALL_ASSIGNMENTS:
       return {...state, all: action.assignments}
