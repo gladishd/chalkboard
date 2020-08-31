@@ -61,8 +61,8 @@ a {
 #chat-input {
   height: 50px;
   width: 500px;
-  align-self: flex-end;
-  justify-content: flex-start;
+  /* align-self: flex-end;
+  justify-content: flex-start; */
   max-width: 98%;
   max-height: 90%;
   position: fixed;
