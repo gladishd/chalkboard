@@ -75,8 +75,10 @@ export class Attendance extends Component {
 
     const socket = this.props.reduxState.socket
     const courseId = this.props.reduxState.course.single.id
-    setInterval(function(){socket.emit('attendance', (courseId))}, 15000);
-    socket.on('roll', (id) => {
+    setInterval(function() {
+      socket.emit('attendance', courseId)
+    }, 15000)
+    socket.on('roll', id => {
       console.log('student in ', id)
       // this.setState({
       //   ...this.state,
@@ -97,15 +99,15 @@ export class Attendance extends Component {
     this.props.getAllAttendanceForThisCourse(courseId)
   }
   render() {
-    console.log('the student are ', this.state.onlineStudents)
+    // console.log('the student are ', this.state.onlineStudents)
     let pastAttendanceList = this.props.reduxState.user.pastAttendance
     let studentsInCourse = this.props.studentsForThisCourseInherited
-    console.log('students in this course ', studentsInCourse)
+    // console.log('students in this course ', studentsInCourse)
     const students = this.state.onlineStudents || []
     return (
       <div className="attendanceComponent">
         <h1>Attendance</h1>
-        <h3 id='online'>Students Online:</h3>
+        <h3 id="online">Students Online:</h3>
         {/* So for now this is just going to be all students */}
         {/* {
           students.map((student) => {
@@ -113,15 +115,16 @@ export class Attendance extends Component {
           <div>
           <p className="online-student">{student.name} {student.time}</p>
           </div>
-          ) 
+          )
         })} */}
-        {
-          studentsInCourse.map((student) => {
+        {studentsInCourse.map(student => {
           return (
-          <div>
-          <p id={student.id}className="online-student">{student.firstName}</p>
-          </div>
-          ) 
+            <div>
+              <p id={student.id} className="online-student">
+                {student.firstName}
+              </p>
+            </div>
+          )
         })}
         {/* <h1>{students[0].name || 'hello'}</h1> */}
         <ul id="attendance-list" />
@@ -165,7 +168,9 @@ export class Attendance extends Component {
               </div>
             )
           })}
-          <button id="submit-attendance">Submit</button>
+          <button id="submit-attendance" className="submitAttendance">
+            Submit
+          </button>
         </form>
 
         <button onClick={this.togglePastAttendance}>Attendance History</button>

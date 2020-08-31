@@ -4,7 +4,7 @@ import {getTeacherCoursesThunk} from '../store/user'
 import {connect} from 'react-redux'
 import io from 'socket.io-client'
 import {setSocket} from '../store/socket'
-import getSingleCourseThunk from '../store/course'
+import {getSingleCourseThunk, addCourseThunk} from '../store/course'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export class TeacherDash extends Component {
       introCourseText: '',
       moreClassInformationText: '',
       courseName: '',
+      courseSchedule: '',
       courseSize: null,
       courseId: null,
       renderNewCourseForm: false,
@@ -27,7 +28,9 @@ export class TeacherDash extends Component {
     this.mapCourseNameToState = this.mapCourseNameToState.bind(this)
     this.mapCourseSizeToState = this.mapCourseSizeToState.bind(this)
     this.mapCourseIdToState = this.mapCourseIdToState.bind(this)
+    this.mapCourseScheduleToState = this.mapCourseScheduleToState.bind(this)
   }
+
   async componentWillMount() {
     try {
       await this.props.getMyCourses(this.props.userId)
@@ -35,6 +38,7 @@ export class TeacherDash extends Component {
       console.log(err)
     }
   }
+
   componentDidMount() {
     this.setState({
       coursesArray: this.props.courses
@@ -43,7 +47,15 @@ export class TeacherDash extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.postCourse(this.state)
+    this.props.postCourse({
+      id: Number(this.state.courseId),
+      teacherId: Number(this.props.reduxState.user.me.id),
+      courseName: this.state.courseName,
+      size: Number(this.state.courseSize),
+      courseIntro: this.state.introCourseText,
+      courseMoreInformation: this.state.moreClassInformationText,
+      courseSchedule: this.state.courseSchedule
+    })
   }
 
   handleClick(e) {
@@ -86,12 +98,19 @@ export class TeacherDash extends Component {
     })
   }
 
+  mapCourseScheduleToState(e) {
+    e.preventDefault()
+    this.setState({
+      courseSchedule: e.target.value
+    })
+  }
+
   render() {
     const courseList = this.props.courses || []
-    console.log(
-      'on the teacher dash component, the course list looks like this: ',
-      courseList
-    )
+
+    console.log('on the TeacherDash component, the props are: ', this.props)
+
+    console.log('on the TeacherDash component, the state is: ', this.state)
     return (
       <div
         className="TeacherDash"
@@ -198,6 +217,12 @@ export class TeacherDash extends Component {
             <label htmlFor="courseId">Course Id: </label>
             <textarea name="courseId" onChange={this.mapCourseIdToState} />
             <br />
+            <label htmlFor="courseSchedule">Course Schedule: </label>
+            <textarea
+              name="courseSchedule"
+              onChange={this.mapCourseScheduleToState}
+            />
+            <br />
             <button
               type="button"
               className="submitCourse"
@@ -219,7 +244,8 @@ const mapDispatchToProps = dispatch => {
     getAllCourses: () => dispatch(getAllCoursesThunk()),
     getMyCourses: id => dispatch(getTeacherCoursesThunk(id)),
     newSocket: socket => dispatch(setSocket(socket)),
-    single: id => dispatch(getSingleCourseThunk(id))
+    single: id => dispatch(getSingleCourseThunk(id)),
+    postCourse: courseData => dispatch(addCourseThunk(courseData))
   }
 }
 const mapStateToProps = state => {

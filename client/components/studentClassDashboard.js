@@ -27,17 +27,23 @@ export class studentClassDashboard extends React.Component {
 
   async componentDidMount() {
     let course = this.props.location.state.number
-    let current_time = moment().format("HH:mm")
+    this.props.getCourse(course)
+
+    let current_time = moment().format('HH:mm')
     const socket = this.props.socket
-    
-    socket.emit('login', {course, level: 'student', name: this.props.location.state.firstName})
+
+    socket.emit('login', {
+      course,
+      level: 'student',
+      name: this.props.location.state.firstName
+    })
     socket.on('attendance', () => {
       socket.emit('present', this.props.user.id)
     })
     socket.on('room-chat', message => {
       console.log(message)
     })
-    socket.on('message', (message) => {
+    socket.on('message', message => {
       this.setState({
         ...this.state,
         messages: [...this.state.messages, message]
@@ -45,22 +51,22 @@ export class studentClassDashboard extends React.Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-        const view = document.querySelector('.selectAudience').selectedIndex
-        
-        if(e.key === 'Enter'){
-          if(view === 1){
-            socket.emit('student-teacher-message', {
-              message: e.target.value,
-              name: this.props.location.state.firstName,
-            }) 
-          } else {
-            socket.emit('student-public-message', {
-              message: e.target.value,
-              name: this.props.location.state.firstName,
-            }) 
-          }
-          e.target.value = ''
+      const view = document.querySelector('.selectAudience').selectedIndex
+
+      if (e.key === 'Enter') {
+        if (view === 1) {
+          socket.emit('student-teacher-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
+        } else {
+          socket.emit('student-public-message', {
+            message: e.target.value,
+            name: this.props.location.state.firstName
+          })
         }
+        e.target.value = ''
+      }
     })
   }
   sendMessage(message) {
@@ -86,6 +92,10 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
+    console.log(
+      'the props on the studentClassDashboard component are ',
+      this.props
+    )
     return (
       <div className="studentClassDashboard">
         <div>

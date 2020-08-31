@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
-import {getTeacherCoursesThunk} from '../store/user'
+import {
+  getTeacherCoursesThunk,
+  addUserThunk,
+  getAllUsersThunk
+} from '../store/user'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 // import {default as StudentClassDashboard} from './studentClassDashboard'
@@ -49,6 +53,19 @@ export class TeacherClassboard extends Component {
 
   handleStudentSubmit(e) {
     e.preventDefault()
+    let allUserIds = this.props.reduxState.user.all.map(user => {
+      return Number(user.id)
+    })
+    // console.log('allUserIds is ', Math.max(...allUserIds))
+    let nextId = Math.max(...allUserIds) + 1
+    this.props.addNewUser({
+      accountType: 'student',
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      id: nextId
+    })
   }
 
   mapInputToState(e) {
@@ -78,7 +95,11 @@ export class TeacherClassboard extends Component {
 
     const socket = this.props.socket
 
-    socket.emit('login', {course, level: 'teacher', name: this.props.location.state.firstName})
+    socket.emit('login', {
+      course,
+      level: 'teacher',
+      name: this.props.location.state.firstName
+    })
     socket.on('room-chat', message => {
       console.log(message)
     })
@@ -88,8 +109,8 @@ export class TeacherClassboard extends Component {
         messages: [...this.state.messages, message]
       })
     })
-    socket.on('private-message', (MessageTypeUser) => {
-      const { message, type, user } = MessageTypeUser
+    socket.on('private-message', MessageTypeUser => {
+      const {message, type, user} = MessageTypeUser
       this.setState({
         ...this.state,
         messages: [...this.state.messages, MessageTypeUser]
@@ -99,20 +120,20 @@ export class TeacherClassboard extends Component {
     input.addEventListener('keypress', e => {
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
-        if(view === 'All'){
+        if (view === 'All') {
           socket.emit('teacher-public-message', {
             message: e.target.value,
             name: this.props.location.state.firstName
           })
         } else {
-          socket.emit('direct-message', {          
+          socket.emit('direct-message', {
             message: e.target.value,
             name: this.props.location.state.firstName,
             to: view,
             level: 'teacher'
           })
         }
-        
+
         e.target.value = ''
       }
     })
@@ -151,8 +172,12 @@ export class TeacherClassboard extends Component {
       let courseIdFromPath = this.props.location.pathname.slice(
         this.props.location.pathname.length - 1
       )
-      await this.props.getSingleCourse(this.props.location.state.number)
-      await this.props.getStudentsForThisCourse(this.props.location.state.number)
+      let courseIdFromState = this.props.history.location.state.number
+      await this.props.getSingleCourse(courseIdFromState)
+      await this.props.getStudentsForThisCourse(courseIdFromState)
+      await this.props.getAllUsers()
+      // await this.props.getSingleCourse(this.props.location.state.number)
+      // await this.props.getStudentsForThisCourse(this.props.location.state.number)
     } catch (err) {
       console.log(err)
     }
@@ -162,12 +187,10 @@ export class TeacherClassboard extends Component {
     const courseList = this.props.reduxState.user.courses || []
     const courseName = this.props.reduxState.course.single.courseName
 
-   
     return (
-      <div className="teacherClassBoard" style={{overflow: 'scroll'}}>
+      <div className="teacherClassBoard">
         <div className="classboardList">
           <b>{courseName}</b>
-
           {this.props.reduxState.course.students.map((studentObject, index) => {
             const counter = index
             return (
@@ -183,7 +206,6 @@ export class TeacherClassboard extends Component {
             )
           })}
         </div>
-
         <div className="scheduleDashBox">
           <div className="classboardSchedule">
             {this.props.reduxState.course.single.courseSchedule ? (
@@ -210,9 +232,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -227,9 +247,7 @@ export class TeacherClassboard extends Component {
             </button>
             {this.state.showAssignmentView ? (
               <AssignmentView
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -292,9 +310,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.location.pathname.slice(
-                  this.props.location.pathname.length - 1
-                )}
+                courseIdInherited={this.props.history.location.state.number}
               />
             ) : (
               <div />
@@ -350,23 +366,17 @@ export class TeacherClassboard extends Component {
                 {this.props.students.map((student, idx) => (
                   <option value={student.firstName}>{student.firstName}</option>
                 ))}
-                
               </select>
               <br />
               Say something nice..
               <div id="message-main">
                 <div id="chat-messages" />
                 {this.state.messages.map((message, idx) => (
-                  <p      
-                    className={message.css}
-                  >
-                    {message.message}
-                  </p>
+                  <p className={message.css}>{message.message}</p>
                 ))}
                 <input id="chat-input" type="text" overflow="auto" />
               </div>
             </div>
-            <button className="classboardAddStudent">Add</button>
           </div>
         </div>
       </div>
@@ -379,7 +389,9 @@ const mapDispatchToProps = dispatch => {
     getMyCourses: userId => dispatch(getTeacherCoursesThunk(userId)),
     getSingleCourse: courseId => dispatch(getSingleCourseThunk(courseId)),
     getStudentsForThisCourse: courseId =>
-      dispatch(getCourseStudentsThunk(courseId))
+      dispatch(getCourseStudentsThunk(courseId)),
+    addNewUser: userData => dispatch(addUserThunk(userData)),
+    getAllUsers: () => dispatch(getAllUsersThunk())
   }
 }
 const mapStateToProps = state => {
