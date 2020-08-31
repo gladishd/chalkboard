@@ -11,7 +11,11 @@ import {default as Attendance} from './Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
 import io from 'socket.io-client'
-import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
+import {
+  getSingleCourseThunk,
+  getCourseStudentsThunk,
+  updateCourseThunk
+} from '../store/course'
 import CreateZoomVideo from './Zoom/CreateVideoButton'
 import AssignmentForm from './Assignments/AssignmentForm'
 
@@ -25,6 +29,7 @@ export class TeacherClassboard extends Component {
       showAssignmentByStudentView: false,
       renderNewAssignmentForm: false,
       renderNewStudentForm: false,
+      showCourseData: false,
       assignmentName: '',
       dueDate: '',
       totalPoints: '',
@@ -33,19 +38,66 @@ export class TeacherClassboard extends Component {
       lastName: '',
       email: '',
       password: '',
-      messages: []
+      messages: [],
+      courseNameTextArea: '',
+      courseSizeTextArea: '',
+      courseIntroTextArea: '',
+      courseMoreInformationTextArea: '',
+      courseScheduleTextArea: ''
     }
-    // this.toggleLecture = this.toggleLecture.bind(this)
-    this.toggleAttendance = this.toggleAttendance.bind(this)
-    this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
-    this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
-      this
-    )
-    this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this)
-    this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
     this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
     this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
     this.mapInputToState = this.mapInputToState.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.handleUpdateCourse = this.handleUpdateCourse.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    e.preventDefault()
+    this.setState({[e.target.className]: e.target.value})
+  }
+
+  handleUpdateCourse(e) {
+    e.preventDefault()
+    let {
+      courseNameTextArea,
+      courseSizeTextArea,
+      courseIntroTextArea,
+      courseMoreInformationTextArea,
+      courseScheduleTextArea
+    } = this.state
+
+    if (!courseNameTextArea) {
+      courseNameTextArea = this.props.reduxState.course.single.courseName
+    }
+    if (!courseSizeTextArea) {
+      courseSizeTextArea = this.props.reduxState.course.single.size
+    }
+    if (!courseIntroTextArea) {
+      courseIntroTextArea = this.props.reduxState.course.single.courseIntro
+    }
+    if (!courseMoreInformationTextArea) {
+      courseMoreInformationTextArea = this.props.reduxState.course.single
+        .courseMoreInformation
+    }
+
+    if (!courseScheduleTextArea) {
+      courseScheduleTextArea = this.props.reduxState.course.single
+        .courseSchedule
+    }
+
+    this.props.putCourse(
+      {
+        courseNameTextArea,
+        courseSizeTextArea,
+        courseIntroTextArea,
+        courseMoreInformationTextArea,
+        courseScheduleTextArea
+      },
+      this.props.history.location.state.number,
+      this.props.reduxState.user.me.id
+    )
   }
 
   handleAssignmentSubmit(e) {
@@ -74,23 +126,47 @@ export class TeacherClassboard extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  toggleNewAssignmentForm(e) {
+  toggle(e) {
     e.preventDefault()
-    this.setState({
-      renderNewAssignmentForm: !this.state.renderNewAssignmentForm
-    })
+    switch (e.target.className) {
+      case 'classboardAttendance':
+        this.setState({
+          showAttendance: !this.state.showAttendance
+        })
+        break
+
+      case 'classboardAssignments':
+        this.setState({
+          showAssignmentView: !this.state.showAssignmentView
+        })
+        break
+
+      case 'classboardStudent':
+        this.setState({
+          showAssignmentByStudentView: !this.state.showAssignmentByStudentView
+        })
+        break
+
+      case 'classboardInformation':
+        this.setState({
+          showCourseData: !this.state.showCourseData
+        })
+        break
+
+      case 'classboardAddAssignment':
+        this.setState({
+          renderNewAssignmentForm: !this.state.renderNewAssignmentForm
+        })
+        break
+
+      case 'classboardAddStudent':
+        this.setState({
+          renderNewStudentForm: !this.state.renderNewStudentForm
+        })
+        break
+    }
   }
 
-  toggleNewStudentForm(e) {
-    e.preventDefault()
-    this.setState({
-      renderNewStudentForm: !this.state.renderNewStudentForm
-    })
-  }
-  // async componentWillMount(){
-  //   await this.props.getCourseStudents(this.props.location.state.number)
-
-  // }
   componentDidMount() {
     let course = this.props.location.state.number
 
@@ -139,33 +215,6 @@ export class TeacherClassboard extends Component {
       }
     })
   }
-  toggleLecture(e) {
-    e.preventDefault()
-    this.setState({
-      showLecture: !this.state.showLecture
-    })
-  }
-
-  toggleAttendance(e) {
-    e.preventDefault()
-    this.setState({
-      showAttendance: !this.state.showAttendance
-    })
-  }
-
-  toggleAssignmentView(e) {
-    e.preventDefault()
-    this.setState({
-      showAssignmentView: !this.state.showAssignmentView
-    })
-  }
-
-  toggleAssignmentByStudentView(e) {
-    e.preventDefault()
-    this.setState({
-      showAssignmentByStudentView: !this.state.showAssignmentByStudentView
-    })
-  }
 
   async componentWillMount() {
     try {
@@ -207,6 +256,7 @@ export class TeacherClassboard extends Component {
             )
           })}
         </div>
+
         <div className="scheduleDashBox">
           <div className="classboardSchedule">
             {this.props.reduxState.course.single.courseSchedule ? (
@@ -219,12 +269,88 @@ export class TeacherClassboard extends Component {
           </div>
 
           <div className="teacherClassboardOptions">
+            <button
+              type="button"
+              className="classboardInformation"
+              onClick={this.toggle}
+            >
+              Course Information
+            </button>
+
+            {this.state.showCourseData ? (
+              <form onSubmit={e => this.handleUpdateCourse(e)}>
+                <label htmlFor="courseName">
+                  Name:
+                  <textarea
+                    className="courseNameTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseName}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseSize">
+                  Size:
+                  <textarea
+                    className="courseSizeTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.size}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseIntro">
+                  Intro:
+                  <textarea
+                    className="courseIntroTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseIntro}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseMoreInformation">
+                  Information:
+                  <textarea
+                    className="courseMoreInformationTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseMoreInformation}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseSchedule">
+                  Schedule:
+                  <textarea
+                    className="courseScheduleTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseSchedule}
+                  </textarea>
+                </label>
+
+                <button type="submit" className="buttonUpdateCourse">
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div />
+            )}
+
             <CreateZoomVideo />
 
             <button
               type="button"
               className="classboardAttendance"
-              onClick={this.toggleAttendance}
+              onClick={this.toggle}
             >
               Today's Attendance
             </button>
@@ -242,7 +368,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAssignments"
-              onClick={this.toggleAssignmentView}
+              onClick={this.toggle}
             >
               Assignments
             </button>
@@ -257,7 +383,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAddAssignment"
-              onClick={this.toggleNewAssignmentForm}
+              onClick={this.toggle}
             >
               Add
             </button>
@@ -272,7 +398,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardStudent"
-              onClick={this.toggleAssignmentByStudentView}
+              onClick={this.toggle}
             >
               Student
             </button>
@@ -291,7 +417,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAddStudent"
-              onClick={this.toggleNewStudentForm}
+              onClick={this.toggle}
             >
               Add
             </button>
@@ -336,7 +462,9 @@ export class TeacherClassboard extends Component {
                 // onChange={this.handleChange}
               >
                 {this.props.students.map((student, idx) => (
-                  <option value={student.firstName}>{student.firstName}</option>
+                  <option key={student.firstName} value={student.firstName}>
+                    {student.firstName}
+                  </option>
                 ))}
               </select>
               <br />
@@ -368,7 +496,9 @@ const mapDispatchToProps = dispatch => {
     getStudentsForThisCourse: courseId =>
       dispatch(getCourseStudentsThunk(courseId)),
     addNewUser: userData => dispatch(addUserThunk(userData)),
-    getAllUsers: () => dispatch(getAllUsersThunk())
+    getAllUsers: () => dispatch(getAllUsersThunk()),
+    putCourse: (data, courseId, teacherId) =>
+      dispatch(updateCourseThunk(data, courseId, teacherId))
   }
 }
 const mapStateToProps = state => {

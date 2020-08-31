@@ -37,12 +37,14 @@ export class TeacherAssignmentView extends Component {
         <div className="dropdownAssignment">
           Dropdown for assignment
           <select name="assignments" onChange={this.handleChange}>
-            <option value="" selected>
+            <option value="" defaultValue>
               Select an option
             </option>
             {this.props.reduxState.assignment.assignments.map(element => {
               return (
-                <option value={element.id}>{element.assignmentName}</option>
+                <option key={element.id} value={element.id}>
+                  {element.assignmentName}
+                </option>
               )
             })}
             <option value="all">Show All</option>
@@ -62,7 +64,7 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div className="assignmentCheckBoxesSection">
+                <div key={element.id} className="assignmentCheckBoxesSection">
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
