@@ -128,7 +128,9 @@ export const getUserGradebookThunk = userId => {
 export const addUserThunk = user => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('api/orders', user)
+      console.log('did we reach the add user Thunk?')
+      console.log('On the addUserThunk, the user object is ', user)
+      const {data} = await axios.post('api/users', user)
       dispatch(addUser(data))
     } catch (err) {
       console.error(err.message)

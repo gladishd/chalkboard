@@ -44,6 +44,7 @@ router.get('/students/:courseId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    console.log('did we reach the post route?')
     const newCourse = await Course.create(req.body)
     newCourse ? res.json(newCourse) : res.status(400).end()
   } catch (err) {

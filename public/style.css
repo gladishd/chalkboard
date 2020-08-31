@@ -13,10 +13,14 @@
   font-style: normal;
 }
 
-html body {
+html {
   overflow: scroll !important;
+}
+
+html body {
   color: #fbe06b;
   font-family: 'chalktasticregular', sans-serif !important;
+  overflow: scroll !important;
 }
 
 body > #zmmtg-root {
@@ -150,7 +154,7 @@ nav a {
 }
 
 .introductionToTheCourse {
-  background-image: url(backgroundIntroductionTotheCourse.jpg);
+  background-image: url(backgroundIntroductionTotheCourse.png);
   background-size: 15px;
   background-repeat: repeat;
   flex-direction: column;
@@ -164,7 +168,7 @@ nav a {
 }
 
 .studentClassDashboard .liveLecture {
-  background-image: url(liveChatBackground.jpg);
+  background-image: url(liveChatBackground.png);
   background-size: 50px;
   background-repeat: repeat;
   border-image: url(liveChatBorder.png) 25 25 round;
@@ -441,7 +445,7 @@ nav a {
 
 .teacherClassBoard .classboardSchedule {
   border-style: outset;
-  background-color: grey;
+  background-color: rgba(128, 128, 128, 0.445);
   display: flex;
   flex-direction: column;
   margin: 2em;
@@ -457,10 +461,11 @@ nav a {
 }
 
 .teacherClassBoard .classboardStartLecture {
-  background-color: orange;
+  background-color: rgba(255, 166, 0, 0.418);
   padding: 1em;
   border-style: outset;
   height: 5em;
+  width: 50vw;
 }
 
 .teacherClassBoard .classboardStartLecture:hover,
@@ -473,11 +478,26 @@ nav a {
   outline: none;
 }
 
+.submitAttendance {
+  width: 4.5em;
+}
+
 .teacherClassBoard .classboardAttendance {
-  background-color: limegreen;
+  background-color: rgba(50, 205, 50, 0.39);
   padding: 1em;
   overflow-y: scroll;
   height: 5em;
+  width: 50vw;
+}
+
+.attendanceForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.attendanceFormOptions {
+  display: flex;
+  flex-direction: row;
 }
 
 .attendanceComponent {
@@ -504,9 +524,10 @@ nav a {
 }
 
 .teacherClassBoard .classboardAssignments {
-  background-color: purple;
+  background-color: rgba(128, 0, 128, 0.39);
   padding: 1em;
   height: 5em;
+  width: 50vw;
 }
 
 .teacherClassBoard .classboardAssignments:focus {
@@ -514,9 +535,10 @@ nav a {
 }
 
 .teacherClassBoard .classboardAddAssignment {
-  background-color: purple;
+  background-color: rgba(128, 0, 128, 0.39);
   padding: 1em;
   height: 5em;
+  width: 50vw;
 }
 
 .teacherClassBoard .classboardAddAssignment:focus {
@@ -527,6 +549,7 @@ nav a {
   background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
   height: 5em;
+  width: 50vw;
 }
 
 .teacherClassBoard .classboardStudent:focus {
@@ -537,6 +560,7 @@ nav a {
   background-color: rgba(128, 0, 0, 0.288);
   padding: 1em;
   height: 5em;
+  width: 50vw;
 }
 
 .teacherClassBoard .classboardAddStudent:focus {
@@ -586,7 +610,7 @@ nav a {
 
 .dropdownAssignment {
   background-color: rgba(128, 0, 128, 0.288);
-  width: 60%;
+  width: 30em;
   padding: 1em;
   border-style: outset;
 }
@@ -639,6 +663,7 @@ nav a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 10em;
 }
 
 .assignmentsByStudent .studentAttendanceBoxes {

@@ -30,7 +30,8 @@ export class TeacherAssignmentView extends Component {
 
   render() {
     let allAssignments = this.props.reduxState.assignment.assignments || []
-    console.log('the value of allAssignemnts is ', allAssignments)
+    console.log('the value of allAssignments is ', allAssignments)
+    console.log('the props on the TeacherAssignmentView are ', this.props)
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">
@@ -77,9 +78,9 @@ export class TeacherAssignmentView extends Component {
                       {element.totalPoints}
                     </div>
                     <div className="checkbox">
-                      Percentage of Grade
+                      Weight
                       <hr />
-                      {element.percentTotalGrade}%
+                      {element.weight}
                     </div>
                   </div>
                 </div>

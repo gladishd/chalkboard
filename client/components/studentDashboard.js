@@ -110,7 +110,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getAllCoursesThunk())
     },
     getMyCourses: id => dispatch(getUserCoursesThunk(id)),
-    newSocket: (socket) => dispatch(setSocket(socket))
+    newSocket: socket => dispatch(setSocket(socket))
   }
 }
 
