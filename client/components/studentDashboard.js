@@ -66,7 +66,8 @@ export class StudentDashboard extends React.Component {
             <div />
           )}
         </div>
-        Not Enrolled in:
+        {/* Do we need a not enrolled In column? */}
+        {/* Not Enrolled in:
         <div className="studentCourseList">
           {notEnrolledList.length > 0 &&
           Object.keys(notEnrolledList[0].length > 0) ? (
@@ -86,7 +87,7 @@ export class StudentDashboard extends React.Component {
           ) : (
             <div />
           )}
-        </div>
+        </div> */}
       </div>
     )
   }
