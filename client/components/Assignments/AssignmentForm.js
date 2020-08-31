@@ -9,14 +9,13 @@ const defaultState = {
   totalPoints: '',
   time: '',
   weight: '',
-  description: '',
-  type: 'homework'
+  description: ''
 }
 
 class AssignmentForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = defaultState
+    this.state = {...defaultState, type: 'homework'}
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -39,6 +38,8 @@ class AssignmentForm extends React.Component {
     }
 
     this.props.addAssignment(payload)
+    console.log(this.setState)
+    this.setState({...defaultState})
   }
 
   handleChange(evt) {
@@ -56,7 +57,7 @@ class AssignmentForm extends React.Component {
             name="assignmentName"
             type="text"
             onChange={this.handleChange}
-            value={this.state.name}
+            value={this.state.assignmentName}
           />
         </div>
 
@@ -65,7 +66,7 @@ class AssignmentForm extends React.Component {
           <textarea
             name="description"
             onChange={this.handleChange}
-            value={this.state.name}
+            value={this.state.description}
           />
         </div>
 
