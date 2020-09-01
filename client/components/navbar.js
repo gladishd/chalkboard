@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {NavLink, NavNavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, accountType}) => (
@@ -39,9 +39,8 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
             Old Teacher Dashboard
           </NavLink>
           <NavLink
-            href="#"
+            to="/login"
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
             onClick={handleClick}
           >
             Logout
@@ -65,9 +64,8 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
             Teacher Dashboard
           </NavLink>
           <NavLink
-            href="#"
+            to="/login"
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
             onClick={handleClick}
           >
             Logout
@@ -91,9 +89,8 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
             Student Dashboard
           </NavLink>
           <NavLink
-            href="#"
+            to="/login"
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
             onClick={handleClick}
           >
             Logout
