@@ -11,7 +11,6 @@ router.get('/assignments', async (req, res, next) => {
     const userId = req.user.id
     const user = await User.findByPk(userId)
     const assignments = await user.getAssignments()
-    console.log('dispatch assignments ', assignments)
     res.json(assignments)
 
   } catch (err){

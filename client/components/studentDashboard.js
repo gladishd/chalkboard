@@ -66,7 +66,7 @@ export class StudentDashboard extends React.Component {
   render() {
     // const assignments = this.props.assignments.assignments
     const assignments = this.props.assignments
-    console.log('state assignments ', this.props.assignments)
+    console.log('pass student', this.props)
     const courseList = this.props.courses || []
     const allCoursesList = this.props.allCourses || []
     const coursesToExclude = courseList.map(course => course.id)
@@ -137,7 +137,7 @@ export class StudentDashboard extends React.Component {
         <div id='submit-assignment'>
           {this.state.focus !== null ? (
             <div>
-            <Submit assignment={this.state.focus} />
+            <Submit user={{id:this.props.userId, firstName: this.props.firstName}}assignment={this.state.focus} />
             </div>
           ) : null
         
