@@ -36,6 +36,7 @@ export class TeacherAssignmentView extends Component {
   render() {
     // console.log('the value of allAssignments is ', allAssignments)
     // console.log('the props on the TeacherAssignmentView are ', this.props)
+    console.log(this.props.match)
 
     return (
       <div className="assignmentViewMainDiv">

@@ -10,7 +10,7 @@ import {connect} from 'react-redux'
 import {default as Attendance} from '../Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import {
   getSingleCourseThunk,
   getCourseStudentsThunk,
@@ -179,7 +179,9 @@ export class TeacherClassboard extends Component {
     socket.emit('login', {
       course,
       level: 'teacher',
+
       name: this.props.reduxState.course.single.courseName
+
     })
     socket.on('room-chat', message => {
       console.log(message)
