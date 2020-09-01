@@ -12,10 +12,10 @@ export const UserHome = props => {
 
   // console.log('user home props ', props)
   return (
-    <div>
-      <h1>{`Welcome ${firstName} ${lastName}`}</h1>
-      <h2>{`email: ${email}`}</h2>
-      <h2>{`account type: ${accountType}`}</h2>
+    <div className="user-home-component">
+      <h2>{`Welcome ${firstName} ${lastName}`}</h2>
+      <h3>{`email: ${email}`}</h3>
+      <h4>{`account type: ${accountType}`}</h4>
     </div>
   )
 }

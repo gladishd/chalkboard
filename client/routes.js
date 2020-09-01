@@ -38,7 +38,7 @@ class Routes extends Component {
       <Switch id="routes-component">
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        {/* <Route path="/signup" component={Signup} /> */}
         {/* Routes below give conditional access based on account type */}
 
         {/* Admin Routes */}

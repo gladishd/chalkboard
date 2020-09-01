@@ -23,6 +23,32 @@ html body {
   overflow: scroll !important;
 }
 
+#navbar-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-header {
+  padding-top: 5vh;
+}
+
+.auth-form-component {
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.user-home-component {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  align-items: center;
+  padding-top: 3vh;
+}
+
 body > #zmmtg-root {
   z-index: -1;
   background-image: url('chalkboard-bg.png');
