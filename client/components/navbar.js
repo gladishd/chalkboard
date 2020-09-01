@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {NavLink, NavNavLink} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, accountType}) => (
@@ -10,58 +10,105 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
     <nav>
       {isLoggedIn && accountType === 'admin' && (
         <div>
-          <Link className="react-router-link" to="/home">
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/home"
+          >
             Home
-          </Link>
-          <Link className="react-router-link" to="/studentDashboard">
+          </NavLink>
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/studentDashboard"
+          >
             Student Dashboard
-          </Link>
-          <Link className="react-router-link" to="/TeacherDash">
+          </NavLink>
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/TeacherDash"
+          >
             Teacher Dashboard
-          </Link>
-          <Link className="react-router-link" to="/teacherDashboard">
+          </NavLink>
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/teacherDashboard"
+          >
             Old Teacher Dashboard
-          </Link>
-          <a href="#" className="react-router-link" onClick={handleClick}>
+          </NavLink>
+          <NavLink
+            href="#"
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            onClick={handleClick}
+          >
             Logout
-          </a>
+          </NavLink>
         </div>
       )}
       {isLoggedIn && accountType === 'teacher' && (
         <div>
-          <Link className="react-router-link" to="/home">
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/home"
+          >
             Home
-          </Link>
-          <Link className="react-router-link" to="/TeacherDash">
+          </NavLink>
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/TeacherDash"
+          >
             Teacher Dashboard
-          </Link>
-          <a href="#" className="react-router-link" onClick={handleClick}>
+          </NavLink>
+          <NavLink
+            href="#"
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            onClick={handleClick}
+          >
             Logout
-          </a>
+          </NavLink>
         </div>
       )}
       {isLoggedIn && accountType === 'student' && (
         <div>
-          <Link className="react-router-link" to="/home">
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/home"
+          >
             Home
-          </Link>
-          <Link className="react-router-link" to="/studentDashboard">
+          </NavLink>
+          <NavLink
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            to="/studentDashboard"
+          >
             Student Dashboard
-          </Link>
-          <a href="#" className="react-router-link" onClick={handleClick}>
+          </NavLink>
+          <NavLink
+            href="#"
+            className="react-router-link"
+            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            onClick={handleClick}
+          >
             Logout
-          </a>
+          </NavLink>
         </div>
       )}
       {!isLoggedIn && (
         <div>
           {/* The navbar will show these links before you log in */}
-          {/* <Link className="react-router-link" to="/login">
+          {/* <NavLink className="react-router-link" to="/login">
             Login
-          </Link> */}
-          {/* <Link className="react-router-link" to="/signup">
+          </NavLink> */}
+          {/* <NavLink className="react-router-link" to="/signup">
             Sign Up
-          </Link> */}
+          </NavLink> */}
         </div>
       )}
     </nav>
