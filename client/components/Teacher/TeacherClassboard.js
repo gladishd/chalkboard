@@ -179,7 +179,9 @@ export class TeacherClassboard extends Component {
     socket.emit('login', {
       course,
       level: 'teacher',
-      name: 'Course Name'
+
+      name: this.props.reduxState.course.single.courseName
+
     })
     socket.on('room-chat', message => {
       console.log(message)
