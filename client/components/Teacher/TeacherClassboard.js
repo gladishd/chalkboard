@@ -10,7 +10,7 @@ import {connect} from 'react-redux'
 import {default as Attendance} from '../Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 import {
   getSingleCourseThunk,
   getCourseStudentsThunk,
@@ -30,10 +30,11 @@ export class TeacherClassboard extends Component {
       renderNewAssignmentForm: false,
       renderNewStudentForm: false,
       showCourseData: false,
-      assignmentName: '',
-      dueDate: '',
-      totalPoints: '',
-      percentTotalGrade: '',
+      courseId: '',
+      // assignmentName: '',
+      // dueDate: '',
+      // totalPoints: '',
+      // percentTotalGrade: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -164,32 +165,33 @@ export class TeacherClassboard extends Component {
           renderNewStudentForm: !this.state.renderNewStudentForm
         })
         break
+      default:
+        break
     }
   }
 
   componentDidMount() {
-    let course = this.props.location.state.number
+    console.log(this.req)
+    let course = this.state.courseId
 
     const socket = this.props.socket
 
     socket.emit('login', {
       course,
       level: 'teacher',
-      name: this.props.location.state.firstName
+      name: 'Course Name'
     })
     socket.on('room-chat', message => {
       console.log(message)
     })
     socket.on('message', message => {
       this.setState({
-        ...this.state,
         messages: [...this.state.messages, message]
       })
     })
     socket.on('private-message', MessageTypeUser => {
       const {message, type, user} = MessageTypeUser
       this.setState({
-        ...this.state,
         messages: [...this.state.messages, MessageTypeUser]
       })
     })
@@ -216,25 +218,26 @@ export class TeacherClassboard extends Component {
     })
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
-      let courseIdFromPath = this.props.location.pathname.slice(
-        this.props.location.pathname.length - 1
-      )
-      let courseIdFromState = this.props.history.location.state.number
-      await this.props.getSingleCourse(courseIdFromState)
-      await this.props.getStudentsForThisCourse(courseIdFromState)
+      const courseId = Number(this.props.match.params.id)
+
+      this.setState({courseId})
+
+      await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getStudentsForThisCourse(this.state.courseId)
       await this.props.getAllUsers()
-      // await this.props.getSingleCourse(this.props.location.state.number)
-      // await this.props.getStudentsForThisCourse(this.props.location.state.number)
+
+      //Hard coding course num 1
+      await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getStudentsForThisCourse(this.state.courseId)
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
-    // const courseList = this.props.reduxState.user.courses || []
     const courseName = this.props.reduxState.course.single.courseName
 
     return (
@@ -262,7 +265,10 @@ export class TeacherClassboard extends Component {
             {this.props.reduxState.course.single.courseSchedule ? (
               this.props.reduxState.course.single.courseSchedule
                 .split('\n')
-                .map((eachLine, index) => <div key={index}>{eachLine}</div>)
+                .map((eachLine, index) => {
+                  const counter = index
+                  return <div key={'courseSchedule' + counter}>{eachLine}</div>
+                })
             ) : (
               <div>No Schedule Available</div>
             )}
@@ -359,7 +365,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.history.location.state.number}
+                courseIdInherited={this.state.courseId}
               />
             ) : (
               <div />
@@ -373,9 +379,7 @@ export class TeacherClassboard extends Component {
               Assignments
             </button>
             {this.state.showAssignmentView ? (
-              <AssignmentView
-                courseIdInherited={this.props.history.location.state.number}
-              />
+              <AssignmentView courseIdInherited={this.state.courseId} />
             ) : (
               <div />
             )}
@@ -388,9 +392,7 @@ export class TeacherClassboard extends Component {
               Add
             </button>
             {this.state.renderNewAssignmentForm ? (
-              <CreateAssignment
-                courseId={this.props.reduxState.course.single.id}
-              />
+              <CreateAssignment courseId={this.state.courseId} />
             ) : (
               <div> </div>
             )}
@@ -408,7 +410,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.history.location.state.number}
+                courseIdInherited={this.state.courseId}
               />
             ) : (
               <div />
@@ -471,9 +473,17 @@ export class TeacherClassboard extends Component {
               Say something nice..
               <div id="message-main">
                 <div id="chat-messages" />
-                {this.state.messages.map((message, idx) => (
-                  <p className={message.css}>{message.message}</p>
-                ))}
+                {this.state.messages.map((message, index) => {
+                  const messageCounter = index
+                  return (
+                    <p
+                      key={'messageCounter' + messageCounter}
+                      className={message.css}
+                    >
+                      {message.message}
+                    </p>
+                  )
+                })}
                 <input
                   id="chat-input"
                   className="teacher-chat-input"

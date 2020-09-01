@@ -36,18 +36,17 @@ export class TeacherAssignmentView extends Component {
   render() {
     // console.log('the value of allAssignments is ', allAssignments)
     // console.log('the props on the TeacherAssignmentView are ', this.props)
+    console.log(this.props.match)
 
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">
           Dropdown for assignment
           <select name="assignments" onChange={this.handleChange}>
-
             <option value="all">Show All</option>
             {this.state.allAssignments.map(element => {
               return (
                 <option value={element.id} key={`Select${element.id}`}>
-
                   {element.assignmentName}
                 </option>
               )
@@ -68,9 +67,7 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-
                 <div key={element.id} className="assignmentCheckBoxesSection">
-
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">

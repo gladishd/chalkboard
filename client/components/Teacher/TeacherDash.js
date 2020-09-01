@@ -169,18 +169,9 @@ export class TeacherDash extends Component {
           courseList.map(course => {
             return (
               <Link
-                className="react-router-link"
+                className="react-router-link teacherDashClassName"
                 key={`courseListDash${course.id}`}
-                className="teacherDashClassName"
-                // to={`./TeacherClassboard/${course.id}`
-                to={{
-                  pathname: './TeacherClassboard',
-                  state: {
-                    number: course.id,
-                    name: course.courseName,
-                    firstName: this.props.firstName
-                  }
-                }}
+                to={`./TeacherClassboard/${course.id}`}
               >
                 {course.courseName}
               </Link>
