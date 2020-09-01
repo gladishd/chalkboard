@@ -51,6 +51,7 @@ html body {
 
 body > #zmmtg-root {
   z-index: -1;
+  background-color: black;
   background-image: url('chalkboard-bg.png');
   background-repeat: no-repeat;
   background-size: cover;
