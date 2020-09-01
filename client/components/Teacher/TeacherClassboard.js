@@ -15,7 +15,7 @@ import {
   getSingleCourseThunk,
   getCourseStudentsThunk,
   updateCourseThunk
-} from '../store/course'
+} from '../../store/course'
 import CreateZoomVideo from '../Zoom/CreateVideoButton'
 import {CreateAssignment} from '../index'
 
