@@ -127,19 +127,12 @@ export class TeacherDash extends Component {
               <div key={`spit${counter}`}>
                 <Link
                   className="react-router-link"
-                  to={{
-                    pathname: './TeacherClassboard',
-                    state: {
-                      number: course.id,
-                      name: course.courseName,
-                      firstName: this.props.firstName
-                    }
-                  }}
+                  to={`./TeacherClassboard/${course.id}`}
                 >
                   {course.courseName}
                 </Link>
-                {course.courseSchedule.split('\n').map((eachLine, index) => {
-                  const scheduleCounter = index
+                {course.courseSchedule.split('\n').map((eachLine, indx) => {
+                  const scheduleCounter = indx
                   return (
                     <div
                       key={`courseListSchedule${course.id}:${scheduleCounter}`}
