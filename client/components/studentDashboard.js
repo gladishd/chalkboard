@@ -6,6 +6,7 @@ import {getAllCoursesThunk} from '../store/course.js'
 import {getUserCoursesThunk} from '../store/user'
 import {setSocket} from '../store/socket'
 import {getStudentAssignments} from '../store/user'
+import Submit from './Submit'
 
 export class StudentDashboard extends React.Component {
   constructor(props) {
@@ -50,8 +51,17 @@ export class StudentDashboard extends React.Component {
   }
   showPanel(e){
     e.preventDefault()
-    let assignment = e.target.name
-    console.log('next to button ', assignment)
+    let value = e.target.name
+    console.log('pass down ', this.props.assignments)
+    const correct = this.props.assignments.filter((a) => {
+      console.log('as id', a.id, 'button id', value)
+      return Number(a.id) === Number(value)
+    })
+    console.log('picked is ', correct)
+    this.setState({
+      ...this.state,
+      focus: correct
+    })
   }
   render() {
     // const assignments = this.props.assignments.assignments
@@ -65,7 +75,7 @@ export class StudentDashboard extends React.Component {
     })
     return (
         
-      <div>
+      <div id='student-dashboard-container'>
         Currently Enrolled in:
         <div className="studentCourseList">
           {courseList.length > 0 && Object.keys(courseList[0].length > 0) ? (
@@ -95,7 +105,7 @@ export class StudentDashboard extends React.Component {
         </div>
         
      
-        <div>
+        <div className='assignments'>
           <h3>Edit Assignments</h3>
           <select onChange={this.handleChange}>
             <option value='select'>Select</option>
@@ -118,13 +128,21 @@ export class StudentDashboard extends React.Component {
             }).map(element => {
             return  (<div> 
                   <h1>{element.assignmentName}</h1>
-                  <button name={element.id} type='button' onClick={showPanel}>Click Me!</button>
+                  <button name={element.id} type='button' onClick={this.showPanel}>View Assignment</button>
                   </div>)
             })
           ) :  <h1>Still Loading...</h1> 
           } 
         </div>
+        <div id='submit-assignment'>
+          {this.state.focus !== null ? (
+            <div>
+            <Submit assignment={this.state.focus} />
+            </div>
+          ) : null
         
+        }
+        </div>
        
       </div>
     ) 
