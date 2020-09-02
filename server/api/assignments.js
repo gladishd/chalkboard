@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const {Assignment, Course} = require('../db/models')
+const {Assignment, Course, Gradebook} = require('../db/models')
 module.exports = router
 
+//Get all assignments
 router.get('/', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll()
@@ -11,6 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//Create a new assigmetn and assign all user's to it
 router.post('/', async (req, res, next) => {
   try {
     const {courseId} = req.body
@@ -68,6 +70,7 @@ router.delete('/:assignmentId', async (req, res, next) => {
   }
 })
 
+//Get all assignments within a class
 router.get('/byCourseId/:courseId', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll({
@@ -78,5 +81,20 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
     assignments ? res.json(assignments) : res.status(400).end()
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/users/:assignmentId', async (req, res, next) => {
+  try {
+    const assignmentId = Number(req.params.assignmentId)
+    const task = await Gradebook.findAll({
+      where: {
+        assignmentId
+      },
+      include: {}
+    })
+    task ? res.json(task) : res.status(400).end()
+  } catch (error) {
+    next(error)
   }
 })
