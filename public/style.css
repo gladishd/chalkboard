@@ -316,14 +316,13 @@ nav a {
   margin: 0px;
   height: auto;
   width: auto;
-  /* border-radius: 1em; */
   padding: 0.5rem;
   padding-bottom: 3rem;
 }
 
 .newGroupFormComponent .validationText {
   color: rgb(110, 94, 0);
-  font-size: 0.25rem;
+  font-size: 0.75rem;
 }
 
 .newGroupFormComponent .currentGroup {

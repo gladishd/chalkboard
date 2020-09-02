@@ -17,6 +17,8 @@ const LOGOUT_USER = 'LOGOUT_USER'
 const TAKE_ATTENDANCE = 'TAKE_ATTENDANCE'
 const GET_ALL_ATTENDANCE_FOR_COURSE = 'GET_ALL_ATTENDANCE_FOR_COURSE'
 const GET_USER_GRADEBOOK = 'GET_USER_GRADEBOOK'
+const POST_NEW_GROUP = 'POST_NEW_GROUP'
+const GET_ALL_GROUPS = 'GET_ALL_GROUPS'
 
 /**
  * ACTION CREATORS
@@ -43,6 +45,14 @@ const getUserGradebook = data => ({
   type: GET_USER_GRADEBOOK,
   data
 })
+const postNewGroup = data => ({
+  type: POST_NEW_GROUP,
+  data
+})
+const getAllGroups = groupData => ({
+  type: GET_ALL_GROUPS,
+  groupData
+})
 
 /**
  * THUNK CREATORS
@@ -53,6 +63,17 @@ export const getAllUsersThunk = () => {
     try {
       const {data} = await axios.get('/api/users')
       dispatch(getAllUsers(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const getAllGroupsThunk = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/users/groups')
+      dispatch(getAllGroups(data))
     } catch (err) {
       console.error(err.message)
     }
@@ -128,10 +149,19 @@ export const getUserGradebookThunk = userId => {
 export const addUserThunk = user => {
   return async dispatch => {
     try {
-      console.log('did we reach the add user Thunk?')
-      console.log('On the addUserThunk, the user object is ', user)
       const {data} = await axios.post('api/users', user)
       dispatch(addUser(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
+export const postGroupThunk = groupData => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/users/groups', groupData)
+      dispatch(postNewGroup(data))
     } catch (err) {
       console.error(err.message)
     }
@@ -218,7 +248,9 @@ const initialState = {
   courses: [],
   assignments: [],
   pastAttendance: {},
-  attendanceDataSubmitted: {}
+  attendanceDataSubmitted: {},
+  groupsPosted: [],
+  allGroups: []
 }
 
 /**
@@ -264,6 +296,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         gradebook: action.data
+      }
+    case POST_NEW_GROUP:
+      return {
+        ...state,
+        groupsPosted: [...state.groupsPosted, action.data]
+      }
+    case GET_ALL_GROUPS:
+      return {
+        ...state,
+        allGroups: action.groupData
       }
     default:
       return state

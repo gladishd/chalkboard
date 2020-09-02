@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {createGroupThunk} from '../store/createGroup'
-import {getAllUsersThunk} from '../store/user'
+import {getAllUsersThunk, postGroupThunk} from '../store/user'
 
 export class newGroupFormComponent extends React.Component {
   constructor() {
@@ -53,6 +53,10 @@ export class newGroupFormComponent extends React.Component {
       this.state.groupMembers,
       this.state.groupName
     )
+    this.props.postGroup({
+      groupMembers: this.state.groupMembers,
+      groupName: this.state.groupName
+    })
   }
 
   selectStudent(e) {
@@ -80,7 +84,6 @@ export class newGroupFormComponent extends React.Component {
   }
 
   render() {
-    console.log('props on newGroupFormComponent are ', this.props)
     return (
       <div>
         <div className="localNewGroupForm">
@@ -120,13 +123,14 @@ export class newGroupFormComponent extends React.Component {
                 return (
                   <option
                     value={
+                      '(' +
+                      element.id +
+                      ')' +
+                      ' ' +
                       element.firstName +
                       ' ' +
                       element.lastName +
-                      ' ' +
-                      '(' +
-                      element.id +
-                      ')'
+                      ' '
                     }
                     key={`Select${element.id}`}
                   >
@@ -156,13 +160,14 @@ export class newGroupFormComponent extends React.Component {
                 return (
                   <option
                     value={
+                      '(' +
+                      element.id +
+                      ')' +
+                      ' ' +
                       element.firstName +
                       ' ' +
                       element.lastName +
-                      ' ' +
-                      '(' +
-                      element.id +
-                      ')'
+                      ' '
                     }
                     key={`Select${element.id}`}
                   >
@@ -219,6 +224,9 @@ const mapDispatchToProps = dispatch => {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllUsers: () => {
       dispatch(getAllUsersThunk)
+    },
+    postGroup: groupData => {
+      dispatch(postGroupThunk(groupData))
     }
   }
 }
