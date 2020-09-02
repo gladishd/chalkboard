@@ -3,17 +3,21 @@ import {
   getTeacherCoursesThunk,
   addUserThunk,
   getAllUsersThunk
-} from '../store/user'
+} from '../../store/user'
 import {connect} from 'react-redux'
 // import {Link} from 'react-router-dom'
 // import {default as StudentClassDashboard} from './studentClassDashboard'
-import {default as Attendance} from './Attendance'
+import {default as Attendance} from '../Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
-import io from 'socket.io-client'
-import {getSingleCourseThunk, getCourseStudentsThunk} from '../store/course'
-import CreateZoomVideo from './Zoom/CreateVideoButton'
-import AssignmentForm from './Assignments/AssignmentForm'
+// import io from 'socket.io-client'
+import {
+  getSingleCourseThunk,
+  getCourseStudentsThunk,
+  updateCourseThunk
+} from '../../store/course'
+import CreateZoomVideo from '../Zoom/CreateVideoButton'
+import {CreateAssignment} from '../index'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -25,27 +29,76 @@ export class TeacherClassboard extends Component {
       showAssignmentByStudentView: false,
       renderNewAssignmentForm: false,
       renderNewStudentForm: false,
-      assignmentName: '',
-      dueDate: '',
-      totalPoints: '',
-      percentTotalGrade: '',
+      showCourseData: false,
+      courseId: '',
+      // assignmentName: '',
+      // dueDate: '',
+      // totalPoints: '',
+      // percentTotalGrade: '',
       firstName: '',
       lastName: '',
       email: '',
       password: '',
-      messages: []
+      messages: [],
+      courseNameTextArea: '',
+      courseSizeTextArea: '',
+      courseIntroTextArea: '',
+      courseMoreInformationTextArea: '',
+      courseScheduleTextArea: ''
     }
-    // this.toggleLecture = this.toggleLecture.bind(this)
-    this.toggleAttendance = this.toggleAttendance.bind(this)
-    this.toggleAssignmentView = this.toggleAssignmentView.bind(this)
-    this.toggleAssignmentByStudentView = this.toggleAssignmentByStudentView.bind(
-      this
-    )
-    this.toggleNewStudentForm = this.toggleNewStudentForm.bind(this)
-    this.toggleNewAssignmentForm = this.toggleNewAssignmentForm.bind(this)
     this.handleAssignmentSubmit = this.handleAssignmentSubmit.bind(this)
     this.handleStudentSubmit = this.handleStudentSubmit.bind(this)
     this.mapInputToState = this.mapInputToState.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.handleUpdateCourse = this.handleUpdateCourse.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    e.preventDefault()
+    this.setState({[e.target.className]: e.target.value})
+  }
+
+  handleUpdateCourse(e) {
+    e.preventDefault()
+    let {
+      courseNameTextArea,
+      courseSizeTextArea,
+      courseIntroTextArea,
+      courseMoreInformationTextArea,
+      courseScheduleTextArea
+    } = this.state
+
+    if (!courseNameTextArea) {
+      courseNameTextArea = this.props.reduxState.course.single.courseName
+    }
+    if (!courseSizeTextArea) {
+      courseSizeTextArea = this.props.reduxState.course.single.size
+    }
+    if (!courseIntroTextArea) {
+      courseIntroTextArea = this.props.reduxState.course.single.courseIntro
+    }
+    if (!courseMoreInformationTextArea) {
+      courseMoreInformationTextArea = this.props.reduxState.course.single
+        .courseMoreInformation
+    }
+
+    if (!courseScheduleTextArea) {
+      courseScheduleTextArea = this.props.reduxState.course.single
+        .courseSchedule
+    }
+
+    this.props.putCourse(
+      {
+        courseNameTextArea,
+        courseSizeTextArea,
+        courseIntroTextArea,
+        courseMoreInformationTextArea,
+        courseScheduleTextArea
+      },
+      this.props.history.location.state.number,
+      this.props.reduxState.user.me.id
+    )
   }
 
   handleAssignmentSubmit(e) {
@@ -74,46 +127,73 @@ export class TeacherClassboard extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  toggleNewAssignmentForm(e) {
+  toggle(e) {
     e.preventDefault()
-    this.setState({
-      renderNewAssignmentForm: !this.state.renderNewAssignmentForm
-    })
+    switch (e.target.className) {
+      case 'classboardAttendance':
+        this.setState({
+          showAttendance: !this.state.showAttendance
+        })
+        break
+
+      case 'classboardAssignments':
+        this.setState({
+          showAssignmentView: !this.state.showAssignmentView
+        })
+        break
+
+      case 'classboardStudent':
+        this.setState({
+          showAssignmentByStudentView: !this.state.showAssignmentByStudentView
+        })
+        break
+
+      case 'classboardInformation':
+        this.setState({
+          showCourseData: !this.state.showCourseData
+        })
+        break
+
+      case 'classboardAddAssignment':
+        this.setState({
+          renderNewAssignmentForm: !this.state.renderNewAssignmentForm
+        })
+        break
+
+      case 'classboardAddStudent':
+        this.setState({
+          renderNewStudentForm: !this.state.renderNewStudentForm
+        })
+        break
+      default:
+        break
+    }
   }
 
-  toggleNewStudentForm(e) {
-    e.preventDefault()
-    this.setState({
-      renderNewStudentForm: !this.state.renderNewStudentForm
-    })
-  }
-  // async componentWillMount(){
-  //   await this.props.getCourseStudents(this.props.location.state.number)
-
-  // }
   componentDidMount() {
-    let course = this.props.location.state.number
+    console.log(this.req)
+    let course = this.state.courseId
 
     const socket = this.props.socket
 
     socket.emit('login', {
       course,
       level: 'teacher',
-      name: this.props.location.state.firstName
+
+      name: this.props.reduxState.course.single.courseName
+
     })
     socket.on('room-chat', message => {
       console.log(message)
     })
     socket.on('message', message => {
       this.setState({
-        ...this.state,
         messages: [...this.state.messages, message]
       })
     })
     socket.on('private-message', MessageTypeUser => {
       const {message, type, user} = MessageTypeUser
       this.setState({
-        ...this.state,
         messages: [...this.state.messages, MessageTypeUser]
       })
     })
@@ -139,53 +219,27 @@ export class TeacherClassboard extends Component {
       }
     })
   }
-  toggleLecture(e) {
-    e.preventDefault()
-    this.setState({
-      showLecture: !this.state.showLecture
-    })
-  }
 
-  toggleAttendance(e) {
-    e.preventDefault()
-    this.setState({
-      showAttendance: !this.state.showAttendance
-    })
-  }
-
-  toggleAssignmentView(e) {
-    e.preventDefault()
-    this.setState({
-      showAssignmentView: !this.state.showAssignmentView
-    })
-  }
-
-  toggleAssignmentByStudentView(e) {
-    e.preventDefault()
-    this.setState({
-      showAssignmentByStudentView: !this.state.showAssignmentByStudentView
-    })
-  }
-
-  async componentWillMount() {
+  async componentDidMount() {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
-      let courseIdFromPath = this.props.location.pathname.slice(
-        this.props.location.pathname.length - 1
-      )
-      let courseIdFromState = this.props.history.location.state.number
-      await this.props.getSingleCourse(courseIdFromState)
-      await this.props.getStudentsForThisCourse(courseIdFromState)
+      const courseId = Number(this.props.match.params.id)
+
+      this.setState({courseId})
+
+      await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getStudentsForThisCourse(this.state.courseId)
       await this.props.getAllUsers()
-      // await this.props.getSingleCourse(this.props.location.state.number)
-      // await this.props.getStudentsForThisCourse(this.props.location.state.number)
+
+      //Hard coding course num 1
+      await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getStudentsForThisCourse(this.state.courseId)
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
-    // const courseList = this.props.reduxState.user.courses || []
     const courseName = this.props.reduxState.course.single.courseName
 
     return (
@@ -207,24 +261,104 @@ export class TeacherClassboard extends Component {
             )
           })}
         </div>
+
         <div className="scheduleDashBox">
           <div className="classboardSchedule">
             {this.props.reduxState.course.single.courseSchedule ? (
               this.props.reduxState.course.single.courseSchedule
                 .split('\n')
-                .map((eachLine, index) => <div key={index}>{eachLine}</div>)
+                .map((eachLine, index) => {
+                  const counter = index
+                  return <div key={'courseSchedule' + counter}>{eachLine}</div>
+                })
             ) : (
               <div>No Schedule Available</div>
             )}
           </div>
 
           <div className="teacherClassboardOptions">
+            <button
+              type="button"
+              className="classboardInformation"
+              onClick={this.toggle}
+            >
+              Course Information
+            </button>
+
+            {this.state.showCourseData ? (
+              <form onSubmit={e => this.handleUpdateCourse(e)}>
+                <label htmlFor="courseName">
+                  Name:
+                  <textarea
+                    className="courseNameTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseName}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseSize">
+                  Size:
+                  <textarea
+                    className="courseSizeTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.size}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseIntro">
+                  Intro:
+                  <textarea
+                    className="courseIntroTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseIntro}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseMoreInformation">
+                  Information:
+                  <textarea
+                    className="courseMoreInformationTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseMoreInformation}
+                  </textarea>
+                </label>
+
+                <br />
+
+                <label htmlFor="courseSchedule">
+                  Schedule:
+                  <textarea
+                    className="courseScheduleTextArea"
+                    onChange={e => this.handleChange(e)}
+                  >
+                    {this.props.reduxState.course.single.courseSchedule}
+                  </textarea>
+                </label>
+
+                <button type="submit" className="buttonUpdateCourse">
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div />
+            )}
+
             <CreateZoomVideo />
 
             <button
               type="button"
               className="classboardAttendance"
-              onClick={this.toggleAttendance}
+              onClick={this.toggle}
             >
               Today's Attendance
             </button>
@@ -233,7 +367,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.history.location.state.number}
+                courseIdInherited={this.state.courseId}
               />
             ) : (
               <div />
@@ -242,14 +376,12 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAssignments"
-              onClick={this.toggleAssignmentView}
+              onClick={this.toggle}
             >
               Assignments
             </button>
             {this.state.showAssignmentView ? (
-              <AssignmentView
-                courseIdInherited={this.props.history.location.state.number}
-              />
+              <AssignmentView courseIdInherited={this.state.courseId} />
             ) : (
               <div />
             )}
@@ -257,14 +389,12 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAddAssignment"
-              onClick={this.toggleNewAssignmentForm}
+              onClick={this.toggle}
             >
               Add
             </button>
             {this.state.renderNewAssignmentForm ? (
-              <AssignmentForm
-                courseId={this.props.reduxState.course.single.id}
-              />
+              <CreateAssignment courseId={this.state.courseId} />
             ) : (
               <div> </div>
             )}
@@ -272,7 +402,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardStudent"
-              onClick={this.toggleAssignmentByStudentView}
+              onClick={this.toggle}
             >
               Student
             </button>
@@ -282,7 +412,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.props.history.location.state.number}
+                courseIdInherited={this.state.courseId}
               />
             ) : (
               <div />
@@ -291,7 +421,7 @@ export class TeacherClassboard extends Component {
             <button
               type="button"
               className="classboardAddStudent"
-              onClick={this.toggleNewStudentForm}
+              onClick={this.toggle}
             >
               Add
             </button>
@@ -337,16 +467,26 @@ export class TeacherClassboard extends Component {
               >
                 <option value='All'>*All*</option>
                 {this.props.students.map((student, idx) => (
-                  <option value={student.firstName}>{student.firstName}</option>
+                  <option key={student.firstName} value={student.firstName}>
+                    {student.firstName}
+                  </option>
                 ))}
               </select>
               <br />
               Say something nice..
               <div id="message-main">
                 <div id="chat-messages" />
-                {this.state.messages.map((message, idx) => (
-                  <p className={message.css}>{message.message}</p>
-                ))}
+                {this.state.messages.map((message, index) => {
+                  const messageCounter = index
+                  return (
+                    <p
+                      key={'messageCounter' + messageCounter}
+                      className={message.css}
+                    >
+                      {message.message}
+                    </p>
+                  )
+                })}
                 <input
                   id="chat-input"
                   className="teacher-chat-input"
@@ -369,7 +509,9 @@ const mapDispatchToProps = dispatch => {
     getStudentsForThisCourse: courseId =>
       dispatch(getCourseStudentsThunk(courseId)),
     addNewUser: userData => dispatch(addUserThunk(userData)),
-    getAllUsers: () => dispatch(getAllUsersThunk())
+    getAllUsers: () => dispatch(getAllUsersThunk()),
+    putCourse: (data, courseId, teacherId) =>
+      dispatch(updateCourseThunk(data, courseId, teacherId))
   }
 }
 const mapStateToProps = state => {

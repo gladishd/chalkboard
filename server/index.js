@@ -39,6 +39,7 @@ passport.deserializeUser(async (id, done) => {
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+  app.use(fileUpload())
 
   // body parsing middleware
   app.use(express.json())
@@ -58,8 +59,8 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
-  app.use(fileUpload())
   // auth and api routes
+ 
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 

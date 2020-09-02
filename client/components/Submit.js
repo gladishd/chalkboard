@@ -60,29 +60,33 @@ export default class Submit extends Component {
 //   }
     async handleSubmit(e){
         e.preventDefault()
+        console.log('in handle props ', this.props)
+        const user = this.props.user
+        const assignment = this.props.assignment[0]
         console.log('this far on the page')
-        
+        const formData = new FormData()
+        formData.append('image', this.state.file)
             const method = 'post'
-            const url = '/api/submissions/'
-            const data = {
-                // file: this.state.file,
-                studentId: this.props.userId,
-                courseId: this.props.courseId,
-                studentId: this.props.id,
-              firstName: this.props.firstName,
-              assignmentName: this.props.assignmentName,
-              assignmentType: this.props.assignmentType
-            }
+            const url = `/api/submissions/${assignment.assignmentName}?student=${user.id}&course=${assignment.courseId}`
+            // const data = {
+            //     file: this.state.file,
+            // //     studentId: this.props.userId,
+            // //     courseId: this.props.courseId,
+            // //     studentId: this.props.id,
+            // //   firstName: this.props.firstName,
+            // //   assignmentName: this.props.assignmentName,
+            // //   assignmentType: this.props.assignmentType
+            // }
             const config = {
                 headers: {
-                    // 'content-type': 'multipart/form-data',
-                    'content-type': "application/json" 
+                    'content-type': 'multipart/form-data'
+                    // 'content-type': "application/json" 
                     
                 }
             }
         try{
 
-            await axios.post('/api/submissions/', data, config)
+            await axios.post(url, formData, config)
         }catch(err){
             console.log(err)
         }

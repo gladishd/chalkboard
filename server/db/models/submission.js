@@ -4,16 +4,17 @@ const db = require('../db')
 
 
 const Submission = db.define('submission', {
-  studentName: {
+  studentId: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  assignmentType: {
-    type: Sequelize.ENUM('classwork', 'homework', 'quiz', 'test', 'project'),
+  assignmentName: {
+    // type: Sequelize.ENUM('classwork', 'homework', 'quiz', 'test', 'project'),
+    type: Sequelize.STRING,
     allowNull: false
   },
-  comments: {
-    type: Sequelize.TEXT
+  image: {
+    type: Sequelize.BLOB
   },
   courseId: {
     type: Sequelize.INTEGER,

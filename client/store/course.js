@@ -85,10 +85,29 @@ export const addCourseThunk = course => {
   }
 }
 
-export const updateCourseThunk = (courseId, course) => {
+export const updateCourseThunk = (courseUpdates, courseId, teacherId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/courses/${courseId}`, course)
+      let {
+        courseIntroTextArea,
+        courseMoreInformationTextArea,
+        courseNameTextArea,
+        courseScheduleTextArea,
+        courseSizeTextArea
+      } = courseUpdates
+
+      let putObject = {
+        id: courseId,
+        teacherId: Number(teacherId),
+        courseName: courseNameTextArea,
+        size: Number(courseSizeTextArea),
+        courseIntro: courseIntroTextArea,
+        courseMoreInformation: courseMoreInformationTextArea,
+        courseSchedule: courseScheduleTextArea
+      }
+
+      const {data} = await axios.put(`/api/courses/${courseId}`, putObject)
+
       dispatch(updateCourse(data))
     } catch (err) {
       console.error(err.message)

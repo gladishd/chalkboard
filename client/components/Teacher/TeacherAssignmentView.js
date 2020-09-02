@@ -1,14 +1,18 @@
 import React, {Component} from 'react'
-import {getUserCoursesThunk} from '../store/user'
+import {getUserCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
-import {getAssignmentsByCourseIdThunk} from '../store/assignment'
+import {
+  getAssignmentsByCourseIdThunk,
+  removeAssignmentThunk
+} from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
 
 export class TeacherAssignmentView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: ''
+      selected: 'all',
+      allAssignments: []
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -20,9 +24,10 @@ export class TeacherAssignmentView extends Component {
     })
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     try {
-      this.props.getAssignmentsForCourse(this.props.courseIdInherited)
+      await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
+      this.setState({allAssignments: this.props.task.assignment.assignments})
     } catch (err) {
       console.log(err)
     }
@@ -36,21 +41,20 @@ export class TeacherAssignmentView extends Component {
         <div className="dropdownAssignment">
           Dropdown for assignment
           <select name="assignments" onChange={this.handleChange}>
-            <option value="" selected>
-              Select an option
-            </option>
-            {this.props.reduxState.assignment.assignments.map(element => {
+            <option value="all">Show All</option>
+            {this.state.allAssignments.map(element => {
               return (
-                <option value={element.id}>{element.assignmentName}</option>
+                <option value={element.id} key={`Select${element.id}`}>
+                  {element.assignmentName}
+                </option>
               )
             })}
-            <option value="all">Show All</option>
           </select>
         </div>
 
         <div>Assignments:</div>
-        {allAssignments.length > 0 ? (
-          allAssignments
+        {this.state.allAssignments.length > 0 ? (
+          this.state.allAssignments
             .filter(element => {
               if (this.state.selected === 'all') {
                 return true
@@ -61,7 +65,7 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div className="assignmentCheckBoxesSection">
+                <div key={element.id} className="assignmentCheckBoxesSection">
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
@@ -81,6 +85,16 @@ export class TeacherAssignmentView extends Component {
                       <hr />
                       {element.weight}
                     </div>
+
+                    <button
+                      type="button"
+                      onClick={evt => {
+                        evt.preventDefault()
+                        this.props.deleteAssignment(element.id)
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               )
@@ -96,12 +110,15 @@ export class TeacherAssignmentView extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getAssignmentsForCourse: courseId =>
-      dispatch(getAssignmentsByCourseIdThunk(courseId))
+      dispatch(getAssignmentsByCourseIdThunk(courseId)),
+    deleteAssignment: assignmentId =>
+      dispatch(removeAssignmentThunk(assignmentId))
   }
 }
+
 const mapStateToProps = state => {
   return {
-    reduxState: state
+    task: state
   }
 }
 

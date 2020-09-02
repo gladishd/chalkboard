@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {getUserGradebookThunk} from '../store/user'
+import {getUserGradebookThunk} from '../../store/user'
 import {connect} from 'react-redux'
-import {getAssignmentsByCourseIdThunk} from '../store/assignment'
+import {getAssignmentsByCourseIdThunk} from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
 
 export class TeacherAssignmentByStudentView extends Component {
@@ -21,7 +21,6 @@ export class TeacherAssignmentByStudentView extends Component {
     })
     if (e.target.value !== 'all') {
       this.props.getUserGradebook(e.target.value)
-    } else {
     }
   }
 
@@ -33,15 +32,15 @@ export class TeacherAssignmentByStudentView extends Component {
 
   componentDidMount() {
     this.props.getUserGradebook(this.state.student)
+    this.props.getAssignmentsForCourse(this.props.courseIdInherited)
   }
 
-  async componentWillMount() {
-    try {
-      this.props.getAssignmentsForCourse(this.props.courseIdInherited)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // componentWillMount() {
+  //   try {
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   render() {
     let listStudents = this.props.studentsForThisCourseInherited
@@ -54,6 +53,7 @@ export class TeacherAssignmentByStudentView extends Component {
     allAssignments.map(element => {
       assignmentIds.push(element.id)
     })
+
     let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
       return assignmentIds.includes(element.assignmentId)
     })
@@ -78,9 +78,11 @@ export class TeacherAssignmentByStudentView extends Component {
         <div className="student">
           Students
           <hr />
-          {listStudents.map(student => {
+          {listStudents.map((student) => {
             return (
-              <div>
+
+              <div key={student.id}>
+
                 {[student.firstName, student.lastName, student.email].join(' ')}
               </div>
             )
@@ -88,12 +90,14 @@ export class TeacherAssignmentByStudentView extends Component {
         </div>
         <div className="dropDown">
           <select name="students" onChange={this.handleChange}>
-            <option value="" selected>
+            <option value="" defaultValue>
               Select a student
             </option>
             {listStudents.map(student => {
               return (
-                <option value={student.id}>
+
+                <option key={student.id} value={student.id}>
+
                   {[student.firstName, student.lastName].join(' ')}
                 </option>
               )
@@ -102,12 +106,13 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
 
           <select name="assignments" onChange={this.handleChangeAssignments}>
-            <option value="" selected>
+            <option value="" defaultValue>
               Select an assignment
             </option>
             {allAssignments.map(assignment => {
               return (
-                <option value={assignment.id}>
+
+                <option key={assignment.id} value={assignment.id}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -116,9 +121,11 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
         </div>
 
-        {gradebookFilteredForClass.map(assignment => {
+        {gradebookFilteredForClass.map((assignment) => {
           return (
-            <div>
+
+            <div key={assignment.id}>
+
               <div className="studentAssignmentBoxes">
                 <div className="checkbox">
                   Assignment Name

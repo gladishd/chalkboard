@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {getTeacherCoursesThunk} from '../store/user'
+import {getTeacherCoursesThunk} from '../../store/user'
 import {connect} from 'react-redux'
 import io from 'socket.io-client'
-import {setSocket} from '../store/socket'
-import {getSingleCourseThunk, addCourseThunk} from '../store/course'
+import {setSocket} from '../../store/socket'
+import {getSingleCourseThunk, addCourseThunk} from '../../store/course'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -108,9 +108,9 @@ export class TeacherDash extends Component {
   render() {
     const courseList = this.props.courses || []
 
-    console.log('on the TeacherDash component, the props are: ', this.props)
+    // console.log('on the TeacherDash component, the props are: ', this.props)
 
-    console.log('on the TeacherDash component, the state is: ', this.state)
+    // console.log('on the TeacherDash component, the state is: ', this.state)
     return (
       <div
         className="TeacherDash"
@@ -127,19 +127,12 @@ export class TeacherDash extends Component {
               <div key={`spit${counter}`}>
                 <Link
                   className="react-router-link"
-                  to={{
-                    pathname: './TeacherClassboard',
-                    state: {
-                      number: course.id,
-                      name: course.courseName,
-                      firstName: this.props.firstName
-                    }
-                  }}
+                  to={`./TeacherClassboard/${course.id}`}
                 >
                   {course.courseName}
                 </Link>
-                {course.courseSchedule.split('\n').map((eachLine, index) => {
-                  const scheduleCounter = index
+                {course.courseSchedule.split('\n').map((eachLine, indx) => {
+                  const scheduleCounter = indx
                   return (
                     <div
                       key={`courseListSchedule${course.id}:${scheduleCounter}`}
@@ -169,18 +162,9 @@ export class TeacherDash extends Component {
           courseList.map(course => {
             return (
               <Link
-                className="react-router-link"
+                className="react-router-link teacherDashClassName"
                 key={`courseListDash${course.id}`}
-                className="teacherDashClassName"
-                // to={`./TeacherClassboard/${course.id}`
-                to={{
-                  pathname: './TeacherClassboard',
-                  state: {
-                    number: course.id,
-                    name: course.courseName,
-                    firstName: this.props.firstName
-                  }
-                }}
+                to={`./TeacherClassboard/${course.id}`}
               >
                 {course.courseName}
               </Link>

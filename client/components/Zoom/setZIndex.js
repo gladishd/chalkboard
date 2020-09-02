@@ -2,10 +2,14 @@ import {useEffect} from 'react'
 
 export default function setZIndex() {
   useEffect(() => {
-    document.getElementById('zmmtg-root').style.zIndex = 1
-
+    let zoomMeetingRoot = document.getElementById('zmmtg-root')
+    zoomMeetingRoot.style.zIndex = 1
+    zoomMeetingRoot.style.backgroundImage = 'none'
+    zoomMeetingRoot.style.backgroundColor = 'black'
     return () => {
-      document.getElementById('zmmtg-root').style.zIndex = 1
+      zoomMeetingRoot.style.zIndex = -1
+      zoomMeetingRoot.style.backgroundColor = 'none'
+      zoomMeetingRoot.style.backgroundImage = url('chalkboard-bg.png')
     }
-  })
+  }, [])
 }

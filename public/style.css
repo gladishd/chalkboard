@@ -23,8 +23,35 @@ html body {
   overflow: scroll !important;
 }
 
+#navbar-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-header {
+  padding-top: 5vh;
+}
+
+.auth-form-component {
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  padding-top: 10vh;
+}
+
+.user-home-component {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  align-items: center;
+  padding-top: 3vh;
+}
+
 body > #zmmtg-root {
   z-index: -1;
+  background-color: black;
   background-image: url('chalkboard-bg.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -501,6 +528,14 @@ nav a {
   width: 50vw;
 }
 
+.teacherClassBoard .classboardInformation {
+  background-color: rgba(205, 50, 50, 0.39);
+  padding: 1em;
+  overflow-y: scroll;
+  height: 5em;
+  width: 50vw;
+}
+
 .attendanceForm {
   display: flex;
   flex-direction: column;
@@ -783,6 +818,7 @@ Message Fonts
   width: 100%;
 }
 
+<<<<<<< HEAD
 
 /*
 Draft css for assignment updates
@@ -802,3 +838,34 @@ Draft css for assignment updates
   position: absolute;
   right: 50px;
 } */
+=======
+.courseNameTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseSizeTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseIntroTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseMoreInformationTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.courseScheduleTextArea {
+  height: 100%;
+  width: 100%;
+}
+
+.buttonUpdateCourse {
+  background-color: rgba(255, 217, 0, 0.74);
+  padding: 0.25em;
+}
+>>>>>>> dde2ef0455d0e9fbb809ba0c489daa9a0caba980
