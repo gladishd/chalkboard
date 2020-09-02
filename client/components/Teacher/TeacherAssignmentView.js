@@ -6,15 +6,23 @@ import {
   removeAssignmentThunk
 } from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
+import {ShowStudents} from '../index'
 
 export class TeacherAssignmentView extends Component {
   constructor(props) {
     super(props)
     this.state = {
       selected: 'all',
-      allAssignments: []
+      allAssignments: [],
+      showStudents: false
     }
     this.handleChange = this.handleChange.bind(this)
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle(e) {
+    e.preventDefault()
+    this.setState({showStudents: !this.state.showStudents})
   }
 
   handleChange(e) {
@@ -97,6 +105,7 @@ export class TeacherAssignmentView extends Component {
                       <hr />
                       {element.weight}
                     </div>
+
                     <div className="checkbox">
                       <button
                         type="button"
@@ -110,7 +119,19 @@ export class TeacherAssignmentView extends Component {
                       >
                         Delete
                       </button>
+
+                      <hr />
+
+                      <button type="button" onClick={this.toggle}>
+                        Submit Grade
+                      </button>
                     </div>
+
+                    {this.state.showStudents ? (
+                      <ShowStudents assignmentId={element.id} />
+                    ) : (
+                      <div> </div>
+                    )}
                   </div>
                 </div>
               )

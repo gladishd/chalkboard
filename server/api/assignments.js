@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {Assignment, Course, Gradebook} = require('../db/models')
-const User = require('../db/models/user')
+const {Assignment, Course, User} = require('../db/models')
+// const User = require('../db/models/user')
 module.exports = router
 
 //Get all assignments
