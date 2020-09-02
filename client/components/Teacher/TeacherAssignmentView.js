@@ -14,7 +14,8 @@ export class TeacherAssignmentView extends Component {
     this.state = {
       selected: 'all',
       allAssignments: [],
-      showStudents: false
+      showStudents: false,
+      currSelected: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.toggle = this.toggle.bind(this)
@@ -22,7 +23,15 @@ export class TeacherAssignmentView extends Component {
 
   toggle(e) {
     e.preventDefault()
-    this.setState({showStudents: !this.state.showStudents})
+    console.log('e target', e.target.name)
+    if (!this.state.showStudents)
+      this.setState({
+        showStudents: !this.state.showStudents,
+        currSelected: Number(e.target.name)
+      })
+    else if (Number(e.target.name) === this.state.currSelected)
+      this.setState({showStudents: !this.state.showStudents})
+    else this.setState({currSelected: Number(e.target.name)})
   }
 
   handleChange(e) {
@@ -122,12 +131,17 @@ export class TeacherAssignmentView extends Component {
 
                       <hr />
 
-                      <button type="button" onClick={this.toggle}>
+                      <button
+                        type="button"
+                        onClick={this.toggle}
+                        name={element.id}
+                      >
                         Submit Grade
                       </button>
                     </div>
 
-                    {this.state.showStudents ? (
+                    {this.state.showStudents &&
+                    element.id === this.state.currSelected ? (
                       <ShowStudents assignmentId={element.id} />
                     ) : (
                       <div> </div>
