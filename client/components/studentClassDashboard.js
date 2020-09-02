@@ -6,7 +6,11 @@ import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 // import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
-import course, {getSingleCourseThunk} from '../store/course.js'
+import course, {
+  getSingleCourseThunk,
+  getCourseStudentsThunk
+} from '../store/course.js'
+import {getAllUsersThunk} from '../store/user'
 import emit from '../../public/emit'
 import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
@@ -28,6 +32,8 @@ export class studentClassDashboard extends React.Component {
   async componentDidMount() {
     let course = this.props.location.state.number
     await this.props.getCourse(course)
+    await this.props.getAllUsers()
+    await this.props.getStudentsForCourse(course)
 
     let current_time = moment().format('HH:mm')
     const socket = this.props.socket
@@ -92,10 +98,23 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
-    // console.log(
-    //   'the props on the studentClassDashboard component are ',
-    //   this.props
-    // )
+
+    // for the add group functionality
+    let allUsers = this.props.allUsers
+    let allStudents = allUsers.filter(user => {
+      return user.accountType === 'student'
+    })
+    let allTeachers = allUsers.filter(user => {
+      return user.accountType === 'teacher'
+    })
+    let teacherId = this.props.course.teacherId
+
+    let studentsInCourse = this.props.studentsInCourse
+    let teacherForCourse = allTeachers.filter(user => {
+      return user.id === teacherId
+    })
+    // console.log("the values of the arrays we need are ", allUsers, teacherId, studentsInCourse, teacherForCourse, allStudents, allTeachers)
+
     return (
       <div className="studentClassDashboard">
         <div className="local-time">
@@ -172,7 +191,10 @@ export class studentClassDashboard extends React.Component {
         <div>
           {this.state.showForm ? (
             <div className="newGroupFormComponent">
-              <NewGroupFormComponent />
+              <NewGroupFormComponent
+                studentsInCourse={studentsInCourse}
+                teacherForCourse={teacherForCourse}
+              />
             </div>
           ) : (
             <div />
@@ -188,14 +210,19 @@ const mapStateToProps = state => {
     course: state.course.single,
     user: state.user.me,
     accountType: state.user.me.accountType,
-    socket: state.socket
+    socket: state.socket,
+    allUsers: state.user.all,
+    studentsInCourse: state.course.students,
+    reduxState: state
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getCourse: id => dispatch(getSingleCourseThunk(id)),
-    setSocket: socket => dispatch(setSocket(socket))
+    setSocket: socket => dispatch(setSocket(socket)),
+    getAllUsers: () => dispatch(getAllUsersThunk()),
+    getStudentsForCourse: courseId => dispatch(getCourseStudentsThunk(courseId))
   }
 }
 

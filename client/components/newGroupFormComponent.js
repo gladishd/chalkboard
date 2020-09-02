@@ -50,8 +50,8 @@ export class newGroupFormComponent extends React.Component {
     console.log(
       'need to submit student group',
       e.target.value,
-      this.state,
-      this.props.reduxState.users
+      this.state.groupMembers,
+      this.state.groupName
     )
   }
 
@@ -80,6 +80,7 @@ export class newGroupFormComponent extends React.Component {
   }
 
   render() {
+    console.log('props on newGroupFormComponent are ', this.props)
     return (
       <div>
         <div className="localNewGroupForm">
@@ -108,17 +109,33 @@ export class newGroupFormComponent extends React.Component {
               placeholder="Type in a group name.."
             />
             <br />
+
             <select
               name="group"
               className="selectGroupMembers"
               onChange={this.selectStudent}
             >
-              <option value="">Select an option</option>
-              <option value="Dean">Dean</option>
-              <option value="Khuong">Khuong</option>
-              <option value="Zach">Zach</option>
-              <option value="Jonathan">Jonathan</option>
+              <option value="all">Show All</option>
+              {this.props.studentsInCourse.map(element => {
+                return (
+                  <option
+                    value={
+                      element.firstName +
+                      ' ' +
+                      element.lastName +
+                      ' ' +
+                      '(' +
+                      element.id +
+                      ')'
+                    }
+                    key={`Select${element.id}`}
+                  >
+                    {element.firstName + ' ' + element.lastName}
+                  </option>
+                )
+              })}
             </select>
+
             <button
               type="button"
               onClick={this.addStudent}
@@ -128,17 +145,33 @@ export class newGroupFormComponent extends React.Component {
             </button>
 
             <br />
+
             <select
               name="group"
               className="selectGroupMembers"
               onChange={this.selectTeacher}
             >
-              <option value="">Select an option</option>
-              <option value="Dean">Dean</option>
-              <option value="Khuong">Khuong</option>
-              <option value="Zach">Zach</option>
-              <option value="Jonathan">Jonathan</option>
+              <option value="all">Show All</option>
+              {this.props.teacherForCourse.map(element => {
+                return (
+                  <option
+                    value={
+                      element.firstName +
+                      ' ' +
+                      element.lastName +
+                      ' ' +
+                      '(' +
+                      element.id +
+                      ')'
+                    }
+                    key={`Select${element.id}`}
+                  >
+                    {element.firstName + ' ' + element.lastName}
+                  </option>
+                )
+              })}
             </select>
+
             <button
               type="button"
               onClick={this.addTeacher}
@@ -190,6 +223,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  newGroupFormComponent
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(newGroupFormComponent)
