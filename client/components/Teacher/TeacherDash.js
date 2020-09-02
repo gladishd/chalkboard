@@ -119,36 +119,38 @@ export class TeacherDash extends Component {
           height: 'auto'
         }}
       >
-        {courseList.length > 0 ? (
-          courseList.map((course, index) => {
-            const counter = index
+        <div className="teacher-dash-schedule">
+          {courseList.length > 0 ? (
+            courseList.map((course, index) => {
+              const counter = index
 
-            return (
-              <div key={`spit${counter}`}>
-                <Link
-                  className="react-router-link"
-                  to={`./TeacherClassboard/${course.id}`}
-                >
-                  {course.courseName}
-                </Link>
-                {course.courseSchedule.split('\n').map((eachLine, indx) => {
-                  const scheduleCounter = indx
-                  return (
-                    <div
-                      key={`courseListSchedule${course.id}:${scheduleCounter}`}
-                      style={{fontSize: '0.75em'}}
-                    >
-                      {eachLine}
-                    </div>
-                  )
-                })}
-                <br />
-              </div>
-            )
-          })
-        ) : (
-          <div>Loading...</div>
-        )}
+              return (
+                <div className="schedule-details" key={`spit${counter}`}>
+                  <Link
+                    className="react-router-link"
+                    to={`./TeacherClassboard/${course.id}`}
+                  >
+                    {course.courseName}
+                  </Link>
+                  {course.courseSchedule.split('\n').map((eachLine, indx) => {
+                    const scheduleCounter = indx
+                    return (
+                      <div
+                        key={`courseListSchedule${course.id}:${scheduleCounter}`}
+                        style={{fontSize: '0.75em'}}
+                      >
+                        {eachLine}
+                      </div>
+                    )
+                  })}
+                  <br />
+                </div>
+              )
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
         <div className="teacherDashListClasses">List of Classes</div>
         <button
           type="button"
