@@ -24,6 +24,12 @@ html body {
   overflow: scroll !important;
 }
 
+textarea {
+  color: black;
+  width: 60vw;
+  text-align: center;
+}
+
 #navbar-component {
   display: flex;
   flex-direction: column;
@@ -73,12 +79,7 @@ body > #zmmtg-root {
 .react-router-link:hover {
   color: hotpink;
   transform: scale(1.2);
-  cursor: url('pointer-chalk.png'), auto;
   text-decoration: none;
-}
-
-button:hover {
-  cursor: url('pointer-chalk.png'), auto;
 }
 
 a {
@@ -388,6 +389,7 @@ nav a {
   text-align: center;
   background-color: darkgreen;
   margin: 10px;
+  padding: 2px;
   height: auto;
 }
 
@@ -429,7 +431,9 @@ nav a {
 .addNewClassForm {
   display: flex;
   flex-direction: column;
-  width: 90vw;
+  justify-content: center;
+  align-items: center;
+  width: 70vw;
   margin-left: 5vw;
   margin-right: 5vw;
 }
@@ -779,24 +783,25 @@ Message Fonts
 }
 
 .submitCourse {
-  background: #ff7b64be;
-  color: #fff;
+  background: darkgreen;
+  color: white;
   font-size: 1em;
   overflow: hidden;
   backface-visibility: hidden;
-  border: 0.1em double #226fbe;
+  border: 0.1em double white;
   height: auto;
   border-radius: 15px;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
-  width: 50%;
-  margin-left: 25%;
+  width: auto;
+  padding: 5px;
+  margin: 10px;
 }
 
 .submitCourse:hover {
-  background: transparent;
-  color: #09ff00;
+  background: white;
+  color: darkgreen;
   -webkit-transform: rotateX(10deg);
   -webkit-transform: rotateY(20deg);
   -moz-transform: rotateX(50deg);
