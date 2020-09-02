@@ -33,11 +33,16 @@ export class TeacherAssignmentView extends Component {
     }
   }
 
-  render() {
-    // console.log('the value of allAssignments is ', allAssignments)
-    // console.log('the props on the TeacherAssignmentView are ', this.props)
-    console.log(this.props.match)
+  componentDidUpdate() {
+    if (
+      this.state.allAssignments.length !==
+      this.props.task.assignment.assignments.length
+    ) {
+      this.setState({allAssignments: this.props.task.assignment.assignments})
+    }
+  }
 
+  render() {
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">
@@ -93,6 +98,9 @@ export class TeacherAssignmentView extends Component {
                       onClick={evt => {
                         evt.preventDefault()
                         this.props.deleteAssignment(element.id)
+                        this.props.getAssignmentsForCourse(
+                          this.props.courseIdInherited
+                        )
                       }}
                     >
                       Delete
