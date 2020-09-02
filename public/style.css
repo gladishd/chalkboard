@@ -15,6 +15,7 @@
 
 html {
   overflow: scroll !important;
+  cursor: url('chalk-cursor.png'), auto;
 }
 
 html body {
@@ -66,12 +67,18 @@ body > #zmmtg-root {
 }
 
 .react-router-link {
-  color: rgb(9, 247, 235);
+  color: aqua;
 }
 
 .react-router-link:hover {
-  color: pink;
+  color: hotpink;
+  transform: scale(1.2);
+  cursor: url('pointer-chalk.png'), auto;
   text-decoration: none;
+}
+
+button:hover {
+  cursor: url('pointer-chalk.png'), auto;
 }
 
 a {
@@ -351,11 +358,23 @@ nav a {
 
 .TeacherDash {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   height: auto;
-  padding-bottom: 50em;
+  justify-content: center;
+  align-items: center;
   overflow-y: scroll;
+}
+
+.teacher-dash-schedule {
+  display: flex;
+  justify-self: center;
+  padding: 5px;
+}
+
+.schedule-details {
+  padding: 10px;
+  text-align: center;
 }
 
 .TeacherDash .teacherDashLogOut {
@@ -363,25 +382,27 @@ nav a {
 }
 
 .TeacherDash .teacherDashListClasses {
-  border-style: outset;
+  border: 2px solid white;
   border-radius: 1em;
-  width: 100vw;
+  width: 40vw;
   text-align: center;
-  background-color: rgb(170, 170, 255);
+  background-color: darkgreen;
+  margin: 10px;
   height: auto;
 }
 
 .TeacherDash .teacherDashClassName {
   border-style: outset;
-  padding: 1em;
-  margin-left: 1em;
-  height: 5em;
+  padding: 10px;
+  margin: 10px;
+  height: auto;
+  width: 30vw;
 
   border-style: outset;
 
   text-align: center;
   background: transparent;
-  color: #fc881b;
+  color: white;
   font-size: 1em;
   overflow: hidden;
   backface-visibility: hidden;
@@ -394,8 +415,7 @@ nav a {
 
 .TeacherDash .teacherDashClassName:hover,
 .TeacherDash .teacherDashClassName:active {
-  color: #bb0493;
-  background: #6764ffbe;
+  background: darkgreen;
   -webkit-transform: rotateX(10deg);
   -webkit-transform: rotateY(20deg);
   -moz-transform: rotateX(50deg);
@@ -419,19 +439,15 @@ nav a {
 }
 
 .TeacherDash .teacherDashNewClassButton {
-  padding: 3%;
-  border-style: outset;
-  margin-left: 45%;
-  margin-right: 45%;
+  padding: 10px;
+  margin: 10px;
   text-align: center;
-  background: transparent;
-  color: #226fbe;
+  background: white;
+  color: black;
   font-size: 1em;
   overflow: hidden;
   backface-visibility: hidden;
-  border: 0.1em outset #226fbe;
-  height: auto;
-  border-radius: 1px;
+  border-radius: 10px;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
@@ -443,8 +459,8 @@ nav a {
 
 .TeacherDash .teacherDashNewClassButton:hover,
 .TeacherDash .teacherDashNewClassButton:active {
-  color: #0475bb;
-  background: #ff7b64be;
+  color: white;
+  background: black;
   -webkit-transform: rotateX(10deg);
   -webkit-transform: rotateY(20deg);
   -moz-transform: rotateX(50deg);

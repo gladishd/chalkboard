@@ -33,9 +33,22 @@ export class TeacherAssignmentView extends Component {
     }
   }
 
+<<<<<<< HEAD
   render() {
     let allAssignments = this.props.reduxState.assignment.assignments || []
     console.log('check props for assignments ', this.props)
+=======
+  componentDidUpdate() {
+    if (
+      this.state.allAssignments.length !==
+      this.props.task.assignment.assignments.length
+    ) {
+      this.setState({allAssignments: this.props.task.assignment.assignments})
+    }
+  }
+
+  render() {
+>>>>>>> 8e14a414cab4fb0b50284fe298a6fe18312032f7
     return (
       <div className="assignmentViewMainDiv">
         <div className="dropdownAssignment">
@@ -69,6 +82,11 @@ export class TeacherAssignmentView extends Component {
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">
+                      Description
+                      <hr />
+                      {element.description}
+                    </div>
+                    <div className="checkbox">
                       Due Date
                       <hr />
                       {moment(element.dueDate).format(
@@ -85,16 +103,20 @@ export class TeacherAssignmentView extends Component {
                       <hr />
                       {element.weight}
                     </div>
-
-                    <button
-                      type="button"
-                      onClick={evt => {
-                        evt.preventDefault()
-                        this.props.deleteAssignment(element.id)
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <div className="checkbox">
+                      <button
+                        type="button"
+                        onClick={evt => {
+                          evt.preventDefault()
+                          this.props.deleteAssignment(element.id)
+                          this.props.getAssignmentsForCourse(
+                            this.props.courseIdInherited
+                          )
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               )
