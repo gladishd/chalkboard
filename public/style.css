@@ -15,6 +15,7 @@
 
 html {
   overflow: scroll !important;
+  cursor: url('chalk-cursor.png'), auto;
 }
 
 html body {
@@ -66,12 +67,18 @@ body > #zmmtg-root {
 }
 
 .react-router-link {
-  color: rgb(9, 247, 235);
+  color: aqua;
 }
 
 .react-router-link:hover {
-  color: pink;
+  color: hotpink;
+  transform: scale(1.2);
+  cursor: url('pointer-chalk.png'), auto;
   text-decoration: none;
+}
+
+button:hover {
+  cursor: url('pointer-chalk.png'), auto;
 }
 
 a {
