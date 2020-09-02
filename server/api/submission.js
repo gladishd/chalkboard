@@ -28,6 +28,7 @@ router.post('/:assignment', async (req, res, next) => {
 router.get('/:courseId', async (req, res, next) => {
 
     try{
+        console.log('in sub get api courseId is ', req.params)
         const submissions = await Submission.findAll({
             where: {
                 courseId: req.params.courseId

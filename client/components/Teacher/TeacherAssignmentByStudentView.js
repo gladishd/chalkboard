@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {getUserGradebookThunk} from '../../store/user'
 import {connect} from 'react-redux'
 import {getAssignmentsByCourseIdThunk} from '../../store/assignment'
+import {getCourseSubmissions} from '../../store/submission'
+
 import moment from 'moment' // so we can format the due date
 
 export class TeacherAssignmentByStudentView extends Component {
@@ -30,9 +32,10 @@ export class TeacherAssignmentByStudentView extends Component {
     })
   }
 
-  componentDidMount() {
-    this.props.getUserGradebook(this.state.student)
-    this.props.getAssignmentsForCourse(this.props.courseIdInherited)
+  async componentDidMount() {
+    await this.props.getUserGradebook(this.state.student)
+    await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
+    await this.props.getSubmissions(this.props.courseIdInherited)
   }
 
   // componentWillMount() {
@@ -41,8 +44,10 @@ export class TeacherAssignmentByStudentView extends Component {
   //     console.log(err)
   //   }
   // }
-
+  
   render() {
+    const submissions = this.props.reduxState.submission.submissions || []
+    console.log('looking for submissions ', this.props)
     let listStudents = this.props.studentsForThisCourseInherited
     let allAssignments = this.props.reduxState.assignment.assignments || []
 
@@ -72,9 +77,39 @@ export class TeacherAssignmentByStudentView extends Component {
         return element.assignmentId === Number(this.state.assignment)
       })
     }
+  //   const blobToImage = (blob) => {
+  //     return new Promise(resolve => {
+  //       const url = window.URL.createObjectURL(blob)
+  //       let img = new Image()
+  //       img.onload = () => {
+  //         URL.revokeObjectURL(url)
+  //         resolve(img)
+  //       }
+  //       img.src = url
+  //     })
+  //   // }
+  // const afterpic = blobToImage(submissions[0])
+  // console.log('afterpic ', afterpic)
+  function convert(buffer) { 
+
+    const bytes = new Uint8Array(buffer);
+    btoa(bytes)
+   console.log('btoa ', btoa(bytes))
+    return 'data:image/png;base64,'+btoa(bytes);
+}
+if(submissions.length){
+  
+  convert(submissions[0].image.data)
+  console.log('sub ',submissions)
+  console.log('0', submissions[0].image.data)
+
+}
 
     return (
+      
       <div className="assignmentsByStudent">
+        {submissions.length && <img src={convert(submissions[0].image.data)}/>} 
+       
         <div className="student">
           Students
           <hr />
@@ -177,7 +212,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getAssignmentsForCourse: courseId =>
       dispatch(getAssignmentsByCourseIdThunk(courseId)),
-    getUserGradebook: userId => dispatch(getUserGradebookThunk(userId))
+    getUserGradebook: userId => dispatch(getUserGradebookThunk(userId)),
+    getSubmissions: courseId => dispatch(getCourseSubmissions(courseId))
   }
 }
 const mapStateToProps = state => {

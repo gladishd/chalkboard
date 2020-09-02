@@ -3,12 +3,21 @@ import axios from 'axios'
 //types
 const GET_SUBMISSIONS = 'GET_SUBMISSIONS'
 
+//action creators 
+const setSubmissions = (submissions) => {
+  return {
+    type: GET_SUBMISSIONS,
+    submissions,
+  }
+}
+
 //get all submissions thunk
 export const getCourseSubmissions = (courseId) => {
+  console.log('in sub thunk course id ', courseId)
     return async dispatch => {
       try {
         const {data} = await axios.get(`/api/submissions/${courseId}`)
-        dispatch(getAllCourses(data))
+        dispatch(setSubmissions(data))
       } catch (err) {
         console.error(err.message)
       }
@@ -23,5 +32,7 @@ export default function(state = submissions, action){
             return {
                 submissions: action.submissions
             }
+        default: 
+            return state
     }
 }
