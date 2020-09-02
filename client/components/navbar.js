@@ -12,28 +12,28 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
         <div>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/home"
           >
             Home
           </NavLink>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/studentDashboard"
           >
             Student Dashboard
           </NavLink>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/TeacherDash"
           >
             Teacher Dashboard
           </NavLink>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/teacherDashboard"
           >
             Old Teacher Dashboard
@@ -51,14 +51,14 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
         <div>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/home"
           >
             Home
           </NavLink>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/TeacherDash"
           >
             Teacher Dashboard
@@ -76,14 +76,14 @@ const Navbar = ({handleClick, isLoggedIn, accountType}) => (
         <div>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/home"
           >
             Home
           </NavLink>
           <NavLink
             className="react-router-link"
-            activeStyle={{color: 'hotpink', textDecoration: 'none'}}
+            activeStyle={{color: 'hotpink'}}
             to="/studentDashboard"
           >
             Student Dashboard
