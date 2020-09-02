@@ -867,3 +867,9 @@ Message Fonts
   background-color: rgba(255, 217, 0, 0.74);
   padding: 0.25em;
 }
+
+.toastContainer {
+  color: rgb(255, 174, 0) !important;
+  background: transparent !important;
+  box-shadow: 0em 1em 2em rgba(0, 0, 0, 0.1) !important;
+}

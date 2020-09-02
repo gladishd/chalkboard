@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 // import {createGroupThunk} from '../store/createGroup'
 import {getAllUsersThunk, postGroupThunk} from '../store/user'
+import {ToastContainer, toast} from 'react-toastify'
 
 export class newGroupFormComponent extends React.Component {
   constructor() {
@@ -41,22 +42,19 @@ export class newGroupFormComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // const {
-    //   groupName
-    // } = this.state
-    // this.props.createGroup({ {/* this should come from props */}
-    //   groupName
-    // })
-    console.log(
-      'need to submit student group',
-      e.target.value,
-      this.state.groupMembers,
-      this.state.groupName
-    )
     this.props.postGroup({
       groupMembers: this.state.groupMembers,
       groupName: this.state.groupName
     })
+    if (
+      this.state.groupMembers &&
+      this.state.groupName &&
+      this.state.groupName[0] === this.state.groupName[0].toUpperCase()
+    ) {
+      toast('Success!')
+    } else {
+      toast('Need to fill out all fields!')
+    }
   }
 
   selectStudent(e) {
@@ -95,6 +93,7 @@ export class newGroupFormComponent extends React.Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="groupName">
+              <ToastContainer className="toastContainer" />
               {this.state.groupName !== '' &&
               this.state.groupName[0] !==
                 this.state.groupName[0].toUpperCase() ? (

@@ -67,7 +67,6 @@ export const getAssignmentsByCourseIdThunk = courseId => {
       //   courseId
       // )
       const {data} = await axios.get(`/api/assignments/byCourseId/${courseId}`)
-      console.log('the data returned from the server is ', data)
       dispatch(getAssignmentsForCourse(data))
     } catch (err) {
       console.error(err.message)

@@ -17,6 +17,7 @@ import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
 import JoinVideoButton from './Zoom/JoinVideoButton.js'
 import setSocket from '../store/socket'
+import {ToastContainer, toast} from 'react-toastify'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {

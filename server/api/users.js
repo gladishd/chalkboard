@@ -117,6 +117,7 @@ router.post('/groups', async (req, res, next) => {
     const group = await Group.create(req.body)
     group ? res.json(group) : res.status(400).end()
   } catch (err) {
+    res.send('test')
     next(err)
   }
 })
