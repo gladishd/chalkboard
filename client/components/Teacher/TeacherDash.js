@@ -152,13 +152,7 @@ export class TeacherDash extends Component {
           )}
         </div>
         <div className="teacherDashListClasses">List of Classes</div>
-        <button
-          type="button"
-          className="teacherDashNewClassButton"
-          onClick={this.handleClick}
-        >
-          New Class
-        </button>
+
         {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
           courseList.map(course => {
@@ -175,7 +169,13 @@ export class TeacherDash extends Component {
         ) : (
           <div>Loading..</div>
         )}
-
+        <button
+          type="button"
+          className="teacherDashNewClassButton"
+          onClick={this.handleClick}
+        >
+          New Class
+        </button>
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit} className="addNewClassForm">
             <label htmlFor="introductionToTheCourse">
