@@ -79,12 +79,7 @@ body > #zmmtg-root {
 .react-router-link:hover {
   color: hotpink;
   transform: scale(1.2);
-  cursor: url('pointer-chalk.png'), auto;
   text-decoration: none;
-}
-
-button:hover {
-  cursor: url('pointer-chalk.png'), auto;
 }
 
 a {
