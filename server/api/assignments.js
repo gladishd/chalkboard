@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Assignment, Course, Gradebook} = require('../db/models')
+const User = require('../db/models/user')
 module.exports = router
 
 //Get all assignments
@@ -84,16 +85,22 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
   }
 })
 
+//Get all the users of a particular assignment
 router.get('/users/:assignmentId', async (req, res, next) => {
   try {
-    const assignmentId = Number(req.params.assignmentId)
-    const task = await Gradebook.findAll({
+    const id = Number(req.params.assignmentId)
+    const task = await Assignment.findOne({
       where: {
-        assignmentId
+        id
       },
-      include: {}
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'id']
+        }
+      ]
     })
-    task ? res.json(task) : res.status(400).end()
+    task ? res.json(task.users) : res.status(400).end()
   } catch (error) {
     next(error)
   }
