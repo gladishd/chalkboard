@@ -79,12 +79,6 @@ async function seed() {
   await c20.update({teacherId: jonah.id})
   const c21 = await Course.findByPk(21)
   await c21.update({teacherId: jonah.id})
-  const c22 = await Course.findByPk(22)
-  await c22.update({teacherId: jonah.id})
-  const c23 = await Course.findByPk(23)
-  await c23.update({teacherId: jonah.id})
-  const c24 = await Course.findByPk(24)
-  await c24.update({teacherId: jonah.id})
 
   await courseEcon201.update({teacherId: travis.id})
   await courseSenCod404.update({teacherId: travis.id})
