@@ -47,6 +47,9 @@ select {
 
 .navbar-header {
   padding-top: 5vh;
+  width: 100%;
+  margin: auto;
+  text-align: center;
 }
 
 .auth-form-component {
@@ -900,4 +903,43 @@ Message Fonts
   color: rgb(255, 174, 0) !important;
   background: transparent !important;
   box-shadow: 0em 1em 2em rgba(0, 0, 0, 0.1) !important;
+}
+
+.drop-cap:first-letter {
+  font-size: 2em;
+  font-family: fantasy;
+}
+
+textarea,
+input {
+  background-color: rgba(255, 255, 255, 0.185);
+}
+
+.singleLetter {
+  background: url(https://images.fineartamerica.com/images-medium-large/a-piece-of-chalk-on-a-chalkboard-jon-schulte.jpg);
+  background-size: 5px 5px;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: bolder;
+  font-size: 2em;
+}
+.singleLetter:before,
+.singleLetter:after {
+  position: absolute;
+  content: attr(value);
+  transform-origin: top left;
+  transition: all 20s ease-out;
+}
+
+.singleLetter:before {
+  text-shadow: -0.01em 0 0.01em rgba(255, 230, 0, 0.856),
+    0.01em 0 0.01em rgb(64, 169, 255);
+}
+
+.singleLetter:hover:before {
+  transform: rotateY(-3600deg) rotateZ(-3600deg);
+}
+.singleLetter:hover:after {
+  transform: rotateY(-3600deg) skew(-3600deg, 3600deg);
 }
