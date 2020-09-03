@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addAssignmentThunk} from '../../store/assignment'
+import {ToastContainer, toast} from 'react-toastify'
 
 //info given this.prams.params.id
 const defaultState = {
@@ -23,7 +24,6 @@ class AssignmentForm extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     const dueDate = new Date(this.state.date + ' ' + this.state.time)
-
     const {
       weight,
       assignmentType,
@@ -31,6 +31,8 @@ class AssignmentForm extends React.Component {
       totalPoints,
       description
     } = this.state
+
+    toast('Success!')
 
     const payload = {
       courseId: this.props.courseId,
@@ -55,6 +57,7 @@ class AssignmentForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <ToastContainer className="toastContainer" />
         <div>
           <label>Assignment name</label>
           <input
@@ -144,6 +147,16 @@ class AssignmentForm extends React.Component {
         >
           Submit
         </button>
+        {!this.state.assignmentName ||
+        !this.state.date ||
+        !this.state.totalPoints ||
+        !this.state.time ||
+        !this.state.weight ||
+        !this.state.description ? (
+          <span className="validationText">Need to fill out all fields!</span>
+        ) : (
+          <div />
+        )}
       </form>
     )
   }

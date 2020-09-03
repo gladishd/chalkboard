@@ -6,15 +6,32 @@ import {
   removeAssignmentThunk
 } from '../../store/assignment'
 import moment from 'moment' // so we can format the due date
+import {ShowStudents} from '../index'
 
 export class TeacherAssignmentView extends Component {
   constructor(props) {
     super(props)
     this.state = {
       selected: 'all',
-      allAssignments: []
+      allAssignments: [],
+      showStudents: false,
+      currSelected: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle(e) {
+    e.preventDefault()
+    console.log('e target', e.target.name)
+    if (!this.state.showStudents)
+      this.setState({
+        showStudents: !this.state.showStudents,
+        currSelected: Number(e.target.name)
+      })
+    else if (Number(e.target.name) === this.state.currSelected)
+      this.setState({showStudents: !this.state.showStudents})
+    else this.setState({currSelected: Number(e.target.name)})
   }
 
   handleChange(e) {
@@ -97,6 +114,7 @@ export class TeacherAssignmentView extends Component {
                       <hr />
                       {element.weight}
                     </div>
+
                     <div className="checkbox">
                       <button
                         type="button"
@@ -110,7 +128,24 @@ export class TeacherAssignmentView extends Component {
                       >
                         Delete
                       </button>
+
+                      <hr />
+
+                      <button
+                        type="button"
+                        onClick={this.toggle}
+                        name={element.id}
+                      >
+                        Submit Grade
+                      </button>
                     </div>
+
+                    {this.state.showStudents &&
+                    element.id === this.state.currSelected ? (
+                      <ShowStudents assignmentId={element.id} />
+                    ) : (
+                      <div> </div>
+                    )}
                   </div>
                 </div>
               )

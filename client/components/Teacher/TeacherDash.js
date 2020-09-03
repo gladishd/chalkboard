@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import io from 'socket.io-client'
 import {setSocket} from '../../store/socket'
 import {getSingleCourseThunk, addCourseThunk} from '../../store/course'
+import {toast, ToastContainer} from 'react-toastify'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -47,6 +48,8 @@ export class TeacherDash extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    toast('Success!')
+
     this.props.postCourse({
       id: Number(this.state.courseId),
       teacherId: Number(this.props.reduxState.user.me.id),
@@ -107,10 +110,6 @@ export class TeacherDash extends Component {
 
   render() {
     const courseList = this.props.courses || []
-
-    // console.log('on the TeacherDash component, the props are: ', this.props)
-
-    // console.log('on the TeacherDash component, the state is: ', this.state)
     return (
       <div
         className="TeacherDash"
@@ -209,6 +208,7 @@ export class TeacherDash extends Component {
               onChange={this.mapCourseScheduleToState}
             />
             <br />
+            <ToastContainer className="toastContainer" />
             <button
               type="button"
               className="submitCourse"
