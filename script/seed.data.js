@@ -67,17 +67,6 @@ const course = [
     id: 6
   },
   {
-    courseName: 'Whiteness: The Other Side of Racism',
-    size: 50,
-    courseIntro:
-      "This course teaches students about their role as white members of society and has been much criticized for promoting guilt about students' race.",
-    courseMoreInformation:
-      'I want students to be knowledgeable about the social, political, and economic aspects of the current racial landscape and to understand the history of how it got that way. I want students to be aware that while racism disadvantages people of color, it provides benefits to whites. By examining the other side of racism--whiteness--we can see the advantages in education, heath care, and employment that white people continually accrue. I want students to see that racism still exists (even though it seems less overt to some) and that dismantling racism will take the work of all of us working in coalition with one another. I also want students to see that they have agency, that they can do something about racism and the power of whiteness; they do not have to sit by and watch it happening, while lamenting that it is terrible. We all can take action, no matter how small, to interrupt the workings of racism. We have a long history of racism in our society, but we also have a long history of everyday people like you and me of all racial and ethnic affiliations working for racial justice. I want students to know about these people so that they will have models to follow if, and when, they decide to take action.',
-    courseSchedule:
-      'Schedule: \n M, W, F \n 11:00am - 12:00am \n T, Th \n 6:30pm - 8:00pm',
-    id: 7
-  },
-  {
     courseName: 'Daytime Serials: Family and Social Roles',
     size: 55,
     courseIntro:
@@ -86,7 +75,7 @@ const course = [
       "Analysis of the themes and characters that populate television's daytime serials and investigation of what impact these portrayals have on women's and men's roles in the family and in the work place. The course will compare and contrast prime-time programs with daytime serials for these themes.",
     courseSchedule:
       'Schedule: \n M, W, F \n 12:00am - 1:00pm \n T, Th \n 7:30pm - 9:00pm',
-    id: 8
+    id: 7
   },
   {
     courseName: 'Information Radio',
@@ -97,7 +86,7 @@ const course = [
       'Radio continuity writing, script editing, information gathering and preparation, program planning and editing, and voicing techniques; emphasis on public information and educational programming. ',
     courseSchedule:
       'Schedule: \n M, W, F \n 1:00pm - 2:00pm \n T, Th \n 8:30pm - 10:00pm',
-    id: 9
+    id: 8
   },
   {
     courseName:
@@ -109,7 +98,7 @@ const course = [
       "Regardless of which of these fine institutions you choose, you'll have the chance to learn everything you need to know about the most famous prepubescent wizard in the world. This Spring Semester course is more than spells and magic though. J.K. Rowling is not only the author of the Harry Potter series but also the creator of a rich and broad meta-fictional universe. Drawn as it is from the sights and sounds of Great Britain, the Harry Potter saga readily lends itself to an immersive cultural experience. Far from just another literature course, 'To Hogwarts Harry' offers students the chance to take this immersion to the next level. Participants will jet to England to follow in Harry's footsteps, to behold the Scottish glen where Hagrid's Hut stood, to shop at the Leadenhall Market that gave inspiration to Diagon Alley, to cross the threshold of Oxford's Christ Church, which inspired the Great Hall at Hogwarts. Like Hogwarts itself, this two week course is rather exclusive, reserved as it is for honors English students only. Unlike Hogwarts, students are hardly ever dragged into the woods by giant man-eating spiders or mauled by werewolves. If that isn't motive enough, you should know that this study-abroad program will also net you three credits.",
     courseSchedule:
       'Schedule: \n M, W, F \n 2:00pm - 3:00pm \n T, Th \n 9:30pm - 11:00pm',
-    id: 10
+    id: 9
   },
   {
     courseName: 'Wasting Time on the Internet',
@@ -120,18 +109,7 @@ const course = [
       "For three hours every Wednesday, students will meet together in a room and completely ignore each other while wandering aimlessly about the web, attempting to bring cohesion to the chat room flotsam and social media jetsam bobbing about in the virtual sea. This course asks if there is a way to cull meaningful literary content from the temporal Tweets, fleeting Facebook posts, and casual comments with which we splatter the web. Supporting its endeavor through consideration of works by thinkers like Betty Friedan, Erving Goffman, and John Cage, the course attempts intellectual interface with the concepts of boredom and time-wasting. In most contexts, the required coursework would be considered a good way to blow a perfectly useful day. In this context, it is an elective seminar for English majors. And if you're in the Creative Writing Track at UPenn, you're degree program actually requires you to dedicate three hours a week to be wasted on the web.",
     courseSchedule:
       'Schedule: \n M, W, F \n 3:00pm - 4:00pm \n T, Th \n 10:30pm - 12:00am',
-    id: 11
-  },
-  {
-    courseName: 'Politicizing Beyoncé',
-    size: 75,
-    courseIntro:
-      "I bet you were wondering if there was a course that proceeded from the core question, “Can Beyoncé's music be seen as a blueprint for progressive social change?”. In fact, there is.",
-    courseMoreInformation:
-      "Offered as a “Featured Program” at Rutgers University in New Brunswick, New Jersey, “Politicizing Beyoncé” uses the massively successful pop singer's lyrics and videos as a lens through which to view the dynamics of gender, race, power, and popular culture. Informed by a confluence of black feminism and sociology, the course uses Beyoncé's work as a jumping-off point for consideration of the historical and political constructs impacting the lives and experiences of black women in today's society. It's pretty serious business for the woman who played Foxxy Cleopatra in 2002's heinously unwatchable Austin Powers in Goldmember. But with empowering songs like “Grown Woman,” “Run the World,” and “Flawless”—as well as a towering empire of commercial and political influence at her fingertips—Beyoncé's impact is actually quite profound. It is thus that the course offered here proceeds, using its subject's singular celebrity to probe challenging sociological questions. At last check, there are no existing university level courses based on the work of other former Destiny's Child members.",
-    courseSchedule:
-      'Schedule: \n M, W, F \n 4:00pm - 5:00pm \n T, Th \n 11:30pm - 1:00am',
-    id: 12
+    id: 10
   },
   {
     courseName:
@@ -143,18 +121,7 @@ const course = [
       "For those enrolled in this Duke University class, The O.C. is existential gold. According to its Fall 2012 syllabus, the course will “explore the ‘hyper self-awareness' unique to the O.C. and analyze California exceptionalism and singularity in history and popular culture.” Stated more simply, the course examines why really attractive and rich people living near a beach in a place that's warm and sunny all the time think they're awesome. Of course, there's more to it than that. The course also examines pressing modern matters such as “girl culture, 21st century suburban revivalism, the indie music scene, the meta-series, and more.” These, of course, are the features by which The O.C. “changed teen television dramedy forever.” Just in case watching episodes of The O.C. in class doesn't seem like the greatest cerebral challenge you'll face in college, this class ups the ante by also including analytical discussion of cultural touchstones like Real Housewives of Orange County and The Hills. As The O.C. producer Josh Schwartz says (according to the syllabus), “we live in a post-everything universe.” This sentence, of course, means absolutely nothing. But don't let that stop you from taking an English course in which you dive headlong into bad television in search of post-everything meaning.",
     courseSchedule:
       'Schedule: \n M, W, F \n 5:00pm - 6:00pm \n T, Th \n 12:30am - 2:00am',
-    id: 13
-  },
-  {
-    courseName: 'The Sociology of Miley Cyrus',
-    size: 20,
-    courseIntro:
-      "There's actually a lot more to this than you might at first think. Did you ever wonder why so many child stars grow into super messed up adults? Well, there are actually a lot of theories about it. Not that we're suggesting Miley Cyrus is messed up, per se.",
-    courseMoreInformation:
-      "In fact, she makes a compelling subject for this sociology course because she is so fascinating a former child star. Contrary to those who struggle—and frequently fail—to recreate an image post-puberty, Cyrus is a young celebrity working toward self-actualization with frequently compelling results. The syllabus for the course first offered in the summer 2014 session calls this an examination of “intersectional identities,” which Wikipedia says is the “study of intersections between forms or systems of oppression, domination or discrimination.” We're reasonably confident that the subjects of twerking and Instagram crop up in class discussion on a weekly basis. And in fact, given what the former implies about the co-opting of black culture and the latter suggests about celebrity voyeurism, both subjects lend themselves to a profound examination of American society today. Musically, Miley may not be the Mozart of our time and Hannah Montana isn't exactly Marshall McLuhan. But Miley has become a master of media manipulation, a former object of the Disney tween-star empire evolved into a powerful channel for psychic examination of the celebrity zeitgeist. See how easy it is to intellectualize Miley Cyrus? Well on this picturesque Saratoga Springs, New York campus, you can do that for a whole semester.",
-    courseSchedule:
-      'Schedule: \n M, W, F \n 6:00pm - 7:00pm \n T, Th \n 1:30am - 3:00am',
-    id: 14
+    id: 11
   },
   {
     courseName: 'The Physics of Star Trek',
@@ -165,7 +132,7 @@ const course = [
       'Indeed, this course is listed as part of the science discipline at Santa Clara. Thus, the class will draw a line from Newton and Einstein to Kirk and Janeway. But like Star Trek itself, there is so much more to this than science. If six television series, 11 films, and countless Trekkie conventions have shown us anything, it is the complex and inextricable relationship between technology, faith, identity, and culture. Star Trek shows us a future in which science has given us both glimpses of Utopia and our own destruction. This Santa Clara course peers into that future while exploring the empirical science behind the matter transporter, the theoretical basis for time travel, and possibly even the reason that Patrick Stewart lacks the resources to grow a single follicle of hair well into the 24th Century. The Physics of Star Trek is a great starting point for a job at NASA, construction of a super-large hadron collider, or chief-know-it-all status at your neighborhood comic shop.',
     courseSchedule:
       'Schedule: \n M, W, F \n 7:00pm - 8:00pm \n T, Th \n 2:30am - 4:00am',
-    id: 15
+    id: 12
   },
   {
     courseName: 'Astrobiology',
@@ -176,7 +143,7 @@ const course = [
       "Well, maybe that isn't central premise of this course. But if you do ever plan on successfully answering this and other related questions, you should probably start here. Astrobiology is not merely a course at the University of Washington. In fact, it is a graduate program for which one can earn a PhD. According to its online course catalog, the University of Washington is not the only major institution to offer courses that aim to study life on or from other planets. It is, however, one of the very few to provide “structured interdisciplinary training at the graduate level.” The University points out that, with an offering of 20 required coursework credits, its astrobiology program is one of the nation's most rigorous. Subjects of study include the origin and evolution of life on earth, the search for planets beyond our solar system, and the sustainability of life in extreme environments such as deep-sea hydrothermal vents, Arctic ice, and Cleveland. (Just kidding Cleveland. We love you). Ecology, cosmology, geology, and imagination converge in a course that could be your first step toward a space odyssey. Future occupations include microbiology, environmental conservation, and Martian ambassadorship.",
     courseSchedule:
       'Schedule: \n M, W, F \n 8:00pm - 9:00pm \n T, Th \n 3:30am - 5:00am',
-    id: 16
+    id: 13
   },
   {
     courseName: 'Entertainment Engineering & Design',
@@ -187,7 +154,7 @@ const course = [
       "If you're at all interested in helping to enhance the massive adult playground that is Las Vegas, or to work as a Disney fun-gineer, or perhaps to design the next big-screen innovation used to justify doubling ticket prices, this could be the degree program for you. According to UNLV, you have two basic options. You can earn a bachelor's degree in Design Technology at a total of 133 credits or one in Engineering across 135 credit hours. Be assured, this course of study is deeply embedded in various overlapping scientific disciplines. In spite of the whimsy that it would be your ultimate ambition to create, the program itself will guide you through the very real and very serious subsets of computer, electrical, mechanical, and civil engineering science. All are instructed with an eye toward “the art of entertainment.” In addition to a core emphasis on mathematics and the development of technical skills, this course of study will require you to consider the social, environmental, political, ethical, and economic implications of each and every decision that goes into creating an entertaining experience for the buying public. Whether you hope to design a multi-purpose indoor arena or produce the lighting effects for a Lada Gaga tribute act, this may be the degree program for you. Also, if it is your life's greatest ambition to run away with the French circus, you should know that this major provides a clear avenue to an internship with Cirque du Soleil.",
     courseSchedule:
       'Schedule: \n M, W, F \n 9:00pm - 10:00pm \n T, Th \n 4:30am - 6:00am',
-    id: 17
+    id: 14
   },
   {
     courseName: 'Turfgrass Science',
@@ -198,7 +165,7 @@ const course = [
       "Lest you should think this is a path toward becoming a glorified lawn-mower, be thee fairly warned. Your course of study will include biology, chemistry, and meteorology. This bachelor's degree program gives students on the gridiron-crazy Pennsylvania campus a chance to pursue an array of career opportunities in the field (Yeah, it's a pun. Deal with it). Those career opportunities may include golf course green's keeping, sod design, and athletic facility maintenance. And with everything that you'll learn about cultivation, protection against the elements, and pest management, your front lawn will likely be the envy of your neighbors. Based on the university's own reporting that 70% of Pennsylvania's turfgrass is residentially-owned, you need not work for a professional sporting organization to apply everything that you'll learn in this program. However, it could also open the door to such a career. To the point, Penn State's Turfgrass degree program could lead to an internship with the NFL's nearest organization, the Philadelphia Eagles. But prepare yourself for a rigorous course steeped in both natural and industrial sciences. The Philadelphia Eagles may be giving away wide receiver jobs to every stone-handed bumbler that wanders into their training facilities but you actually have to work pretty hard to maintain the grass underneath their feet.",
     courseSchedule:
       'Schedule: \n M, W, F \n 10:00pm - 11:00pm \n T, Th \n 5:30am - 7:00am',
-    id: 18
+    id: 15
   },
   {
     courseName: 'Bowling Industry Management and Technology',
@@ -209,7 +176,7 @@ const course = [
       "Vincennes is Indiana's oldest university, operational since 1801. And based on the mission statement for its academic bowling program, this is one sport that students and faculty take quite seriously. Indeed, it is told that this program will do nothing less than “enhance the student's intellectual growth and civic responsibilities through interaction with community groups and organizations as it relates to a modern business/recreational environment.” This, says the mission, “will prepare them for employment in the bowling industry.” So, too, will classroom subjects such as profit/loss analysis for a given bowling alley, pinsetter preventative maintenance, and fingerhole-drilling. That last one is not as dirty as it sounds. Get your mind out of the gutter. Depending on your focus within your bowling major, you can complete this two year program in pursuit of either an Associate of Science or an Associate of Applied Science degree. The latter of these will require more technical expertise whereas the former emphasizes the business management dimensions of life on the lanes. And Walter Sobchack would be pleased to know that most classes are conducted on weekdays, meaning that there should never be a reason to roll on Shabbos.",
     courseSchedule:
       'Schedule: \n M, W, F \n 11:00pm - 12:00am \n T, Th \n 6:30am - 8:00am',
-    id: 19
+    id: 16
   },
   {
     courseName: 'Adventure Education',
@@ -220,7 +187,7 @@ const course = [
       "Surrounded as it is by the natural majesty of New Hampshire, the Plymouth State campus serves as the perfect starting point for any number of exhilarating expeditions out into the Granite State frontier. To get an idea of what you might be in for on an average school day, consider several fairly self-explanatory course names, including Winter Backcountry Travel, Alpine Mountaineering, and Canoe Paddling Fundamentals. Of course, if you plan on pursuing this course of study—which is offered both at the bachelor's and master's levels—it's probably a good idea to be comfortable with heights, extreme temperatures, and complaining children. Indeed, Adventure Education falls under the umbrella of Physical Education and its primary purpose is to provide applied training to those who will ultimately lead youth expeditions through forests, rivers, and mountains. A career may await you in any from a number of exciting fields, including national park recreation, environmental education, outdoor adventure leadership, and of course, international secret espionage super-agency.",
     courseSchedule:
       'Schedule: \n M, W, F \n 12:00am - 1:00am \n T, Th \n 7:30am - 9:00am',
-    id: 20
+    id: 17
   },
   {
     courseName: 'Arctic Engineering',
@@ -231,7 +198,7 @@ const course = [
       "Seriously. Do you have any idea how hard it is to make a toilet that flushes at absolute zero? Neither do we but we'll bet this is the course of study if you want to know. Unfortunately, while this program is listed in the course catalog, it is labeled as temporarily suspended at the time of writing. When the master's program is available though, it is administered from within the College of Engineering and Mines' Department of Civil and Environmental Engineering. The graduate program is aimed at those who have already status their undergraduate studies in engineering and who wish to apply this education to confronting the peculiarities of extreme cold weather design, construction, and operation. As the course catalog points out, a heightened interest in petroleum production in Arctic regions has increased demand for those with the set of skills honed by the program in question. This is probably a program that you would also find valuable were you to somehow be a part of a Star Wars-style rebellion forced to establish a secret base on the ice planet of Hoth. The course's focus on hydraulic engineering should give you a leg up for either operating or felling an Imperial AT-AT Walker. Though the program is not presently available to students on the Fairbanks campus, fear not. It's pretty darn cold in Alaska and people are always building stuff. It stands to reason that the inherent value of this degree program will see it offered again in the not-too-distant future. Certainly if that future brings a new ice age with it, degree-holders in Arctic Engineering will be pretty sought after.",
     courseSchedule:
       'Schedule: \n M, W, F \n 1:00am - 2:00am \n T, Th \n 8:30am - 10:00am',
-    id: 21
+    id: 18
   },
   {
     courseName: 'Bagpiping',
@@ -242,7 +209,7 @@ const course = [
       "But this isn't about popular music. This is about unpopular music. This is about the music best suited for emptying a saloon after last call. Don't get me wrong. We are lovers of all things musical. But we'd shake on a gentleman's bet that 30 minutes of live bagpiping, and you'd be gone like a Hagas on Hogmanay. This university's bagpiping program's existence owes itself almost entirely to the Scottish-American heritage of the university's namesake, Andrew Carnegie. Its commitment to an instrument that might best be described as the sound of sick cats being tortured makes this Pittsburgh-based university the top destination in the U.S. for aspiring bagpipers. As the only university to offer a Master's degree in the bags, Carnegie Mellon will draw as many as three piping aspirants every year. Three may not sound like a lot, but put all of them in a room together with their instruments and I guarantee it'll feel like a crowd. According to an article from 2012, Carnegie's recently hired pipemaster general had also made considerable strides in expanding the membership of the university's competitive pipe band. As the bandleader explained of his program, “I'm hoping to make a significant contribution to both the university and the North American piping scene.” And what a scene it is.",
     courseSchedule:
       'Schedule: \n M, W, F \n 2:00am - 3:00am \n T, Th \n 9:30am - 11:00am',
-    id: 22
+    id: 19
   },
   {
     courseName: 'Race Track Industry',
@@ -253,7 +220,7 @@ const course = [
       "If you're lying, then we're concerned you might have a gambling problem. Assuming the former, there's a good chance you studied at the University of Arizona. Indeed, the Tucson campus is home to one of the oldest and largest Race Track Industry degree programs in circulation. In fact, the program was initially chartered in response to a rising need within the industry for college educated professionals. The increasingly complex and sophisticated business of horse racing prompted several industry leaders to partner with the University in 1973 to create what is now a thriving bachelor's degree program. Falling under the umbrella of the Department of Agriculture, this major gives students a choice between either the Business or Animal Management aspects of a career in horse racing. The former is for those who will manage, market, or regulate horse racing operations and the latter is for those who will seek an occupation in training, breeding, or farm management. Far from being an obscure major, this one is actually a pretty safe bet for undergraduates. According to the University of Arizona, roughly 80% of degree-holders from this program find employment immediately upon graduation.",
     courseSchedule:
       'Schedule: \n M, W, F \n 3:00am - 4:00am \n T, Th \n 10:30am - 12:00pm',
-    id: 23
+    id: 20
   },
   {
     courseName: 'Theme Park Engineering',
@@ -264,7 +231,7 @@ const course = [
       "Point is, if you're going to design roller coasters and log flumes, it's a great idea to know exactly what you're doing. And that's not just because this is serious life and death stuff. It's also because nobody likes a boring ride. There's a fine line between feeling like you might die and actually running the risk. Theme Park Engineering majors are those special individuals who know the exact mathematical equation for riding that line. At California State University in Long Beach, you can become one of these individuals by successfully earning your Bachelor of Science in Engineering with an Option in Theme Park Engineering. First entering the course catalog in 1999, Theme Park Engineering requires foci in electrical, civil, and mechanical engineering as well as hydraulic and pneumatic control. These are pretty much all the things you'll need to know if you ever wish to design a Gravitron, repair a Tilt-a-Whirl, or reduce the vomit-factor of a Teacups ride gone haywire.",
     courseSchedule:
       'Schedule: \n M, W, F \n 4:00am - 5:00am \n T, Th \n 11:30am - 1:00pm',
-    id: 24
+    id: 21
   }
 ]
 
@@ -857,60 +824,6 @@ const enrollment = [
     completionStatus: true,
     courseId: 21,
     userId: 4
-  },
-  {
-    classGrade: 70,
-    completionStatus: true,
-    courseId: 22,
-    userId: 6
-  },
-  {
-    classGrade: 80,
-    completionStatus: false,
-    courseId: 22,
-    userId: 4
-  },
-  {
-    classGrade: 90,
-    completionStatus: true,
-    courseId: 22,
-    userId: 5
-  },
-  {
-    classGrade: 95,
-    completionStatus: true,
-    courseId: 23,
-    userId: 6
-  },
-  {
-    classGrade: 96,
-    completionStatus: false,
-    courseId: 23,
-    userId: 5
-  },
-  {
-    classGrade: 97,
-    completionStatus: true,
-    courseId: 23,
-    userId: 1
-  },
-  {
-    classGrade: 98,
-    completionStatus: true,
-    courseId: 24,
-    userId: 6
-  },
-  {
-    classGrade: 99,
-    completionStatus: false,
-    courseId: 24,
-    userId: 1
-  },
-  {
-    classGrade: 100,
-    completionStatus: true,
-    courseId: 24,
-    userId: 2
   }
 
   //24 is the max course id
