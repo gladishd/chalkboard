@@ -13,7 +13,7 @@ export class moreClassInformationComponent extends React.Component {
 
   render() {
     return (
-      <div className="localClassInformation">
+      <div className="localClassInformation drop-cap">
         {this.props.text.map((element, index) => {
           return <div key={index}>{element}</div>
         })}
@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch => {
   return {}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  moreClassInformationComponent
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(moreClassInformationComponent)

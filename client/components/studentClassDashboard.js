@@ -129,7 +129,7 @@ export class studentClassDashboard extends React.Component {
 
           <div className="classTitle">{/* {`Welcome to ${courseName}`} */}</div>
 
-          <div className="introductionToTheCourse">
+          <div className="introductionToTheCourse drop-cap">
             {courseIntro.map((element, index) => {
               return <div key={index}>{element}</div>
             })}
