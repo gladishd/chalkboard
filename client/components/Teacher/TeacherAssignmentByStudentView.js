@@ -78,11 +78,9 @@ export class TeacherAssignmentByStudentView extends Component {
         <div className="student">
           Students
           <hr />
-          {listStudents.map((student) => {
+          {listStudents.map(student => {
             return (
-
               <div key={student.id}>
-
                 {[student.firstName, student.lastName, student.email].join(' ')}
               </div>
             )
@@ -95,9 +93,7 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {listStudents.map(student => {
               return (
-
                 <option key={student.id} value={student.id}>
-
                   {[student.firstName, student.lastName].join(' ')}
                 </option>
               )
@@ -111,7 +107,6 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {allAssignments.map(assignment => {
               return (
-
                 <option key={assignment.id} value={assignment.id}>
                   {assignment.assignmentName}
                 </option>
@@ -121,11 +116,9 @@ export class TeacherAssignmentByStudentView extends Component {
           </select>
         </div>
 
-        {gradebookFilteredForClass.map((assignment) => {
+        {gradebookFilteredForClass.map(assignment => {
           return (
-
             <div key={assignment.id}>
-
               <div className="studentAssignmentBoxes">
                 <div className="checkbox">
                   Assignment Name

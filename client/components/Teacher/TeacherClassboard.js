@@ -234,14 +234,10 @@ export class TeacherClassboard extends Component {
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
       const courseId = Number(this.props.match.params.id)
-
       this.setState({courseId})
-
       await this.props.getSingleCourse(this.state.courseId)
       await this.props.getStudentsForThisCourse(this.state.courseId)
       await this.props.getAllUsers()
-
-      //Hard coding course num 1
       await this.props.getSingleCourse(this.state.courseId)
       await this.props.getStudentsForThisCourse(this.state.courseId)
     } catch (err) {
@@ -254,25 +250,7 @@ export class TeacherClassboard extends Component {
 
     return (
       <div className="teacherClassBoard">
-        <div className="classboardList">
-          <b>{courseName}</b>
-          {this.props.reduxState.course.students.map((studentObject, index) => {
-            const counter = index
-            return (
-              <div key={counter}>
-                {`Student ${index}: ` +
-                  studentObject.firstName +
-                  ' ' +
-                  studentObject.lastName +
-                  ' (' +
-                  studentObject.email +
-                  ')'}
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="scheduleDashBox">
+        <div className="classboard-schedule-roster">
           <div className="classboardSchedule">
             {this.props.reduxState.course.single.courseSchedule ? (
               this.props.reduxState.course.single.courseSchedule
@@ -285,7 +263,19 @@ export class TeacherClassboard extends Component {
               <div>No Schedule Available</div>
             )}
           </div>
-
+          <div className="classboardList">
+            <b>{`${courseName} - Roster`}</b>
+            <br></br>
+            {this.props.reduxState.course.students.map(student => {
+              return (
+                <div key={student.id}>
+                  {`${student.firstName} ${student.lastName} (${student.email})`}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+        <div className="scheduleDashBox">
           <div className="teacherClassboardOptions">
             <button
               type="button"
@@ -355,7 +345,7 @@ export class TeacherClassboard extends Component {
                   </textarea>
                 </label>
 
-                <button type="submit" className="buttonUpdateCourse">
+                <button type="submit" className="submitCourse">
                   Submit
                 </button>
               </form>
