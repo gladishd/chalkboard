@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 // import {createGroupThunk} from '../store/createGroup'
-import {getAllUsersThunk} from '../store/user'
+import {getAllUsersThunk, postGroupThunk} from '../store/user'
+import {ToastContainer, toast} from 'react-toastify'
 
 export class newGroupFormComponent extends React.Component {
   constructor() {
@@ -41,18 +42,19 @@ export class newGroupFormComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    // const {
-    //   groupName
-    // } = this.state
-    // this.props.createGroup({ {/* this should come from props */}
-    //   groupName
-    // })
-    console.log(
-      'need to submit student group',
-      e.target.value,
-      this.state,
-      this.props.reduxState.users
-    )
+    this.props.postGroup({
+      groupMembers: this.state.groupMembers,
+      groupName: this.state.groupName
+    })
+    if (
+      this.state.groupMembers &&
+      this.state.groupName &&
+      this.state.groupName[0] === this.state.groupName[0].toUpperCase()
+    ) {
+      toast('Success!')
+    } else {
+      toast('Need to fill out all fields!')
+    }
   }
 
   selectStudent(e) {
@@ -91,6 +93,7 @@ export class newGroupFormComponent extends React.Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="groupName">
+              <ToastContainer className="toastContainer" />
               {this.state.groupName !== '' &&
               this.state.groupName[0] !==
                 this.state.groupName[0].toUpperCase() ? (
@@ -108,17 +111,34 @@ export class newGroupFormComponent extends React.Component {
               placeholder="Type in a group name.."
             />
             <br />
+
             <select
               name="group"
               className="selectGroupMembers"
               onChange={this.selectStudent}
             >
-              <option value="">Select an option</option>
-              <option value="Dean">Dean</option>
-              <option value="Khuong">Khuong</option>
-              <option value="Zach">Zach</option>
-              <option value="Jonathan">Jonathan</option>
+              <option value="all">Show All</option>
+              {this.props.studentsInCourse.map(element => {
+                return (
+                  <option
+                    value={
+                      '(' +
+                      element.id +
+                      ')' +
+                      ' ' +
+                      element.firstName +
+                      ' ' +
+                      element.lastName +
+                      ' '
+                    }
+                    key={`Select${element.id}`}
+                  >
+                    {element.firstName + ' ' + element.lastName}
+                  </option>
+                )
+              })}
             </select>
+
             <button
               type="button"
               onClick={this.addStudent}
@@ -128,17 +148,34 @@ export class newGroupFormComponent extends React.Component {
             </button>
 
             <br />
+
             <select
               name="group"
               className="selectGroupMembers"
               onChange={this.selectTeacher}
             >
-              <option value="">Select an option</option>
-              <option value="Dean">Dean</option>
-              <option value="Khuong">Khuong</option>
-              <option value="Zach">Zach</option>
-              <option value="Jonathan">Jonathan</option>
+              <option value="all">Show All</option>
+              {this.props.teacherForCourse.map(element => {
+                return (
+                  <option
+                    value={
+                      '(' +
+                      element.id +
+                      ')' +
+                      ' ' +
+                      element.firstName +
+                      ' ' +
+                      element.lastName +
+                      ' '
+                    }
+                    key={`Select${element.id}`}
+                  >
+                    {element.firstName + ' ' + element.lastName}
+                  </option>
+                )
+              })}
             </select>
+
             <button
               type="button"
               onClick={this.addTeacher}
@@ -186,10 +223,14 @@ const mapDispatchToProps = dispatch => {
     // getSingleCampus: (id) => { dispatch(fetchSingleCampus(id)) },
     getAllUsers: () => {
       dispatch(getAllUsersThunk)
+    },
+    postGroup: groupData => {
+      dispatch(postGroupThunk(groupData))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  newGroupFormComponent
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(newGroupFormComponent)
