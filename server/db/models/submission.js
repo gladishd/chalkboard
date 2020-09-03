@@ -14,7 +14,7 @@ const Submission = db.define('submission', {
     allowNull: false
   },
   image: {
-    type: Sequelize.BLOB
+    type: Sequelize.STRING
   },
   courseId: {
     type: Sequelize.INTEGER,

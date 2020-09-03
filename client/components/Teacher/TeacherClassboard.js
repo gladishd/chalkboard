@@ -422,7 +422,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.state.courseId}
+                courseIdInherited={this.props.location.state.number}
               />
             ) : (
               <div />

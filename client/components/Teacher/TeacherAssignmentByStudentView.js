@@ -45,9 +45,11 @@ export class TeacherAssignmentByStudentView extends Component {
   //   }
   // }
   
+  
   render() {
+
     const submissions = this.props.reduxState.submission.submissions || []
-    console.log('looking for submissions ', this.props)
+    console.log('new submissions ', this.props)
     let listStudents = this.props.studentsForThisCourseInherited
     let allAssignments = this.props.reduxState.assignment.assignments || []
 
@@ -90,26 +92,27 @@ export class TeacherAssignmentByStudentView extends Component {
   //   // }
   // const afterpic = blobToImage(submissions[0])
   // console.log('afterpic ', afterpic)
-  function convert(buffer) { 
+//   function convert(buffer) { 
 
-    const bytes = new Uint8Array(buffer);
-    btoa(bytes)
-   console.log('btoa ', btoa(bytes))
-    return 'data:image/png;base64,'+btoa(bytes);
-}
-if(submissions.length){
+//     const bytes = new Uint8Array(buffer);
+//     btoa(bytes)
+//    console.log('btoa ', btoa(bytes))
+//     return 'data:image/png;base64,'+btoa(bytes);
+// }
+// if(submissions.length){
   
-  convert(submissions[0].image.data)
-  console.log('sub ',submissions)
-  console.log('0', submissions[0].image.data)
+//   convert(submissions[0].image.data)
+//   console.log('sub ',submissions)
+//   console.log('0', submissions[0].image.data)
 
-}
-
+// }
+    const images = this.props.reduxState.submission.submissions
+    console.log('image var ', images)
     return (
       
       <div className="assignmentsByStudent">
-        {submissions.length && <img src={convert(submissions[0].image.data)}/>} 
-       
+        {/* {submissions.length && <img src={convert(submissions[0].image.data)}/>}  */}
+      
         <div className="student">
           Students
           <hr />
@@ -155,51 +158,13 @@ if(submissions.length){
             <option value="">All Assignments</option>
           </select>
         </div>
-
+        {(images) ? <img src={images[0].image} width='140' height='2000'/> : null}
         {gradebookFilteredForClass.map((assignment) => {
           return (
 
             <div key={assignment.id}>
 
-              <div className="studentAssignmentBoxes">
-                <div className="checkbox">
-                  Assignment Name
-                  <hr />
-                  {assignment.assignmentDataObject[0].assignmentName +
-                    ' ' +
-                    assignment.assignmentDataObject[0].assignmentType
-                      .charAt(0)
-                      .toUpperCase() +
-                    assignment.assignmentDataObject[0].assignmentType.slice(1)}
-                </div>
-                <div className="checkbox">
-                  Due Date
-                  <hr />
-                  {moment(assignment.assignmentDataObject[0].dueDate).format(
-                    'dddd, MMMM Do YYYY, h:mm:ss a'
-                  )}
-                </div>
-                <div className="checkbox">
-                  Total Points
-                  <hr />
-                  {assignment.assignmentDataObject[0].totalPoints}
-                </div>
-                <div className="checkbox">
-                  Weight
-                  <hr />
-                  {assignment.assignmentDataObject[0].weight}
-                </div>
-                <div className="checkbox">
-                  Submission
-                  <hr />
-                  {assignment.completed ? `Completed` : `Incomplete`}
-                </div>
-                <div className="checkbox">
-                  Individual Grade
-                  <hr />
-                  {assignment.individualGrade}
-                </div>
-              </div>
+              
             </div>
           )
         })}

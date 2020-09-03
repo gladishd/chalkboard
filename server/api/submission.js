@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {Submission} = require('../db/models')
 const path = require('path')
+const cloudinary = require('cloudinary').v2;
 
 module.exports = router
 
@@ -9,18 +10,23 @@ console.log('on the submission api page')
 router.post('/:assignment', async (req, res, next) => {
     
     let image = req.files.image;  
-    image.mv(path.resolve(__dirname,'/Users/zachbryce/senior/chalkboard/public/img',image.name))
-    const pic = '/Users/zachbryce/senior/chalkboard/public/img' + image.name
-    try{
-        await Submission.create({
+    console.log('img ', image)
+    await cloudinary.uploader.upload(image.tempFilePath, (err, result) => {
+        console.log('err ', err)
+        console.log('result ', result)
+        
+        Submission.create({
             studentId: req.query.student,
             assignmentName: req.params.assignment,
             courseId: req.query.course,
-            image: image
+            image: result.url
         })
-    } catch (err) {
-        console.log(err)
-    }
+            
+       
+    })
+    // image.mv(path.resolve(__dirname,'/Users/zachbryce/senior/chalkboard/public/img',image.name))
+    // const pic = '/Users/zachbryce/senior/chalkboard/public/img' + image.name
+    
     
  
 })

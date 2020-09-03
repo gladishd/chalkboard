@@ -86,7 +86,8 @@ export default class Submit extends Component {
             }
         try{
 
-            await axios.post(url, formData, config)
+            const photoStuff = await axios.post(url, formData, config)
+            console.log('photo ', photoStuff)
         }catch(err){
             console.log(err)
         }
