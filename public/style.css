@@ -50,6 +50,7 @@ select {
   width: 100%;
   margin: auto;
   text-align: center;
+  position: relative;
 }
 
 .auth-form-component {
@@ -920,7 +921,7 @@ nav a {
 }
 .singleLetter:before,
 .singleLetter:after {
-  /* position: absolute; */
+  position: absolute;
   content: attr(value);
   transform-origin: top left;
   transition: all 20s ease-out;
