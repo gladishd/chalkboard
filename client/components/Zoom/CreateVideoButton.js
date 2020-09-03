@@ -11,7 +11,7 @@ function CreateVideoButton() {
       className="classboardStartLecture"
       onClick={handleClick}
     >
-      Create Room
+      Open Zoom Room
     </button>
   )
 }

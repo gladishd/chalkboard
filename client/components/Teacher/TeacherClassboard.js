@@ -275,6 +275,46 @@ export class TeacherClassboard extends Component {
             })}
           </div>
         </div>
+        <CreateZoomVideo />
+        <div className="liveChat">
+          {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
+          {/* Create a New Group
+              </button> */}
+          <h3>Live Chat</h3>
+          <select
+            name="group"
+            className="selectAudience"
+            // onChange={this.handleChange}
+          >
+            {this.props.students.map((student, idx) => (
+              <option key={student.firstName} value={student.firstName}>
+                {student.firstName}
+              </option>
+            ))}
+          </select>
+          <br />
+          Say something nice..
+          <div id="message-main">
+            <div id="chat-messages" />
+            {this.state.messages.map((message, index) => {
+              const messageCounter = index
+              return (
+                <p
+                  key={'messageCounter' + messageCounter}
+                  className={message.css}
+                >
+                  {message.message}
+                </p>
+              )
+            })}
+            <input
+              id="chat-input"
+              className="teacher-chat-input"
+              type="text"
+              overflow="auto"
+            />
+          </div>
+        </div>
         <div className="scheduleDashBox">
           <div className="teacherClassboardOptions">
             <button
@@ -352,8 +392,6 @@ export class TeacherClassboard extends Component {
             ) : (
               <div />
             )}
-
-            <CreateZoomVideo />
 
             <button
               type="button"
@@ -454,45 +492,6 @@ export class TeacherClassboard extends Component {
             ) : (
               <div> </div>
             )}
-
-            <div className="liveChat">
-              {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
-              {/* Create a New Group
-          </button> */}
-              <select
-                name="group"
-                className="selectAudience"
-                // onChange={this.handleChange}
-              >
-                {this.props.students.map((student, idx) => (
-                  <option key={student.firstName} value={student.firstName}>
-                    {student.firstName}
-                  </option>
-                ))}
-              </select>
-              <br />
-              Say something nice..
-              <div id="message-main">
-                <div id="chat-messages" />
-                {this.state.messages.map((message, index) => {
-                  const messageCounter = index
-                  return (
-                    <p
-                      key={'messageCounter' + messageCounter}
-                      className={message.css}
-                    >
-                      {message.message}
-                    </p>
-                  )
-                })}
-                <input
-                  id="chat-input"
-                  className="teacher-chat-input"
-                  type="text"
-                  overflow="auto"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>
