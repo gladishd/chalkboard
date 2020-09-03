@@ -183,10 +183,7 @@ nav a {
   align-content: space-around;
   flex-flow: row;
   flex-wrap: wrap;
-  /* position: fixed;
-  height: 100vh;
-  padding-bottom: 50vh;
-  padding-top: 50vh; */
+
   border: outset;
 }
 
@@ -236,11 +233,14 @@ nav a {
   height: 25rem;
   margin: 1rem;
 }
+
 #message-main {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
   height: 13rem;
   overflow: scroll;
-  flex-direction: column;
   padding-bottom: 10px;
 }
 .chat-input-prompt {
@@ -265,12 +265,19 @@ nav a {
   background-image: url(chatBackground.png);
   background-size: 100px;
   background-repeat: repeat;
+  border: 2px solid white;
+  border-radius: 10px;
   flex-grow: 2;
-  width: 60vw;
+  width: 50vw;
   height: 20rem;
   margin: 1rem;
   flex-grow: 1;
   flex-basis: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
 }
 
 .chatButtonCreate {
@@ -539,16 +546,19 @@ nav a {
 }
 
 .teacherClassBoard .classboardStartLecture {
-  background-color: rgba(255, 166, 0, 0.418);
+  background-color: dodgerblue;
   padding: 1em;
-  border-style: outset;
+  color: white;
+  border: 2px solid white;
+  margin-top: 10px;
+  border-radius: 15px;
   height: 5em;
-  width: 50vw;
+  width: 30vw;
 }
 
 .teacherClassBoard .classboardStartLecture:hover,
 .teacherClassBoard .classboardStartLecture:active {
-  background-color: white;
+  background-color: black;
   outline: none;
 }
 
@@ -614,7 +624,6 @@ nav a {
 
 .assignmentsByStudent {
   overflow-y: scroll;
-  padding-bottom: 1000px;
   width: 100vw;
 }
 
@@ -674,7 +683,7 @@ nav a {
 }
 
 .teacherClassBoard .scheduleDashBox button:hover {
-  background-color: white;
+  background-color: black;
   outline: none;
 }
 
@@ -783,17 +792,7 @@ nav a {
   padding: 1em;
   border-style: outset;
 }
-/*
-chat stuff
-*/
-/*
-.self{
-  color: green;
-} */
 
-/*
-Message Fonts
-*/
 .student-public {
   color: blue;
 }
@@ -910,11 +909,6 @@ Message Fonts
   font-family: fantasy;
 }
 
-textarea,
-input {
-  background-color: rgba(255, 255, 255, 0.185);
-}
-
 .singleLetter {
   background: url(https://images.fineartamerica.com/images-medium-large/a-piece-of-chalk-on-a-chalkboard-jon-schulte.jpg);
   background-size: 5px 5px;
@@ -926,7 +920,7 @@ input {
 }
 .singleLetter:before,
 .singleLetter:after {
-  position: absolute;
+  /* position: absolute; */
   content: attr(value);
   transform-origin: top left;
   transition: all 20s ease-out;
