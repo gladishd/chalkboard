@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import io from 'socket.io-client'
 import {setSocket} from '../../store/socket'
 import {getSingleCourseThunk, addCourseThunk} from '../../store/course'
+import {toast, ToastContainer} from 'react-toastify'
 
 export class TeacherDash extends Component {
   constructor(props) {
@@ -47,6 +48,8 @@ export class TeacherDash extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    toast('Success!')
+
     this.props.postCourse({
       id: Number(this.state.courseId),
       teacherId: Number(this.props.reduxState.user.me.id),
@@ -107,10 +110,6 @@ export class TeacherDash extends Component {
 
   render() {
     const courseList = this.props.courses || []
-
-    // console.log('on the TeacherDash component, the props are: ', this.props)
-
-    // console.log('on the TeacherDash component, the state is: ', this.state)
     return (
       <div
         className="TeacherDash"
@@ -152,13 +151,7 @@ export class TeacherDash extends Component {
           )}
         </div>
         <div className="teacherDashListClasses">List of Classes</div>
-        <button
-          type="button"
-          className="teacherDashNewClassButton"
-          onClick={this.handleClick}
-        >
-          New Class
-        </button>
+
         {typeof courseList.map === 'function' &&
         Object.keys(courseList).length !== 0 ? (
           courseList.map(course => {
@@ -175,7 +168,13 @@ export class TeacherDash extends Component {
         ) : (
           <div>Loading..</div>
         )}
-
+        <button
+          type="button"
+          className="teacherDashNewClassButton"
+          onClick={this.handleClick}
+        >
+          New Class
+        </button>
         {this.state.renderNewCourseForm ? (
           <form onSubmit={this.handleSubmit} className="addNewClassForm">
             <label htmlFor="introductionToTheCourse">
@@ -209,6 +208,7 @@ export class TeacherDash extends Component {
               onChange={this.mapCourseScheduleToState}
             />
             <br />
+            <ToastContainer className="toastContainer" />
             <button
               type="button"
               className="submitCourse"

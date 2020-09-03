@@ -9,6 +9,7 @@ const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT'
 const UPDATE_ASSIGNMENT = 'UPDATE_ASSIGNMENT'
 const REMOVE_ASSIGNMENT = 'REMOVE_ASSIGNMENT'
 const GET_ASSIGNMENTS_FOR_COURSE = 'GET_ASSIGNMENTS_FOR_COURSE'
+const GET_ALL_STUDENTS_WITH_ASSIGNMENT = 'GET_ALL_STUDENTS_WITH_ASSI'
 
 /**
  * ACTION CREATORS
@@ -31,6 +32,11 @@ const updateAssignment = assignment => ({type: UPDATE_ASSIGNMENT, assignment})
 const removeAssignment = assignmentId => ({
   type: REMOVE_ASSIGNMENT,
   assignmentId
+})
+
+const getAllStudents = students => ({
+  type: GET_ALL_STUDENTS_WITH_ASSIGNMENT,
+  students
 })
 
 /**
@@ -62,12 +68,7 @@ export const getSingleAssignmentThunk = assignmentId => {
 export const getAssignmentsByCourseIdThunk = courseId => {
   return async dispatch => {
     try {
-      // console.log(
-      //   'in the getAssignmentsByCourseIdThunk, the course Id parameter is ',
-      //   courseId
-      // )
       const {data} = await axios.get(`/api/assignments/byCourseId/${courseId}`)
-      console.log('the data returned from the server is ', data)
       dispatch(getAssignmentsForCourse(data))
     } catch (err) {
       console.error(err.message)
@@ -78,8 +79,6 @@ export const getAssignmentsByCourseIdThunk = courseId => {
 export const addAssignmentThunk = assignment => {
   return async dispatch => {
     try {
-      //I think locations is making it so the post request is sending to /assignments/api/assignments
-      //solution is to go back to root
       const {data} = await axios.post('../api/assignments', assignment)
       dispatch(addAssignment(data))
     } catch (err) {
@@ -113,13 +112,25 @@ export const removeAssignmentThunk = assignmentId => {
   }
 }
 
+export const getAllStudentsThunk = assignmentId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/assignments/users/${assignmentId}`)
+      dispatch(getAllStudents(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 /**
  * INITIAL STATE
  */
 const initialState = {
   all: [],
   single: {},
-  assignments: []
+  assignments: [],
+  students: []
 }
 
 /**
@@ -154,6 +165,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         assignments: action.assignments
+      }
+    case GET_ALL_STUDENTS_WITH_ASSIGNMENT:
+      return {
+        ...state,
+        students: action.students
       }
     default:
       return state

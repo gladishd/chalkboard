@@ -6,13 +6,18 @@ import {default as NewGroupFormComponent} from './newGroupFormComponent.js'
 // import socket from '../store/socket.js'
 import {newChat, newMessage} from '../Utils'
 import moment from 'moment'
-import course, {getSingleCourseThunk} from '../store/course.js'
+import course, {
+  getSingleCourseThunk,
+  getCourseStudentsThunk
+} from '../store/course.js'
+import {getAllUsersThunk, getAllGroupsThunk} from '../store/user'
 import emit from '../../public/emit'
 import dashboardEmit from './dashboardEmit'
 import socketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
 import JoinVideoButton from './Zoom/JoinVideoButton.js'
 import setSocket from '../store/socket'
+import {ToastContainer, toast} from 'react-toastify'
 
 export class studentClassDashboard extends React.Component {
   constructor(props) {
@@ -23,11 +28,20 @@ export class studentClassDashboard extends React.Component {
       messages: []
     }
     this.toggleForm = this.toggleForm.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e) {
+    e.preventDefault()
+    console.log('selected group: ', e.target.value)
   }
 
   async componentDidMount() {
     let course = this.props.location.state.number
     await this.props.getCourse(course)
+    await this.props.getAllUsers()
+    await this.props.getStudentsForCourse(course)
+    await this.props.getAllGroups()
 
     let current_time = moment().format('HH:mm')
     const socket = this.props.socket
@@ -92,10 +106,22 @@ export class studentClassDashboard extends React.Component {
       courseDetails = this.props.course.courseMoreInformation.split('\n')
     }
     const messages = this.state.messages || []
-    // console.log(
-    //   'the props on the studentClassDashboard component are ',
-    //   this.props
-    // )
+
+    // for the add group functionality
+    let allUsers = this.props.allUsers
+    let allStudents = allUsers.filter(user => {
+      return user.accountType === 'student'
+    })
+    let allTeachers = allUsers.filter(user => {
+      return user.accountType === 'teacher'
+    })
+    let teacherId = this.props.course.teacherId
+
+    let studentsInCourse = this.props.studentsInCourse
+    let teacherForCourse = allTeachers.filter(user => {
+      return user.id === teacherId
+    })
+
     return (
       <div className="studentClassDashboard">
         <div className="local-time">
@@ -121,14 +147,29 @@ export class studentClassDashboard extends React.Component {
           <div>
             <p>Select Audience</p>
           </div>
+
           <select
             name="group"
             className="selectAudience"
             onChange={this.handleChange}
           >
-            <option value="All">All</option>
-            <option value="Teacher">Teacher</option>
+            <option value="all">Show All</option>
+            {this.props.allGroups ? (
+              this.props.allGroups.map(element => {
+                return (
+                  <option
+                    value={element.groupMembers}
+                    key={`Select${element.id}`}
+                  >
+                    {element.groupName}
+                  </option>
+                )
+              })
+            ) : (
+              <div />
+            )}
           </select>
+
           <br />
           <div className="chat-input-prompt">
             <div>Say something nice...</div>
@@ -172,7 +213,10 @@ export class studentClassDashboard extends React.Component {
         <div>
           {this.state.showForm ? (
             <div className="newGroupFormComponent">
-              <NewGroupFormComponent />
+              <NewGroupFormComponent
+                studentsInCourse={studentsInCourse}
+                teacherForCourse={teacherForCourse}
+              />
             </div>
           ) : (
             <div />
@@ -188,14 +232,23 @@ const mapStateToProps = state => {
     course: state.course.single,
     user: state.user.me,
     accountType: state.user.me.accountType,
-    socket: state.socket
+    socket: state.socket,
+    allUsers: state.user.all,
+    studentsInCourse: state.course.students,
+    allGroups: state.user.allGroups
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getCourse: id => dispatch(getSingleCourseThunk(id)),
-    setSocket: socket => dispatch(setSocket(socket))
+    setSocket: socket => dispatch(setSocket(socket)),
+    getAllUsers: () => dispatch(getAllUsersThunk()),
+    getStudentsForCourse: courseId =>
+      dispatch(getCourseStudentsThunk(courseId)),
+    getAllGroups: () => {
+      dispatch(getAllGroupsThunk())
+    }
   }
 }
 

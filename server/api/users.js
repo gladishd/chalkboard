@@ -1,5 +1,9 @@
 const router = require('express').Router()
+<<<<<<< HEAD
 const {User, Course, Attendance, Gradebook, Assignment} = require('../db/models')
+=======
+const {User, Course, Attendance, Gradebook, Group} = require('../db/models')
+>>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
 const {default: Axios} = require('axios')
 module.exports = router
 
@@ -24,6 +28,15 @@ router.get('/', async (req, res, next) => {
       /* attributes: ['id', 'email', 'accountType'] */
     })
     users ? res.json(users) : res.status(400).end()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/groups', async (req, res, next) => {
+  try {
+    const allGroups = await Group.findAll({})
+    allGroups ? res.json(allGroups) : res.status(400).end()
   } catch (err) {
     next(err)
   }
@@ -113,6 +126,16 @@ router.post('/attendance', async (req, res, next) => {
     const newAttendanceObject = await Attendance.create(req.body)
     newAttendanceObject ? res.json(newAttendanceObject) : res.status(400).end()
   } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/groups', async (req, res, next) => {
+  try {
+    const group = await Group.create(req.body)
+    group ? res.json(group) : res.status(400).end()
+  } catch (err) {
+    res.send('test')
     next(err)
   }
 })

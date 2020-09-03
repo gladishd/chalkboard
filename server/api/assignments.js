@@ -1,9 +1,14 @@
 const router = require('express').Router()
-const {Assignment, Course} = require('../db/models')
+const {Assignment, Course, User} = require('../db/models')
+// const User = require('../db/models/user')
 module.exports = router
 
+<<<<<<< HEAD
 
 
+=======
+//Get all assignments
+>>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
 router.get('/', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll()
@@ -13,6 +18,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//Create a new assigmetn and assign all user's to it
 router.post('/', async (req, res, next) => {
   try {
     console.log('in assign post ', req.body)
@@ -71,6 +77,7 @@ router.delete('/:assignmentId', async (req, res, next) => {
   }
 })
 
+//Get all assignments within a class
 router.get('/byCourseId/:courseId', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll({
@@ -81,5 +88,26 @@ router.get('/byCourseId/:courseId', async (req, res, next) => {
     assignments ? res.json(assignments) : res.status(400).end()
   } catch (err) {
     next(err)
+  }
+})
+
+//Get all the users of a particular assignment
+router.get('/users/:assignmentId', async (req, res, next) => {
+  try {
+    const id = Number(req.params.assignmentId)
+    const task = await Assignment.findOne({
+      where: {
+        id
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'id']
+        }
+      ]
+    })
+    task ? res.json(task.users) : res.status(400).end()
+  } catch (error) {
+    next(error)
   }
 })

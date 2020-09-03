@@ -18,6 +18,7 @@ import {
 } from '../../store/course'
 import CreateZoomVideo from '../Zoom/CreateVideoButton'
 import {CreateAssignment} from '../index'
+import {ToastContainer, toast} from 'react-toastify'
 
 export class TeacherClassboard extends Component {
   constructor(props) {
@@ -120,6 +121,16 @@ export class TeacherClassboard extends Component {
       password: this.state.password,
       id: nextId
     })
+    if (
+      this.state.firstName &&
+      this.state.lastName &&
+      this.state.email &&
+      this.state.password
+    ) {
+      toast('Success!')
+    } else {
+      toast('Need to fill out all fields!')
+    }
   }
 
   mapInputToState(e) {
@@ -181,7 +192,6 @@ export class TeacherClassboard extends Component {
       level: 'teacher',
 
       name: this.props.reduxState.course.single.courseName
-
     })
     socket.on('room-chat', message => {
       console.log(message)
@@ -425,7 +435,6 @@ export class TeacherClassboard extends Component {
             >
               Add
             </button>
-
             {this.state.renderNewStudentForm ? (
               <form
                 onSubmit={this.handleStudentSubmit}
@@ -443,7 +452,7 @@ export class TeacherClassboard extends Component {
                 <label htmlFor="password">Password: </label>
                 <textarea name="password" onChange={this.mapInputToState} />
                 <br />
-
+                <ToastContainer className="toastContainer" />
                 <button
                   type="button"
                   className="submitCourse"
