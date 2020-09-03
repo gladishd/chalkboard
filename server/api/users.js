@@ -1,9 +1,5 @@
 const router = require('express').Router()
-<<<<<<< HEAD
-const {User, Course, Attendance, Gradebook, Assignment} = require('../db/models')
-=======
-const {User, Course, Attendance, Gradebook, Group} = require('../db/models')
->>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
+const {User, Course, Attendance, Gradebook, Assignment, Group, Submission} = require('../db/models')
 const {default: Axios} = require('axios')
 module.exports = router
 

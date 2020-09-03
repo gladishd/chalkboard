@@ -3,12 +3,7 @@ const {Assignment, Course, User} = require('../db/models')
 // const User = require('../db/models/user')
 module.exports = router
 
-<<<<<<< HEAD
-
-
-=======
 //Get all assignments
->>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
 router.get('/', async (req, res, next) => {
   try {
     const assignments = await Assignment.findAll()

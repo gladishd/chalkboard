@@ -4,11 +4,8 @@ const Assignment = require('./assignment')
 const Enrollment = require('./enrollment')
 const Gradebook = require('./gradebook')
 const Attendance = require('./attendance')
-<<<<<<< HEAD
 const Submission = require('./submission')
-=======
 const Group = require('./group')
->>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -43,9 +40,6 @@ module.exports = {
   Enrollment,
   Gradebook,
   Attendance,
-<<<<<<< HEAD
-  Submission
-=======
+  Submission,
   Group
->>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
 }
