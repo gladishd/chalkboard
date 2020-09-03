@@ -906,11 +906,6 @@ Message Fonts
   font-family: fantasy;
 }
 
-textarea,
-input {
-  background-color: rgba(255, 255, 255, 0.185);
-}
-
 .singleLetter {
   background: url(https://images.fineartamerica.com/images-medium-large/a-piece-of-chalk-on-a-chalkboard-jon-schulte.jpg);
   background-size: 5px 5px;
@@ -922,7 +917,7 @@ input {
 }
 .singleLetter:before,
 .singleLetter:after {
-  position: absolute;
+  /* position: absolute; */
   content: attr(value);
   transform-origin: top left;
   transition: all 20s ease-out;
