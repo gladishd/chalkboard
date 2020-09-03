@@ -228,7 +228,7 @@ const course = [
     courseIntro:
       "If you enjoy doing really complicated math while freezing your face off, this is most definitely the major for you. Civil engineering is a deeply challenging course of study in any context. Throw in a subzero climate and you're looking at a whole other level of logistical challenges relating to heat transfer, frozen ground engineering, and toilet flushing.",
     courseMoreInformation:
-      "Seriously. Do you have any idea how hard it is to make a toilet that flushes at absolute zero? Neither do we but we'll bet this is the course of study if you want to know. Unfortunately, while this program is listed in the course catalog, it is labeled as temporarily suspended at the time of writing. When the master's program is available though, it is administered from within the College of Engineering and Mines' Department of Civil and Environmental Engineering. The graduate program is aimed at those who have already completed their undergraduate studies in engineering and who wish to apply this education to confronting the peculiarities of extreme cold weather design, construction, and operation. As the course catalog points out, a heightened interest in petroleum production in Arctic regions has increased demand for those with the set of skills honed by the program in question. This is probably a program that you would also find valuable were you to somehow be a part of a Star Wars-style rebellion forced to establish a secret base on the ice planet of Hoth. The course's focus on hydraulic engineering should give you a leg up for either operating or felling an Imperial AT-AT Walker. Though the program is not presently available to students on the Fairbanks campus, fear not. It's pretty darn cold in Alaska and people are always building stuff. It stands to reason that the inherent value of this degree program will see it offered again in the not-too-distant future. Certainly if that future brings a new ice age with it, degree-holders in Arctic Engineering will be pretty sought after.",
+      "Seriously. Do you have any idea how hard it is to make a toilet that flushes at absolute zero? Neither do we but we'll bet this is the course of study if you want to know. Unfortunately, while this program is listed in the course catalog, it is labeled as temporarily suspended at the time of writing. When the master's program is available though, it is administered from within the College of Engineering and Mines' Department of Civil and Environmental Engineering. The graduate program is aimed at those who have already status their undergraduate studies in engineering and who wish to apply this education to confronting the peculiarities of extreme cold weather design, construction, and operation. As the course catalog points out, a heightened interest in petroleum production in Arctic regions has increased demand for those with the set of skills honed by the program in question. This is probably a program that you would also find valuable were you to somehow be a part of a Star Wars-style rebellion forced to establish a secret base on the ice planet of Hoth. The course's focus on hydraulic engineering should give you a leg up for either operating or felling an Imperial AT-AT Walker. Though the program is not presently available to students on the Fairbanks campus, fear not. It's pretty darn cold in Alaska and people are always building stuff. It stands to reason that the inherent value of this degree program will see it offered again in the not-too-distant future. Certainly if that future brings a new ice age with it, degree-holders in Arctic Engineering will be pretty sought after.",
     courseSchedule:
       'Schedule: \n M, W, F \n 1:00am - 2:00am \n T, Th \n 8:30am - 10:00am',
     id: 21
@@ -922,25 +922,25 @@ const gradebook = [
     userId: 1
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 70,
     assignmentId: 2,
     userId: 1
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 36,
     assignmentId: 3,
     userId: 1
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 56,
     assignmentId: 4,
     userId: 1
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 99,
     assignmentId: 5,
     userId: 1
@@ -958,55 +958,55 @@ const gradebook = [
     userId: 4
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 99,
     assignmentId: 2,
     userId: 2
   },
   {
-    completed: true,
+    status: 'late',
     individualGrade: 98,
     assignmentId: 2,
     userId: 3
   },
   {
-    completed: true,
+    status: 'excused',
     individualGrade: 97,
     assignmentId: 2,
     userId: 4
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 89,
     assignmentId: 3,
     userId: 2
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 88,
     assignmentId: 3,
     userId: 3
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 87,
     assignmentId: 3,
     userId: 4
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 99,
     assignmentId: 1,
     userId: 6
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 97,
     assignmentId: 2,
     userId: 6
   },
   {
-    completed: true,
+    status: 'completed',
     individualGrade: 93,
     assignmentId: 3,
     userId: 6

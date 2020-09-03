@@ -16,9 +16,4 @@ export {default as TeacherDashboard} from './Teacher/TeacherDashboard'
 export {default as moreClassInformationComponent} from './moreClassInformationComponent'
 export {default as VideoRoom} from './Zoom/VideoRoom'
 export {default as CreateVideo} from './Zoom/CreateVideoButton'
-export {
-  AssignGrade,
-  CreateAssignment,
-  UpdateAssignment,
-  ShowStudents
-} from './Assignments'
+export {AssignGrade, CreateAssignment, ShowStudents} from './Assignments'

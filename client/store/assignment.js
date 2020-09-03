@@ -9,8 +9,8 @@ const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT'
 const UPDATE_ASSIGNMENT = 'UPDATE_ASSIGNMENT'
 const REMOVE_ASSIGNMENT = 'REMOVE_ASSIGNMENT'
 const GET_ASSIGNMENTS_FOR_COURSE = 'GET_ASSIGNMENTS_FOR_COURSE'
-const GET_ALL_STUDENTS_WITH_ASSIGNMENT = 'GET_ALL_STUDENTS_WITH_ASSI'
-
+const GET_ALL_STUDENTS_WITH_ASSIGNMENT = 'GET_ALL_STUDENTS_WITH_ASSIGNMENT'
+const SUBMIT_GRADE = 'SUBMIT_GRADE'
 /**
  * ACTION CREATORS
  */
@@ -39,9 +39,26 @@ const getAllStudents = students => ({
   students
 })
 
+const updateGrade = () => ({
+  type: SUBMIT_GRADE
+})
+
 /**
  * THUNK CREATORS
  */
+export const updateGradeThunk = payload => {
+  return async dispatch => {
+    try {
+      await axios.put(
+        `/api/assignments/grade/${payload.assignmentId}/${payload.userId}`,
+        payload
+      )
+      dispatch(updateGrade)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
 export const getAllAssignmentsThunk = () => {
   return async dispatch => {
@@ -171,6 +188,8 @@ export default function(state = initialState, action) {
         ...state,
         students: action.students
       }
+    case SUBMIT_GRADE:
+      return {...state}
     default:
       return state
   }

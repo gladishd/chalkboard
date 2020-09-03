@@ -1,11 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAllStudentsThunk} from '../../store/assignment'
+import {AssignGrade} from '.'
 
 class UpdateAssignment extends React.Component {
-  // constructor(props){
-  //   super(props)
-  // }
   componentDidMount() {
     this.props.setStudents(this.props.assignmentId)
   }
@@ -20,17 +18,11 @@ class UpdateAssignment extends React.Component {
         {this.props.students.length ? (
           this.props.students.map(student => (
             <div key={student.id}>
-              <span>Name: {`${student.firstName} ${student.lastName} `} </span>
-              <span>
-                Status:{' '}
-                {student.gradebook.completed ? 'Completed' : 'Incomplete'}{' '}
-              </span>
-              <span>
-                Grade:{' '}
-                {student.gradebook.individualGrade
-                  ? student.gradebook.individualGrade
-                  : 'N/A'}
-              </span>
+              <AssignGrade
+                student={student}
+                assignmentId={this.props.assignmentId}
+                studentId={student.id}
+              />
             </div>
           ))
         ) : (
