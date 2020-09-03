@@ -22,6 +22,8 @@ html body {
   color: #fbe06b;
   font-family: 'chalktasticregular', sans-serif !important;
   overflow: scroll !important;
+  border: 10px solid;
+  border-image: url('wood-frame-border.png') 25 25 round;
 }
 
 textarea {
