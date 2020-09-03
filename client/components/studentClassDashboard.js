@@ -33,7 +33,6 @@ export class studentClassDashboard extends React.Component {
 
   handleChange(e) {
     e.preventDefault()
-    console.log('selected group: ', e.target.value)
   }
 
   async componentDidMount() {

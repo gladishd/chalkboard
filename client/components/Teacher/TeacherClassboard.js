@@ -111,7 +111,7 @@ export class TeacherClassboard extends Component {
     let allUserIds = this.props.reduxState.user.all.map(user => {
       return Number(user.id)
     })
-    // console.log('allUserIds is ', Math.max(...allUserIds))
+
     let nextId = Math.max(...allUserIds) + 1
     this.props.addNewUser({
       accountType: 'student',
@@ -189,7 +189,8 @@ export class TeacherClassboard extends Component {
 
       this.setState({courseId})
 
-      await this.props.getSingleCourse(this.state.courseId)
+      // await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getSingleCourse(course)
       await this.props.getStudentsForThisCourse(course)
       await this.props.getAllUsers()
 
@@ -197,7 +198,7 @@ export class TeacherClassboard extends Component {
     } catch (err) {
       console.log(err)
     }
-    console.log('location ', this.props.location)
+
     
 
     const socket = this.props.socket
@@ -224,7 +225,7 @@ export class TeacherClassboard extends Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
-      console.log('teacher chat attempt')
+     
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
         if (view === 'All') {
@@ -246,24 +247,7 @@ export class TeacherClassboard extends Component {
     })
   }
 
-  // async componentDidMount() {
-  //   try {
-  //     await this.props.getMyCourses(this.props.reduxState.user.me.id)
-  //     const courseId = Number(this.props.match.params.id)
 
-  //     this.setState({courseId})
-
-  //     await this.props.getSingleCourse(this.state.courseId)
-  //     await this.props.getStudentsForThisCourse(this.state.courseId)
-  //     await this.props.getAllUsers()
-
-  //     //Hard coding course num 1
-  //     await this.props.getSingleCourse(this.state.courseId)
-  //     await this.props.getStudentsForThisCourse(this.state.courseId)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
 
   render() {
     const courseName = this.props.reduxState.course.single.courseName

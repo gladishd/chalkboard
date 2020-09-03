@@ -767,7 +767,7 @@ Message Fonts
   color: blue;
 }
 .student-teacher {
-  color: lightcoral;
+  color: rebeccapurple;
 }
 .teacher-dm {
   color: red;
@@ -838,27 +838,7 @@ Message Fonts
   width: 100%;
 }
 
-<<<<<<< HEAD
 
-/*
-Draft css for assignment updates
-
-
-*/
-/* .student-dashboard-container{
-  display: flex;
-}
-.studentCourseList {
-  flex: 5
-}
-.assignments{
-  flex: 1
-} */
-/* .submit-assignment{
-  position: absolute;
-  right: 50px;
-} */
-=======
 .courseNameTextArea {
   height: 100%;
   width: 100%;
@@ -888,13 +868,10 @@ Draft css for assignment updates
   background-color: rgba(255, 217, 0, 0.74);
   padding: 0.25em;
 }
-<<<<<<< HEAD
->>>>>>> dde2ef0455d0e9fbb809ba0c489daa9a0caba980
-=======
+
 
 .toastContainer {
   color: rgb(255, 174, 0) !important;
   background: transparent !important;
   box-shadow: 0em 1em 2em rgba(0, 0, 0, 0.1) !important;
 }
->>>>>>> b992f7548c86de8b1f596eba548663f1caf5f13b
