@@ -181,12 +181,26 @@ export class TeacherClassboard extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.req)
-    let course = this.state.courseId
+  async componentDidMount() {
+    let course = this.props.location.state.number
+    try {
+      await this.props.getMyCourses(this.props.reduxState.user.me.id)
+      const courseId = Number(this.props.match.params.id)
+
+      this.setState({courseId})
+
+      await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getStudentsForThisCourse(course)
+      await this.props.getAllUsers()
+
+      
+    } catch (err) {
+      console.log(err)
+    }
+    console.log('location ', this.props.location)
+    
 
     const socket = this.props.socket
-
     socket.emit('login', {
       course,
       level: 'teacher',
@@ -197,6 +211,7 @@ export class TeacherClassboard extends Component {
       console.log(message)
     })
     socket.on('message', message => {
+      console.log('message type ', message)
       this.setState({
         messages: [...this.state.messages, message]
       })
@@ -209,12 +224,13 @@ export class TeacherClassboard extends Component {
     })
     const input = document.getElementById('chat-input')
     input.addEventListener('keypress', e => {
+      console.log('teacher chat attempt')
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
         if (view === 'All') {
           socket.emit('teacher-public-message', {
             message: e.target.value,
-            name: this.props.location.state.firstName
+            // name: this.props.location.state.firstName
           })
         } else {
           socket.emit('direct-message', {
@@ -230,24 +246,24 @@ export class TeacherClassboard extends Component {
     })
   }
 
-  async componentDidMount() {
-    try {
-      await this.props.getMyCourses(this.props.reduxState.user.me.id)
-      const courseId = Number(this.props.match.params.id)
+  // async componentDidMount() {
+  //   try {
+  //     await this.props.getMyCourses(this.props.reduxState.user.me.id)
+  //     const courseId = Number(this.props.match.params.id)
 
-      this.setState({courseId})
+  //     this.setState({courseId})
 
-      await this.props.getSingleCourse(this.state.courseId)
-      await this.props.getStudentsForThisCourse(this.state.courseId)
-      await this.props.getAllUsers()
+  //     await this.props.getSingleCourse(this.state.courseId)
+  //     await this.props.getStudentsForThisCourse(this.state.courseId)
+  //     await this.props.getAllUsers()
 
-      //Hard coding course num 1
-      await this.props.getSingleCourse(this.state.courseId)
-      await this.props.getStudentsForThisCourse(this.state.courseId)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  //     //Hard coding course num 1
+  //     await this.props.getSingleCourse(this.state.courseId)
+  //     await this.props.getStudentsForThisCourse(this.state.courseId)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   render() {
     const courseName = this.props.reduxState.course.single.courseName

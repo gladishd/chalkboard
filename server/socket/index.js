@@ -5,6 +5,7 @@ module.exports = io => {
     console.log('user has connected')
 
     socket.on('login', user => {
+      console.log('teacher login? ', user)
       const {course, level, name} = user
       socket.join(course)
       room[socket.id] = course
@@ -24,6 +25,7 @@ module.exports = io => {
         .emit('roll', id)
     })
     socket.on('student-public-message', messageName => {
+      console.log('in student public message ')
       const {message, name} = messageName
 
       socket.to(room[socket.id]).emit('message', {
@@ -39,7 +41,6 @@ module.exports = io => {
     })
     socket.on('teacher-public-message', messageName => {
       const {message, name} = messageName
-
       socket.to(room[socket.id]).emit('message', {
         message: `${name}: ${message}`,
         type: 'teacher',

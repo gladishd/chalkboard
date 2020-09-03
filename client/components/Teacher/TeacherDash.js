@@ -109,6 +109,7 @@ export class TeacherDash extends Component {
   }
 
   render() {
+    console.log('looking for firstName prop ', this.props)
     const courseList = this.props.courses || []
     return (
       <div
@@ -125,12 +126,23 @@ export class TeacherDash extends Component {
 
               return (
                 <div className="schedule-details" key={`spit${counter}`}>
-                  <Link
+                  {/* <Link
                     className="react-router-link"
                     to={`./TeacherClassboard/${course.id}`}
                   >
                     {course.courseName}
-                  </Link>
+                  </Link> */}
+                  <Link
+                    className="react-router-link"
+                    to={{
+                      pathname: './TeacherClassboard',
+                      state: {
+                        number: course.id,
+                        name: course.courseName,
+                        firstName: this.props.firstName
+                      }
+                    }}
+                  ></Link>
                   {course.courseSchedule.split('\n').map((eachLine, indx) => {
                     const scheduleCounter = indx
                     return (
@@ -159,7 +171,15 @@ export class TeacherDash extends Component {
               <Link
                 className="react-router-link teacherDashClassName"
                 key={`courseListDash${course.id}`}
-                to={`./TeacherClassboard/${course.id}`}
+                // to={`./TeacherClassboard/${course.id}`}
+                to={{
+                  pathname: '/TeacherClassboard',
+                  state: {
+                    number: course.id,
+                    name: course.courseName,
+                    firstName: this.props.firstName
+                  }
+                }}
               >
                 {course.courseName}
               </Link>
