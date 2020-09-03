@@ -2,9 +2,9 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Gradebook = db.define('gradebook', {
-  completed: {
-    type: Sequelize.BOOLEAN
-    // allowNull: false
+  status: {
+    type: Sequelize.ENUM('completed', 'late', 'excused', 'pending'),
+    defaultValue: 'pending'
   },
   individualGrade: {
     type: Sequelize.INTEGER,

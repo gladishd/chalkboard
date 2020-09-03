@@ -943,3 +943,11 @@ input {
 .singleLetter:hover:after {
   transform: rotateY(-3600deg) skew(-3600deg, 3600deg);
 }
+
+.assignment-submission-form {
+  display: flex;
+}
+
+.assignment-submission-item {
+  padding: 0.25em;
+}
