@@ -11,7 +11,8 @@ export class TeacherAssignmentByStudentView extends Component {
     super(props)
     this.state = {
       student: '',
-      assignment: ''
+      assignment: '',
+      course: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleChangeAssignments = this.handleChangeAssignments.bind(this)
@@ -51,8 +52,10 @@ export class TeacherAssignmentByStudentView extends Component {
     const submissions = this.props.reduxState.submission.submissions || []
     console.log('new submissions ', this.props)
     let listStudents = this.props.studentsForThisCourseInherited
+    console.log('need students for filter ', listStudents)
     let allAssignments = this.props.reduxState.assignment.assignments || []
-
+    console.log('looking for assignment name ', allAssignments)
+    console.log('connect assignment to assignment id ', this.state.assignment)
     let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
 
     // extract assignment Ids from the list of all assignments for this course
@@ -79,33 +82,7 @@ export class TeacherAssignmentByStudentView extends Component {
         return element.assignmentId === Number(this.state.assignment)
       })
     }
-  //   const blobToImage = (blob) => {
-  //     return new Promise(resolve => {
-  //       const url = window.URL.createObjectURL(blob)
-  //       let img = new Image()
-  //       img.onload = () => {
-  //         URL.revokeObjectURL(url)
-  //         resolve(img)
-  //       }
-  //       img.src = url
-  //     })
-  //   // }
-  // const afterpic = blobToImage(submissions[0])
-  // console.log('afterpic ', afterpic)
-//   function convert(buffer) { 
 
-//     const bytes = new Uint8Array(buffer);
-//     btoa(bytes)
-//    console.log('btoa ', btoa(bytes))
-//     return 'data:image/png;base64,'+btoa(bytes);
-// }
-// if(submissions.length){
-  
-//   convert(submissions[0].image.data)
-//   console.log('sub ',submissions)
-//   console.log('0', submissions[0].image.data)
-
-// }
     const images = this.props.reduxState.submission.submissions
     console.log('image var ', images)
     return (
@@ -140,7 +117,7 @@ export class TeacherAssignmentByStudentView extends Component {
                 </option>
               )
             })}
-            {/* <option value="all">Show All</option> */}
+            <option value="all">Show All</option>
           </select>
 
           <select name="assignments" onChange={this.handleChangeAssignments}>
@@ -150,24 +127,63 @@ export class TeacherAssignmentByStudentView extends Component {
             {allAssignments.map(assignment => {
               return (
 
-                <option key={assignment.id} value={assignment.id}>
+                <option key={assignment.id} value={assignment.assignmentName}>
                   {assignment.assignmentName}
                 </option>
               )
             })}
-            <option value="">All Assignments</option>
+            <option value="all">All Assignments</option>
           </select>
         </div>
-        {(images) ? <img src={images[0].image} width='140' height='2000'/> : null}
-        {gradebookFilteredForClass.map((assignment) => {
+        {/* <img src={images[0].image} width='140' height='2000'/>  */}
+        <div>
+        {(images) ? 
+          images.filter((img) => {
+            console.log('studentImg ', Number(img.studentId))
+            console.log('state student ', this.state.student)
+
+            if(this.state.student === 'all'){
+              return true
+            }
+            if(Number(img.studentId) === Number(this.state.student)){
+              return true
+            }
+            return false
+          }).filter((img) => {
+            console.log('second filter imgName ', img.assignmentName)
+            console.log('state assiName ', this.state.assignment)
+            if(this.state.assignment === 'all'){
+              return true
+            }
+            if(img.assignmentName === this.state.assignment){
+              console.log('success ', img)
+              return true
+            }
+            return false
+          }).map((img) => {
+            const person = listStudents.filter((student) => {
+              if(Number(student.id) === Number(img.studentId)){
+                return true
+              }
+              return false
+            })[0]
+            console.log('person? ', person[0])
           return (
-
-            <div key={assignment.id}>
-
-              
+            <div className="student-submissions">
+              <div className='student-submission'>
+                <h4>{person.firstName} {person.lastName}</h4>
+                <img src={img.image}/>
+              </div>
             </div>
-          )
-        })}
+            
+            
+            )
+          })
+        
+        
+        : null}
+        </div>
+        
       </div>
     )
   }
