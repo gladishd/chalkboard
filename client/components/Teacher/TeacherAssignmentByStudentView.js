@@ -38,24 +38,16 @@ export class TeacherAssignmentByStudentView extends Component {
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
-
-  // componentWillMount() {
-  //   try {
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-  
   
   render() {
 
     const submissions = this.props.reduxState.submission.submissions || []
-    console.log('new submissions ', this.props)
+    
     let listStudents = this.props.studentsForThisCourseInherited
-    console.log('need students for filter ', listStudents)
+  
     let allAssignments = this.props.reduxState.assignment.assignments || []
-    console.log('looking for assignment name ', allAssignments)
-    console.log('connect assignment to assignment id ', this.state.assignment)
+ 
+
     let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
 
     // extract assignment Ids from the list of all assignments for this course
@@ -84,7 +76,7 @@ export class TeacherAssignmentByStudentView extends Component {
     }
 
     const images = this.props.reduxState.submission.submissions
-    console.log('image var ', images)
+    
     return (
       
       <div className="assignmentsByStudent">
@@ -135,8 +127,6 @@ export class TeacherAssignmentByStudentView extends Component {
         <div>
         {(images) ? 
           images.filter((img) => {
-            console.log('studentImg ', Number(img.studentId))
-            console.log('state student ', this.state.student)
 
             if(this.state.student === 'all'){
               return true
@@ -150,7 +140,7 @@ export class TeacherAssignmentByStudentView extends Component {
               return true
             }
             if(img.assignmentName === this.state.assignment){
-              console.log('success ', img)
+              
               return true
             }
             return false

@@ -182,7 +182,6 @@ export class TeacherClassboard extends Component {
   }
 
   async componentDidMount() {
-    console.log('show?')
     let course = this.props.location.state.number
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
@@ -213,7 +212,6 @@ export class TeacherClassboard extends Component {
       console.log(message)
     })
     socket.on('message', message => {
-      console.log('message type ', message)
       this.setState({
         messages: [...this.state.messages, message]
       })
@@ -225,15 +223,13 @@ export class TeacherClassboard extends Component {
       })
     })
     const input = document.getElementById('chat-input')
-    console.log('input is ', input)
     input.addEventListener('keypress', e => {
-      console.log('keypress')
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
         if (view === 'All') {
           socket.emit('teacher-public-message', {
             message: e.target.value,
-            // name: this.props.location.state.firstName
+            name: this.props.location.state.firstName
           })
         } else {
           socket.emit('direct-message', {
@@ -449,7 +445,7 @@ export class TeacherClassboard extends Component {
               className="classboardStudent"
               onClick={this.toggle}
             >
-              Student
+              Student Assignments
             </button>
 
             {this.state.showAssignmentByStudentView ? (
@@ -468,7 +464,7 @@ export class TeacherClassboard extends Component {
               className="classboardAddStudent"
               onClick={this.toggle}
             >
-              Add
+              Add Student
             </button>
             {this.state.renderNewStudentForm ? (
               <form

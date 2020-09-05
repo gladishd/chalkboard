@@ -145,7 +145,7 @@ export class studentClassDashboard extends React.Component {
               <p>Select Audience</p>
             </div>
 
-            <select
+            {/* <select
               name="group"
               className="selectAudience"
               onChange={this.handleChange}
@@ -165,8 +165,15 @@ export class studentClassDashboard extends React.Component {
               ) : (
                 <div />
               )}
-            </select>
-
+            </select> */}
+            <select
+              name="group"
+              className="selectAudience"
+              onChange={this.handleChange}
+              >
+              <option value="All">All</option>
+              <option value="Teacher">Teacher</option>
+              </select>
             <br />
             <div className="chat-input-prompt">
               <div>Say something nice...</div>
