@@ -10,6 +10,14 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const fileUpload = require('express-fileupload')
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: 'ddfklmpvy',
+  api_key: '953796559747358',
+  api_secret: 'jXCsVgk7-OXs-Z__P5eH97exTSU'
+})
 module.exports = app
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
@@ -37,6 +45,9 @@ passport.deserializeUser(async (id, done) => {
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+  app.use(fileUpload({
+    useTempFiles: true
+  }))
 
   // body parsing middleware
   app.use(express.json())
@@ -56,8 +67,8 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
-
   // auth and api routes
+ 
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 

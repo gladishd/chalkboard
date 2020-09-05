@@ -30,5 +30,4 @@ const Assignment = db.define('assignment', {
     defaultValue: null
   }
 })
-
 module.exports = Assignment

@@ -4,6 +4,7 @@ const Assignment = require('./assignment')
 const Enrollment = require('./enrollment')
 const Gradebook = require('./gradebook')
 const Attendance = require('./attendance')
+const Submission = require('./submission')
 const Group = require('./group')
 
 /**
@@ -21,6 +22,9 @@ User.belongsToMany(Course, {through: Enrollment})
 
 Assignment.belongsToMany(User, {through: Gradebook})
 User.belongsToMany(Assignment, {through: Gradebook})
+
+Course.hasMany(Submission)
+Submission.belongsTo(Course)
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -36,5 +40,6 @@ module.exports = {
   Enrollment,
   Gradebook,
   Attendance,
+  Submission,
   Group
 }

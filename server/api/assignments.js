@@ -16,6 +16,7 @@ router.get('/', async (req, res, next) => {
 //Create a new assigmetn and assign all user's to it
 router.post('/', async (req, res, next) => {
   try {
+    console.log('in assign post ', req.body)
     const {courseId} = req.body
     //Creates the assignment
     const newAssignment = await Assignment.create(req.body)
