@@ -112,7 +112,7 @@ export class TeacherClassboard extends Component {
     let allUserIds = this.props.reduxState.user.all.map(user => {
       return Number(user.id)
     })
-    // console.log('allUserIds is ', Math.max(...allUserIds))
+
     let nextId = Math.max(...allUserIds) + 1
     this.props.addNewUser({
       accountType: 'student',
@@ -182,12 +182,27 @@ export class TeacherClassboard extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.req)
-    let course = this.state.courseId
+  async componentDidMount() {
+    let course = this.props.location.state.number
+    try {
+      await this.props.getMyCourses(this.props.reduxState.user.me.id)
+      const courseId = Number(this.props.match.params.id)
+
+      this.setState({courseId})
+
+      // await this.props.getSingleCourse(this.state.courseId)
+      await this.props.getSingleCourse(course)
+      await this.props.getStudentsForThisCourse(course)
+      await this.props.getAllUsers()
+
+      
+    } catch (err) {
+      console.log(err)
+    }
+
+    
 
     const socket = this.props.socket
-
     socket.emit('login', {
       course,
       level: 'teacher',
@@ -231,20 +246,7 @@ export class TeacherClassboard extends Component {
     })
   }
 
-  async componentDidMount() {
-    try {
-      await this.props.getMyCourses(this.props.reduxState.user.me.id)
-      const courseId = Number(this.props.match.params.id)
-      this.setState({courseId})
-      await this.props.getSingleCourse(this.state.courseId)
-      await this.props.getStudentsForThisCourse(this.state.courseId)
-      await this.props.getAllUsers()
-      await this.props.getSingleCourse(this.state.courseId)
-      await this.props.getStudentsForThisCourse(this.state.courseId)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+
 
   render() {
     const courseName = this.props.reduxState.course.single.courseName
@@ -287,6 +289,7 @@ export class TeacherClassboard extends Component {
             className="selectAudience"
             // onChange={this.handleChange}
           >
+            <option value='All'>*All*</option>
             {this.props.students.map((student, idx) => (
               <option key={student.firstName} value={student.firstName}>
                 {student.firstName}
@@ -443,7 +446,7 @@ export class TeacherClassboard extends Component {
               className="classboardStudent"
               onClick={this.toggle}
             >
-              Student
+              Student Assignments
             </button>
 
             {this.state.showAssignmentByStudentView ? (
@@ -451,7 +454,7 @@ export class TeacherClassboard extends Component {
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
-                courseIdInherited={this.state.courseId}
+                courseIdInherited={this.props.location.state.number}
               />
             ) : (
               <div />
@@ -462,7 +465,7 @@ export class TeacherClassboard extends Component {
               className="classboardAddStudent"
               onClick={this.toggle}
             >
-              Add
+              Add Student
             </button>
             {this.state.renderNewStudentForm ? (
               <form
@@ -494,6 +497,8 @@ export class TeacherClassboard extends Component {
             ) : (
               <div> </div>
             )}
+
+            
           </div>
         </div>
       </div>

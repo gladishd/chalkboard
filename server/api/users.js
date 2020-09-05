@@ -1,8 +1,22 @@
 const router = require('express').Router()
-const {User, Course, Attendance, Gradebook, Group} = require('../db/models')
+const {User, Course, Attendance, Gradebook, Assignment, Group, Submission} = require('../db/models')
 const {default: Axios} = require('axios')
 module.exports = router
 
+
+//test- get all users assignments
+router.get('/assignments', async (req, res, next) => {
+  try{
+   
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
+    const assignments = await user.getAssignments()
+    res.json(assignments)
+
+  } catch (err){
+    next(err)
+  }
+})
 // admin can use to get a list of all students in a course
 router.get('/', async (req, res, next) => {
   try {

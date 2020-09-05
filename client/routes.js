@@ -62,7 +62,8 @@ class Routes extends Component {
             />
             <Route path="/teacherDashboard" component={TeacherDashboard} />
             <Route
-              path="/TeacherClassboard/:id"
+              // path="/TeacherClassboard/:id"
+              path="/TeacherClassboard"
               component={TeacherClassboard}
             />
 

@@ -134,12 +134,25 @@ export const getUserAssignmentsThunk = userId => {
     }
   }
 }
+//student assignments
+export const getStudentAssignments = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/assignments`, {user: userId})
+      console.log('assignments ', data)
+      dispatch(getUserAssignments(data))
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
 
 export const getUserGradebookThunk = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/users/gradebook/${userId}`)
-      dispatch(getUserGradebook(data))
+      // const {data} = await axios.get(`/api/users/gradebook/${userId}`)
+      // dispatch(getUserGradebook(data))
+      console.log('not running gradebook route')
     } catch (error) {
       console.error(error.message)
     }
