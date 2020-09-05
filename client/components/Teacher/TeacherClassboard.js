@@ -182,6 +182,7 @@ export class TeacherClassboard extends Component {
   }
 
   async componentDidMount() {
+    console.log('show?')
     let course = this.props.location.state.number
     try {
       await this.props.getMyCourses(this.props.reduxState.user.me.id)
@@ -224,8 +225,9 @@ export class TeacherClassboard extends Component {
       })
     })
     const input = document.getElementById('chat-input')
+    console.log('input is ', input)
     input.addEventListener('keypress', e => {
-     
+      console.log('keypress')
       const view = document.querySelector('.selectAudience').value
       if (e.key === 'Enter') {
         if (view === 'All') {
@@ -247,19 +249,7 @@ export class TeacherClassboard extends Component {
     })
   }
 
-  async componentDidMount() {
-    try {
-      await this.props.getMyCourses(this.props.reduxState.user.me.id)
-      const courseId = Number(this.props.match.params.id)
-      this.setState({courseId})
-      await this.props.getSingleCourse(this.state.courseId)
-      await this.props.getStudentsForThisCourse(this.props.location.state.number)
-      await this.props.getAllUsers()
-      await this.props.getSingleCourse(this.state.courseId)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+
 
   render() {
     const courseName = this.props.reduxState.course.single.courseName
@@ -302,6 +292,7 @@ export class TeacherClassboard extends Component {
             className="selectAudience"
             // onChange={this.handleChange}
           >
+            <option value='All'>*All*</option>
             {this.props.students.map((student, idx) => (
               <option key={student.firstName} value={student.firstName}>
                 {student.firstName}
