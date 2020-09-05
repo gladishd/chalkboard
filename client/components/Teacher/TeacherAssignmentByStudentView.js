@@ -146,8 +146,6 @@ export class TeacherAssignmentByStudentView extends Component {
             }
             return false
           }).filter((img) => {
-            console.log('second filter imgName ', img.assignmentName)
-            console.log('state assiName ', this.state.assignment)
             if(this.state.assignment === 'all'){
               return true
             }
@@ -163,7 +161,7 @@ export class TeacherAssignmentByStudentView extends Component {
               }
               return false
             })[0]
-            console.log('person? ', person[0])
+          
           return (
             <div className="student-submissions">
               <div className='student-submission'>

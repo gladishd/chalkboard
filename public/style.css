@@ -960,4 +960,11 @@ nav a {
 #upload{
   border: solid brown 3px;
 }
-
+.student-submissions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.student-submission{
+  flex: 3;
+}
