@@ -390,6 +390,11 @@ nav a {
 .teacher-dash-schedule {
   display: flex;
   justify-self: center;
+  border: 2px solid white;
+  background-color: darkslategrey;
+  width: 80vw;
+  height: 30vh;
+  overflow: scroll;
   padding: 5px;
 }
 
@@ -501,7 +506,6 @@ nav a {
 }
 
 .teacherClassBoard {
-  background-color: rgba(176, 255, 176, 0.178);
   display: flex;
   flex-direction: column;
   justify-content: center;
