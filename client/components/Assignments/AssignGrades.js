@@ -25,7 +25,7 @@ class AssignGrade extends React.Component {
     const userId = this.props.studentId
     const assignmentId = this.props.assignmentId
     const status = this.state.status
-    const grade = this.state.grade
+    const grade = Number(this.state.grade)
 
     const payload = {userId, assignmentId, status, grade}
     console.log('something is being submitted', payload)
