@@ -390,17 +390,18 @@ nav a {
 .teacher-dash-schedule {
   display: flex;
   justify-self: center;
+  justify-content: flex-start;
   border: 2px solid white;
   background-color: darkslategrey;
-  width: 80vw;
-  height: 30vh;
+  width: 90vw;
   overflow: scroll;
   padding: 5px;
+  padding-bottom: 0px;
 }
 
 .schedule-details {
   padding: 10px;
-  text-align: center;
+  padding-bottom: 0px;
 }
 
 .TeacherDash .teacherDashLogOut {
