@@ -139,7 +139,7 @@ export class StudentDashboard extends React.Component {
             <div>
             <Submit user={{id:this.props.userId, firstName: this.props.firstName}}assignment={this.state.focus} />
             </div>
-          ) : null
+          ) : <h4>Focut not changed</h4>
         
         }
         </div>
