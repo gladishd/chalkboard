@@ -23,7 +23,7 @@ export class studentClassDashboard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showForm: true,
+      showForm: false,
       socket: null,
       messages: []
     }
@@ -133,78 +133,80 @@ export class studentClassDashboard extends React.Component {
               return <div key={index}>{element}</div>
             })}
           </div>
-
-          <div>
-            <JoinVideoButton />
-          </div>
         </div>
 
-        <div className="liveChat">
-          <button className="chatButtonCreate" onClick={this.toggleForm}>
-            Create a New Group
-          </button>
-          <div>
-            <p>Select Audience</p>
-          </div>
+        <JoinVideoButton />
+        <div className="student-chat-components">
+          <div className="liveChat">
+            <button className="chatButtonCreate" onClick={this.toggleForm}>
+              Create a New Group
+            </button>
+            <div>
+              <p>Select Audience</p>
+            </div>
 
-          {/* <select
-            name="group"
-            className="selectAudience"
-            onChange={this.handleChange}
-          >
-            <option value="all">Show All</option>
-            {this.props.allGroups ? (
-              this.props.allGroups.map(element => {
-                return (
-                  <option
-                    value={element.groupMembers}
-                    key={`Select${element.id}`}
-                  >
-                    {element.groupName}
-                  </option>
-                )
-              })
-            ) : (
-              <div />
-            )}
-          </select> */}
-          <select
+            <select
               name="group"
               className="selectAudience"
               onChange={this.handleChange}
-              >
-              <option value="All">All</option>
-              <option value="Teacher">Teacher</option>
-              </select>
+            >
+              <option value="all">Show All</option>
+              {this.props.allGroups ? (
+                this.props.allGroups.map(element => {
+                  return (
+                    <option
+                      value={element.groupMembers}
+                      key={`Select${element.id}`}
+                    >
+                      {element.groupName}
+                    </option>
+                  )
+                })
+              ) : (
+                <div />
+              )}
+            </select>
 
-          <br />
-          <div className="chat-input-prompt">
-            <div>Say something nice...</div>
-          </div>
-          <div id="message-main">
-            <div id="chat-messages" />
-            {messages.map((message, idx) => (
-              <p key={idx} className={message.css}>
-                {message.message}
-              </p>
-            ))}
-            <input
-              id="chat-input"
-              className="student-chat-input"
-              type="text"
-              overflow="auto"
-            />
-            {this.props.accountType === 'teacher' ? (
-              <div>
-                <button>MuteAll</button>
-                <button>Mute Specific</button>
-                <button>Remove Message</button>
-                <button>Cancel Chat for student</button>
+            <br />
+            <div className="chat-input-prompt">
+              <div>Say something nice...</div>
+            </div>
+            <div id="message-main">
+              <div id="chat-messages">
+                {messages.map((message, idx) => (
+                  <p key={idx} className={message.css}>
+                    {message.message}
+                  </p>
+                ))}
               </div>
-            ) : (
-              <div />
-            )}
+              <input
+                id="chat-input"
+                className="student-chat-input"
+                type="text"
+                overflow="auto"
+              />
+              {this.props.accountType === 'teacher' ? (
+                <div>
+                  <button>MuteAll</button>
+                  <button>Mute Specific</button>
+                  <button>Remove Message</button>
+                  <button>Cancel Chat for student</button>
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
           </div>
+          {this.state.showForm ? (
+            <div className="newGroupFormComponent">
+              <NewGroupFormComponent
+                studentsInCourse={studentsInCourse}
+                teacherForCourse={teacherForCourse}
+              />
+            </div>
+          ) : (
+            <p> </p>
+          )}
         </div>
 
         <div className="moreClassInformationComponent">
@@ -214,19 +216,6 @@ export class studentClassDashboard extends React.Component {
             </div>
           ) : (
             <div>Course Information Not Available</div>
-          )}
-        </div>
-
-        <div>
-          {this.state.showForm ? (
-            <div className="newGroupFormComponent">
-              <NewGroupFormComponent
-                studentsInCourse={studentsInCourse}
-                teacherForCourse={teacherForCourse}
-              />
-            </div>
-          ) : (
-            <div />
           )}
         </div>
       </div>

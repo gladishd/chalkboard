@@ -74,8 +74,7 @@ export class StudentDashboard extends React.Component {
       return !coursesToExclude.includes(element.id)
     })
     return (
-        
-      <div id='student-dashboard-container'>
+      <div className="studentDashboard">
         Currently Enrolled in:
         <div className="studentCourseList">
           {courseList.length > 0 && Object.keys(courseList[0].length > 0) ? (

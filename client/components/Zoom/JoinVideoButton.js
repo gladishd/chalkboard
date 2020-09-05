@@ -11,7 +11,7 @@ function JoinVideoButton() {
       className="classboardStartLecture"
       onClick={handleClick}
     >
-      Join Room
+      Join Zoom Room
     </button>
   )
 }

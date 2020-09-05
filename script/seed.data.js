@@ -44,8 +44,8 @@ const course = [
       'Schedule: \n M, W, F \n 8:00am - 9:00am \n T, Th \n 3:30pm - 5:00pm',
     id: 4
   },
-  {
-    courseName: 'The Vampire in Literature and Cinema',
+  /*   {
+    courseName: 'Vampires in Literature and Cinema',
     size: 30,
     courseIntro:
       "The growing popularity of vampires in popular media should make many students out there pretty jealous they can't take this class focusing on the infamous bloodsuckers.",
@@ -54,9 +54,9 @@ const course = [
     courseSchedule:
       'Schedule: \n M, W, F \n 9:00am - 10:00am \n T, Th \n 4:30pm - 6:00pm',
     id: 5
-  },
+  }, */
   {
-    courseName: "Elvish, the language of 'Lord of the Rings'",
+    courseName: 'Elvish, the language of LOTR',
     size: 40,
     courseIntro:
       "This course was taught by the world's foremost expert on this language, who was even a consultant to the makers of the films. While not practical, it certainly speaks to super fans of the series. ",
@@ -67,7 +67,7 @@ const course = [
     id: 6
   },
   {
-    courseName: 'Daytime Serials: Family and Social Roles',
+    courseName: 'Daytime Serials: Family & Social Roles',
     size: 55,
     courseIntro:
       "Students in Wisconsin can take this course that explores the familial relationships of characters on soap operas–essential for those who just can't get enough of their programs.",
@@ -88,9 +88,8 @@ const course = [
       'Schedule: \n M, W, F \n 1:00pm - 2:00pm \n T, Th \n 8:30pm - 10:00pm',
     id: 8
   },
-  {
-    courseName:
-      'To Hogwarts, Harry: An Intensive Study of Harry Potter Through the British Isles',
+  /*   {
+    courseName: 'To Hogwarts, Harry: A Study of Harry Potter',
     size: 65,
     courseIntro:
       "If you're taking the train to Hogwarts, you'll want to catch your ride at the King's Cross Station Platform 9 3/4. You'll also want to be fairly confident in your ability to phase through brick walls. If, on the other hand, you study at Central Michigan University, any number of Amtrak lines will get you to the East Lansing campus. No phasing should be necessary.",
@@ -99,7 +98,7 @@ const course = [
     courseSchedule:
       'Schedule: \n M, W, F \n 2:00pm - 3:00pm \n T, Th \n 9:30pm - 11:00pm',
     id: 9
-  },
+  }, */
   {
     courseName: 'Wasting Time on the Internet',
     size: 70,
@@ -112,8 +111,7 @@ const course = [
     id: 10
   },
   {
-    courseName:
-      'California Here We Come: The O.C. & Self-Aware Culture of 21st Century America',
+    courseName: 'California Here We Come',
     size: 10,
     courseIntro:
       "If you show up to your 'California Here We Come' class looking for a thoughtful reading of John Steinbeck, there will be absolutely nothing we can say to console you for what you are about to experience. If you're keeping track, The O.C. probably ranks somewhere just below Dawson's Creek and maybe a tiny shade above Party of Five on the list of teen dramas that we'd rather gouge our eyes out than watch, but that's just us.",
@@ -124,7 +122,7 @@ const course = [
     id: 11
   },
   {
-    courseName: 'The Physics of Star Trek',
+    courseName: 'Physics of Star Trek',
     size: 25,
     courseIntro:
       "Memorizing every word in the Klingon-to-English Dictionary is not required for this course but it probably wouldn't hurt. Outside of that, you'll want a pretty good working knowledge of particle physics, human physiology, and interplanetary travel.",
@@ -519,18 +517,18 @@ const enrollment = [
     courseId: 4,
     userId: 6
   },
-  {
-    classGrade: 10,
-    completionStatus: true,
-    courseId: 5,
-    userId: 6
-  },
-  {
-    classGrade: 20,
-    completionStatus: false,
-    courseId: 5,
-    userId: 1
-  },
+  // {
+  //   classGrade: 10,
+  //   completionStatus: true,
+  //   courseId: 5,
+  //   userId: 6
+  // },
+  // {
+  //   classGrade: 20,
+  //   completionStatus: false,
+  //   courseId: 5,
+  //   userId: 1
+  // },
   {
     classGrade: 30,
     completionStatus: true,
@@ -591,24 +589,24 @@ const enrollment = [
     courseId: 8,
     userId: 5
   },
-  {
-    classGrade: 80,
-    completionStatus: true,
-    courseId: 9,
-    userId: 6
-  },
-  {
-    classGrade: 85,
-    completionStatus: false,
-    courseId: 9,
-    userId: 1
-  },
-  {
-    classGrade: 90,
-    completionStatus: true,
-    courseId: 9,
-    userId: 2
-  },
+  // {
+  //   classGrade: 80,
+  //   completionStatus: true,
+  //   courseId: 9,
+  //   userId: 6
+  // },
+  // {
+  //   classGrade: 85,
+  //   completionStatus: false,
+  //   courseId: 9,
+  //   userId: 1
+  // },
+  // {
+  //   classGrade: 90,
+  //   completionStatus: true,
+  //   courseId: 9,
+  //   userId: 2
+  // },
   {
     classGrade: 95,
     completionStatus: true,
