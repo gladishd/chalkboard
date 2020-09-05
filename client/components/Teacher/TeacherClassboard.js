@@ -486,7 +486,7 @@ export class TeacherClassboard extends Component {
                   type="button"
                   className="submitCourse"
                   onClick={this.handleStudentSubmit}
-                  style={{'margin-left': '100%'}}
+                  // style={{'margin-left': '100%'}}
                 >
                   Submit
                 </button>
