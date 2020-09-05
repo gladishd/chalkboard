@@ -165,54 +165,10 @@ export class TeacherAssignmentByStudentView extends Component {
             })[0]
             console.log('person? ', person[0])
           return (
-<<<<<<< HEAD
             <div className="student-submissions">
               <div className='student-submission'>
                 <h4>{person.firstName} {person.lastName}</h4>
                 <img src={img.image}/>
-=======
-            <div key={assignment.id}>
-              <div className="studentAssignmentBoxes">
-                <div className="checkbox">
-                  Assignment Name
-                  <hr />
-                  {assignment.assignmentDataObject[0].assignmentName +
-                    ' ' +
-                    assignment.assignmentDataObject[0].assignmentType
-                      .charAt(0)
-                      .toUpperCase() +
-                    assignment.assignmentDataObject[0].assignmentType.slice(1)}
-                </div>
-                <div className="checkbox">
-                  Due Date
-                  <hr />
-                  {moment(assignment.assignmentDataObject[0].dueDate).format(
-                    'dddd, MMMM Do YYYY, h:mm:ss a'
-                  )}
-                </div>
-                <div className="checkbox">
-                  Total Points
-                  <hr />
-                  {assignment.assignmentDataObject[0].totalPoints}
-                </div>
-                <div className="checkbox">
-                  Weight
-                  <hr />
-                  {assignment.assignmentDataObject[0].weight}
-                </div>
-                <div className="checkbox">
-                  Submission
-                  <hr />
-                  {assignment.status}
-                </div>
-                <div className="checkbox">
-                  Individual Grade
-                  <hr />
-                  {assignment.individualGrade
-                    ? assignment.individualGrade
-                    : 'N/A'}
-                </div>
->>>>>>> fa1eb7091b50672439e37497a88eef3b0d46ff67
               </div>
             </div>
             
