@@ -14,7 +14,7 @@ class UpdateAssignment extends React.Component {
       this.props.students
     )
     return (
-      <div>
+      <div className="attendanceComponent">
         {this.props.students.length ? (
           this.props.students.map(student => (
             <div key={student.id}>
@@ -26,7 +26,10 @@ class UpdateAssignment extends React.Component {
             </div>
           ))
         ) : (
-          <div> Assignment is not currently assigned to anyone </div>
+          <div className="not-found">
+            {' '}
+            Assignment is not currently assigned to anyone{' '}
+          </div>
         )}
       </div>
     )

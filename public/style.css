@@ -1000,6 +1000,10 @@ nav a {
   padding: 0.25em;
 }
 
+
+.not-found {
+  color: #ffcccb;
+
 #view-assignment{
   text-decoration: underline;
   color: orange;
@@ -1018,4 +1022,5 @@ nav a {
 }
 .student-submission{
   flex: 3;
+
 }

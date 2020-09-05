@@ -78,10 +78,9 @@ export class TeacherAssignmentByStudentView extends Component {
     const images = this.props.reduxState.submission.submissions
     
     return (
-      
-      <div className="assignmentsByStudent">
-        {/* {submissions.length && <img src={convert(submissions[0].image.data)}/>}  */}
-      
+
+      <div className="assignmentsByStudent attendanceComponent">
+
         <div className="student">
           Students
           <hr />
