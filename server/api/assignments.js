@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Assignment, Course, User} = require('../db/models')
+const {Assignment, Course, User, Gradebook} = require('../db/models')
 // const User = require('../db/models/user')
 module.exports = router
 
@@ -101,6 +101,26 @@ router.get('/users/:assignmentId', async (req, res, next) => {
       ]
     })
     task ? res.json(task.users) : res.status(400).end()
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/grade/:assignmentId/:userId', async (req, res, next) => {
+  try {
+    const assignment = await Gradebook.findOne({
+      where: {
+        assignmentId: Number(req.params.assignmentId),
+        userId: Number(req.params.userId)
+      }
+    })
+
+    const {status, grade} = req.body
+    assignment.status = status
+    assignment.individualGrade = grade
+    await assignment.save()
+
+    assignment ? res.json(assignment) : res.status(400).end()
   } catch (error) {
     next(error)
   }

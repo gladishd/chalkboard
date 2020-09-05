@@ -150,12 +150,14 @@ export class TeacherAssignmentByStudentView extends Component {
                 <div className="checkbox">
                   Submission
                   <hr />
-                  {assignment.completed ? `Completed` : `Incomplete`}
+                  {assignment.status}
                 </div>
                 <div className="checkbox">
                   Individual Grade
                   <hr />
-                  {assignment.individualGrade}
+                  {assignment.individualGrade
+                    ? assignment.individualGrade
+                    : 'N/A'}
                 </div>
               </div>
             </div>
