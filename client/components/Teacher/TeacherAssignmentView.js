@@ -61,7 +61,7 @@ export class TeacherAssignmentView extends Component {
 
   render() {
     return (
-      <div className="assignmentViewMainDiv">
+      <div className="attendanceComponent">
         <div className="dropdownAssignment">
           Dropdown for assignment
           <select name="assignments" onChange={this.handleChange}>
@@ -76,7 +76,7 @@ export class TeacherAssignmentView extends Component {
           </select>
         </div>
 
-        <div>Assignments:</div>
+        <div className="attendanceComponent">Assignments:</div>
         {this.state.allAssignments.length > 0 ? (
           this.state.allAssignments
             .filter(element => {
@@ -89,7 +89,10 @@ export class TeacherAssignmentView extends Component {
 
             .map(element => {
               return (
-                <div key={element.id} className="assignmentCheckBoxesSection">
+                <div
+                  key={element.id}
+                  className="assignmentCheckBoxesSection attendanceComponent"
+                >
                   {element.assignmentName}
                   <div className="assignmentCheckBoxes">
                     <div className="checkbox">

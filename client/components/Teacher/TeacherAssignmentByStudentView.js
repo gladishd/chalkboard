@@ -74,7 +74,7 @@ export class TeacherAssignmentByStudentView extends Component {
     }
 
     return (
-      <div className="assignmentsByStudent">
+      <div className="assignmentsByStudent attendanceComponent">
         <div className="student">
           Students
           <hr />

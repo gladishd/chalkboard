@@ -466,7 +466,7 @@ export class TeacherClassboard extends Component {
             {this.state.renderNewStudentForm ? (
               <form
                 onSubmit={this.handleStudentSubmit}
-                className="addNewStudentForm"
+                className="addNewStudentForm attendanceComponent"
               >
                 <label htmlFor="firstName">First Name: </label>
                 <textarea name="firstName" onChange={this.mapInputToState} />

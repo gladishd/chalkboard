@@ -34,16 +34,15 @@ class AssignGrade extends React.Component {
 
   render() {
     return (
-      <div className="assignment-submission-form">
-        <div className="assignment-submission-item">
-          <div>Student Name: </div>
-          <div> {this.state.name} </div>
-        </div>
-
+      <div className="attendanceComponent">
         <form
           className="assignment-submission-item"
           onSubmit={this.handleSubmit}
         >
+          <div className="assignment-submission-item">
+            <div>Name: {this.state.name} </div>
+          </div>
+
           <div>
             <label>Status</label>
             <select

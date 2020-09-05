@@ -997,3 +997,7 @@ nav a {
 .assignment-submission-item {
   padding: 0.25em;
 }
+
+.not-found {
+  color: #ffcccb;
+}
