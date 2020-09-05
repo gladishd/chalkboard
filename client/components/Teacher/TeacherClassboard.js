@@ -97,7 +97,8 @@ export class TeacherClassboard extends Component {
         courseMoreInformationTextArea,
         courseScheduleTextArea
       },
-      this.props.history.location.state.number,
+      // this.props.history.location.state.number,
+      this.state.courseId, // getting course id from a different place
       this.props.reduxState.user.me.id
     )
   }
@@ -485,6 +486,7 @@ export class TeacherClassboard extends Component {
                   type="button"
                   className="submitCourse"
                   onClick={this.handleStudentSubmit}
+                  style={{'margin-left': '100%'}}
                 >
                   Submit
                 </button>
