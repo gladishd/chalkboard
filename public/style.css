@@ -22,6 +22,8 @@ html body {
   color: #fbe06b;
   font-family: 'chalktasticregular', sans-serif !important;
   overflow: scroll !important;
+  border: 10px solid;
+  border-image: url('wood-frame-border.png') 25 25 round;
 }
 
 textarea {
@@ -107,21 +109,17 @@ a {
 
 .student-chat-input {
   height: 30px;
-  width: 500px;
-  align-self: flex-end;
+  width: 300px;
   justify-content: flex-start;
-  max-width: 98%;
-  max-height: 90%;
+  align-self: flex-end;
   /* position: fixed; */
 }
 
 .teacher-chat-input {
   height: 30px;
-  width: 500px;
-  position: relative;
+  width: 270px;
   align-self: flex-end;
-  max-width: 98%;
-  max-height: 90%;
+  margin: 5px;
 }
 
 label {
@@ -174,25 +172,60 @@ nav a {
   flex: 2;
 }
 
+.studentDashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .studentClassDashboard {
   /* background-image: url(studentClassDashboardBackground.png); */
-  color: purple;
   background-size: 100px;
   background-repeat: repeat;
   display: flex;
-  align-items: baseline;
-  align-content: space-around;
-  flex-flow: row;
-  flex-wrap: wrap;
-
-  border: outset;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  /* flex-flow: row;
+  flex-wrap: wrap; */
 }
 
 .local-time {
   background-color: darkcyan;
-  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 40vw;
 }
 
+.studentClassDashboard .classboardStartLecture {
+  background-color: dodgerblue;
+  padding: 1em;
+  color: white;
+  border: 2px solid white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  height: 5em;
+  width: 30vw;
+}
+
+.studentClassDashboard .classboardStartLecture:hover,
+.studentClassDashboard .classboardStartLecture:active {
+  background-color: black;
+  outline: none;
+}
+.student-chat-components {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid transparent !important;
+}
 .studentClassDashboard .classTitle {
   width: 100%;
   border: none;
@@ -202,9 +235,9 @@ nav a {
 
 .studentClassDashboard > div {
   border: inset;
-  border-width: 0.1em;
-  margin-left: 0.25rem;
-  margin-right: 1rem;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .introductionToTheCourse {
@@ -215,8 +248,7 @@ nav a {
   flex-grow: 1;
   flex-basis: 1;
   color: blue;
-  width: auto;
-  height: 15rem;
+  width: 30vw;
   padding: 1%;
   margin: 1rem;
 }
@@ -237,13 +269,24 @@ nav a {
 
 #message-main {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: space-between;
+  height: 30vh;
+  width: 49vw;
+  padding-bottom: 2vh;
+}
+
+#chat-messages {
+  display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  height: 13rem;
-  overflow: scroll;
-  padding-bottom: 10px;
+  width: 20vw;
+  margin: 5px;
+  overflow: hidden;
 }
+
 .chat-input-prompt {
   display: flex;
   justify-content: flex-end;
@@ -253,13 +296,8 @@ nav a {
   background-image: url(backgroundMoreInformationComponent.png);
   background-size: 50px;
   background-repeat: repeat;
-  flex-grow: 3;
-  border-radius: 1em;
-  width: 50%;
-  flex-grow: 1;
-  flex-basis: 1;
-  height: 10rem;
-  margin: 1rem;
+  width: 80vw;
+  padding: 10px;
 }
 
 .liveChat {
@@ -270,8 +308,7 @@ nav a {
   border-radius: 10px;
   flex-grow: 2;
   width: 50vw;
-  height: 20rem;
-  margin: 1rem;
+  height: 50vh;
   flex-grow: 1;
   flex-basis: 1;
   display: flex;
@@ -279,11 +316,15 @@ nav a {
   justify-content: center;
   align-items: flex-start;
   padding: 10px;
+  margin: 10px;
 }
 
 .chatButtonCreate {
+  border: 0px solid transparent;
+  border-radius: 5px;
   background-color: orange;
-  overflow: hidden;
+  margin: 2px;
+  padding: 2px;
 }
 
 .chatButtonCreate:hover {
@@ -388,12 +429,18 @@ nav a {
 .teacher-dash-schedule {
   display: flex;
   justify-self: center;
+  justify-content: flex-start;
+  border: 2px solid white;
+  background-color: darkslategrey;
+  width: 90vw;
+  overflow: scroll;
   padding: 5px;
+  padding-bottom: 0px;
 }
 
 .schedule-details {
   padding: 10px;
-  text-align: center;
+  padding-bottom: 0px;
 }
 
 .TeacherDash .teacherDashLogOut {
@@ -499,12 +546,15 @@ nav a {
 }
 
 .teacherClassBoard {
-  background-color: rgba(176, 255, 176, 0.178);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-y: scroll;
+}
+
+.teacherClassboard > * {
+  margin: 10px;
 }
 
 .classboard-schedule-roster {
@@ -552,6 +602,7 @@ nav a {
   color: white;
   border: 2px solid white;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 15px;
   height: 5em;
   width: 30vw;
