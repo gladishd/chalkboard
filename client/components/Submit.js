@@ -97,16 +97,14 @@ export default class Submit extends Component {
         const studentId = this.props.userId
         
         const assignment = this.props.assignment[0]
-        console.log('props assignments name ', this.props.assignment[0])
+        
         return (
-            <div>
+            <div id='upload'>
                 {/* <h1>Submit Component</h1> */}
-                <h2>{assignment.assignmentName}</h2>
-                    <p>{assignment.description}</p>
+               
+               
                 <form onSubmit={this.handleSubmit}> 
-                    {/* <form onSubmit={logBody}>  */}
-                        <p name='assignmentName'>{assignment.assignmentName}</p>
-                    {/* <label>Image</label>  */}
+               
                     <div>
                         <input type="file" className="form-control" id="image" name="image" onChange={this.onChange}/>              
                     </div>   

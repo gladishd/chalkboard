@@ -106,7 +106,7 @@ export class StudentDashboard extends React.Component {
         
      
         <div className='assignments'>
-          <h3>Edit Assignments</h3>
+          <h3>Submit Assignments</h3>
           <select onChange={this.handleChange}>
             <option value='select'>Select</option>
           {this.props.courses.map(course => {
@@ -128,7 +128,7 @@ export class StudentDashboard extends React.Component {
             }).map(element => {
             return  (<div> 
                   <h1>{element.assignmentName}</h1>
-                  <button name={element.id} type='button' onClick={this.showPanel}>View Assignment</button>
+                  <button name={element.id} type='button' id='view-assignment' onClick={this.showPanel}>Submit Assignment</button>
                   </div>)
             })
           ) :  <h1>Still Loading...</h1> 
@@ -139,7 +139,7 @@ export class StudentDashboard extends React.Component {
             <div>
             <Submit user={{id:this.props.userId, firstName: this.props.firstName}}assignment={this.state.focus} />
             </div>
-          ) : <h4>Focut not changed</h4>
+          ) : null
         
         }
         </div>

@@ -948,3 +948,16 @@ nav a {
 .assignment-submission-item {
   padding: 0.25em;
 }
+
+#view-assignment{
+  text-decoration: underline;
+  color: orange;
+}
+
+#sendMessageButton{
+  border: dotted red 3px
+}
+#upload{
+  border: solid brown 3px;
+}
+
