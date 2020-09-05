@@ -132,13 +132,14 @@ export class Attendance extends Component {
           Present Absent Tardy
           {this.props.studentsForThisCourseInherited.map(student => {
             return (
-              <div key={student.id}>
+              <div className="student-attendance-block" key={student.id}>
                 <div
                   id={student.id}
                   key={student.id}
                   className="attendanceFormOptions"
                 >
                   <input
+                    className="attendance-radio-button"
                     type="radio"
                     id={student.id + 'present'}
                     name={student.firstName + ' ' + student.lastName}

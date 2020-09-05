@@ -34,7 +34,7 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   async componentDidMount() {
-    await this.props.getUserGradebook(this.state.student)
+    // await this.props.getUserGradebook(this.state.student)
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
@@ -93,11 +93,9 @@ export class TeacherAssignmentByStudentView extends Component {
         <div className="student">
           Students
           <hr />
-          {listStudents.map((student) => {
+          {listStudents.map(student => {
             return (
-
               <div key={student.id}>
-
                 {[student.firstName, student.lastName, student.email].join(' ')}
               </div>
             )
@@ -110,9 +108,7 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {listStudents.map(student => {
               return (
-
                 <option key={student.id} value={student.id}>
-
                   {[student.firstName, student.lastName].join(' ')}
                 </option>
               )

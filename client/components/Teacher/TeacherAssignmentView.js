@@ -139,14 +139,14 @@ export class TeacherAssignmentView extends Component {
                         Submit Grade
                       </button>
                     </div>
-
-                    {this.state.showStudents &&
-                    element.id === this.state.currSelected ? (
-                      <ShowStudents assignmentId={element.id} />
-                    ) : (
-                      <div> </div>
-                    )}
                   </div>
+
+                  {this.state.showStudents &&
+                  element.id === this.state.currSelected ? (
+                    <ShowStudents assignmentId={element.id} />
+                  ) : (
+                    <div> </div>
+                  )}
                 </div>
               )
             })

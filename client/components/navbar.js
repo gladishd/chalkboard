@@ -6,7 +6,38 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, accountType}) => (
   <div id="navbar-component">
-    <h1 className="navbar-header">Chalkboard</h1>
+    <div className="navbar-header">
+      <span className="singleLetter" value="C">
+        C
+      </span>
+      <span className="singleLetter" value="h">
+        h
+      </span>
+      <span className="singleLetter" value="a">
+        a
+      </span>
+      <span className="singleLetter" value="l">
+        l
+      </span>
+      <span className="singleLetter" value="k">
+        k
+      </span>
+      <span className="singleLetter" value="b">
+        b
+      </span>
+      <span className="singleLetter" value="o">
+        o
+      </span>
+      <span className="singleLetter" value="a">
+        a
+      </span>
+      <span className="singleLetter" value="r">
+        r
+      </span>
+      <span className="singleLetter" value="d">
+        d
+      </span>
+    </div>
     <nav>
       {isLoggedIn && accountType === 'admin' && (
         <div>
