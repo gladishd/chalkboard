@@ -150,9 +150,8 @@ export const getStudentAssignments = userId => {
 export const getUserGradebookThunk = userId => {
   return async dispatch => {
     try {
-      // const {data} = await axios.get(`/api/users/gradebook/${userId}`)
-      // dispatch(getUserGradebook(data))
-      console.log('not running gradebook route')
+      const {data} = await axios.get(`/api/users/gradebook/${userId}`)
+      dispatch(getUserGradebook(data))
     } catch (error) {
       console.error(error.message)
     }

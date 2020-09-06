@@ -34,22 +34,16 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   async componentDidMount() {
-    // await this.props.getUserGradebook(this.state.student)
+    await this.props.getUserGradebook(this.state.student) //this.props.reduxState.user.id
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
-  
+
   render() {
-
     const submissions = this.props.reduxState.submission.submissions || []
-    
     let listStudents = this.props.studentsForThisCourseInherited
-  
     let allAssignments = this.props.reduxState.assignment.assignments || []
- 
-
     let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
-
     // extract assignment Ids from the list of all assignments for this course
     let assignmentIds = []
     allAssignments.map(element => {
@@ -76,11 +70,9 @@ export class TeacherAssignmentByStudentView extends Component {
     }
 
     const images = this.props.reduxState.submission.submissions
-    
+
     return (
-
       <div className="assignmentsByStudent attendanceComponent">
-
         <div className="student">
           Students
           <hr />
@@ -113,8 +105,7 @@ export class TeacherAssignmentByStudentView extends Component {
             </option>
             {allAssignments.map(assignment => {
               return (
-
-                <option key={assignment.id} value={assignment.assignmentName}>
+                <option key={assignment.id} value={assignment.id}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -124,49 +115,47 @@ export class TeacherAssignmentByStudentView extends Component {
         </div>
         {/* <img src={images[0].image} width='140' height='2000'/>  */}
         <div>
-        {(images) ? 
-          images.filter((img) => {
+          {images
+            ? images
+                .filter(img => {
+                  if (this.state.student === 'all') {
+                    return true
+                  }
+                  if (Number(img.studentId) === Number(this.state.student)) {
+                    return true
+                  }
+                  return false
+                })
+                .filter(img => {
+                  if (this.state.assignment === 'all') {
+                    return true
+                  }
+                  if (img.assignmentName === this.state.assignment) {
+                    return true
+                  }
+                  return false
+                })
+                .map(img => {
+                  const person = listStudents.filter(student => {
+                    if (Number(student.id) === Number(img.studentId)) {
+                      return true
+                    }
+                    return false
+                  })[0]
 
-            if(this.state.student === 'all'){
-              return true
-            }
-            if(Number(img.studentId) === Number(this.state.student)){
-              return true
-            }
-            return false
-          }).filter((img) => {
-            if(this.state.assignment === 'all'){
-              return true
-            }
-            if(img.assignmentName === this.state.assignment){
-              
-              return true
-            }
-            return false
-          }).map((img) => {
-            const person = listStudents.filter((student) => {
-              if(Number(student.id) === Number(img.studentId)){
-                return true
-              }
-              return false
-            })[0]
-          
-          return (
-            <div className="student-submissions">
-              <div className='student-submission'>
-                <h4>{person.firstName} {person.lastName}</h4>
-                <img src={img.image}/>
-              </div>
-            </div>
-            
-            
-            )
-          })
-        
-        
-        : null}
+                  return (
+                    <div className="student-submissions">
+                      <div className="student-submission">
+                        <h4>
+                          {person.firstName} {person.lastName}
+                        </h4>
+                        <img src={img.image} />
+                      </div>
+                    </div>
+                  )
+                })
+            : null}
         </div>
-        
       </div>
     )
   }
