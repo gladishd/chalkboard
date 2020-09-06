@@ -138,42 +138,18 @@ export class studentClassDashboard extends React.Component {
         <JoinVideoButton />
         <div className="student-chat-components">
           <div className="liveChat">
-            <button className="chatButtonCreate" onClick={this.toggleForm}>
-              Create a New Group
-            </button>
             <div>
               <p>Select Audience</p>
             </div>
 
-            {/* <select
-              name="group"
-              className="selectAudience"
-              onChange={this.handleChange}
-            >
-              <option value="all">Show All</option>
-              {this.props.allGroups ? (
-                this.props.allGroups.map(element => {
-                  return (
-                    <option
-                      value={element.groupMembers}
-                      key={`Select${element.id}`}
-                    >
-                      {element.groupName}
-                    </option>
-                  )
-                })
-              ) : (
-                <div />
-              )}
-            </select> */}
             <select
               name="group"
               className="selectAudience"
               onChange={this.handleChange}
-              >
+            >
               <option value="All">All</option>
               <option value="Teacher">Teacher</option>
-              </select>
+            </select>
             <br />
             <div className="chat-input-prompt">
               <div>Say something nice...</div>

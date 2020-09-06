@@ -118,6 +118,7 @@ a {
 .teacher-chat-input {
   height: 30px;
   width: 270px;
+  justify-content: flex-start;
   align-self: flex-end;
   margin: 5px;
 }
@@ -920,7 +921,6 @@ nav a {
   width: 100%;
 }
 
-
 .courseNameTextArea {
   height: 100%;
   width: 100%;
@@ -950,7 +950,6 @@ nav a {
   background-color: rgba(255, 217, 0, 0.74);
   padding: 0.25em;
 }
-
 
 .toastContainer {
   color: rgb(255, 174, 0) !important;
@@ -1000,27 +999,26 @@ nav a {
   padding: 0.25em;
 }
 
-
 .not-found {
   color: #ffcccb;
+}
 
-#view-assignment{
+#view-assignment {
   text-decoration: underline;
   color: orange;
 }
 
-#sendMessageButton{
-  border: dotted red 3px
+#sendMessageButton {
+  border: dotted red 3px;
 }
-#upload{
+#upload {
   border: solid brown 3px;
 }
-.student-submissions{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.student-submissions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.student-submission{
+.student-submission {
   flex: 3;
-
 }

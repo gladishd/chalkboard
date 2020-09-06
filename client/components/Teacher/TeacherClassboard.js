@@ -194,13 +194,9 @@ export class TeacherClassboard extends Component {
       await this.props.getSingleCourse(course)
       await this.props.getStudentsForThisCourse(course)
       await this.props.getAllUsers()
-
-      
     } catch (err) {
       console.log(err)
     }
-
-    
 
     const socket = this.props.socket
     socket.emit('login', {
@@ -246,8 +242,6 @@ export class TeacherClassboard extends Component {
     })
   }
 
-
-
   render() {
     const courseName = this.props.reduxState.course.single.courseName
 
@@ -279,17 +273,15 @@ export class TeacherClassboard extends Component {
           </div>
         </div>
         <CreateZoomVideo />
+
         <div className="liveChat">
-          {/* <button className="chatButtonCreate" onClick={this.toggleForm}> */}
-          {/* Create a New Group
-              </button> */}
           <h3>Live Chat</h3>
           <select
             name="group"
             className="selectAudience"
             // onChange={this.handleChange}
           >
-            <option value='All'>*All*</option>
+            <option value="All">*All*</option>
             {this.props.students.map((student, idx) => (
               <option key={student.firstName} value={student.firstName}>
                 {student.firstName}
@@ -299,23 +291,24 @@ export class TeacherClassboard extends Component {
           <br />
           Say something nice..
           <div id="message-main">
-            <div id="chat-messages" />
-            {this.state.messages.map((message, index) => {
-              const messageCounter = index
-              return (
-                <p
-                  key={'messageCounter' + messageCounter}
-                  className={message.css}
-                >
-                  {message.message}
-                </p>
-              )
-            })}
+            <div id="chat-messages">
+              {this.state.messages.map((message, index) => {
+                const messageCounter = index
+                return (
+                  <p
+                    key={'messageCounter' + messageCounter}
+                    className={message.css}
+                  >
+                    {message.message}
+                  </p>
+                )
+              })}
+            </div>
             <input
               id="chat-input"
               className="teacher-chat-input"
               type="text"
-              overflow="auto"
+              overflow="hidden"
             />
           </div>
         </div>
@@ -497,8 +490,6 @@ export class TeacherClassboard extends Component {
             ) : (
               <div> </div>
             )}
-
-            
           </div>
         </div>
       </div>
