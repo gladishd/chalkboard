@@ -135,14 +135,16 @@ export class TeacherDash extends Component {
                   <Link
                     className="react-router-link"
                     to={{
-                      pathname: './TeacherClassboard',
+                      pathname: `./TeacherClassboard/${course.id}`,
                       state: {
                         number: course.id,
                         name: course.courseName,
                         firstName: this.props.firstName
                       }
                     }}
-                  ></Link>
+                  >
+                    {course.courseName}
+                  </Link>
                   {course.courseSchedule.split('\n').map((eachLine, indx) => {
                     const scheduleCounter = indx
                     return (
@@ -173,7 +175,7 @@ export class TeacherDash extends Component {
                 key={`courseListDash${course.id}`}
                 // to={`./TeacherClassboard/${course.id}`}
                 to={{
-                  pathname: '/TeacherClassboard',
+                  pathname: `./TeacherClassboard/${course.id}`,
                   state: {
                     number: course.id,
                     name: course.courseName,
