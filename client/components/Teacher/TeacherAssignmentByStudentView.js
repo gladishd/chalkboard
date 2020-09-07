@@ -28,6 +28,7 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   handleChangeAssignments(e) {
+    console.log('e assign', e.tart)
     this.setState({
       assignment: e.target.value
     })
@@ -41,35 +42,22 @@ export class TeacherAssignmentByStudentView extends Component {
 
   render() {
     const submissions = this.props.reduxState.submission.submissions || []
+
     let listStudents = this.props.studentsForThisCourseInherited
+
+
     let allAssignments = this.props.reduxState.assignment.assignments || []
+ 
+
+
     let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
+
     // extract assignment Ids from the list of all assignments for this course
-    let assignmentIds = []
-    allAssignments.map(element => {
-      assignmentIds.push(element.id)
-    })
 
-    let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
-      return assignmentIds.includes(element.assignmentId)
-    })
-
-    // want to take the assignment id, and use it to find data about that assignment:
-    gradebookFilteredForClass.map((elementGradebook, index) => {
-      let singleAssignment = allAssignments.filter(element => {
-        return element.id === elementGradebook.assignmentId
-      })
-      gradebookFilteredForClass[index].assignmentDataObject = singleAssignment
-    })
-
-    if (this.state.assignment) {
-      // if we also want to filter by assignment
-      gradebookFilteredForClass = gradebookFilteredForClass.filter(element => {
-        return element.assignmentId === Number(this.state.assignment)
-      })
-    }
+    
 
     const images = this.props.reduxState.submission.submissions
+  
 
     return (
       <div className="assignmentsByStudent attendanceComponent">
@@ -121,16 +109,22 @@ export class TeacherAssignmentByStudentView extends Component {
                   if (this.state.student === 'all') {
                     return true
                   }
+                  console.log('img studID ', img.studentId)
+                  console.log('state id ', this.state.student)
+
                   if (Number(img.studentId) === Number(this.state.student)) {
                     return true
                   }
                   return false
                 })
-                .filter(img => {
+                .filter(img2 => {
+                  console.log('img assIName2 ', img2)
+                  console.log('current name ', this.state.assignment)
+
                   if (this.state.assignment === 'all') {
                     return true
                   }
-                  if (img.assignmentName === this.state.assignment) {
+                  if (Number(img2.id) === Number(this.state.assignment)) {
                     return true
                   }
                   return false
