@@ -28,14 +28,14 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   handleChangeAssignments(e) {
-    console.log('e assign', e.tart)
+
     this.setState({
       assignment: e.target.value
     })
   }
 
   async componentDidMount() {
-    await this.props.getUserGradebook(this.state.student) //this.props.reduxState.user.id
+
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
@@ -50,7 +50,7 @@ export class TeacherAssignmentByStudentView extends Component {
  
 
 
-    let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
+ 
 
     // extract assignment Ids from the list of all assignments for this course
 
@@ -92,8 +92,9 @@ export class TeacherAssignmentByStudentView extends Component {
               Select an assignment
             </option>
             {allAssignments.map(assignment => {
+              
               return (
-                <option key={assignment.id} value={assignment.id}>
+                <option key={assignment.id} value={assignment.name}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -109,8 +110,6 @@ export class TeacherAssignmentByStudentView extends Component {
                   if (this.state.student === 'all') {
                     return true
                   }
-                  console.log('img studID ', img.studentId)
-                  console.log('state id ', this.state.student)
 
                   if (Number(img.studentId) === Number(this.state.student)) {
                     return true
@@ -118,13 +117,10 @@ export class TeacherAssignmentByStudentView extends Component {
                   return false
                 })
                 .filter(img2 => {
-                  console.log('img assIName2 ', img2)
-                  console.log('current name ', this.state.assignment)
-
                   if (this.state.assignment === 'all') {
                     return true
                   }
-                  if (Number(img2.id) === Number(this.state.assignment)) {
+                  if (String(img2.assignmentName) === String(this.state.assignment)) {
                     return true
                   }
                   return false
