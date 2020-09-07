@@ -728,6 +728,17 @@ nav a {
   outline: none;
 }
 
+.teacherClassBoard .classboardGradebook {
+  background-color: rgba(0, 13, 128, 0.288);
+  padding: 1em;
+  height: 5em;
+  width: 50vw;
+}
+
+.teacherClassBoard .classboardGradebook:focus {
+  outline: none;
+}
+
 .teacherClassBoard .scheduleDashBox {
   display: flex;
   flex-direction: column;
@@ -794,10 +805,19 @@ nav a {
 .assignmentsByStudent {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .assignmentsByStudent .student {
   background-color: rgba(128, 0, 0, 0.288);
+  padding: 1em;
+  border-style: outset;
+  width: 70%;
+}
+
+.assignmentsByStudent .gradebook {
+  background-color: rgba(34, 0, 128, 0.288);
   padding: 1em;
   border-style: outset;
   width: 70%;
@@ -817,10 +837,18 @@ nav a {
   width: 55%;
 }
 
+.assignmentsByStudent .gradebookDropDown {
+  background-color: rgba(34, 0, 128, 0.288);
+  padding: 1em;
+  border-style: outset;
+  width: 55%;
+}
+
 .assignmentsByStudent .studentAssignmentBoxes {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   width: 10em;
 }
 
@@ -831,7 +859,7 @@ nav a {
 }
 
 .assignmentsByStudent .studentAssignmentBoxes .checkbox {
-  background-color: rgba(128, 0, 0, 0.288);
+  background-color: rgba(34, 0, 128, 0.288);
   width: auto;
   height: auto;
   padding: 1em;
