@@ -28,48 +28,36 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   handleChangeAssignments(e) {
+
     this.setState({
       assignment: e.target.value
     })
   }
 
   async componentDidMount() {
-    await this.props.getUserGradebook(this.state.student) //this.props.reduxState.user.id
+
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
 
   render() {
     const submissions = this.props.reduxState.submission.submissions || []
+
     let listStudents = this.props.studentsForThisCourseInherited
+
+
     let allAssignments = this.props.reduxState.assignment.assignments || []
-    let selectedStudentGradebook = this.props.reduxState.user.gradebook || []
+ 
+
+
+ 
+
     // extract assignment Ids from the list of all assignments for this course
-    let assignmentIds = []
-    allAssignments.map(element => {
-      assignmentIds.push(element.id)
-    })
 
-    let gradebookFilteredForClass = selectedStudentGradebook.filter(element => {
-      return assignmentIds.includes(element.assignmentId)
-    })
-
-    // want to take the assignment id, and use it to find data about that assignment:
-    gradebookFilteredForClass.map((elementGradebook, index) => {
-      let singleAssignment = allAssignments.filter(element => {
-        return element.id === elementGradebook.assignmentId
-      })
-      gradebookFilteredForClass[index].assignmentDataObject = singleAssignment
-    })
-
-    if (this.state.assignment) {
-      // if we also want to filter by assignment
-      gradebookFilteredForClass = gradebookFilteredForClass.filter(element => {
-        return element.assignmentId === Number(this.state.assignment)
-      })
-    }
+    
 
     const images = this.props.reduxState.submission.submissions
+  
 
     return (
       <div className="assignmentsByStudent attendanceComponent">
@@ -104,8 +92,9 @@ export class TeacherAssignmentByStudentView extends Component {
               Select an assignment
             </option>
             {allAssignments.map(assignment => {
+              
               return (
-                <option key={assignment.id} value={assignment.id}>
+                <option key={assignment.id} value={assignment.name}>
                   {assignment.assignmentName}
                 </option>
               )
@@ -121,16 +110,17 @@ export class TeacherAssignmentByStudentView extends Component {
                   if (this.state.student === 'all') {
                     return true
                   }
+
                   if (Number(img.studentId) === Number(this.state.student)) {
                     return true
                   }
                   return false
                 })
-                .filter(img => {
+                .filter(img2 => {
                   if (this.state.assignment === 'all') {
                     return true
                   }
-                  if (img.assignmentName === this.state.assignment) {
+                  if (String(img2.assignmentName) === String(this.state.assignment)) {
                     return true
                   }
                   return false
