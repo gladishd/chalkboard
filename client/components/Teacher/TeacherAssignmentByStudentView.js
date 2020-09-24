@@ -28,14 +28,12 @@ export class TeacherAssignmentByStudentView extends Component {
   }
 
   handleChangeAssignments(e) {
-
     this.setState({
       assignment: e.target.value
     })
   }
 
   async componentDidMount() {
-
     await this.props.getAssignmentsForCourse(this.props.courseIdInherited)
     await this.props.getSubmissions(this.props.courseIdInherited)
   }
@@ -45,19 +43,11 @@ export class TeacherAssignmentByStudentView extends Component {
 
     let listStudents = this.props.studentsForThisCourseInherited
 
-
     let allAssignments = this.props.reduxState.assignment.assignments || []
- 
-
-
- 
 
     // extract assignment Ids from the list of all assignments for this course
 
-    
-
     const images = this.props.reduxState.submission.submissions
-  
 
     return (
       <div className="assignmentsByStudent attendanceComponent">
@@ -92,7 +82,6 @@ export class TeacherAssignmentByStudentView extends Component {
               Select an assignment
             </option>
             {allAssignments.map(assignment => {
-              
               return (
                 <option key={assignment.id} value={assignment.name}>
                   {assignment.assignmentName}
@@ -120,7 +109,10 @@ export class TeacherAssignmentByStudentView extends Component {
                   if (this.state.assignment === 'all') {
                     return true
                   }
-                  if (String(img2.assignmentName) === String(this.state.assignment)) {
+                  if (
+                    String(img2.assignmentName) ===
+                    String(this.state.assignment)
+                  ) {
                     return true
                   }
                   return false

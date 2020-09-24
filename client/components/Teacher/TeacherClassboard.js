@@ -10,6 +10,7 @@ import {connect} from 'react-redux'
 import {default as Attendance} from '../Attendance'
 import {default as AssignmentView} from './TeacherAssignmentView'
 import {default as AssignmentViewByStudent} from './TeacherAssignmentByStudentView'
+import {default as TeacherGradebook} from './TeacherGradebook'
 // import io from 'socket.io-client'
 import {
   getSingleCourseThunk,
@@ -31,6 +32,7 @@ export class TeacherClassboard extends Component {
       renderNewAssignmentForm: false,
       renderNewStudentForm: false,
       showCourseData: false,
+      showGradebook: false,
       courseId: '',
       // assignmentName: '',
       // dueDate: '',
@@ -177,6 +179,10 @@ export class TeacherClassboard extends Component {
           renderNewStudentForm: !this.state.renderNewStudentForm
         })
         break
+      case 'classboardGradebook':
+        this.setState({
+          showGradebook: !this.state.showGradebook
+        })
       default:
         break
     }
@@ -444,6 +450,25 @@ export class TeacherClassboard extends Component {
 
             {this.state.showAssignmentByStudentView ? (
               <AssignmentViewByStudent
+                studentsForThisCourseInherited={
+                  this.props.reduxState.course.students
+                }
+                courseIdInherited={this.state.courseId}
+              />
+            ) : (
+              <div />
+            )}
+
+            <button
+              type="button"
+              className="classboardGradebook"
+              onClick={this.toggle}
+            >
+              Student Gradebook
+            </button>
+
+            {this.state.showGradebook ? (
+              <TeacherGradebook
                 studentsForThisCourseInherited={
                   this.props.reduxState.course.students
                 }
