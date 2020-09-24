@@ -8,7 +8,7 @@ https://chalkboard-fsa.herokuapp.com/
 
 ## Video Demo:
 
-https://www.youtube.com/link_TBD
+https://youtu.be/3xJPDxcaET4
 
 ### Key Features:
 
