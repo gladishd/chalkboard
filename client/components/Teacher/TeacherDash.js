@@ -112,13 +112,7 @@ export class TeacherDash extends Component {
     console.log('looking for firstName prop ', this.props)
     const courseList = this.props.courses || []
     return (
-      <div
-        className="TeacherDash"
-        style={{
-          overflow: 'scroll',
-          height: 'auto'
-        }}
-      >
+      <div className="TeacherDash">
         <div className="teacher-dash-schedule">
           {courseList.length > 0 ? (
             courseList.map((course, index) => {

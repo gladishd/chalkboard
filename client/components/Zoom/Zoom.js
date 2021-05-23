@@ -11,10 +11,10 @@ console.log(location.origin)
 
 let meetConfig = {
   apiKey: apiKeys.apiKey,
-  meetingNumber: '2473055604',
+  meetingNumber: '6589385248',
   userName: '',
   userEmail: '', //must be set to same email as meeting owner for host privileges
-  passWord: '420420',
+  passWord: '1DttNn',
   leaveUrl: `${location.origin}/home`,
   role: 0
 }
@@ -26,7 +26,7 @@ const Zoom = props => {
   meetConfig.userEmail = `${user.email}`
   if (user.accountType === 'teacher') {
     meetConfig.role = 1
-    meetConfig.userEmail = `jarreola7123@gmail.com`
+    meetConfig.userEmail = `gladish.dean@gmail.com`
   }
 
   function joinMeeting(signature, meetConfig) {
@@ -35,6 +35,7 @@ const Zoom = props => {
       isSupportAV: true,
       success: function(success) {
         console.log('Init Success ', success)
+
         ZoomMtg.join({
           meetingNumber: meetConfig.meetingNumber,
           userName: meetConfig.userName,
